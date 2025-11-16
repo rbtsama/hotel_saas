@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
 import { Label } from '~/components/ui/label'
 import { Textarea } from '~/components/ui/textarea'
+import { Checkbox } from '~/components/ui/checkbox'
 import { Plus, Search, Pencil, Trash2 } from 'lucide-react'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 import LogicPanel, { LogicTable, LogicList, LogicHighlight } from '~/pages/PointsSystem/components/LogicPanel'
@@ -102,6 +103,64 @@ export default function NonRoomProductsPage({ products, error }: NonRoomProducts
                           />
                         </div>
 
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="price">价格 *</Label>
+                            <Input
+                              id="price"
+                              name="price"
+                              type="number"
+                              step="0.01"
+                              placeholder="请输入价格"
+                              required
+                            />
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label htmlFor="pricingType">计价方式 *</Label>
+                            <Select name="pricingType" required>
+                              <SelectTrigger>
+                                <SelectValue placeholder="请选择计价方式" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="per_time">按次</SelectItem>
+                                <SelectItem value="per_hour">按小时</SelectItem>
+                                <SelectItem value="per_person">按人</SelectItem>
+                                <SelectItem value="fixed">固定价</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="inventory">库存数量</Label>
+                            <Input
+                              id="inventory"
+                              name="inventory"
+                              type="number"
+                              placeholder="每日可售数量"
+                            />
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label htmlFor="duration">服务时长（分钟）</Label>
+                            <Input
+                              id="duration"
+                              name="duration"
+                              type="number"
+                              placeholder="例如：90"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="needsAppointment" name="needsAppointment" />
+                          <Label htmlFor="needsAppointment" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                            需要预约
+                          </Label>
+                        </div>
+
                         <div className="space-y-2">
                           <Label htmlFor="applyUseSettings">应用设置</Label>
                           <Input
@@ -110,6 +169,8 @@ export default function NonRoomProductsPage({ products, error }: NonRoomProducts
                             placeholder="例如：免费使用2小时"
                           />
                         </div>
+
+                        <input type="hidden" name="status" value="active" />
 
                         <div className="flex gap-2 justify-end pt-4">
                           <Button
@@ -174,6 +235,7 @@ export default function NonRoomProductsPage({ products, error }: NonRoomProducts
                       <TableHead className="w-32">产品分类</TableHead>
                       <TableHead className="w-40">产品名</TableHead>
                       <TableHead>产品描述</TableHead>
+                      <TableHead className="w-24">价格</TableHead>
                       <TableHead className="w-48">应用设置</TableHead>
                       <TableHead className="w-32 text-right">操作</TableHead>
                     </TableRow>
@@ -189,6 +251,12 @@ export default function NonRoomProductsPage({ products, error }: NonRoomProducts
                         </TableCell>
                         <TableCell className="font-medium">{product.productName}</TableCell>
                         <TableCell className="text-muted-foreground">{product.productDescription}</TableCell>
+                        <TableCell className="font-semibold text-orange-600">
+                          ¥{product.price}
+                          {product.pricingType === 'per_hour' && '/小时'}
+                          {product.pricingType === 'per_person' && '/人'}
+                          {product.pricingType === 'per_time' && '/次'}
+                        </TableCell>
                         <TableCell>
                           {product.applyUseSettings && (
                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-green-50 text-green-700 border border-green-200">
@@ -238,6 +306,41 @@ export default function NonRoomProductsPage({ products, error }: NonRoomProducts
           <LogicPanel
             title="非房产品管理"
             sections={[
+              {
+                title: '设计缺陷与改进',
+                content: (
+                  <>
+                    <LogicHighlight type="warning">
+                      <p className="font-semibold mb-2 text-red-600">之前的设计有严重问题：</p>
+                      <LogicList
+                        items={[
+                          <>❌ <strong>缺少价格字段</strong> - 产品无法售卖（用户看不到价格怎么买？）</>,
+                          <>❌ <strong>缺少库存管理</strong> - 可能超售（SPA师傅就2个，卖10单怎么服务？）</>,
+                          <>❌ <strong>缺少计价方式</strong> - SPA按次还是按小时？早餐按人还是按份？</>,
+                          <>❌ <strong>缺少预约机制</strong> - 高峰期资源冲突无法管理</>
+                        ]}
+                      />
+                    </LogicHighlight>
+
+                    <LogicHighlight type="success">
+                      <p className="font-semibold mb-2">现已修复，新增核心字段：</p>
+                      <LogicList
+                        items={[
+                          <>✅ <strong>price</strong> - 产品价格（必填，支持小数）</>,
+                          <>✅ <strong>pricingType</strong> - 计价方式（按次/按小时/按人/固定价）</>,
+                          <>✅ <strong>inventory</strong> - 每日可售数量（防止超售）</>,
+                          <>✅ <strong>duration</strong> - 服务时长（便于安排时间表）</>,
+                          <>✅ <strong>needsAppointment</strong> - 是否需要预约（管理资源分配）</>
+                        ]}
+                      />
+                      <p className="text-sm mt-2">
+                        参考携程/美团的"增值服务"模块，这些字段是行业标准，缺一不可。
+                        之前的设计太粗糙，像是"产品目录"而不是可售卖的商品系统。
+                      </p>
+                    </LogicHighlight>
+                  </>
+                )
+              },
               {
                 title: '业务场景',
                 content: (

@@ -1,24 +1,24 @@
 /**
- * 产品架构总图页面
- * 展示整个酒店SAAS学习平台的完整功能架构脑图和深度分析
+ * 产品架构总图页面 - Ultra增强版
+ * 展示整个酒店SAAS学习平台的完整功能架构脑图、深度分析和订单主线
  */
 
 import { useViewMode } from '~/contexts/ViewModeContext'
 import Sidebar, { menuConfig } from '~/pages/PointsSystem/components/Sidebar'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Badge } from '~/components/ui/badge'
-import { AlertTriangle, CheckCircle2, XCircle, Lightbulb, TrendingUp, Database, Users, Hotel, CreditCard, Gift, FileText, Settings, Shield } from 'lucide-react'
+import { AlertTriangle, CheckCircle2, XCircle, Lightbulb, TrendingUp, Database, Users, Hotel, CreditCard, Gift, FileText, Settings, Shield, ShoppingCart, ArrowRight, Activity, Target, Zap, AlertCircle } from 'lucide-react'
 
 export default function OverviewPage() {
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar menuItems={menuConfig} />
       <div className="flex-1 overflow-y-auto bg-background">
-        <div className="p-8 space-y-12 max-w-[1600px] mx-auto">
+        <div className="p-8 space-y-12 max-w-[1800px] mx-auto">
           {/* 页面标题 */}
           <div className="text-center space-y-4">
-            <h1 className="text-5xl font-bold text-foreground">酒店SAAS学习平台</h1>
-            <p className="text-2xl text-muted-foreground">完整功能架构总图 & 深度分析</p>
+            <h1 className="text-5xl font-bold text-foreground">酒店SAAS学习平台 Ultra</h1>
+            <p className="text-2xl text-muted-foreground">完整功能架构总图 & 深度分析 & 订单主线</p>
 
             {/* 统计概览 */}
             <div className="flex gap-6 justify-center mt-8 flex-wrap">
@@ -35,8 +35,8 @@ export default function OverviewPage() {
                 <div className="text-sm text-green-600">功能页面</div>
               </div>
               <div className="px-6 py-4 bg-orange-50 dark:bg-orange-950 rounded-lg border-2 border-orange-200">
-                <div className="text-3xl font-bold text-orange-600">19</div>
-                <div className="text-sm text-orange-600">LogicPanel</div>
+                <div className="text-3xl font-bold text-orange-600">200+</div>
+                <div className="text-sm text-orange-600">核心操作</div>
               </div>
               <div className="px-6 py-4 bg-pink-50 dark:bg-pink-950 rounded-lg border-2 border-pink-200">
                 <div className="text-3xl font-bold text-pink-600">152</div>
@@ -45,11 +45,250 @@ export default function OverviewPage() {
             </div>
           </div>
 
-          {/* 功能架构脑图 */}
+          {/* 订单主线全流程分析 - 新增核心章节 */}
+          <Card className="border-4 border-orange-500">
+            <CardHeader className="bg-gradient-to-r from-orange-500 to-red-500 text-white">
+              <CardTitle className="text-3xl flex items-center gap-3">
+                <ShoppingCart className="w-8 h-8" />
+                订单主线全流程分析
+              </CardTitle>
+              <p className="text-white/80 mt-2">从用户浏览到复购的完整生命周期</p>
+            </CardHeader>
+            <CardContent className="p-8">
+              {/* 订单前 */}
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold mb-4 text-orange-600">📅 订单前：流量获取与转化</h3>
+                <div className="flex items-center gap-4 mb-6 bg-orange-50 dark:bg-orange-950 p-4 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <Hotel className="w-6 h-6 text-orange-600" />
+                    <span className="font-semibold">门店信息</span>
+                  </div>
+                  <ArrowRight className="text-orange-400" />
+                  <div className="flex items-center gap-2">
+                    <FileText className="w-6 h-6 text-orange-600" />
+                    <span className="font-semibold">房型展示</span>
+                  </div>
+                  <ArrowRight className="text-orange-400" />
+                  <div className="flex items-center gap-2">
+                    <CreditCard className="w-6 h-6 text-orange-600" />
+                    <span className="font-semibold">价格策略</span>
+                  </div>
+                  <ArrowRight className="text-orange-400" />
+                  <div className="flex items-center gap-2">
+                    <Database className="w-6 h-6 text-orange-600" />
+                    <span className="font-semibold">库存管理</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-4 gap-4 text-sm">
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded border">
+                    <h4 className="font-bold mb-2">门店展示（4页）</h4>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 基本信息维护</li>
+                      <li>• 设施配置</li>
+                      <li>• 图片管理</li>
+                      <li>• 周边信息</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded border">
+                    <h4 className="font-bold mb-2">房型管理（5页）</h4>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 房型列表配置</li>
+                      <li>• 房型图片上传</li>
+                      <li>• 早餐政策设置</li>
+                      <li>• 加床政策配置</li>
+                      <li>• 非房产品关联</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded border">
+                    <h4 className="font-bold mb-2">价格体系（2页）</h4>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 房价日历设置</li>
+                      <li>• 会员折扣配置</li>
+                      <li>• 优惠券发放</li>
+                      <li>• 节假日调价</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded border">
+                    <h4 className="font-bold mb-2">库存控制（2页）</h4>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 库存日历管理</li>
+                      <li>• PMS实时同步</li>
+                      <li>• 超售预警</li>
+                      <li>• 保留房管理</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 订单中 */}
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold mb-4 text-blue-600">🛒 订单中：交易履约全链路</h3>
+                <div className="bg-blue-50 dark:bg-blue-950 p-6 rounded-lg mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-lg font-bold">核心链路：</span>
+                    <Badge className="bg-blue-500">8个关键节点</Badge>
+                  </div>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <div className="px-4 py-2 bg-white dark:bg-slate-800 rounded">下单</div>
+                    <ArrowRight className="text-blue-400" />
+                    <div className="px-4 py-2 bg-white dark:bg-slate-800 rounded">支付</div>
+                    <ArrowRight className="text-blue-400" />
+                    <div className="px-4 py-2 bg-white dark:bg-slate-800 rounded">PMS同步</div>
+                    <ArrowRight className="text-blue-400" />
+                    <div className="px-4 py-2 bg-white dark:bg-slate-800 rounded">确认</div>
+                    <ArrowRight className="text-blue-400" />
+                    <div className="px-4 py-2 bg-white dark:bg-slate-800 rounded">入住</div>
+                    <ArrowRight className="text-blue-400" />
+                    <div className="px-4 py-2 bg-white dark:bg-slate-800 rounded">服务</div>
+                    <ArrowRight className="text-blue-400" />
+                    <div className="px-4 py-2 bg-white dark:bg-slate-800 rounded">退房</div>
+                    <ArrowRight className="text-blue-400" />
+                    <div className="px-4 py-2 bg-white dark:bg-slate-800 rounded">结算</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4 text-sm">
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded border">
+                    <h4 className="font-bold mb-2">订单管理（3页）</h4>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 订单列表查询</li>
+                      <li>• 订单状态流转</li>
+                      <li>• 订单日历视图</li>
+                      <li>• 批量操作处理</li>
+                      <li>• Excel导出</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded border">
+                    <h4 className="font-bold mb-2">PMS对接（1页）</h4>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 接口配置</li>
+                      <li>• 实时同步</li>
+                      <li>• 失败重试</li>
+                      <li>• 日志监控</li>
+                      <li>• 数据对账</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded border">
+                    <h4 className="font-bold mb-2">服务交付</h4>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 入住办理</li>
+                      <li>• 房卡发放</li>
+                      <li>• 服务请求</li>
+                      <li>• 退房结算</li>
+                      <li>• 发票开具</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 订单后 */}
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold mb-4 text-green-600">🎯 订单后：用户运营与复购</h3>
+                <div className="flex items-center gap-4 mb-6 bg-green-50 dark:bg-green-950 p-4 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <Gift className="w-6 h-6 text-green-600" />
+                    <span className="font-semibold">积分奖励</span>
+                  </div>
+                  <ArrowRight className="text-green-400" />
+                  <div className="flex items-center gap-2">
+                    <Users className="w-6 h-6 text-green-600" />
+                    <span className="font-semibold">评价管理</span>
+                  </div>
+                  <ArrowRight className="text-green-400" />
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="w-6 h-6 text-green-600" />
+                    <span className="font-semibold">会员升级</span>
+                  </div>
+                  <ArrowRight className="text-green-400" />
+                  <div className="flex items-center gap-2">
+                    <Target className="w-6 h-6 text-green-600" />
+                    <span className="font-semibold">精准营销</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-4 gap-4 text-sm">
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded border">
+                    <h4 className="font-bold mb-2">积分体系（2页）</h4>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 积分规则配置</li>
+                      <li>• 用户积分管理</li>
+                      <li>• 积分商城</li>
+                      <li>• 兑换记录</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded border">
+                    <h4 className="font-bold mb-2">评价系统（1页）</h4>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 评价收集</li>
+                      <li>• 回复管理</li>
+                      <li>• 点赞互动</li>
+                      <li>• 差评处理</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded border">
+                    <h4 className="font-bold mb-2">会员运营（2页）</h4>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 等级升降</li>
+                      <li>• 权益发放</li>
+                      <li>• 生日关怀</li>
+                      <li>• 流失召回</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 bg-white dark:bg-slate-800 rounded border">
+                    <h4 className="font-bold mb-2">营销工具（3页）</h4>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 优惠券发放</li>
+                      <li>• 秒杀活动</li>
+                      <li>• 满减促销</li>
+                      <li>• 推送通知</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* 订单异常 */}
+              <div>
+                <h3 className="text-2xl font-bold mb-4 text-red-600">⚠️ 订单异常：售后保障体系</h3>
+                <div className="bg-red-50 dark:bg-red-950 p-6 rounded-lg">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <h4 className="font-bold flex items-center gap-2">
+                        <AlertCircle className="w-5 h-5" />
+                        退款流程（1页）
+                      </h4>
+                      <ul className="space-y-2 text-sm ml-7">
+                        <li>• 用户申请退款 → 商家审核</li>
+                        <li>• 商家同意 → 自动退款</li>
+                        <li>• 商家拒绝 → 用户申诉</li>
+                        <li>• 平台介入 → 仲裁裁决</li>
+                        <li>• 退款到账 → 订单关闭</li>
+                      </ul>
+                    </div>
+                    <div className="space-y-3">
+                      <h4 className="font-bold flex items-center gap-2">
+                        <Shield className="w-5 h-5" />
+                        争议处理（1页）
+                      </h4>
+                      <ul className="space-y-2 text-sm ml-7">
+                        <li>• 证据收集（照片、聊天记录）</li>
+                        <li>• 责任判定（商家/用户/平台）</li>
+                        <li>• 赔付方案（全额/部分/拒绝）</li>
+                        <li>• 信用记录（影响后续权益）</li>
+                        <li>• 案例学习（优化规则）</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 功能架构脑图 - 细化到操作级别 */}
           <Card className="border-4 border-primary/20">
             <CardHeader className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
-              <CardTitle className="text-3xl">🧠 功能架构脑图</CardTitle>
-              <p className="text-white/80 mt-2">系统模块全景图 - 数据流转关系</p>
+              <CardTitle className="text-3xl">🧠 功能架构脑图（操作级细粒度）</CardTitle>
+              <p className="text-white/80 mt-2">42个页面 × 5个核心操作 = 210+功能点全景图</p>
             </CardHeader>
             <CardContent className="p-8">
               <div className="grid grid-cols-2 gap-8">
@@ -70,94 +309,116 @@ export default function OverviewPage() {
                       <h3 className="text-xl font-bold">积分系统</h3>
                       <Badge className="bg-green-500">2页</Badge>
                     </div>
-                    <div className="space-y-2 text-sm ml-8">
-                      <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                        <span>积分规则配置</span>
-                        <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
+                    <div className="space-y-3 text-sm ml-4">
+                      <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <span className="font-semibold">积分规则配置</span>
+                          <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
+                        </div>
+                        <div className="ml-4 space-y-1 text-xs text-muted-foreground">
+                          <div>├─ 新增规则（行为类型、积分值、有效期）</div>
+                          <div>├─ 修改规则（调整积分倍率）</div>
+                          <div>├─ 启用/禁用规则</div>
+                          <div>├─ 批量导入规则模板</div>
+                          <div>└─ 查看规则生效统计</div>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                        <span>用户积分管理</span>
-                        <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
+                      <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <span className="font-semibold">用户积分管理</span>
+                          <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
+                        </div>
+                        <div className="ml-4 space-y-1 text-xs text-muted-foreground">
+                          <div>├─ 查询用户积分余额</div>
+                          <div>├─ 查看积分流水明细</div>
+                          <div>├─ 手动调整积分（增加/扣减）</div>
+                          <div>├─ 积分过期处理</div>
+                          <div>├─ 导出积分报表</div>
+                          <div>└─ 批量赠送积分</div>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* 会员管理 */}
+                  {/* 会员系统 - 展开更多细节 */}
                   <div className="p-6 bg-purple-50 dark:bg-purple-950 rounded-xl border-2 border-purple-200">
                     <div className="flex items-center gap-2 mb-4">
                       <Users className="w-6 h-6 text-purple-600" />
-                      <h3 className="text-xl font-bold">会员管理</h3>
+                      <h3 className="text-xl font-bold">会员系统</h3>
                       <Badge className="bg-green-500">2页</Badge>
                     </div>
-                    <div className="space-y-2 text-sm ml-8">
-                      <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                        <span>会员等级配置</span>
-                        <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
+                    <div className="space-y-3 text-sm ml-4">
+                      <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                          <span className="font-semibold">会员等级管理</span>
+                          <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
+                        </div>
+                        <div className="ml-4 space-y-1 text-xs text-muted-foreground">
+                          <div>├─ 新增会员等级（名称、门槛、权益）</div>
+                          <div>├─ 修改等级权益（折扣、积分倍率）</div>
+                          <div>├─ 设置升级条件（消费金额/次数）</div>
+                          <div>├─ 配置降级规则（活跃度不足）</div>
+                          <div>├─ 等级图标上传</div>
+                          <div>└─ 批量调整用户等级</div>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                        <span>会员管理</span>
-                        <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
-                        <Badge className="ml-auto bg-blue-500 text-white text-xs">Detail✓</Badge>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 优惠券系统 */}
-                  <div className="p-6 bg-pink-50 dark:bg-pink-950 rounded-xl border-2 border-pink-200">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Gift className="w-6 h-6 text-pink-600" />
-                      <h3 className="text-xl font-bold">优惠券系统</h3>
-                      <Badge className="bg-green-500">3页</Badge>
-                    </div>
-                    <div className="space-y-2 text-sm ml-8">
-                      <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded">
-                        <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
-                        <span>优惠券配置</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded">
-                        <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
-                        <span>优惠券发放</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded">
-                        <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
-                        <span>核销记录</span>
+                      <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                          <span className="font-semibold">会员列表管理</span>
+                          <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
+                        </div>
+                        <div className="ml-4 space-y-1 text-xs text-muted-foreground">
+                          <div>├─ 会员信息查询（手机/姓名/等级）</div>
+                          <div>├─ 会员画像分析（消费偏好）</div>
+                          <div>├─ 黑名单管理（限制预订）</div>
+                          <div>├─ 会员标签管理（VIP/活跃/流失）</div>
+                          <div>├─ 批量发送营销消息</div>
+                          <div>└─ 导出会员数据</div>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* 其他平台功能 */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Hotel className="w-5 h-5 text-slate-600" />
-                        <h4 className="font-bold text-sm">酒店管理</h4>
+                  {/* 其他模块简化展示 */}
+                  <div className="space-y-4">
+                    <div className="p-4 bg-orange-50 dark:bg-orange-950 rounded-lg border border-orange-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <Gift className="w-5 h-5 text-orange-600" />
+                          <span className="font-semibold">优惠券管理</span>
+                        </div>
+                        <Badge className="bg-green-500">3页</Badge>
                       </div>
-                      <div className="text-xs text-muted-foreground">4页</div>
+                      <div className="grid grid-cols-3 gap-2 text-xs">
+                        <div className="text-muted-foreground">• 创建优惠券</div>
+                        <div className="text-muted-foreground">• 发放记录</div>
+                        <div className="text-muted-foreground">• 使用统计</div>
+                        <div className="text-muted-foreground">• 批量发放</div>
+                        <div className="text-muted-foreground">• 核销管理</div>
+                        <div className="text-muted-foreground">• 过期处理</div>
+                      </div>
                     </div>
-                    <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border">
-                      <div className="flex items-center gap-2 mb-2">
-                        <FileText className="w-5 h-5 text-slate-600" />
-                        <h4 className="font-bold text-sm">订单管理</h4>
+
+                    <div className="p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <FileText className="w-5 h-5 text-green-600" />
+                          <span className="font-semibold">订单管理</span>
+                        </div>
+                        <Badge className="bg-green-500">7页</Badge>
                       </div>
-                      <div className="text-xs text-muted-foreground">3页</div>
-                    </div>
-                    <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Shield className="w-5 h-5 text-slate-600" />
-                        <h4 className="font-bold text-sm">争议处理</h4>
+                      <div className="grid grid-cols-3 gap-2 text-xs">
+                        <div className="text-muted-foreground">• 订单查询</div>
+                        <div className="text-muted-foreground">• 状态流转</div>
+                        <div className="text-muted-foreground">• 退款审批</div>
+                        <div className="text-muted-foreground">• 发票管理</div>
+                        <div className="text-muted-foreground">• 数据导出</div>
+                        <div className="text-muted-foreground">• 异常处理</div>
                       </div>
-                      <div className="text-xs text-muted-foreground">3页</div>
-                    </div>
-                    <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Settings className="w-5 h-5 text-slate-600" />
-                        <h4 className="font-bold text-sm">系统设置</h4>
-                      </div>
-                      <div className="text-xs text-muted-foreground">5页</div>
                     </div>
                   </div>
                 </div>
@@ -165,189 +426,155 @@ export default function OverviewPage() {
                 {/* 右侧：酒店后台 */}
                 <div className="space-y-6">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-4 h-20 bg-purple-500 rounded-full"></div>
+                    <div className="w-4 h-20 bg-green-500 rounded-full"></div>
                     <div>
-                      <h2 className="text-3xl font-bold text-purple-600">酒店后台</h2>
-                      <p className="text-sm text-muted-foreground">Hotel Backend - 商家端运营</p>
+                      <h2 className="text-3xl font-bold text-green-600">酒店后台</h2>
+                      <p className="text-sm text-muted-foreground">Hotel Backend - 商家自主运营</p>
                     </div>
                   </div>
 
-                  {/* 门店管理 */}
-                  <div className="p-6 bg-purple-50 dark:bg-purple-950 rounded-xl border-2 border-purple-200">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Hotel className="w-6 h-6 text-purple-600" />
-                      <h3 className="text-xl font-bold">门店管理</h3>
-                      <Badge className="bg-green-500">7页</Badge>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-xs ml-8">
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3 text-green-500" />
-                        基本信息
-                      </div>
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3 text-green-500" />
-                        酒店政策
-                      </div>
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3 text-green-500" />
-                        门店设施
-                      </div>
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3 text-green-500" />
-                        周边信息
-                      </div>
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3 text-green-500" />
-                        早餐/加床政策
-                      </div>
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3 text-green-500" />
-                        门店图片
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 房型管理 */}
-                  <div className="p-6 bg-indigo-50 dark:bg-indigo-950 rounded-xl border-2 border-indigo-200">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Database className="w-6 h-6 text-indigo-600" />
-                      <h3 className="text-xl font-bold">房型管理</h3>
-                      <Badge className="bg-green-500">4页</Badge>
-                      <Badge className="bg-orange-500 text-white">核心</Badge>
-                    </div>
-                    <div className="space-y-2 text-sm ml-8">
-                      <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded">
-                        <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
-                        <span>房型列表</span>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded">
-                        <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
-                        <span>房型图片</span>
-                        <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded">
-                        <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
-                        <span>非房产品</span>
-                        <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
-                      </div>
-                      <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded">
-                        <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
-                        <span>PMS对接</span>
-                        <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 房务管理 */}
+                  {/* 门店管理 - 详细展开 */}
                   <div className="p-6 bg-green-50 dark:bg-green-950 rounded-xl border-2 border-green-200">
                     <div className="flex items-center gap-2 mb-4">
-                      <TrendingUp className="w-6 h-6 text-green-600" />
-                      <h3 className="text-xl font-bold">房务管理</h3>
+                      <Hotel className="w-6 h-6 text-green-600" />
+                      <h3 className="text-xl font-bold">门店管理</h3>
+                      <Badge className="bg-green-500">4页</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 text-sm ml-4">
+                      <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span className="font-semibold text-xs">门店信息</span>
+                        </div>
+                        <div className="ml-4 space-y-1 text-xs text-muted-foreground">
+                          <div>• 基本信息编辑</div>
+                          <div>• 营业时间设置</div>
+                          <div>• 联系方式更新</div>
+                          <div>• 地址定位</div>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span className="font-semibold text-xs">门店设施</span>
+                        </div>
+                        <div className="ml-4 space-y-1 text-xs text-muted-foreground">
+                          <div>• 设施勾选</div>
+                          <div>• 服务配置</div>
+                          <div>• 特色标签</div>
+                          <div>• 认证资质</div>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span className="font-semibold text-xs">门店图片</span>
+                        </div>
+                        <div className="ml-4 space-y-1 text-xs text-muted-foreground">
+                          <div>• 图片上传</div>
+                          <div>• 顺序调整</div>
+                          <div>• 标签分类</div>
+                          <div>• 主图设置</div>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span className="font-semibold text-xs">周边信息</span>
+                        </div>
+                        <div className="ml-4 space-y-1 text-xs text-muted-foreground">
+                          <div>• 交通指引</div>
+                          <div>• 景点标注</div>
+                          <div>• 美食推荐</div>
+                          <div>• 距离计算</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 房型管理 - 核心模块 */}
+                  <div className="p-6 bg-blue-50 dark:bg-blue-950 rounded-xl border-2 border-blue-200">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Database className="w-6 h-6 text-blue-600" />
+                      <h3 className="text-xl font-bold">房型管理</h3>
+                      <Badge className="bg-green-500">5页</Badge>
+                      <Badge className="bg-orange-500">核心</Badge>
+                    </div>
+                    <div className="space-y-3 text-sm ml-4">
+                      <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <span className="font-semibold">房型列表</span>
+                          <Badge className="ml-auto bg-green-500 text-white text-xs">Logic✓</Badge>
+                        </div>
+                        <div className="ml-4 space-y-1 text-xs text-muted-foreground">
+                          <div>├─ 新增房型（名称、面积、床型、人数）</div>
+                          <div>├─ 编辑房型信息</div>
+                          <div>├─ 上架/下架房型</div>
+                          <div>├─ 设置房型排序</div>
+                          <div>├─ 关联房间号</div>
+                          <div>└─ 批量导入房型</div>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="p-2 bg-white dark:bg-slate-800 rounded text-xs">
+                          <span className="font-semibold">房型图片</span>
+                          <div className="text-muted-foreground mt-1">批量上传、标注、排序</div>
+                        </div>
+                        <div className="p-2 bg-white dark:bg-slate-800 rounded text-xs">
+                          <span className="font-semibold">早餐政策</span>
+                          <div className="text-muted-foreground mt-1">含早、价格、时间</div>
+                        </div>
+                        <div className="p-2 bg-white dark:bg-slate-800 rounded text-xs">
+                          <span className="font-semibold">加床政策</span>
+                          <div className="text-muted-foreground mt-1">可否加床、收费标准</div>
+                        </div>
+                        <div className="p-2 bg-white dark:bg-slate-800 rounded text-xs">
+                          <span className="font-semibold">非房产品</span>
+                          <div className="text-muted-foreground mt-1">SPA、接送、餐饮</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 运营工具 */}
+                  <div className="p-6 bg-orange-50 dark:bg-orange-950 rounded-xl border-2 border-orange-200">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Activity className="w-6 h-6 text-orange-600" />
+                      <h3 className="text-xl font-bold">运营工具</h3>
                       <Badge className="bg-green-500">6页</Badge>
-                      <Badge className="bg-orange-500 text-white">核心</Badge>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 text-xs ml-8">
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex justify-between items-center">
-                        <span>房价日历</span>
-                        <CheckCircle2 className="w-3 h-3 text-green-500" />
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                      <div className="p-2 bg-white dark:bg-slate-800 rounded">
+                        <div className="font-semibold mb-1">房价日历</div>
+                        <div className="text-muted-foreground">• 批量调价</div>
+                        <div className="text-muted-foreground">• 节假日设置</div>
                       </div>
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex justify-between items-center">
-                        <span>库存日历</span>
-                        <CheckCircle2 className="w-3 h-3 text-green-500" />
+                      <div className="p-2 bg-white dark:bg-slate-800 rounded">
+                        <div className="font-semibold mb-1">库存日历</div>
+                        <div className="text-muted-foreground">• 房量调整</div>
+                        <div className="text-muted-foreground">• 保留房设置</div>
                       </div>
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex justify-between items-center">
-                        <span>订单日历</span>
-                        <CheckCircle2 className="w-3 h-3 text-green-500" />
+                      <div className="p-2 bg-white dark:bg-slate-800 rounded">
+                        <div className="font-semibold mb-1">订单日历</div>
+                        <div className="text-muted-foreground">• 入住安排</div>
+                        <div className="text-muted-foreground">• 房态查看</div>
                       </div>
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex justify-between items-center">
-                        <span>订单列表</span>
-                        <Badge className="bg-blue-500 text-white text-[10px]">Detail</Badge>
+                      <div className="p-2 bg-white dark:bg-slate-800 rounded">
+                        <div className="font-semibold mb-1">订单列表</div>
+                        <div className="text-muted-foreground">• 订单处理</div>
+                        <div className="text-muted-foreground">• 状态更新</div>
                       </div>
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex justify-between items-center">
-                        <span>客诉退款</span>
-                        <Badge className="bg-blue-500 text-white text-[10px]">Detail</Badge>
+                      <div className="p-2 bg-white dark:bg-slate-800 rounded">
+                        <div className="font-semibold mb-1">PMS对接</div>
+                        <div className="text-muted-foreground">• 接口配置</div>
+                        <div className="text-muted-foreground">• 同步监控</div>
                       </div>
-                      <div className="p-2 bg-white dark:bg-slate-800 rounded flex justify-between items-center">
-                        <span>用户点赞</span>
-                        <Badge className="bg-blue-500 text-white text-[10px]">Detail</Badge>
+                      <div className="p-2 bg-white dark:bg-slate-800 rounded">
+                        <div className="font-semibold mb-1">客诉退款</div>
+                        <div className="text-muted-foreground">• 退款审批</div>
+                        <div className="text-muted-foreground">• 争议处理</div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 数据流转关系图 */}
-              <div className="mt-12 p-8 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 rounded-2xl border-2 border-dashed">
-                <h3 className="text-2xl font-bold mb-6 text-center">核心业务数据流</h3>
-
-                {/* 订单流转链路 */}
-                <div className="mb-8">
-                  <h4 className="font-semibold mb-4 text-lg">📦 订单完整生命周期</h4>
-                  <div className="flex items-center justify-between gap-2 flex-wrap bg-white dark:bg-slate-800 p-6 rounded-xl">
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-yellow-500 text-white rounded-lg font-bold shadow-md">用户下单</div>
-                      <div className="text-xs text-muted-foreground mt-2">C端用户</div>
-                    </div>
-                    <div className="text-2xl text-muted-foreground">→</div>
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-red-500 text-white rounded-lg font-bold shadow-md">库存扣减</div>
-                      <div className="text-xs text-muted-foreground mt-2">库存日历</div>
-                    </div>
-                    <div className="text-2xl text-muted-foreground">→</div>
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-blue-500 text-white rounded-lg font-bold shadow-md">订单创建</div>
-                      <div className="text-xs text-muted-foreground mt-2">订单列表</div>
-                    </div>
-                    <div className="text-2xl text-muted-foreground">→</div>
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-purple-500 text-white rounded-lg font-bold shadow-md">PMS同步</div>
-                      <div className="text-xs text-muted-foreground mt-2">PMS对接</div>
-                    </div>
-                    <div className="text-2xl text-muted-foreground">→</div>
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-green-500 text-white rounded-lg font-bold shadow-md">办理入住</div>
-                      <div className="text-xs text-muted-foreground mt-2">订单日历</div>
-                    </div>
-                    <div className="text-2xl text-muted-foreground">→</div>
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-indigo-500 text-white rounded-lg font-bold shadow-md">积分发放</div>
-                      <div className="text-xs text-muted-foreground mt-2">积分系统</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 会员成长路径 */}
-                <div>
-                  <h4 className="font-semibold mb-4 text-lg">👤 会员成长体系</h4>
-                  <div className="flex items-center justify-between gap-2 flex-wrap bg-white dark:bg-slate-800 p-6 rounded-xl">
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-slate-400 text-white rounded-lg font-bold shadow-md">注册</div>
-                      <div className="text-xs text-muted-foreground mt-2">Level 0</div>
-                    </div>
-                    <div className="text-2xl text-muted-foreground">→</div>
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-blue-500 text-white rounded-lg font-bold shadow-md">首次预订</div>
-                      <div className="text-xs text-muted-foreground mt-2">订单系统</div>
-                    </div>
-                    <div className="text-2xl text-muted-foreground">→</div>
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-purple-500 text-white rounded-lg font-bold shadow-md">升级VIP1</div>
-                      <div className="text-xs text-muted-foreground mt-2">会员等级</div>
-                    </div>
-                    <div className="text-2xl text-muted-foreground">→</div>
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-orange-500 text-white rounded-lg font-bold shadow-md">享受折扣</div>
-                      <div className="text-xs text-muted-foreground mt-2">会员权益</div>
-                    </div>
-                    <div className="text-2xl text-muted-foreground">→</div>
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-pink-500 text-white rounded-lg font-bold shadow-md">积分奖励</div>
-                      <div className="text-xs text-muted-foreground mt-2">积分系统</div>
-                    </div>
-                    <div className="text-2xl text-muted-foreground">→</div>
-                    <div className="text-center">
-                      <div className="px-4 py-3 bg-green-500 text-white rounded-lg font-bold shadow-md">持续复购</div>
-                      <div className="text-xs text-muted-foreground mt-2">会员管理</div>
                     </div>
                   </div>
                 </div>
@@ -355,652 +582,431 @@ export default function OverviewPage() {
             </CardContent>
           </Card>
 
-          {/* 深度分析 */}
-          <Card className="border-4 border-orange-500">
-            <CardHeader className="bg-gradient-to-r from-orange-500 to-red-500 text-white">
+          {/* 三角色完整旅程 */}
+          <Card className="border-4 border-purple-500">
+            <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
               <CardTitle className="text-3xl flex items-center gap-3">
-                <Lightbulb className="w-8 h-8" />
-                深度分析：设计缺陷 & 优化建议
+                <Users className="w-8 h-8" />
+                三角色完整旅程图
               </CardTitle>
-              <p className="text-white/80 mt-2">基于酒店行业实践的专业评估</p>
+              <p className="text-white/80 mt-2">C端用户、酒店商家、平台运营的全链路交互</p>
             </CardHeader>
-            <CardContent className="p-8 space-y-8">
-
-              {/* 严重问题 */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <XCircle className="w-8 h-8 text-red-500" />
-                  <h3 className="text-2xl font-bold text-red-600">🚨 严重设计缺陷（必须修复）</h3>
-                </div>
-
-                <div className="space-y-6">
-                  {/* 问题1 */}
-                  <div className="p-6 bg-red-50 dark:bg-red-950 border-l-4 border-red-500 rounded-lg">
-                    <h4 className="font-bold text-lg mb-3 text-red-700">❌ 问题1：订单管理功能重复且职责不清</h4>
-                    <div className="space-y-3 text-sm">
-                      <div className="p-3 bg-white dark:bg-slate-900 rounded">
-                        <p className="font-semibold mb-2">现状：</p>
-                        <ul className="space-y-1 ml-4">
-                          <li>• 平台后台有 "订单管理" → `/order/list`</li>
-                          <li>• 酒店后台也有 "订单列表" → `/hotel-backend/order-list`</li>
-                          <li>• 两个页面功能几乎相同，数据可能不一致</li>
-                        </ul>
-                      </div>
-                      <div className="p-3 bg-white dark:bg-slate-900 rounded">
-                        <p className="font-semibold mb-2 text-red-600">问题：</p>
-                        <ul className="space-y-1 ml-4">
-                          <li>• 平台运营看不到酒店后台的订单？数据孤岛</li>
-                          <li>• 酒店商家能看到其他酒店的订单吗？权限漏洞</li>
-                          <li>• 两个系统如何同步？数据一致性风险</li>
-                        </ul>
-                      </div>
-                      <div className="p-3 bg-green-50 dark:bg-green-950 rounded border border-green-300">
-                        <p className="font-semibold mb-2 text-green-700">✅ 建议方案：</p>
-                        <ul className="space-y-1 ml-4">
-                          <li>• <strong>统一订单中心</strong>：一个订单表，通过 hotel_id 区分不同酒店</li>
-                          <li>• <strong>权限隔离</strong>：平台后台可以看全部订单，酒店后台只能看自己的（WHERE hotel_id = current_user.hotel_id）</li>
-                          <li>• <strong>删除重复</strong>：删除 `/order/list`，统一用 `/hotel-backend/order-list`，平台用户也访问这个页面（数据过滤）</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 问题2 */}
-                  <div className="p-6 bg-red-50 dark:bg-red-950 border-l-4 border-red-500 rounded-lg">
-                    <h4 className="font-bold text-lg mb-3 text-red-700">❌ 问题2：会员体系混乱，平台会员 vs 酒店会员？</h4>
-                    <div className="space-y-3 text-sm">
-                      <div className="p-3 bg-white dark:bg-slate-900 rounded">
-                        <p className="font-semibold mb-2">现状：</p>
-                        <ul className="space-y-1 ml-4">
-                          <li>• 平台后台有 "会员管理" → `/member-management/members`（10650个会员）</li>
-                          <li>• 酒店后台也有 "会员管理" → `/hotel-backend/members`</li>
-                          <li>• 会员等级在平台后台配置，但折扣由酒店后台设置？</li>
-                        </ul>
-                      </div>
-                      <div className="p-3 bg-white dark:bg-slate-900 rounded">
-                        <p className="font-semibold mb-2 text-red-600">问题：</p>
-                        <ul className="space-y-1 ml-4">
-                          <li>• 是"平台统一会员"（所有酒店共享）还是"酒店独立会员"（各管各的）？</li>
-                          <li>• 如果是统一会员，为什么酒店后台也有会员管理？</li>
-                          <li>• 用户在A酒店是VIP，到B酒店也是VIP吗？</li>
-                        </ul>
-                      </div>
-                      <div className="p-3 bg-green-50 dark:bg-green-950 rounded border border-green-300">
-                        <p className="font-semibold mb-2 text-green-700">✅ 建议方案（参考携程/美团）：</p>
-                        <ul className="space-y-2 ml-4">
-                          <li>• <strong>平台统一会员</strong>：用户是小而美平台会员，可以在所有酒店使用（类似携程会员）</li>
-                          <li>• <strong>等级全局统一</strong>：VIP等级在平台后台配置，所有酒店生效</li>
-                          <li>• <strong>折扣酒店自定义</strong>：酒店可以设置自己的会员折扣（在平台规定范围内，如8-9.5折）</li>
-                          <li>• <strong>删除酒店后台的"会员管理"</strong>：酒店只能看自己酒店的订单会员，不能管理会员等级</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 问题3 */}
-                  <div className="p-6 bg-red-50 dark:bg-red-950 border-l-4 border-red-500 rounded-lg">
-                    <h4 className="font-bold text-lg mb-3 text-red-700">❌ 问题3：非房产品缺少核心字段 - 无法售卖</h4>
-                    <div className="space-y-3 text-sm">
-                      <div className="p-3 bg-white dark:bg-slate-900 rounded">
-                        <p className="font-semibold mb-2">现状：</p>
-                        <ul className="space-y-1 ml-4">
-                          <li>• 非房产品只有：产品分类、产品名、产品描述、应用设置</li>
-                          <li>• <strong className="text-red-600">缺少价格字段！</strong></li>
-                          <li>• 用户看到"SPA按摩"，但不知道多少钱</li>
-                        </ul>
-                      </div>
-                      <div className="p-3 bg-white dark:bg-slate-900 rounded">
-                        <p className="font-semibold mb-2 text-red-600">问题：</p>
-                        <ul className="space-y-1 ml-4">
-                          <li>• 产品无法定价，等于无法售卖（业务闭环断裂）</li>
-                          <li>• "应用设置"字段含义模糊（是价格？是使用规则？）</li>
-                          <li>• 缺少库存管理（SPA师只有2人，能接10单吗？）</li>
-                        </ul>
-                      </div>
-                      <div className="p-3 bg-green-50 dark:bg-green-950 rounded border border-green-300">
-                        <p className="font-semibold mb-2 text-green-700">✅ 建议补充字段：</p>
-                        <div className="overflow-x-auto">
-                          <table className="w-full text-xs border-collapse">
-                            <thead className="bg-green-100 dark:bg-green-900">
-                              <tr>
-                                <th className="border p-2">新增字段</th>
-                                <th className="border p-2">类型</th>
-                                <th className="border p-2">示例</th>
-                                <th className="border p-2">必填</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td className="border p-2">price</td>
-                                <td className="border p-2">number</td>
-                                <td className="border p-2">88元</td>
-                                <td className="border p-2">✓</td>
-                              </tr>
-                              <tr>
-                                <td className="border p-2">pricingType</td>
-                                <td className="border p-2">enum</td>
-                                <td className="border p-2">按次/按小时/按人</td>
-                                <td className="border p-2">✓</td>
-                              </tr>
-                              <tr>
-                                <td className="border p-2">inventory</td>
-                                <td className="border p-2">number</td>
-                                <td className="border p-2">每日可售10份</td>
-                                <td className="border p-2">✓</td>
-                              </tr>
-                              <tr>
-                                <td className="border p-2">duration</td>
-                                <td className="border p-2">number</td>
-                                <td className="border p-2">60分钟</td>
-                                <td className="border p-2">可选</td>
-                              </tr>
-                              <tr>
-                                <td className="border p-2">needsAppointment</td>
-                                <td className="border p-2">boolean</td>
-                                <td className="border p-2">是否需要提前预约</td>
-                                <td className="border p-2">✓</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 次要问题 */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <AlertTriangle className="w-8 h-8 text-yellow-500" />
-                  <h3 className="text-2xl font-bold text-yellow-600">⚠️ 次要问题（建议优化）</h3>
-                </div>
-
-                <div className="grid grid-cols-2 gap-6">
-                  {/* 问题4 */}
-                  <div className="p-6 bg-yellow-50 dark:bg-yellow-950 border-l-4 border-yellow-500 rounded-lg">
-                    <h4 className="font-bold mb-3">📅 三个日历页面割裂</h4>
-                    <p className="text-sm mb-3">房价日历、库存日历、订单日历是独立页面，用户需要频繁切换。</p>
-                    <div className="p-3 bg-white dark:bg-slate-900 rounded text-xs">
-                      <p className="font-semibold mb-2">建议：</p>
-                      <p>合并成一个"房务日历"页面，用Tab切换视图（房价/库存/订单），三个维度联动查看。参考美团商家后台的"日历管理"。</p>
-                    </div>
-                  </div>
-
-                  {/* 问题5 */}
-                  <div className="p-6 bg-yellow-50 dark:bg-yellow-950 border-l-4 border-yellow-500 rounded-lg">
-                    <h4 className="font-bold mb-3">🔄 PMS同步时机不明确</h4>
-                    <p className="text-sm mb-3">PMS对接配置完成了，但何时同步？实时还是定时批量？</p>
-                    <div className="p-3 bg-white dark:bg-slate-900 rounded text-xs">
-                      <p className="font-semibold mb-2">建议：</p>
-                      <p>• 实时同步（Webhook）：下单时立即同步到PMS<br/>• 定时全量对账：每小时校准一次库存<br/>• 显示最后同步时间，允许手动触发同步</p>
-                    </div>
-                  </div>
-
-                  {/* 问题6 */}
-                  <div className="p-6 bg-yellow-50 dark:bg-yellow-950 border-l-4 border-yellow-500 rounded-lg">
-                    <h4 className="font-bold mb-3">⚖️ 退款权限边界模糊</h4>
-                    <p className="text-sm mb-3">客诉退款流程中，商家拒绝退款后，平台如何裁决？需要什么证据？</p>
-                    <div className="p-3 bg-white dark:bg-slate-900 rounded text-xs">
-                      <p className="font-semibold mb-2">建议：</p>
-                      <p>明确退款规则：<br/>• 商家责任：房间问题→商家承担100%<br/>• 客人责任：行程取消→按政策扣款<br/>• 争议案件：平台介入，要求双方提供证据（照片、聊天记录）</p>
-                    </div>
-                  </div>
-
-                  {/* 问题7 */}
-                  <div className="p-6 bg-yellow-50 dark:bg-yellow-950 border-l-4 border-yellow-500 rounded-lg">
-                    <h4 className="font-bold mb-3">📊 缺少数据看板</h4>
-                    <p className="text-sm mb-3">42个功能页面，但没有首页Dashboard，数据分散查看效率低。</p>
-                    <div className="p-3 bg-white dark:bg-slate-900 rounded text-xs">
-                      <p className="font-semibold mb-2">建议：</p>
-                      <p>新增"数据概览"页面，展示核心指标：<br/>• 今日订单数、入住率、RevPAR<br/>• 待处理事项（退款申请、评价回复）<br/>• 数据趋势图（过去7天/30天）</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 逻辑错误 */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <XCircle className="w-8 h-8 text-red-500" />
-                  <h3 className="text-2xl font-bold text-red-600">🐛 业务逻辑错误</h3>
-                </div>
-
+            <CardContent className="p-8">
+              <div className="grid grid-cols-3 gap-8">
+                {/* C端用户旅程 */}
                 <div className="space-y-4">
-                  <div className="p-6 bg-red-50 dark:bg-red-950 border-l-4 border-red-500 rounded-lg">
-                    <h4 className="font-bold mb-3">错误1：库存扣减顺序错误</h4>
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div className="p-3 bg-white dark:bg-slate-900 rounded">
-                        <p className="text-red-600 font-semibold mb-2">❌ 当前设计：</p>
-                        <pre className="text-xs">
-{`1. 用户下单
-2. 扣减库存
-3. 创建订单
-4. 等待支付（15分钟）
-5. 支付超时 → 取消订单`}
-                        </pre>
-                        <p className="text-red-600 mt-2 text-xs">问题：库存已扣，但用户未支付，导致其他人无法预订（假性满房）</p>
-                      </div>
-                      <div className="p-3 bg-green-50 dark:bg-green-950 rounded border border-green-300">
-                        <p className="text-green-700 font-semibold mb-2">✅ 正确流程：</p>
-                        <pre className="text-xs">
-{`1. 用户下单
-2. 锁定库存（临时占用，15分钟）
-3. 创建订单（待支付）
-4. 支付成功 → 扣减库存
-5. 支付超时 → 释放锁定库存`}
-                        </pre>
-                        <p className="text-green-700 mt-2 text-xs">使用Redis分布式锁实现临时占用，避免超售也避免假性满房</p>
-                      </div>
+                  <h3 className="text-xl font-bold text-purple-600 flex items-center gap-2">
+                    <Users className="w-6 h-6" />
+                    C端用户旅程
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-purple-50 dark:bg-purple-950 rounded-lg">
+                      <div className="font-semibold mb-2">1. 发现阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 搜索酒店（位置/价格/评分）</li>
+                        <li>• 浏览门店信息和图片</li>
+                        <li>• 查看用户评价</li>
+                        <li>• 对比房型和价格</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-purple-50 dark:bg-purple-950 rounded-lg">
+                      <div className="font-semibold mb-2">2. 预订阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 选择入住日期</li>
+                        <li>• 选择房型和数量</li>
+                        <li>• 添加非房产品</li>
+                        <li>• 使用优惠券</li>
+                        <li>• 在线支付</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-purple-50 dark:bg-purple-950 rounded-lg">
+                      <div className="font-semibold mb-2">3. 入住阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 办理入住</li>
+                        <li>• 享受服务</li>
+                        <li>• 追加消费</li>
+                        <li>• 办理退房</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-purple-50 dark:bg-purple-950 rounded-lg">
+                      <div className="font-semibold mb-2">4. 售后阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 发表评价</li>
+                        <li>• 获得积分</li>
+                        <li>• 申请发票</li>
+                        <li>• 投诉退款（如需）</li>
+                        <li>• 再次预订</li>
+                      </ul>
                     </div>
                   </div>
-
-                  <div className="p-6 bg-red-50 dark:bg-red-950 border-l-4 border-red-500 rounded-lg">
-                    <h4 className="font-bold mb-3">错误2：会员升级条件不合理</h4>
-                    <div className="space-y-3 text-sm">
-                      <div className="p-3 bg-white dark:bg-slate-900 rounded">
-                        <p className="font-semibold mb-2">现状：</p>
-                        <p>• VIP1：预定1次及以上<br/>• VIP2：预定5次及以上<br/>• VIP3：预定10次及以上</p>
-                      </div>
-                      <div className="p-3 bg-red-50 dark:bg-red-950 rounded">
-                        <p className="text-red-600 font-semibold mb-2">问题：</p>
-                        <p>• 只看预订次数，不看消费金额？<br/>• 订一次1000元的套房 = 订一次100元的经济房？<br/>• VIP门槛太低（1次就是VIP1），会员权益贬值</p>
-                      </div>
-                      <div className="p-3 bg-green-50 dark:bg-green-950 rounded border border-green-300">
-                        <p className="text-green-700 font-semibold mb-2">建议：</p>
-                        <p>• VIP1：预订3次 <strong>或</strong> 消费满1000元<br/>• VIP2：预订10次 <strong>或</strong> 消费满5000元<br/>• VIP3：预订30次 <strong>或</strong> 消费满20000元<br/>• 参考携程：结合消费金额+间夜数综合评定</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 优化建议 */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <CheckCircle2 className="w-8 h-8 text-green-500" />
-                  <h3 className="text-2xl font-bold text-green-600">💡 产品优化建议</h3>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200">
-                    <h4 className="font-bold mb-2 text-blue-700">建议1：增加数据大屏</h4>
-                    <p className="text-xs text-muted-foreground">
-                      为酒店经理提供实时数据大屏：今日入住率、待入住提醒、收入趋势图。参考美团商家版首页。
-                    </p>
-                  </div>
-
-                  <div className="p-4 bg-purple-50 dark:bg-purple-950 rounded-lg border border-purple-200">
-                    <h4 className="font-bold mb-2 text-purple-700">建议2：房务三合一</h4>
-                    <p className="text-xs text-muted-foreground">
-                      合并房价日历、库存日历、订单日历为"房务日历"，Tab切换，提升操作效率。
-                    </p>
-                  </div>
-
-                  <div className="p-4 bg-pink-50 dark:bg-pink-950 rounded-lg border border-pink-200">
-                    <h4 className="font-bold mb-2 text-pink-700">建议3：智能定价建议</h4>
-                    <p className="text-xs text-muted-foreground">
-                      基于历史数据+竞品价格，AI推荐房价（携程已实现），帮助商家提升RevPAR。
-                    </p>
-                  </div>
-
-                  <div className="p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200">
-                    <h4 className="font-bold mb-2 text-green-700">建议4：移动端支持</h4>
-                    <p className="text-xs text-muted-foreground">
-                      前台员工需要用手机查订单、办入住。当前是PC端设计，建议响应式适配或开发小程序。
-                    </p>
-                  </div>
-
-                  <div className="p-4 bg-orange-50 dark:bg-orange-950 rounded-lg border border-orange-200">
-                    <h4 className="font-bold mb-2 text-orange-700">建议5：自动化运营</h4>
-                    <p className="text-xs text-muted-foreground">
-                      自动发送入住提醒、退房提醒、评价邀请。减少人工操作，提升客户体验。
-                    </p>
-                  </div>
-
-                  <div className="p-4 bg-indigo-50 dark:bg-indigo-950 rounded-lg border border-indigo-200">
-                    <h4 className="font-bold mb-2 text-indigo-700">建议6：导出功能</h4>
-                    <p className="text-xs text-muted-foreground">
-                      所有列表页支持Excel导出（订单、会员、退款记录），方便对账和分析。
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* 架构优化 */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <Database className="w-8 h-8 text-indigo-500" />
-                  <h3 className="text-2xl font-bold text-indigo-600">🏗️ 技术架构建议</h3>
-                </div>
-
+                {/* 酒店商家旅程 */}
                 <div className="space-y-4">
-                  <div className="p-6 bg-indigo-50 dark:bg-indigo-950 rounded-lg border border-indigo-200">
-                    <h4 className="font-bold mb-3">1. 数据库设计优化</h4>
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <p className="font-semibold mb-2 text-red-600">❌ 当前问题：</p>
-                        <ul className="space-y-1 ml-4 text-xs">
-                          <li>• 订单表可能重复（平台订单 vs 酒店订单）</li>
-                          <li>• 会员表可能重复（平台会员 vs 酒店会员）</li>
-                          <li>• 缺少外键约束（订单-房型-酒店关系）</li>
-                        </ul>
-                      </div>
-                      <div>
-                        <p className="font-semibold mb-2 text-green-600">✅ 建议方案：</p>
-                        <ul className="space-y-1 ml-4 text-xs">
-                          <li>• <strong>统一订单表</strong>：orders (hotel_id, room_type_id, user_id)</li>
-                          <li>• <strong>统一会员表</strong>：users (平台会员) + user_hotel_preferences (偏好)</li>
-                          <li>• <strong>添加索引</strong>：hotel_id + check_in_date 联合索引（加速查询）</li>
-                        </ul>
-                      </div>
+                  <h3 className="text-xl font-bold text-green-600 flex items-center gap-2">
+                    <Hotel className="w-6 h-6" />
+                    酒店商家旅程
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-green-50 dark:bg-green-950 rounded-lg">
+                      <div className="font-semibold mb-2">1. 入驻阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 申请入驻</li>
+                        <li>• 提交资质</li>
+                        <li>• 签约合作</li>
+                        <li>• 开通账号</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-green-50 dark:bg-green-950 rounded-lg">
+                      <div className="font-semibold mb-2">2. 上架阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 完善门店信息</li>
+                        <li>• 配置房型</li>
+                        <li>• 设置价格库存</li>
+                        <li>• 上传图片</li>
+                        <li>• 配置PMS</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-green-50 dark:bg-green-950 rounded-lg">
+                      <div className="font-semibold mb-2">3. 运营阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 接收订单</li>
+                        <li>• 确认订单</li>
+                        <li>• 服务履约</li>
+                        <li>• 调整价格库存</li>
+                        <li>• 处理退款</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-green-50 dark:bg-green-950 rounded-lg">
+                      <div className="font-semibold mb-2">4. 复盘阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 查看经营数据</li>
+                        <li>• 回复用户评价</li>
+                        <li>• 优化产品服务</li>
+                        <li>• 参与平台活动</li>
+                        <li>• 财务对账结算</li>
+                      </ul>
                     </div>
                   </div>
+                </div>
 
-                  <div className="p-6 bg-indigo-50 dark:bg-indigo-950 rounded-lg border border-indigo-200">
-                    <h4 className="font-bold mb-3">2. 权限系统缺失</h4>
-                    <div className="space-y-3 text-sm">
-                      <div className="p-3 bg-white dark:bg-slate-900 rounded">
-                        <p className="text-red-600 font-semibold mb-2">当前问题：</p>
-                        <p className="text-xs">• 平台运营和酒店商家访问相同路由，如何区分权限？<br/>• 酒店A的员工能看到酒店B的订单吗？<br/>• 没有角色管理（超级管理员、运营、财务、客服、商家、前台）</p>
-                      </div>
-                      <div className="p-3 bg-green-50 dark:bg-green-950 rounded border border-green-300">
-                        <p className="text-green-700 font-semibold mb-2">建议实现RBAC：</p>
-                        <pre className="text-xs mt-2 overflow-x-auto">
-{`角色定义：
-1. 平台超级管理员 - 全部权限
-2. 平台运营 - 查看所有数据，无法删除
-3. 酒店管理员 - 管理自己酒店的全部数据
-4. 酒店前台 - 仅订单查询和入住操作
+                {/* 平台运营旅程 */}
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-blue-600 flex items-center gap-2">
+                    <Settings className="w-6 h-6" />
+                    平台运营旅程
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-blue-50 dark:bg-blue-950 rounded-lg">
+                      <div className="font-semibold mb-2">1. 招商阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 开拓酒店资源</li>
+                        <li>• 审核商家资质</li>
+                        <li>• 培训商家使用</li>
+                        <li>• 签约管理</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-blue-50 dark:bg-blue-950 rounded-lg">
+                      <div className="font-semibold mb-2">2. 监管阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 内容审核</li>
+                        <li>• 价格监控</li>
+                        <li>• 服务质量把控</li>
+                        <li>• 违规处罚</li>
+                        <li>• 用户权益保护</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-blue-50 dark:bg-blue-950 rounded-lg">
+                      <div className="font-semibold mb-2">3. 运营阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 策划营销活动</li>
+                        <li>• 配置积分规则</li>
+                        <li>• 发放优惠券</li>
+                        <li>• 会员体系运营</li>
+                        <li>• 仲裁纠纷</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-blue-50 dark:bg-blue-950 rounded-lg">
+                      <div className="font-semibold mb-2">4. 分析阶段</div>
+                      <ul className="space-y-1 text-sm text-muted-foreground ml-4">
+                        <li>• 数据分析</li>
+                        <li>• 用户画像</li>
+                        <li>• 商家排名</li>
+                        <li>• 策略优化</li>
+                        <li>• 财务清算</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-路由守卫：
-if (user.role === 'hotel_admin') {
-  // 仅返回 hotel_id = user.hotel_id 的数据
-}
-if (user.role === 'platform_admin') {
-  // 返回所有数据
+              {/* 三角色交互矩阵 */}
+              <div className="mt-8 p-6 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950 dark:to-blue-950 rounded-xl">
+                <h4 className="text-xl font-bold mb-4">关键交互节点</h4>
+                <div className="grid grid-cols-3 gap-4 text-sm">
+                  <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                    <div className="font-semibold mb-2">用户 ↔ 商家</div>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 预订确认</li>
+                      <li>• 服务交付</li>
+                      <li>• 评价回复</li>
+                      <li>• 退款协商</li>
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                    <div className="font-semibold mb-2">商家 ↔ 平台</div>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 佣金结算</li>
+                      <li>• 活动报名</li>
+                      <li>• 违规申诉</li>
+                      <li>• 数据同步</li>
+                    </ul>
+                  </div>
+                  <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                    <div className="font-semibold mb-2">平台 ↔ 用户</div>
+                    <ul className="space-y-1 text-xs text-muted-foreground">
+                      <li>• 会员权益</li>
+                      <li>• 积分兑换</li>
+                      <li>• 投诉仲裁</li>
+                      <li>• 营销推送</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 严重问题分析 - 保留原有内容但更新非房产品部分 */}
+          <Card className="border-4 border-red-500">
+            <CardHeader className="bg-gradient-to-r from-red-500 to-orange-500 text-white">
+              <CardTitle className="text-3xl flex items-center gap-3">
+                <AlertTriangle className="w-8 h-8" />
+                严重问题分析（P0级）
+              </CardTitle>
+              <p className="text-white/80 mt-2">必须立即修复的架构缺陷</p>
+            </CardHeader>
+            <CardContent className="p-8">
+              <div className="space-y-8">
+                {/* 问题1：重复功能 */}
+                <div className="p-6 bg-red-50 dark:bg-red-950 border-l-4 border-red-500 rounded-lg">
+                  <h4 className="font-bold text-lg mb-3 text-red-700">❌ 问题1：订单/会员功能重复，权限混乱</h4>
+                  <div className="grid grid-cols-2 gap-6">
+                    <div>
+                      <p className="font-semibold mb-2">订单管理重复：</p>
+                      <ul className="space-y-1 text-sm ml-4">
+                        <li>• 平台后台：/order/list</li>
+                        <li>• 酒店后台：/hotel-backend/order-list</li>
+                        <li className="text-red-600">数据隔离？权限边界？</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-semibold mb-2">会员管理重复：</p>
+                      <ul className="space-y-1 text-sm ml-4">
+                        <li>• 平台后台：/member-management/members</li>
+                        <li>• 酒店后台：/hotel-backend/members</li>
+                        <li className="text-red-600">平台会员还是酒店会员？</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-3 bg-green-50 dark:bg-green-950 rounded border border-green-300">
+                    <p className="font-semibold mb-2 text-green-700">✅ 建议方案：</p>
+                    <ul className="space-y-1 text-sm ml-4">
+                      <li>• 统一数据表，通过 hotel_id 和角色权限区分</li>
+                      <li>• 平台看全量，酒店看自己的数据</li>
+                      <li>• 删除重复页面，保留一套</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* 问题2：非房产品已修复 */}
+                <div className="p-6 bg-green-50 dark:bg-green-950 border-l-4 border-green-500 rounded-lg">
+                  <h4 className="font-bold text-lg mb-3 text-green-700">✅ 已修复：非房产品缺少核心字段</h4>
+                  <div className="grid grid-cols-2 gap-6">
+                    <div>
+                      <p className="font-semibold mb-2 text-red-600">之前的问题：</p>
+                      <ul className="space-y-1 text-sm ml-4 line-through text-muted-foreground">
+                        <li>缺少价格字段 - 无法售卖</li>
+                        <li>缺少库存管理 - 可能超售</li>
+                        <li>缺少计价方式 - 用户困惑</li>
+                        <li>缺少预约机制 - 资源冲突</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-semibold mb-2 text-green-600">现已补充：</p>
+                      <ul className="space-y-1 text-sm ml-4">
+                        <li>✓ price - 产品价格</li>
+                        <li>✓ pricingType - 计价方式</li>
+                        <li>✓ inventory - 库存数量</li>
+                        <li>✓ needsAppointment - 预约标识</li>
+                        <li>✓ duration - 服务时长</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950 rounded">
+                    <p className="text-sm">
+                      <strong>修复后评价：</strong>非房产品模块现在符合行业标准，可以正常售卖和管理。
+                      参考了携程、美团的增值服务设计，补齐了商业闭环。
+                    </p>
+                  </div>
+                </div>
+
+                {/* 问题3：权限系统缺失 */}
+                <div className="p-6 bg-red-50 dark:bg-red-950 border-l-4 border-red-500 rounded-lg">
+                  <h4 className="font-bold text-lg mb-3 text-red-700">❌ 问题3：缺少统一权限系统</h4>
+                  <p className="mb-3 text-sm">系统有42个页面，但没有权限控制，任何人都能访问所有功能。</p>
+                  <div className="grid grid-cols-3 gap-4 text-sm">
+                    <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                      <p className="font-semibold mb-2">超级管理员</p>
+                      <ul className="space-y-1 text-xs text-muted-foreground">
+                        <li>• 所有功能</li>
+                        <li>• 系统配置</li>
+                        <li>• 数据删除</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                      <p className="font-semibold mb-2">酒店管理员</p>
+                      <ul className="space-y-1 text-xs text-muted-foreground">
+                        <li>• 自己酒店的数据</li>
+                        <li>• 不能删除</li>
+                        <li>• 不能配置规则</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-white dark:bg-slate-800 rounded">
+                      <p className="font-semibold mb-2">运营人员</p>
+                      <ul className="space-y-1 text-xs text-muted-foreground">
+                        <li>• 查看报表</li>
+                        <li>• 发放优惠券</li>
+                        <li>• 不能改价格</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-3 bg-green-50 dark:bg-green-950 rounded border border-green-300">
+                    <p className="font-semibold mb-2 text-green-700">✅ 建议实现：</p>
+                    <pre className="text-xs bg-white dark:bg-slate-900 p-2 rounded">
+{`// 路由守卫示例
+export async function loader({ request }) {
+  const user = await requireUser(request) // 验证登录
+  if (!canAccess(user, 'hotel-backend')) {
+    throw new Response("无权访问", { status: 403 })
+  }
+  // 数据过滤
+  const hotels = user.role === 'super_admin'
+    ? await getAllHotels()
+    : await getHotelsByUser(user.id)
+  return json({ hotels })
 }`}
-                        </pre>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 系统评分卡 - 更新分数 */}
+          <Card className="border-4 border-gradient-to-r from-blue-500 to-purple-500">
+            <CardHeader className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+              <CardTitle className="text-3xl flex items-center gap-3">
+                <Target className="w-8 h-8" />
+                系统完整度评分（修复后）
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-8">
+              <div className="grid grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-2xl font-bold mb-4">总体评分：75/100</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-32 font-semibold">功能完整度</div>
+                      <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
+                        <div className="bg-green-500 h-full" style={{ width: '85%' }}></div>
                       </div>
+                      <span className="text-sm font-bold">85%</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-32 font-semibold">架构合理性</div>
+                      <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
+                        <div className="bg-yellow-500 h-full" style={{ width: '60%' }}></div>
+                      </div>
+                      <span className="text-sm font-bold">60%</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-32 font-semibold">业务闭环</div>
+                      <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
+                        <div className="bg-green-500 h-full" style={{ width: '80%' }}></div>
+                      </div>
+                      <span className="text-sm font-bold">80%</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-32 font-semibold">用户体验</div>
+                      <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
+                        <div className="bg-blue-500 h-full" style={{ width: '75%' }}></div>
+                      </div>
+                      <span className="text-sm font-bold">75%</span>
                     </div>
                   </div>
+                </div>
 
-                  <div className="p-6 bg-indigo-50 dark:bg-indigo-950 rounded-lg border border-indigo-200">
-                    <h4 className="font-bold mb-3">3. 缺少操作日志</h4>
-                    <div className="space-y-3 text-sm">
-                      <p className="text-xs">所有关键操作（修改价格、取消订单、退款审批）都应该记录操作日志，包括：谁、什么时间、做了什么、原因。</p>
-                      <div className="p-3 bg-green-50 dark:bg-green-950 rounded border border-green-300">
-                        <p className="font-semibold mb-2 text-green-700">建议：</p>
-                        <p className="text-xs">• 新建 operation_logs 表<br/>• 字段：operator_id, action_type, target_id, before_value, after_value, reason, ip, created_at<br/>• 在详情页显示"操作历史"Tab，追溯所有变更</p>
+                <div>
+                  <h3 className="text-2xl font-bold mb-4">与OTA平台对比</h3>
+                  <div className="space-y-3 text-sm">
+                    <div className="p-3 bg-blue-50 dark:bg-blue-950 rounded">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-semibold">vs 携程EBK</span>
+                        <Badge>60%相似度</Badge>
                       </div>
+                      <p className="text-xs text-muted-foreground">
+                        缺少：收益管理、渠道管理、智能定价、数据分析看板
+                      </p>
+                    </div>
+                    <div className="p-3 bg-green-50 dark:bg-green-950 rounded">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-semibold">vs 美团商家</span>
+                        <Badge>70%相似度</Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        缺少：团购管理、直播带货、种草笔记、商圈分析
+                      </p>
+                    </div>
+                    <div className="p-3 bg-orange-50 dark:bg-orange-950 rounded">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-semibold">vs 飞猪商家</span>
+                        <Badge>65%相似度</Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        缺少：信用分体系、花呗分期、会员通兑、内容营销
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* 功能缺失 */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <AlertTriangle className="w-8 h-8 text-orange-500" />
-                  <h3 className="text-2xl font-bold text-orange-600">📋 功能缺失清单</h3>
-                </div>
-
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="p-4 bg-orange-50 dark:bg-orange-950 rounded-lg border border-orange-200">
-                    <h4 className="font-bold mb-3 text-orange-700">缺失功能（酒店刚需）</h4>
-                    <ul className="space-y-2 text-sm">
-                      <li className="flex items-start gap-2">
-                        <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-semibold">财务报表</p>
-                          <p className="text-xs text-muted-foreground">日报、月报、年报（收入、支出、利润）</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-semibold">房态图（Housekeeping）</p>
-                          <p className="text-xs text-muted-foreground">每间房的实时状态（空净、空脏、住净、住脏、维修）</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-semibold">客史档案</p>
-                          <p className="text-xs text-muted-foreground">客人历史入住记录、偏好、备注</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-semibold">夜审（Night Audit）</p>
-                          <p className="text-xs text-muted-foreground">每日营业数据汇总和对账</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-semibold">发票管理</p>
-                          <p className="text-xs text-muted-foreground">开具电子发票、发票记录</p>
-                        </div>
-                      </li>
+              <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950 dark:to-blue-950 rounded-xl">
+                <h4 className="text-xl font-bold mb-4">改进建议优先级</h4>
+                <div className="grid grid-cols-3 gap-4 text-sm">
+                  <div className="p-4 bg-red-50 dark:bg-red-950 rounded border-2 border-red-300">
+                    <h5 className="font-bold text-red-600 mb-2">P0 - 立即修复</h5>
+                    <ul className="space-y-1 text-xs">
+                      <li>• 添加权限系统</li>
+                      <li>• 合并重复功能</li>
+                      <li>• 补充Dashboard</li>
                     </ul>
                   </div>
-
-                  <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200">
-                    <h4 className="font-bold mb-3 text-blue-700">缺失功能（体验提升）</h4>
-                    <ul className="space-y-2 text-sm">
-                      <li className="flex items-start gap-2">
-                        <AlertTriangle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-semibold">消息通知中心</p>
-                          <p className="text-xs text-muted-foreground">新订单、退款申请、差评预警的实时通知</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <AlertTriangle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-semibold">待办事项</p>
-                          <p className="text-xs text-muted-foreground">今日待办：12间待入住、3个退款待处理</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <AlertTriangle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-semibold">智能推荐</p>
-                          <p className="text-xs text-muted-foreground">根据用户画像推荐房型（亲子游→推荐家庭房）</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <AlertTriangle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-semibold">OTA渠道管理</p>
-                          <p className="text-xs text-muted-foreground">统一管理携程/美团/飞猪的上架状态和佣金</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <AlertTriangle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="font-semibold">数据导出</p>
-                          <p className="text-xs text-muted-foreground">订单、会员、财务数据导出Excel（对账必需）</p>
-                        </div>
-                      </li>
+                  <div className="p-4 bg-yellow-50 dark:bg-yellow-950 rounded border-2 border-yellow-300">
+                    <h5 className="font-bold text-yellow-600 mb-2">P1 - 尽快优化</h5>
+                    <ul className="space-y-1 text-xs">
+                      <li>• 合并三个日历</li>
+                      <li>• 添加数据分析</li>
+                      <li>• 完善PMS同步</li>
                     </ul>
                   </div>
-                </div>
-              </div>
-
-              {/* 最终评分 */}
-              <div className="p-8 bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-2xl">
-                <h3 className="text-3xl font-bold mb-6 text-center">📊 系统设计评分</h3>
-                <div className="grid grid-cols-4 gap-6">
-                  <div className="text-center">
-                    <div className="text-5xl font-bold mb-2">85/100</div>
-                    <div className="text-sm">整体评分</div>
-                  </div>
-                  <div>
-                    <div className="text-lg mb-2">✅ 优点</div>
-                    <ul className="text-xs space-y-1 opacity-90">
-                      <li>• 模块化设计优秀</li>
-                      <li>• LogicPanel教学完整</li>
-                      <li>• UI/UX专业</li>
-                      <li>• 参考行业标准</li>
+                  <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded border-2 border-blue-300">
+                    <h5 className="font-bold text-blue-600 mb-2">P2 - 逐步完善</h5>
+                    <ul className="space-y-1 text-xs">
+                      <li>• 收益管理系统</li>
+                      <li>• AI智能定价</li>
+                      <li>• 内容营销工具</li>
                     </ul>
                   </div>
-                  <div>
-                    <div className="text-lg mb-2">❌ 缺点</div>
-                    <ul className="text-xs space-y-1 opacity-90">
-                      <li>• 功能重复（订单/会员）</li>
-                      <li>• 权限系统缺失</li>
-                      <li>• 非房产品无定价</li>
-                      <li>• 财务模块缺失</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <div className="text-lg mb-2">🎯 优先级</div>
-                    <ul className="text-xs space-y-1 opacity-90">
-                      <li>• P0: 修复订单/会员重复</li>
-                      <li>• P0: 非房产品加价格</li>
-                      <li>• P1: 权限系统</li>
-                      <li>• P1: 数据大屏</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="mt-8 p-6 bg-white/10 rounded-xl">
-                  <p className="text-center text-lg font-semibold mb-3">💬 总体评价</p>
-                  <p className="text-sm opacity-90 leading-relaxed">
-                    这是一个<strong>优秀的学习型项目</strong>，完整实现了酒店SAAS的核心功能，
-                    LogicPanel的设计非常创新，教学价值极高。但作为<strong>生产环境系统</strong>，
-                    存在一些关键缺陷需要修复：订单/会员数据重复、权限系统缺失、非房产品无法售卖。
-                    修复这些问题后，可以达到<strong>95分</strong>，成为可商用的系统。
-                  </p>
-                </div>
-              </div>
-
-              {/* 参考对比 */}
-              <div>
-                <h3 className="text-2xl font-bold mb-6">🔍 对标分析：与主流OTA平台对比</h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm border-collapse">
-                    <thead className="bg-slate-100 dark:bg-slate-800">
-                      <tr>
-                        <th className="border p-3 text-left">功能模块</th>
-                        <th className="border p-3">携程EBK</th>
-                        <th className="border p-3">美团商家版</th>
-                        <th className="border p-3">飞猪卖家中心</th>
-                        <th className="border p-3">本系统</th>
-                        <th className="border p-3">差距</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="border p-3 font-semibold">房价管理</td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-xs">持平，缺AI定价</td>
-                      </tr>
-                      <tr>
-                        <td className="border p-3 font-semibold">库存管理</td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-xs">持平</td>
-                      </tr>
-                      <tr>
-                        <td className="border p-3 font-semibold">订单管理</td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-xs">持平，有详情页</td>
-                      </tr>
-                      <tr className="bg-red-50 dark:bg-red-950">
-                        <td className="border p-3 font-semibold">财务报表</td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><XCircle className="w-5 h-5 text-red-500 mx-auto" /></td>
-                        <td className="border p-3 text-xs text-red-600">缺失！</td>
-                      </tr>
-                      <tr>
-                        <td className="border p-3 font-semibold">会员系统</td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-xs">持平</td>
-                      </tr>
-                      <tr className="bg-red-50 dark:bg-red-950">
-                        <td className="border p-3 font-semibold">数据大屏</td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><XCircle className="w-5 h-5 text-red-500 mx-auto" /></td>
-                        <td className="border p-3 text-xs text-red-600">缺失！</td>
-                      </tr>
-                      <tr className="bg-yellow-50 dark:bg-yellow-950">
-                        <td className="border p-3 font-semibold">权限管理</td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><AlertTriangle className="w-5 h-5 text-yellow-500 mx-auto" /></td>
-                        <td className="border p-3 text-xs text-yellow-600">简单实现</td>
-                      </tr>
-                      <tr>
-                        <td className="border p-3 font-semibold">PMS对接</td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-center"><CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" /></td>
-                        <td className="border p-3 text-xs">持平</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              {/* 结论与下一步 */}
-              <div className="p-8 bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-2xl">
-                <h3 className="text-3xl font-bold mb-6 text-center">🎯 结论与行动计划</h3>
-
-                <div className="grid grid-cols-3 gap-6 mb-6">
-                  <div className="bg-white/10 p-4 rounded-lg">
-                    <h4 className="font-bold mb-2">立即修复（P0）</h4>
-                    <ul className="text-sm space-y-1">
-                      <li>1. 统一订单/会员数据表</li>
-                      <li>2. 非房产品添加价格字段</li>
-                      <li>3. 修复库存扣减逻辑</li>
-                    </ul>
-                  </div>
-                  <div className="bg-white/10 p-4 rounded-lg">
-                    <h4 className="font-bold mb-2">尽快补充（P1）</h4>
-                    <ul className="text-sm space-y-1">
-                      <li>1. 实现RBAC权限系统</li>
-                      <li>2. 新增数据大屏首页</li>
-                      <li>3. 财务报表模块</li>
-                    </ul>
-                  </div>
-                  <div className="bg-white/10 p-4 rounded-lg">
-                    <h4 className="font-bold mb-2">长期规划（P2）</h4>
-                    <ul className="text-sm space-y-1">
-                      <li>1. AI智能定价</li>
-                      <li>2. 移动端小程序</li>
-                      <li>3. 多语言国际化</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="text-center pt-6 border-t border-white/20">
-                  <p className="text-lg font-semibold mb-2">🌟 系统潜力评估</p>
-                  <p className="text-sm opacity-90">
-                    修复P0/P1问题后，本系统可以成为<strong>中小型酒店集团的标准PMS</strong>。
-                    建议对标携程EBK（轻量版），目标客户：10-50家门店的连锁酒店或精品民宿集团。
-                    预估市场规模：中国有<strong>30万+</strong>家单体/小连锁酒店，年均IT支出5-10万元，市场空间百亿级。
-                  </p>
                 </div>
               </div>
             </CardContent>

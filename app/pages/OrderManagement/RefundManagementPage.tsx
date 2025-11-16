@@ -121,10 +121,10 @@ export default function RefundManagementPage({ refunds }: RefundManagementPagePr
                   <div className="bg-slate-50 border rounded-lg p-4">
                     <p className="font-semibold text-sm mb-2">📱 申请退款页面</p>
                     <div className="text-xs space-y-1 text-slate-700">
-                      <div>订单：{order.hotelName}</div>
-                      <div>实付：¥{order.actualAmount}</div>
+                      <div>订单：海棠湾万丽酒店-豪华海景房</div>
+                      <div>实付：¥1299</div>
                       <div className="border-t pt-1 mt-1">
-                        <div>预计退款：<span className="text-green-600 font-bold">¥{(order.actualAmount * 0.8).toFixed(2)}</span></div>
+                        <div>预计退款：<span className="text-green-600 font-bold">¥1039.20</span></div>
                         <div className="text-orange-600 text-xs">距离入住5天，按80%退款</div>
                       </div>
                       <div className="text-slate-500 mt-2">→ 后台退款规则自动计算退款金额</div>

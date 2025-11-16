@@ -32,12 +32,20 @@ export async function action({ request }: ActionFunctionArgs) {
       const productCategory = formData.get("productCategory") as string
       const productName = formData.get("productName") as string
       const productDescription = formData.get("productDescription") as string
+      const price = parseFloat(formData.get("price") as string)
+      const pricingType = formData.get("pricingType") as 'per_time' | 'per_hour' | 'per_person' | 'fixed'
+      const inventory = formData.get("inventory") ? parseInt(formData.get("inventory") as string) : undefined
+      const duration = formData.get("duration") ? parseInt(formData.get("duration") as string) : undefined
+      const needsAppointment = formData.get("needsAppointment") === 'on'
       const applyUseSettings = formData.get("applyUseSettings") as string
+      const status = (formData.get("status") as 'active' | 'inactive') || 'active'
 
       const errors: Record<string, string> = {}
       if (!productCategory) errors.productCategory = "请选择产品分类"
       if (!productName) errors.productName = "请输入产品名"
       if (!productDescription) errors.productDescription = "请输入产品描述"
+      if (!price || price <= 0) errors.price = "请输入有效的价格"
+      if (!pricingType) errors.pricingType = "请选择计价方式"
 
       if (Object.keys(errors).length > 0) {
         return json({ success: false, errors }, { status: 400 })
@@ -47,7 +55,13 @@ export async function action({ request }: ActionFunctionArgs) {
         productCategory,
         productName,
         productDescription,
-        applyUseSettings: applyUseSettings || ''
+        price,
+        pricingType,
+        inventory,
+        duration,
+        needsAppointment,
+        applyUseSettings: applyUseSettings || '',
+        status
       })
 
       return redirect("/hotel-backend/non-room-products")
