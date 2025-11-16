@@ -4,6 +4,7 @@
  */
 
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { useViewMode } from '~/contexts/ViewModeContext'
 
 interface LogicSection {
   title: string
@@ -16,6 +17,13 @@ interface LogicPanelProps {
 }
 
 export default function LogicPanel({ title, sections }: LogicPanelProps) {
+  const { isPresentationMode } = useViewMode()
+
+  // 展示模式下不显示
+  if (isPresentationMode) {
+    return null
+  }
+
   return (
     <div className="h-full overflow-y-auto bg-muted/30 p-6">
       <div className="space-y-6">

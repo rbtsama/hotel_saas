@@ -1,0 +1,140 @@
+/**
+ * 广告管理Mock数据
+ */
+
+import type { AdPosition, Advertisement } from '../../types/ads.types'
+import { WeekDay } from '../../types/ads.types'
+
+// 预定义的广告位配置
+export const mockAdPositions: AdPosition[] = [
+  {
+    id: 'splash-screen',
+    name: '启动页',
+    enabled: true,
+    carouselInterval: 3,
+  },
+  {
+    id: 'home-header',
+    name: '首页头图',
+    enabled: true,
+    carouselInterval: 5,
+  },
+  {
+    id: 'home-bottom',
+    name: '首页底部',
+    enabled: true,
+    carouselInterval: 4,
+  },
+]
+
+// 广告内容Mock数据
+export const mockAdvertisements: Advertisement[] = [
+  // 启动页广告
+  {
+    id: 'ad-001',
+    positionId: 'splash-screen',
+    imageUrl: 'https://picsum.photos/1080/1920?random=1',
+    validDateStart: '2025-01-01',
+    validDateEnd: '2025-12-31',
+    validTimeStart: '00:00:00',
+    validTimeEnd: '23:59:59',
+    weekDays: [WeekDay.MONDAY, WeekDay.TUESDAY, WeekDay.WEDNESDAY, WeekDay.THURSDAY, WeekDay.FRIDAY, WeekDay.SATURDAY, WeekDay.SUNDAY],
+    clickUrl: 'https://example.com/new-year-sale',
+    order: 1,
+    enabled: true,
+    createdAt: '01/05/25 09:00:00',
+    updatedAt: '01/10/25 11:30:00',
+  },
+  {
+    id: 'ad-002',
+    positionId: 'splash-screen',
+    imageUrl: 'https://picsum.photos/1080/1920?random=2',
+    validDateStart: '2025-02-01',
+    validDateEnd: '2025-02-14',
+    validTimeStart: '00:00:00',
+    validTimeEnd: '23:59:59',
+    weekDays: [WeekDay.MONDAY, WeekDay.TUESDAY, WeekDay.WEDNESDAY, WeekDay.THURSDAY, WeekDay.FRIDAY, WeekDay.SATURDAY, WeekDay.SUNDAY],
+    clickUrl: 'https://example.com/valentines-special',
+    order: 2,
+    enabled: true,
+    createdAt: '01/25/25 14:20:00',
+    updatedAt: '01/25/25 14:20:00',
+  },
+  // 首页头图广告
+  {
+    id: 'ad-003',
+    positionId: 'home-header',
+    imageUrl: 'https://picsum.photos/1200/400?random=1',
+    validDateStart: '2025-01-01',
+    validDateEnd: '2025-12-31',
+    validTimeStart: '00:00:00',
+    validTimeEnd: '23:59:59',
+    weekDays: [WeekDay.MONDAY, WeekDay.TUESDAY, WeekDay.WEDNESDAY, WeekDay.THURSDAY, WeekDay.FRIDAY],
+    clickUrl: 'https://example.com/promo/winter-sale',
+    order: 1,
+    enabled: true,
+    createdAt: '01/10/25 10:30:00',
+    updatedAt: '01/15/25 14:20:00',
+  },
+  {
+    id: 'ad-004',
+    positionId: 'home-header',
+    imageUrl: 'https://picsum.photos/1200/400?random=2',
+    validDateStart: '2025-01-15',
+    validDateEnd: '2025-03-31',
+    validTimeStart: '08:00:00',
+    validTimeEnd: '22:00:00',
+    weekDays: [WeekDay.SATURDAY, WeekDay.SUNDAY],
+    clickUrl: 'https://example.com/weekend-special',
+    order: 2,
+    enabled: true,
+    createdAt: '01/15/25 09:00:00',
+    updatedAt: '01/15/25 09:00:00',
+  },
+  {
+    id: 'ad-005',
+    positionId: 'home-header',
+    imageUrl: 'https://picsum.photos/1200/400?random=3',
+    validDateStart: '2025-02-01',
+    validDateEnd: '2025-02-28',
+    validTimeStart: '00:00:00',
+    validTimeEnd: '23:59:59',
+    weekDays: [WeekDay.MONDAY, WeekDay.TUESDAY, WeekDay.WEDNESDAY, WeekDay.THURSDAY, WeekDay.FRIDAY, WeekDay.SATURDAY, WeekDay.SUNDAY],
+    clickUrl: '',
+    order: 3,
+    enabled: false,
+    createdAt: '01/20/25 16:45:00',
+    updatedAt: '01/20/25 16:45:00',
+  },
+  // 首页底部广告
+  {
+    id: 'ad-006',
+    positionId: 'home-bottom',
+    imageUrl: 'https://picsum.photos/800/200?random=4',
+    validDateStart: '2025-01-01',
+    validDateEnd: '2025-06-30',
+    validTimeStart: '00:00:00',
+    validTimeEnd: '23:59:59',
+    weekDays: [WeekDay.MONDAY, WeekDay.TUESDAY, WeekDay.WEDNESDAY, WeekDay.THURSDAY, WeekDay.FRIDAY, WeekDay.SATURDAY, WeekDay.SUNDAY],
+    clickUrl: 'https://example.com/membership',
+    order: 1,
+    enabled: true,
+    createdAt: '01/05/25 11:20:00',
+    updatedAt: '01/12/25 15:30:00',
+  },
+  {
+    id: 'ad-007',
+    positionId: 'home-bottom',
+    imageUrl: 'https://picsum.photos/800/200?random=5',
+    validDateStart: '2025-01-15',
+    validDateEnd: '2025-04-15',
+    validTimeStart: '09:00:00',
+    validTimeEnd: '21:00:00',
+    weekDays: [WeekDay.FRIDAY, WeekDay.SATURDAY, WeekDay.SUNDAY],
+    clickUrl: 'https://example.com/hotel-deals',
+    order: 2,
+    enabled: true,
+    createdAt: '01/14/25 10:10:00',
+    updatedAt: '01/14/25 10:10:00',
+  },
+]

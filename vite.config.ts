@@ -15,6 +15,9 @@ export default defineConfig({
           // Root
           route("/", "routes/_index.tsx", { index: true })
 
+          // Architecture Routes
+          route("/architecture/product/overview", "routes/architecture/product/overview.tsx")
+
           // Points System Routes
           route("/points-system/rule-config", "routes/points-system/rule-config.tsx")
           route("/points-system/user-account", "routes/points-system/user-account.tsx")
@@ -30,6 +33,9 @@ export default defineConfig({
 
           // Member System Routes
           route("/member/level-config", "routes/member/level-config.tsx")
+          route("/member-management/levels", "routes/member-management/levels/_index.tsx")
+          route("/member-management/members", "routes/member-management/members/_index.tsx")
+          route("/member-management/members/:id", "routes/member-management/members.$id.tsx")
 
           // Coupon System Routes
           route("/coupon/config", "routes/coupon/config.tsx")
@@ -40,6 +46,47 @@ export default defineConfig({
           route("/order/list", "routes/order/list.tsx")
           route("/order/detail", "routes/order/detail.tsx")
           route("/order/refund", "routes/order/refund.tsx")
+
+          // Marketing Management Routes
+          route("/marketing/ads", "routes/marketing/ads.tsx")
+
+          // Dispute Management Routes
+          route("/dispute/refund-requests", "routes/dispute/refund-requests.tsx")
+          route("/dispute/arbitration-cases", "routes/dispute/arbitration-cases.tsx")
+          route("/dispute/arbitrators", "routes/dispute/arbitrators.tsx")
+
+          // System Settings Routes
+          route("/system/agreements", "routes/system/agreements.tsx")
+          route("/system/tags", "routes/system/tags.tsx")
+
+          // User Management Routes
+          route("/user/list", "routes/user/list.tsx")
+          route("/user/detail/:userId", "routes/user/detail.$userId.tsx")
+
+          // Hotel Backend Routes
+          route("/hotel-backend/staff", "routes/hotel-backend/staff.tsx")
+          route("/hotel-backend/store/basic-info", "routes/hotel-backend/store.basic-info.tsx")
+          route("/hotel-backend/store/policy", "routes/hotel-backend/store.policy.tsx")
+          route("/hotel-backend/store/facilities", "routes/hotel-backend/store.facilities.tsx")
+          route("/hotel-backend/store/surrounding", "routes/hotel-backend/store.surrounding.tsx")
+          route("/hotel-backend/store/breakfast", "routes/hotel-backend/store.breakfast.tsx")
+          route("/hotel-backend/store/extra-bed", "routes/hotel-backend/store.extra-bed.tsx")
+          route("/hotel-backend/store/images", "routes/hotel-backend/store.images.tsx")
+          route("/hotel-backend/room-type-list", "routes/hotel-backend/room-type-list.tsx")
+          route("/hotel-backend/room-type-images", "routes/hotel-backend/room-type-images/_index.tsx")
+          route("/hotel-backend/non-room-products", "routes/hotel-backend/non-room-products/_index.tsx")
+          route("/hotel-backend/pms-integration", "routes/hotel-backend/pms-integration/_index.tsx")
+          route("/hotel-backend/room-price-calendar", "routes/hotel-backend/room-price-calendar/_index.tsx")
+          route("/hotel-backend/inventory-calendar", "routes/hotel-backend/inventory-calendar/_index.tsx")
+          route("/hotel-backend/order-calendar", "routes/hotel-backend/order-calendar/_index.tsx")
+          route("/hotel-backend/order-list", "routes/hotel-backend/order-list/_index.tsx")
+          route("/hotel-backend/order-list/:id", "routes/hotel-backend/order-list/$id.tsx")
+          route("/hotel-backend/refund-management", "routes/hotel-backend/refund-management/_index.tsx")
+          route("/hotel-backend/refund-management/:id", "routes/hotel-backend/refund-management/$id.tsx")
+          route("/hotel-backend/user-reviews", "routes/hotel-backend/user-reviews/_index.tsx")
+          route("/hotel-backend/user-reviews/:id", "routes/hotel-backend/user-reviews.$id.tsx")
+          route("/hotel-backend/rooms", "routes/hotel-backend/rooms.tsx")
+          route("/hotel-backend/members", "routes/hotel-backend/members.tsx")
         })
       },
     }),
