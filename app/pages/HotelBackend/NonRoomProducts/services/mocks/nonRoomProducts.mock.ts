@@ -15,6 +15,8 @@ export const mockNonRoomProductsData: NonRoomProduct[] = [
     needsAppointment: true,
     applyUseSettings: '茶室免费使用2小时',
     status: 'active' as const,
+    pointsReward: 50, // 购买奖励50积分
+    rewardType: 'purchase' as const,
     createdAt: '01/10/25 09:00:00'
   },
   {
@@ -30,6 +32,8 @@ export const mockNonRoomProductsData: NonRoomProduct[] = [
     needsAppointment: false,
     applyUseSettings: '免费自行车租借',
     status: 'active' as const,
+    pointsReward: 30, // 免费使用也奖励30积分（鼓励体验）
+    rewardType: 'gift' as const,
     createdAt: '01/08/25 14:30:00'
   },
   {
@@ -45,6 +49,8 @@ export const mockNonRoomProductsData: NonRoomProduct[] = [
     needsAppointment: false,
     applyUseSettings: '每日7:00-10:00供应',
     status: 'active' as const,
+    pointsReward: 20, // 购买奖励20积分
+    rewardType: 'purchase' as const,
     createdAt: '01/05/25 11:20:00'
   },
   {
@@ -60,6 +66,8 @@ export const mockNonRoomProductsData: NonRoomProduct[] = [
     needsAppointment: true,
     applyUseSettings: '需提前预约',
     status: 'active' as const,
+    pointsReward: 100, // 高价服务奖励100积分
+    rewardType: 'purchase' as const,
     createdAt: '01/03/25 16:45:00'
   },
   {
@@ -75,6 +83,25 @@ export const mockNonRoomProductsData: NonRoomProduct[] = [
     needsAppointment: true,
     applyUseSettings: '需提前24小时预约',
     status: 'active' as const,
+    pointsReward: 80, // 购买奖励80积分
+    rewardType: 'purchase' as const,
     createdAt: '01/01/25 10:00:00'
+  },
+  // 新增案例：免费赠品
+  {
+    id: '6',
+    sequenceNumber: 6,
+    productCategory: '客房用品',
+    productName: '一次性拖鞋',
+    productDescription: '高品质一次性拖鞋，柔软舒适，入住时赠送',
+    price: 0, // 免费赠送
+    pricingType: 'fixed' as const,
+    inventory: 200,
+    needsAppointment: false,
+    applyUseSettings: '入住时免费赠送',
+    status: 'active' as const,
+    pointsReward: 20, // 领取赠品奖励20积分
+    rewardType: 'gift' as const,
+    createdAt: '01/12/25 08:00:00'
   }
 ]

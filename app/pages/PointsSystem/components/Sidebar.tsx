@@ -148,18 +148,53 @@ export const menuConfig: MenuItem[] = [
   {
     title: '平台后台',
     children: [
+      // 基石功能：业务核心（按重要性排序）
+      {
+        title: '酒店入驻',
+        children: [
+          { title: '加盟申请', path: '/hotel/join-application' },
+          { title: '合作酒店', path: '/hotel/partner-list' },
+          { title: '协议模板', path: '/hotel/contract-template' },
+          { title: '签约记录', path: '/hotel/signing-record' }
+        ]
+      },
+      {
+        title: '酒店管理',
+        children: [
+          { title: '经营数据', path: '/platform-admin/hotel-monitor' },
+          { title: '房价管理', path: '/platform-admin/hotel-monitor?tab=price' },
+          { title: '库存管理', path: '/platform-admin/hotel-monitor?tab=inventory' },
+          { title: '评价管理', path: '/platform-admin/hotel-monitor?tab=reviews' }
+        ]
+      },
+      {
+        title: '订单管理',
+        children: [
+          { title: '订单列表', path: '/order/list' },
+          { title: '退款管理', path: '/order/refund' }
+        ]
+      },
+      {
+        title: '争议处理',
+        children: [
+          { title: '退款申请', path: '/dispute/refund-requests' },
+          { title: '仲裁案件', path: '/dispute/arbitration-cases' },
+          { title: '仲裁委员', path: '/dispute/arbitrators' }
+        ]
+      },
+      // 用户运营：锦上添花
+      {
+        title: '会员管理',
+        children: [
+          { title: '会员等级配置', path: '/member/level-config' },
+          { title: '会员列表', path: '/member-management/members' }
+        ]
+      },
       {
         title: '积分系统',
         children: [
           { title: '积分规则配置', path: '/points-system/rule-config' },
           { title: '用户积分管理', path: '/points-system/user-account' }
-        ]
-      },
-      {
-        title: '会员体系',
-        children: [
-          { title: '会员等级配置', path: '/member/level-config' },
-          { title: '会员权益管理', path: '/member/benefits' }
         ]
       },
       {
@@ -170,61 +205,14 @@ export const menuConfig: MenuItem[] = [
           { title: '核销记录', path: '/coupon/verify' }
         ]
       },
+      // 系统配置
       {
-        title: '酒店管理',
+        title: '系统管理',
         children: [
-          { title: '加盟申请', path: '/hotel/join-application' },
-          { title: '合作酒店', path: '/hotel/partner-list' },
-          { title: '协议模板管理', path: '/hotel/contract-template' },
-          { title: '签约记录', path: '/hotel/signing-record' }
-        ]
-      },
-      {
-        title: '订单管理',
-        children: [
-          { title: '订单列表', path: '/order/list' },
-          { title: '订单详情', path: '/order/detail' },
-          { title: '退款管理', path: '/order/refund' }
-        ]
-      },
-      {
-        title: '账号管理',
-        children: [
-          { title: '账号列表', path: '/account/list' }
-        ]
-      },
-      {
-        title: '营销管理',
-        children: [
-          { title: '广告管理', path: '/marketing/ads' }
-        ]
-      },
-      {
-        title: '争议处理',
-        children: [
-          { title: '退款申请管理', path: '/dispute/refund-requests' },
-          { title: '仲裁案件管理', path: '/dispute/arbitration-cases' },
-          { title: '仲裁委员管理', path: '/dispute/arbitrators' }
-        ]
-      },
-      {
-        title: '系统参数',
-        children: [
+          { title: '账号列表', path: '/account/list' },
+          { title: '用户列表', path: '/user/list' },
           { title: '协议配置', path: '/system/agreements' },
           { title: '标签配置', path: '/system/tags' }
-        ]
-      },
-      {
-        title: '用户管理',
-        children: [
-          { title: '用户列表', path: '/user/list' }
-        ]
-      },
-      {
-        title: '会员管理',
-        children: [
-          { title: '会员等级', path: '/member-management/levels' },
-          { title: '会员管理', path: '/member-management/members' }
         ]
       }
     ]
@@ -232,20 +220,42 @@ export const menuConfig: MenuItem[] = [
   {
     title: '酒店后台',
     children: [
+      // 经营数据：最重要（新增）
       {
-        title: '账号管理',
-        path: '/hotel-backend/staff'
+        title: '经营管理',
+        children: [
+          { title: '经营概览', path: '/hotel-backend/business/overview' },
+          { title: '经营统计', path: '/hotel-backend/business/statistics' },
+          { title: '财务对账', path: '/hotel-backend/business/financial-statements' },
+          { title: '结算管理', path: '/hotel-backend/business/settlements' }
+        ]
+      },
+      // 日常运营：订单和收益
+      {
+        title: '订单管理',
+        children: [
+          { title: '订单列表', path: '/hotel-backend/order-list' },
+          { title: '订单日历', path: '/hotel-backend/order-calendar' },
+          { title: '客诉退款', path: '/hotel-backend/refund-management' },
+          { title: '用户评价', path: '/hotel-backend/user-reviews' }
+        ]
       },
       {
-        title: '门店管理',
+        title: '收益管理',
+        children: [
+          { title: '房价日历', path: '/hotel-backend/room-price-calendar' },
+          { title: '库存日历', path: '/hotel-backend/inventory-calendar' }
+        ]
+      },
+      // 产品配置：初始化
+      {
+        title: '门店配置',
         children: [
           { title: '基本信息', path: '/hotel-backend/store/basic-info' },
-          { title: '酒店政策', path: '/hotel-backend/store/policy' },
           { title: '门店设施', path: '/hotel-backend/store/facilities' },
+          { title: '门店图片', path: '/hotel-backend/store/images' },
           { title: '周边信息', path: '/hotel-backend/store/surrounding' },
-          { title: '早餐政策', path: '/hotel-backend/store/breakfast' },
-          { title: '加床政策', path: '/hotel-backend/store/extra-bed' },
-          { title: '门店图片', path: '/hotel-backend/store/images' }
+          { title: '酒店政策', path: '/hotel-backend/store/policy' }
         ]
       },
       {
@@ -253,28 +263,19 @@ export const menuConfig: MenuItem[] = [
         children: [
           { title: '房型列表', path: '/hotel-backend/room-type-list' },
           { title: '房型图片', path: '/hotel-backend/room-type-images' },
-          { title: '非房产品', path: '/hotel-backend/non-room-products' },
-          { title: 'PMS对接', path: '/hotel-backend/pms-integration' }
+          { title: '早餐政策', path: '/hotel-backend/store/breakfast' },
+          { title: '加床政策', path: '/hotel-backend/store/extra-bed' },
+          { title: '非房产品', path: '/hotel-backend/non-room-products' }
         ]
       },
+      // 系统配置
       {
-        title: '房务管理',
+        title: '系统设置',
         children: [
-          { title: '房价日历', path: '/hotel-backend/room-price-calendar' },
-          { title: '库存日历', path: '/hotel-backend/inventory-calendar' },
-          { title: '订单日历', path: '/hotel-backend/order-calendar' },
-          { title: '订单列表', path: '/hotel-backend/order-list' },
-          { title: '客诉退款', path: '/hotel-backend/refund-management' },
-          { title: '用户点赞', path: '/hotel-backend/user-reviews' }
+          { title: 'PMS对接', path: '/hotel-backend/pms-integration' },
+          { title: '房间管理', path: '/hotel-backend/rooms' },
+          { title: '员工账号', path: '/hotel-backend/staff' }
         ]
-      },
-      {
-        title: '房屋管理',
-        path: '/hotel-backend/rooms'
-      },
-      {
-        title: '会员管理',
-        path: '/hotel-backend/members'
       }
     ]
   }
