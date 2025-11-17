@@ -99,7 +99,7 @@ export default function OrderListPage({ result, error }: OrderListPageProps) {
                     <SelectValue placeholder="已支付" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">全部</SelectItem>
+                    <SelectItem value="all">全部</SelectItem>
                     <SelectItem value="paid">已支付</SelectItem>
                     <SelectItem value="unpaid">未支付</SelectItem>
                     <SelectItem value="refunded">已退款</SelectItem>
@@ -115,7 +115,7 @@ export default function OrderListPage({ result, error }: OrderListPageProps) {
                     <SelectValue placeholder="请选择入住状态" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">全部</SelectItem>
+                    <SelectItem value="all">全部</SelectItem>
                     <SelectItem value="not-checked-in">待入住</SelectItem>
                     <SelectItem value="checked-in">已入住</SelectItem>
                     <SelectItem value="checked-out">已离店</SelectItem>
@@ -131,7 +131,7 @@ export default function OrderListPage({ result, error }: OrderListPageProps) {
                     <SelectValue placeholder="请选择退款状态" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">全部</SelectItem>
+                    <SelectItem value="all">全部</SelectItem>
                     <SelectItem value="no-refund">无退款</SelectItem>
                     <SelectItem value="refund-pending">退款中</SelectItem>
                     <SelectItem value="refunded">已退款</SelectItem>

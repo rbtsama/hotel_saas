@@ -21,7 +21,7 @@ interface NonRoomProductsPageProps {
 
 export default function NonRoomProductsPage({ products, error }: NonRoomProductsPageProps) {
   const [searchValue, setSearchValue] = useState('')
-  const [categoryFilter, setCategoryFilter] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState('all')
   const [dialogOpen, setDialogOpen] = useState(false)
   const fetcher = useFetcher()
 
@@ -213,7 +213,7 @@ export default function NonRoomProductsPage({ products, error }: NonRoomProducts
                       <SelectValue placeholder="产品分类" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">全部分类</SelectItem>
+                      <SelectItem value="all">全部分类</SelectItem>
                       <SelectItem value="酒店套餐">酒店套餐</SelectItem>
                       <SelectItem value="休闲娱乐">休闲娱乐</SelectItem>
                       <SelectItem value="餐饮服务">餐饮服务</SelectItem>

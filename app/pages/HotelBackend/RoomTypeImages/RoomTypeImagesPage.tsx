@@ -75,7 +75,7 @@ export default function RoomTypeImagesPage({ roomTypes, error }: RoomTypeImagesP
                       <SelectValue placeholder="房型" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">全部</SelectItem>
+                      <SelectItem value="all">全部</SelectItem>
                       <SelectItem value="1号院">1号院</SelectItem>
                       <SelectItem value="2号院">2号院</SelectItem>
                     </SelectContent>

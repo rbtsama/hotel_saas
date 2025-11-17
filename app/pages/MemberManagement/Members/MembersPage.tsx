@@ -169,7 +169,7 @@ export default function MembersPage({ result, error }: MembersPageProps) {
                     <SelectValue placeholder="请选择等级" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">全部</SelectItem>
+                    <SelectItem value="all">全部</SelectItem>
                     <SelectItem value="注册会员">注册会员</SelectItem>
                     <SelectItem value="VIP1">VIP1</SelectItem>
                     <SelectItem value="VIP2">VIP2</SelectItem>
@@ -186,7 +186,7 @@ export default function MembersPage({ result, error }: MembersPageProps) {
                     <SelectValue placeholder="请选择是否积分会员" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">全部</SelectItem>
+                    <SelectItem value="all">全部</SelectItem>
                     <SelectItem value="true">是</SelectItem>
                     <SelectItem value="false">否</SelectItem>
                   </SelectContent>
