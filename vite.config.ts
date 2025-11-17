@@ -55,6 +55,9 @@ export default defineConfig({
           route("/dispute/arbitration-cases", "routes/dispute/arbitration-cases.tsx")
           route("/dispute/arbitrators", "routes/dispute/arbitrators.tsx")
 
+          // Platform Admin - Hotel Monitoring
+          route("/platform-admin/hotel-monitor", "routes/platform-admin/hotel-monitor.tsx")
+
           // System Settings Routes
           route("/system/agreements", "routes/system/agreements.tsx")
           route("/system/tags", "routes/system/tags.tsx")
