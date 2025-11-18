@@ -30,9 +30,14 @@ export default defineConfig({
           route("/hotel/partner-list", "routes/hotel/partner-list.tsx")
           route("/hotel/contract-template", "routes/hotel/contract-template.tsx")
           route("/hotel/signing-record", "routes/hotel/signing-record.tsx")
+          route("/hotel/onboarding", "routes/hotel/onboarding.tsx")
 
           // Member System Routes
           route("/member/level-config", "routes/member/level-config.tsx")
+          route("/member/invitation-config", "routes/member/invitation-config.tsx")
+          route("/member/invitation-records", "routes/member/invitation-records.tsx")
+          route("/member/friend-card-config", "routes/member/friend-card-config.tsx")
+          route("/member/friend-card-records", "routes/member/friend-card-records.tsx")
           route("/member-management/levels", "routes/member-management/levels/_index.tsx")
           route("/member-management/members", "routes/member-management/members/_index.tsx")
           route("/member-management/members/:id", "routes/member-management/members.$id.tsx")
@@ -66,6 +71,10 @@ export default defineConfig({
           route("/user/list", "routes/user/list.tsx")
           route("/user/detail/:userId", "routes/user/detail.$userId.tsx")
 
+          // Wechat Miniprogram Routes
+          route("/wechat-miniprogram", "routes/wechat-miniprogram/_index.tsx")
+          route("/hotel-backend/dashboard", "routes/hotel-backend/dashboard.tsx")
+
           // Hotel Backend Routes
           route("/hotel-backend/staff", "routes/hotel-backend/staff.tsx")
           route("/hotel-backend/store/basic-info", "routes/hotel-backend/store.basic-info.tsx")
@@ -90,6 +99,8 @@ export default defineConfig({
           route("/hotel-backend/user-reviews/:id", "routes/hotel-backend/user-reviews.$id.tsx")
           route("/hotel-backend/rooms", "routes/hotel-backend/rooms.tsx")
           route("/hotel-backend/members", "routes/hotel-backend/members.tsx")
+          route("/hotel-backend/member-invitation", "routes/hotel-backend/member-invitation.tsx")
+          route("/hotel-backend/store/benefits", "routes/hotel-backend/store.benefits.tsx")
         })
       },
     }),

@@ -483,6 +483,124 @@ export default function StorePolicyPage({ policy }: StorePolicyPageProps) {
             </CardContent>
           </Card>
 
+          {/* 会员折扣配置 */}
+          <Card>
+            <CardHeader>
+              <CardTitle>会员折扣配置</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="bg-amber-50 border border-amber-200 rounded-md p-3 mb-4">
+                <p className="text-sm text-amber-800">
+                  <strong>平台规定：</strong>VIP2最低折扣不得低于80折，以保证平台会员权益的统一性和吸引力
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {/* VIP0折扣 */}
+                <div className="space-y-2">
+                  <Label htmlFor="vip0Discount">
+                    VIP0折扣 <span className="text-red-500">*</span>
+                  </Label>
+                  <div className="flex items-center gap-2">
+                    <Input
+                      id="vip0Discount"
+                      name="vip0Discount"
+                      type="number"
+                      defaultValue={policy.memberDiscounts.vip0Discount}
+                      min="80"
+                      max="100"
+                      step="1"
+                      required
+                      className="w-24"
+                    />
+                    <span className="text-sm text-slate-600">折（100 = 不打折）</span>
+                  </div>
+                  <p className="text-xs text-slate-500">建议设置：95-100折</p>
+                </div>
+
+                {/* VIP1折扣 */}
+                <div className="space-y-2">
+                  <Label htmlFor="vip1Discount">
+                    VIP1折扣 <span className="text-red-500">*</span>
+                  </Label>
+                  <div className="flex items-center gap-2">
+                    <Input
+                      id="vip1Discount"
+                      name="vip1Discount"
+                      type="number"
+                      defaultValue={policy.memberDiscounts.vip1Discount}
+                      min="80"
+                      max="100"
+                      step="1"
+                      required
+                      className="w-24"
+                    />
+                    <span className="text-sm text-slate-600">折</span>
+                  </div>
+                  <p className="text-xs text-slate-500">建议设置：90-95折</p>
+                </div>
+
+                {/* VIP2折扣 */}
+                <div className="space-y-2">
+                  <Label htmlFor="vip2Discount">
+                    VIP2折扣 <span className="text-red-500">*</span>
+                  </Label>
+                  <div className="flex items-center gap-2">
+                    <Input
+                      id="vip2Discount"
+                      name="vip2Discount"
+                      type="number"
+                      defaultValue={policy.memberDiscounts.vip2Discount}
+                      min="80"
+                      max="100"
+                      step="1"
+                      required
+                      className="w-24"
+                    />
+                    <span className="text-sm text-slate-600">折</span>
+                  </div>
+                  <p className="text-xs text-slate-500">
+                    <span className="text-amber-600 font-medium">平台最低：80折</span>，建议：85-90折
+                  </p>
+                </div>
+
+                {/* VIP3折扣 */}
+                <div className="space-y-2">
+                  <Label htmlFor="vip3Discount">
+                    VIP3折扣 <span className="text-red-500">*</span>
+                  </Label>
+                  <div className="flex items-center gap-2">
+                    <Input
+                      id="vip3Discount"
+                      name="vip3Discount"
+                      type="number"
+                      defaultValue={policy.memberDiscounts.vip3Discount}
+                      min="80"
+                      max="100"
+                      step="1"
+                      required
+                      className="w-24"
+                    />
+                    <span className="text-sm text-slate-600">折</span>
+                  </div>
+                  <p className="text-xs text-slate-500">建议设置：80-88折</p>
+                </div>
+              </div>
+
+              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+                <p className="text-sm text-blue-800">
+                  <strong>折扣设置提示：</strong>
+                  <br />
+                  • 100折 = 不打折（原价）
+                  <br />
+                  • 95折 = 原价的95%（如房费¥1000，会员支付¥950）
+                  <br />
+                  • 建议按等级递减设置，激励用户升级（如VIP0:95折 → VIP1:92折 → VIP2:88折 → VIP3:85折）
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* 政策补充 */}
           <Card>
             <CardHeader>
@@ -731,6 +849,68 @@ export default function StorePolicyPage({ policy }: StorePolicyPageProps) {
                         建议配置完善的第三方支付方式（微信、支付宝、云闪付），提升客人体验。
                       </p>
                     </LogicHighlight>
+                  </>
+                )
+              },
+              {
+                title: '会员折扣配置',
+                content: (
+                  <>
+                    <p className="font-semibold mb-2">会员折扣的作用：</p>
+                    <LogicList items={[
+                      '体现会员等级差异，激励用户升级（VIP3比VIP0折扣更低）',
+                      '提升会员复购率和忠诚度（会员享折扣，更倾向于复购）',
+                      '平台统一管控会员权益，保证各酒店折扣范围（如VIP2最低8折）'
+                    ]} />
+
+                    <p className="font-semibold mt-4 mb-2">折扣设置示例：</p>
+                    <LogicTable
+                      headers={['会员等级', '折扣设置', '用户感知', '运营目的']}
+                      rows={[
+                        ['VIP0（新会员）', '95-100折', '小优惠，体验会员权益', '吸引用户注册成为会员'],
+                        ['VIP1（银卡）', '90-95折', '中等优惠，感受升级价值', '激励消费升级到VIP1'],
+                        ['VIP2（金卡）', '85-90折（最低8折）', '明显优惠，高性价比', '核心会员群体，提升复购'],
+                        ['VIP3（黑钻）', '80-88折', '最高优惠，尊贵体验', '维护高价值客户']
+                      ]}
+                    />
+
+                    <LogicHighlight type="info">
+                      <p className="text-sm">
+                        <strong>行业对标</strong>：携程黑钻会员享8折起，美团黑卡会员享9折起。
+                        折扣是会员权益的核心，直接影响用户升级意愿和复购率。
+                      </p>
+                    </LogicHighlight>
+
+                    <p className="font-semibold mt-4 mb-2">折扣计算示例：</p>
+                    <div className="bg-slate-50 border rounded p-3 text-sm space-y-2">
+                      <div><strong>场景：房费¥1000/晚</strong></div>
+                      <div className="text-slate-600">
+                        • 普通用户：¥1000（原价）<br/>
+                        • VIP0会员（95折）：¥950（省¥50）<br/>
+                        • VIP1会员（92折）：¥920（省¥80）<br/>
+                        • VIP2会员（88折）：¥880（省¥120）<br/>
+                        • VIP3会员（85折）：¥850（省¥150）
+                      </div>
+                      <div className="text-blue-600 text-xs mt-2">
+                        → 等级越高，折扣越大，激励用户升级消费
+                      </div>
+                    </div>
+
+                    <LogicHighlight type="warning">
+                      <p className="text-sm">
+                        <strong>平台规定</strong>：VIP2最低折扣不得低于80折，以保证平台会员权益的统一性。
+                        如果酒店设置的VIP2折扣低于80折，提交时会被系统拒绝。
+                      </p>
+                    </LogicHighlight>
+
+                    <p className="font-semibold mt-4 mb-2">折扣设置最佳实践：</p>
+                    <LogicList items={[
+                      '按等级递减设置折扣，确保高等级会员享受更大优惠',
+                      '避免折扣间隔过小（如VIP0:95折、VIP1:94折），用户感知不明显',
+                      '建议每个等级间隔3-5折（如95→92→88→85），差异明显',
+                      '旺季可适当提高折扣（如VIP2从88折提升到90折），淡季放宽吸引客流',
+                      '定期review折扣设置，根据会员消费数据优化'
+                    ]} />
                   </>
                 )
               },

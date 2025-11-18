@@ -52,5 +52,23 @@ export const mockHotelPolicy: HotelPolicy = {
   // 政策补充
   policyNotes: '',
 
+  // 会员折扣配置
+  memberDiscounts: {
+    useCustomDiscount: false,  // 使用平台统一折扣
+    vip0Discount: 95,  // VIP0享95折
+    vip1Discount: 92,  // VIP1享92折
+    vip2Discount: 88,  // VIP2享88折
+    vip3Discount: 85,  // VIP3享85折
+  },
+
+  // 备选要求配置
+  specialRequests: [
+    { id: 'req-001', name: '洗漱用品', enabled: true, sortOrder: 1 },
+    { id: 'req-002', name: '房间禁烟', enabled: true, sortOrder: 2 },
+    { id: 'req-003', name: '无香水房', enabled: true, sortOrder: 3 },
+    { id: 'req-004', name: '靠近电梯', enabled: true, sortOrder: 4 },
+    { id: 'req-005', name: '安静房间', enabled: true, sortOrder: 5 },
+  ],
+
   updatedAt: '01/15/25 16:30:00',
 }

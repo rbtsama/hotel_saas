@@ -4,7 +4,7 @@
  */
 
 import type { JoinApplication, PartnerHotel } from '../../types/hotel.types'
-import { FollowUpStatus, HotelStatus } from '../../types/hotel.types'
+import { FollowUpStatus, HotelStatus, OnboardingStatus } from '../../types/hotel.types'
 
 // ==================== 加盟申请（10个） ====================
 
@@ -211,6 +211,8 @@ export const mockPartnerHotels: PartnerHotel[] = [
     commissionRate: 5.0,
     shengfutongId: '45632702',
     status: HotelStatus.ONLINE,
+    completionRate: 100,
+    onboardingStatus: OnboardingStatus.COMPLETED,
     createdAt: '12/15/24 10:00:00',
     createdBy: '张总',
     updatedAt: '01/10/25 14:20:00',
@@ -228,6 +230,8 @@ export const mockPartnerHotels: PartnerHotel[] = [
     commissionRate: 5.0,
     shengfutongId: '45632703',
     status: HotelStatus.ONLINE,
+    completionRate: 100,
+    onboardingStatus: OnboardingStatus.COMPLETED,
     createdAt: '11/20/24 09:30:00',
     createdBy: '张总'
   },
@@ -243,6 +247,8 @@ export const mockPartnerHotels: PartnerHotel[] = [
     commissionRate: 4.5,
     shengfutongId: '45632704',
     status: HotelStatus.ONLINE,
+    completionRate: 85,
+    onboardingStatus: OnboardingStatus.CONFIGURING,
     createdAt: '10/10/24 11:00:00',
     createdBy: '张总',
     updatedAt: '01/05/25 16:00:00',
@@ -260,6 +266,8 @@ export const mockPartnerHotels: PartnerHotel[] = [
     commissionRate: 6.0,
     shengfutongId: '45632705',
     status: HotelStatus.ONLINE,
+    completionRate: 65,
+    onboardingStatus: OnboardingStatus.CONFIGURING,
     createdAt: '09/15/24 14:00:00',
     createdBy: '李经理'
   },
@@ -275,6 +283,8 @@ export const mockPartnerHotels: PartnerHotel[] = [
     commissionRate: 3.5,
     shengfutongId: '45632706',
     status: HotelStatus.ONLINE,
+    completionRate: 100,
+    onboardingStatus: OnboardingStatus.COMPLETED,
     createdAt: '08/20/24 10:30:00',
     createdBy: '张总'
   },
@@ -290,6 +300,8 @@ export const mockPartnerHotels: PartnerHotel[] = [
     commissionRate: 5.0,
     shengfutongId: '45632707',
     status: HotelStatus.ONLINE,
+    completionRate: 30,
+    onboardingStatus: OnboardingStatus.CONFIGURING,
     createdAt: '07/10/24 09:00:00',
     createdBy: '李经理'
   },
@@ -305,6 +317,8 @@ export const mockPartnerHotels: PartnerHotel[] = [
     commissionRate: 5.5,
     shengfutongId: '45632708',
     status: HotelStatus.OFFLINE,
+    completionRate: 0,
+    onboardingStatus: OnboardingStatus.NOT_STARTED,
     createdAt: '06/15/24 15:30:00',
     createdBy: '王主管',
     updatedAt: '12/20/24 10:00:00',
@@ -322,6 +336,8 @@ export const mockPartnerHotels: PartnerHotel[] = [
     commissionRate: 5.0,
     shengfutongId: '45632709',
     status: HotelStatus.ONLINE,
+    completionRate: 100,
+    onboardingStatus: OnboardingStatus.COMPLETED,
     createdAt: '05/01/24 10:00:00',
     createdBy: '李经理'
   }
@@ -361,4 +377,10 @@ export const followUpStatusLabels: Record<FollowUpStatus, string> = {
 export const hotelStatusLabels: Record<HotelStatus, string> = {
   [HotelStatus.ONLINE]: '上线',
   [HotelStatus.OFFLINE]: '下线'
+}
+
+export const onboardingStatusLabels: Record<OnboardingStatus, string> = {
+  [OnboardingStatus.NOT_STARTED]: '未开始',
+  [OnboardingStatus.CONFIGURING]: '配置中',
+  [OnboardingStatus.COMPLETED]: '已完成'
 }

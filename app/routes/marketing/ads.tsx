@@ -6,7 +6,7 @@ import { json, redirect, type LoaderFunctionArgs, type ActionFunctionArgs } from
 import { useLoaderData } from '@remix-run/react'
 import AdsManagementPage from '~/pages/MarketingManagement/AdsManagementPage'
 import AdsService from '~/pages/MarketingManagement/services/ads.service'
-import { WeekDay } from '~/pages/MarketingManagement/types/ads.types'
+import { WeekDay, BannerType } from '~/pages/MarketingManagement/types/ads.types'
 
 export async function loader({ request }: LoaderFunctionArgs) {
   try {
@@ -23,6 +23,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         positions: [],
         currentPosition: null,
         advertisements: [],
+        banners: [],
         error: '没有可用的广告位',
       })
     }
@@ -34,6 +35,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         positions,
         currentPosition: null,
         advertisements: [],
+        banners: [],
         error: '广告位不存在',
       })
     }
@@ -41,10 +43,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
     // 获取该广告位的所有广告
     const advertisements = await AdsService.getAdsByPosition(currentPositionId)
 
+    // 获取所有Banner
+    const banners = await AdsService.getAllBanners()
+
     return json({
       positions,
       currentPosition,
       advertisements,
+      banners,
       error: null,
     })
   } catch (error) {
@@ -53,6 +59,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       positions: [],
       currentPosition: null,
       advertisements: [],
+      banners: [],
       error: '加载失败',
     }, { status: 500 })
   }
@@ -163,6 +170,46 @@ export async function action({ request }: ActionFunctionArgs) {
         return redirect(`/marketing/ads?position=${positionId}`)
       }
 
+      // 创建Banner
+      case 'createBanner': {
+        const data = {
+          type: formData.get('type') as BannerType,
+          displayText: formData.get('displayText') as string,
+          discountRate: Number(formData.get('discountRate')),
+          buttonText: formData.get('buttonText') as string,
+          validDateStart: formData.get('validDateStart') as string,
+          validDateEnd: formData.get('validDateEnd') as string,
+          enabled: formData.get('enabled') === 'true',
+        }
+
+        await AdsService.createBanner(data)
+        return redirect('/marketing/ads')
+      }
+
+      // 更新Banner
+      case 'updateBanner': {
+        const bannerId = formData.get('bannerId') as string
+        const data = {
+          type: formData.get('type') as BannerType,
+          displayText: formData.get('displayText') as string,
+          discountRate: Number(formData.get('discountRate')),
+          buttonText: formData.get('buttonText') as string,
+          validDateStart: formData.get('validDateStart') as string,
+          validDateEnd: formData.get('validDateEnd') as string,
+          enabled: formData.get('enabled') === 'true',
+        }
+
+        await AdsService.updateBanner(bannerId, data)
+        return redirect('/marketing/ads')
+      }
+
+      // 删除Banner
+      case 'deleteBanner': {
+        const bannerId = formData.get('bannerId') as string
+        await AdsService.deleteBanner(bannerId)
+        return redirect('/marketing/ads')
+      }
+
       default:
         return json({ success: false, error: '未知操作' }, { status: 400 })
     }
@@ -191,6 +238,7 @@ export default function AdsRoute() {
       positions={data.positions as any}
       currentPosition={data.currentPosition as any}
       advertisements={data.advertisements as any}
+      banners={data.banners as any}
     />
   )
 }

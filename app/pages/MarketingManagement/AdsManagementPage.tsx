@@ -3,7 +3,7 @@
  */
 
 import { useState } from 'react'
-import type { AdPosition, Advertisement } from './types/ads.types'
+import type { AdPosition, Advertisement, HomeBanner } from './types/ads.types'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Button } from '~/components/ui/button'
 import { Select } from '~/components/ui/select'
@@ -11,17 +11,20 @@ import MainLayout from '../PointsSystem/components/MainLayout'
 import AdPositionSettings from './components/AdPositionSettings'
 import AdList from './components/AdList'
 import AdFormDialog from './components/AdFormDialog'
+import HomeBannerSection from './components/HomeBannerSection'
 
 interface AdsManagementPageProps {
   positions: AdPosition[]
   currentPosition: AdPosition | null
   advertisements: Advertisement[]
+  banners: HomeBanner[]
 }
 
 export default function AdsManagementPage({
   positions,
   currentPosition,
   advertisements,
+  banners,
 }: AdsManagementPageProps) {
   const [selectedPositionId, setSelectedPositionId] = useState<string>(
     currentPosition?.id || (positions[0]?.id ?? '')
@@ -115,6 +118,9 @@ export default function AdsManagementPage({
             </CardContent>
           </Card>
         )}
+
+        {/* 首页Banner管理 */}
+        <HomeBannerSection banners={banners} />
 
         {/* 广告表单弹窗 */}
         <AdFormDialog

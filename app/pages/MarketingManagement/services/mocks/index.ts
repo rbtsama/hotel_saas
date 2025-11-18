@@ -1,1 +1,1 @@
-export { mockAdPositions, mockAdvertisements } from './ads.mock'
+export { mockAdPositions, mockAdvertisements, mockHomeBanners } from './ads.mock'

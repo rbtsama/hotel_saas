@@ -7,13 +7,17 @@ import type {
   Advertisement,
   AdFormData,
   AdPositionUpdateData,
+  HomeBanner,
+  BannerFormData,
 } from '../types/ads.types'
-import { mockAdPositions, mockAdvertisements } from './mocks'
+import { mockAdPositions, mockAdvertisements, mockHomeBanners } from './mocks'
 
 class AdsService {
   private adPositions: AdPosition[] = [...mockAdPositions]
   private advertisements: Advertisement[] = [...mockAdvertisements]
+  private banners: HomeBanner[] = [...mockHomeBanners]
   private nextAdId = 7 // 下一个广告ID序号
+  private nextBannerId = 4 // 下一个Banner ID序号
 
   // ========== 广告位相关 ==========
 
@@ -190,6 +194,118 @@ class AdsService {
       const ad = this.advertisements.find((a) => a.id === adId)
       if (ad && ad.positionId === positionId) {
         ad.order = index + 1
+      }
+    })
+  }
+
+  // ========== 首页Banner相关 ==========
+
+  /**
+   * 获取所有Banner
+   */
+  async getAllBanners(): Promise<HomeBanner[]> {
+    await new Promise((resolve) => setTimeout(resolve, 300))
+    return [...this.banners].sort((a, b) => a.order - b.order)
+  }
+
+  /**
+   * 根据ID获取Banner
+   */
+  async getBannerById(id: string): Promise<HomeBanner | null> {
+    await new Promise((resolve) => setTimeout(resolve, 200))
+    return this.banners.find((b) => b.id === id) || null
+  }
+
+  /**
+   * 创建Banner
+   */
+  async createBanner(data: BannerFormData): Promise<HomeBanner> {
+    await new Promise((resolve) => setTimeout(resolve, 300))
+
+    const now = new Date().toLocaleString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    }).replace(/(\d+)\/(\d+)\/(\d+),/, '$1/$2/$3')
+
+    const newBanner: HomeBanner = {
+      id: `banner-${String(this.nextBannerId).padStart(3, '0')}`,
+      ...data,
+      order: this.banners.length + 1,
+      createdAt: now,
+      updatedAt: now,
+    }
+
+    this.nextBannerId++
+    this.banners.push(newBanner)
+
+    return newBanner
+  }
+
+  /**
+   * 更新Banner
+   */
+  async updateBanner(id: string, data: BannerFormData): Promise<HomeBanner> {
+    await new Promise((resolve) => setTimeout(resolve, 300))
+
+    const index = this.banners.findIndex((b) => b.id === id)
+    if (index === -1) {
+      throw new Error('Banner不存在')
+    }
+
+    const now = new Date().toLocaleString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    }).replace(/(\d+)\/(\d+)\/(\d+),/, '$1/$2/$3')
+
+    this.banners[index] = {
+      ...this.banners[index],
+      ...data,
+      updatedAt: now,
+    }
+
+    return this.banners[index]
+  }
+
+  /**
+   * 删除Banner
+   */
+  async deleteBanner(id: string): Promise<void> {
+    await new Promise((resolve) => setTimeout(resolve, 300))
+
+    const index = this.banners.findIndex((b) => b.id === id)
+    if (index === -1) {
+      throw new Error('Banner不存在')
+    }
+
+    this.banners.splice(index, 1)
+
+    // 重新排序
+    this.banners.sort((a, b) => a.order - b.order)
+    this.banners.forEach((banner, idx) => {
+      banner.order = idx + 1
+    })
+  }
+
+  /**
+   * 更新Banner排序
+   */
+  async reorderBanners(bannerIds: string[]): Promise<void> {
+    await new Promise((resolve) => setTimeout(resolve, 300))
+
+    bannerIds.forEach((bannerId, index) => {
+      const banner = this.banners.find((b) => b.id === bannerId)
+      if (banner) {
+        banner.order = index + 1
       }
     })
   }

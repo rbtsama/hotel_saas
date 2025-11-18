@@ -141,6 +141,15 @@ export enum DepositPolicyType {
   PER_DAY = 'per_day',                           // 按预订天数
 }
 
+// 会员折扣配置
+export interface MemberDiscountConfig {
+  useCustomDiscount: boolean  // 是否使用自定义折扣
+  vip0Discount: number  // VIP0折扣 (0-100, 100表示不打折)
+  vip1Discount: number  // VIP1折扣
+  vip2Discount: number  // VIP2折扣
+  vip3Discount: number  // VIP3折扣
+}
+
 // 酒店政策配置
 export interface HotelPolicy {
   id: string
@@ -185,7 +194,21 @@ export interface HotelPolicy {
   // 政策补充
   policyNotes?: string
 
+  // 会员折扣配置
+  memberDiscounts: MemberDiscountConfig
+
+  // 备选要求配置
+  specialRequests?: SpecialRequest[]
+
   updatedAt: string
+}
+
+// 特殊要求项
+export interface SpecialRequest {
+  id: string
+  name: string                 // 要求名称 (如: "洗漱用品", "无香水房")
+  enabled: boolean             // 是否启用
+  sortOrder: number            // 排序
 }
 
 // ============ 早餐政策配置 ============

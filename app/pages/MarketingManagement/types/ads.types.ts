@@ -55,3 +55,38 @@ export interface AdPositionUpdateData {
   enabled: boolean
   carouselInterval: number
 }
+
+// ============ 首页Banner管理 ============
+
+// Banner类型
+export enum BannerType {
+  NEW_USER_DISCOUNT = 'new_user_discount',     // 新人优惠
+  ACTIVITY_PROMOTION = 'activity_promotion',   // 活动推广
+  MEMBER_RECRUITMENT = 'member_recruitment',   // 会员招募
+}
+
+// 首页Banner配置
+export interface HomeBanner {
+  id: string
+  type: BannerType                              // Banner类型
+  displayText: string                           // 显示文案
+  discountRate: number                          // 折扣力度(0-100)
+  buttonText: string                            // 按钮文案
+  validDateStart: string                        // 有效期开始 YYYY-MM-DD
+  validDateEnd: string                          // 有效期结束 YYYY-MM-DD
+  enabled: boolean                              // 启用状态
+  order: number                                 // 排序
+  createdAt: string
+  updatedAt: string
+}
+
+// Banner表单数据
+export interface BannerFormData {
+  type: BannerType
+  displayText: string
+  discountRate: number
+  buttonText: string
+  validDateStart: string
+  validDateEnd: string
+  enabled: boolean
+}

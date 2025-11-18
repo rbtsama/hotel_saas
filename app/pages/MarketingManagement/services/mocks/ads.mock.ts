@@ -2,8 +2,8 @@
  * 广告管理Mock数据
  */
 
-import type { AdPosition, Advertisement } from '../../types/ads.types'
-import { WeekDay } from '../../types/ads.types'
+import type { AdPosition, Advertisement, HomeBanner } from '../../types/ads.types'
+import { WeekDay, BannerType } from '../../types/ads.types'
 
 // 预定义的广告位配置
 export const mockAdPositions: AdPosition[] = [
@@ -136,5 +136,49 @@ export const mockAdvertisements: Advertisement[] = [
     enabled: true,
     createdAt: '01/14/25 10:10:00',
     updatedAt: '01/14/25 10:10:00',
+  },
+]
+
+// ============ 首页Banner Mock数据 ============
+
+export const mockHomeBanners: HomeBanner[] = [
+  {
+    id: 'banner-001',
+    type: BannerType.NEW_USER_DISCOUNT,
+    displayText: '新人优惠，首次预订享85折',
+    discountRate: 85,
+    buttonText: '立即领取',
+    validDateStart: '2025-01-01',
+    validDateEnd: '2025-12-31',
+    enabled: true,
+    order: 1,
+    createdAt: '01/05/25 09:00:00',
+    updatedAt: '01/10/25 14:30:00',
+  },
+  {
+    id: 'banner-002',
+    type: BannerType.ACTIVITY_PROMOTION,
+    displayText: '春节特惠，全场酒店8折起',
+    discountRate: 80,
+    buttonText: '查看活动',
+    validDateStart: '2025-01-15',
+    validDateEnd: '2025-02-15',
+    enabled: true,
+    order: 2,
+    createdAt: '01/08/25 10:00:00',
+    updatedAt: '01/12/25 16:20:00',
+  },
+  {
+    id: 'banner-003',
+    type: BannerType.MEMBER_RECRUITMENT,
+    displayText: '成为会员，享专属折扣和礼赠',
+    discountRate: 88,
+    buttonText: '立即加入',
+    validDateStart: '2025-01-01',
+    validDateEnd: '2025-06-30',
+    enabled: true,
+    order: 3,
+    createdAt: '01/06/25 11:30:00',
+    updatedAt: '01/15/25 09:45:00',
   },
 ]

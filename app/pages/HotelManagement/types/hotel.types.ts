@@ -102,6 +102,18 @@ export enum HotelStatus {
 }
 
 /**
+ * 配置状态
+ */
+export enum OnboardingStatus {
+  /** 未开始 */
+  NOT_STARTED = 'not_started',
+  /** 配置中 */
+  CONFIGURING = 'configuring',
+  /** 已完成 */
+  COMPLETED = 'completed'
+}
+
+/**
  * 合作酒店
  */
 export interface PartnerHotel {
@@ -127,6 +139,10 @@ export interface PartnerHotel {
   shengfutongId: string
   /** 酒店状态 */
   status: HotelStatus
+  /** 配置进度（0-100） */
+  completionRate: number
+  /** 配置状态 */
+  onboardingStatus: OnboardingStatus
   /** 创建时间 */
   createdAt: string
   /** 创建人 */
@@ -167,6 +183,8 @@ export interface PartnerHotelQuery {
   keyword?: string
   /** 酒店状态 */
   status?: HotelStatus
+  /** 配置状态 */
+  onboardingStatus?: OnboardingStatus
 }
 
 // ==================== 操作请求 ====================

@@ -14,7 +14,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~
 import MainLayout from '../PointsSystem/components/MainLayout'
 import LogicPanel, { LogicTable, LogicList, LogicHighlight, LogicCode } from '../PointsSystem/components/LogicPanel'
 import OperationLogButton from '../PointsSystem/components/OperationLogButton'
-import { mockProvinces, mockCities, hotelStatusLabels } from './services/mocks/hotel.mock'
+import { mockProvinces, mockCities, hotelStatusLabels, onboardingStatusLabels } from './services/mocks/hotel.mock'
+import { OnboardingStatus } from './types/hotel.types'
 
 interface PartnerHotelPageProps {
   hotels: PartnerHotel[]
@@ -26,6 +27,7 @@ export default function PartnerHotelPage({ hotels }: PartnerHotelPageProps) {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [dateStart, setDateStart] = useState('')
   const [dateEnd, setDateEnd] = useState('')
+  const [filterOnboardingStatus, setFilterOnboardingStatus] = useState('')
   const [showEditDialog, setShowEditDialog] = useState(false)
   const [currentHotel, setCurrentHotel] = useState<PartnerHotel | null>(null)
 
@@ -39,6 +41,7 @@ export default function PartnerHotelPage({ hotels }: PartnerHotelPageProps) {
     if (filterProvince !== '全部' && hotel.province !== filterProvince) return false
     if (filterCity && hotel.city !== filterCity) return false
     if (searchKeyword && !hotel.hotelName.includes(searchKeyword)) return false
+    if (filterOnboardingStatus && hotel.onboardingStatus !== filterOnboardingStatus) return false
     return true
   })
 
@@ -85,7 +88,7 @@ export default function PartnerHotelPage({ hotels }: PartnerHotelPageProps) {
                 </div>
 
                 {/* 第二行：省市区筛选 */}
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-4 gap-4">
                   <div>
                     <Label>省份</Label>
                     <select
@@ -113,6 +116,19 @@ export default function PartnerHotelPage({ hotels }: PartnerHotelPageProps) {
                       {availableCities.map(c => (
                         <option key={c} value={c}>{c}</option>
                       ))}
+                    </select>
+                  </div>
+                  <div>
+                    <Label>配置状态</Label>
+                    <select
+                      value={filterOnboardingStatus}
+                      onChange={(e) => setFilterOnboardingStatus(e.target.value)}
+                      className="w-full px-3 py-2 border rounded-md text-sm"
+                    >
+                      <option value="">全部</option>
+                      <option value={OnboardingStatus.NOT_STARTED}>未开始</option>
+                      <option value={OnboardingStatus.CONFIGURING}>配置中</option>
+                      <option value={OnboardingStatus.COMPLETED}>已完成</option>
                     </select>
                   </div>
                   <div>
