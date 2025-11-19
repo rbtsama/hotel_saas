@@ -216,82 +216,10 @@ export default function OrderDetailPage({ order, error }: OrderDetailPageProps) 
             </div>
           </div>
         </div>
-        </div>
-                  </>
-                )
-              },
-              {
-                title: '费用计算逻辑',
-                content: (
-                  <>
-                    <p className="font-semibold mb-2">费用明细计算方式：</p>
-                    <div className="bg-slate-50 border rounded-lg p-4 space-y-2 text-sm">
-                      <div>
-                        <strong>1. 房费计算</strong>
-                        <div className="text-muted-foreground mt-1">
-                          房费 = 间夜数 × 每晚价格
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-1">
-                          示例：3晚 × ¥358/晚 = ¥1,074
-                        </div>
-                      </div>
-                      <div className="border-t pt-2">
-                        <strong>2. 优惠计算</strong>
-                        <div className="text-muted-foreground mt-1">
-                          优惠 = 优惠券抵扣 + 积分抵扣 + 会员折扣
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-1">
-                          示例：优惠券¥50 + 积分¥20 + 会员折扣¥30 = ¥100
-                        </div>
-                      </div>
-                      <div className="border-t pt-2">
-                        <strong>3. 实付金额</strong>
-                        <div className="text-muted-foreground mt-1">
-                          实付金额 = 房费 - 优惠
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-1">
-                          示例：¥1,074 - ¥100 = ¥974
-                        </div>
-                      </div>
-                    </div>
-                )
-              },
-              {
-                title: '修改订单规则',
-                content: (
-                  <>
-                    <p className="font-semibold mb-2">允许修改的场景：</p>
-                )
-              },
-              {
-                title: '取消订单规则',
-                content: (
-                  <>
-                    <p className="font-semibold mb-2">退款政策（可在"酒店政策"中配置）：</p>
-                    <p className="font-semibold mt-4 mb-2">取消流程：</p>
-                  </>
-                )
-              },
-              {
-                title: '打印功能说明',
-                content: (
-                  <>
-                    <p className="font-semibold mb-2">打印凭证包含信息：</p>
-                )
-              },
-              {
-                title: '数据关联',
-                content: (
-                  <>
-                    <p className="font-semibold mb-2">订单详情页关联的其他数据：</p>
-                    <p className="text-sm text-muted-foreground mt-4">
-                      通过数据关联，订单详情页可以成为信息枢纽，快速跳转到相关模块查看更多信息。
-                    </p>
-                  </>
-                )
-              }
-            ]}
-          />
+
+        {/* 右侧：LogicPanel (40%) */}
+        <div className="w-[40%] h-full border-l">
+          {/* LogicPanel placeholder */}
         </div>
       </div>
     </MainLayout>

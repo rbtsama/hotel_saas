@@ -12,6 +12,75 @@ import { Label } from '~/components/ui/label'
 import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import MainLayout from '../PointsSystem/components/MainLayout'
+
+interface MemberLevelPageProps {
+  levels: MemberLevel[]
+  error?: string | null
+}
+
+const OperationLogButton = ({ moduleName }: { moduleName: string }) => (
+  <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-600">
+    📋 {moduleName}操作记录
+  </Button>
+)
+
+const BusinessLogicPanel = ({ sections }: { sections: Array<{ title: string; content: React.ReactNode }> }) => (
+  <div className="p-6 space-y-6 overflow-y-auto">
+    <div>
+      <h2 className="text-xl font-bold text-slate-900">业务逻辑说明</h2>
+      <p className="text-sm text-slate-500 mt-1">
+        后台配置如何影响前端用户体验
+      </p>
+    </div>
+    {sections.map((section, index) => (
+      <div key={index}>
+        <h3 className="font-semibold mb-3">{section.title}</h3>
+        {section.content}
+      </div>
+    ))}
+  </div>
+)
+
+export default function MemberLevelPage({ levels, error }: MemberLevelPageProps) {
+  const [showEditDialog, setShowEditDialog] = useState(false)
+  const [currentLevel, setCurrentLevel] = useState<MemberLevel | null>(null)
+  const [editingOriginalPrice, setEditingOriginalPrice] = useState(0)
+  const [editingPromotionPrice, setEditingPromotionPrice] = useState(0)
+
+  const openEdit = (level: MemberLevel) => {
+    setCurrentLevel(level)
+    setEditingOriginalPrice(level.originalPrice || 0)
+    setEditingPromotionPrice(level.promotionPrice || 0)
+    setShowEditDialog(true)
+  }
+
+  const calculateDiscount = (promotionPrice: number, originalPrice: number) => {
+    if (!originalPrice || originalPrice === 0) return '0.0折'
+    return `${((promotionPrice / originalPrice) * 10).toFixed(1)}折`
+  }
+
+  if (error) {
+    return (
+      <MainLayout>
+        <div className="p-6">
+          <div className="text-destructive">错误: {error}</div>
+        </div>
+      </MainLayout>
+    )
+  }
+
+  return (
+    <MainLayout>
+      <div className="flex h-screen">
+        <div className="w-[60%] overflow-y-auto">
+          <div className="p-6 space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-slate-900">会员等级配置</h1>
+                <p className="text-sm text-slate-500 mt-1">
+                  配置10个会员等级，参考万豪Bonvoy、华住会
+                </p>
+              </div>
               <OperationLogButton moduleName="会员等级配置" />
             </div>
 
@@ -222,6 +291,16 @@ import MainLayout from '../PointsSystem/components/MainLayout'
 
         {/* 右侧：业务逻辑说明 (40%) */}
         <div className="w-[40%] h-full border-l">
+          <BusinessLogicPanel
+            sections={[
+              {
+                title: '📱 用户端体验',
+                content: (
+                  <>
+                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
+                      <p className="font-semibold text-sm mb-2">📱 页面1：我的会员等级</p>
+                      <div className="text-xs space-y-1 text-slate-700">
+                        <div>
                           <div className="font-bold">金卡会员</div>
                           <div className="text-xs mt-1">1.2× 积分加成</div>
                         </div>
@@ -261,6 +340,8 @@ import MainLayout from '../PointsSystem/components/MainLayout'
                       </div>
                     </div>
 
+                    <div className="mt-4">
+                      <p className="text-sm text-slate-700 leading-relaxed">
                         • 后台设置"金卡升级10晚" → 前端显示进度条"8/10晚"
                         <br />
                         • 后台设置"积分倍率1.2×" → 前端提示"本次订单将获得120积分（1.2倍加成）"
@@ -269,6 +350,8 @@ import MainLayout from '../PointsSystem/components/MainLayout'
                         <br />
                         • 后台设置"体验卡5张/15天" → 前端显示"赠送5张15天体验卡"
                       </p>
+                    </div>
+                  </>
                 )
               }
             ]}

@@ -12,6 +12,73 @@ import { Label } from '~/components/ui/label'
 import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import MainLayout from '../PointsSystem/components/MainLayout'
+
+interface CouponConfigPageProps {
+  coupons: CouponConfig[]
+  error?: string | null
+}
+
+const couponTypeLabels: Record<CouponType, string> = {
+  [CouponType.FULL_REDUCTION]: '满减券',
+  [CouponType.DISCOUNT]: '折扣券',
+  [CouponType.DIRECT_REDUCTION]: '立减券'
+}
+
+const couponStatusLabels: Record<CouponStatus, string> = {
+  [CouponStatus.ACTIVE]: '生效中',
+  [CouponStatus.INACTIVE]: '已停用'
+}
+
+const OperationLogButton = ({ moduleName }: { moduleName: string }) => (
+  <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-600">
+    📋 {moduleName}操作记录
+  </Button>
+)
+
+const BusinessLogicPanel = ({ sections }: { sections: Array<{ title: string; content: React.ReactNode }> }) => (
+  <div className="p-6 space-y-6 overflow-y-auto">
+    <div>
+      <h2 className="text-xl font-bold text-slate-900">业务逻辑说明</h2>
+      <p className="text-sm text-slate-500 mt-1">
+        后台配置如何影响前端用户体验
+      </p>
+    </div>
+    {sections.map((section, index) => (
+      <div key={index}>
+        <h3 className="font-semibold mb-3">{section.title}</h3>
+        {section.content}
+      </div>
+    ))}
+  </div>
+)
+
+export default function CouponConfigPage({ coupons, error }: CouponConfigPageProps) {
+  const [showCreateDialog, setShowCreateDialog] = useState(false)
+  const [selectedType, setSelectedType] = useState<CouponType>(CouponType.FULL_REDUCTION)
+
+  if (error) {
+    return (
+      <MainLayout>
+        <div className="p-6">
+          <div className="text-destructive">错误: {error}</div>
+        </div>
+      </MainLayout>
+    )
+  }
+
+  return (
+    <MainLayout>
+      <div className="flex h-screen">
+        {/* 左侧：功能区 (60%) */}
+        <div className="w-[60%] overflow-y-auto">
+          <div className="p-6 space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-slate-900">优惠券配置</h1>
+                <p className="text-sm text-slate-500 mt-1">
+                  配置优惠券规则、使用条件
+                </p>
+              </div>
               <OperationLogButton moduleName="优惠券配置" />
             </div>
 
@@ -193,6 +260,19 @@ import MainLayout from '../PointsSystem/components/MainLayout'
 
         {/* 右侧：业务逻辑说明 (40%) */}
         <div className="w-[40%] h-full border-l">
+          <BusinessLogicPanel
+            sections={[
+              {
+                title: '📱 用户端体验',
+                content: (
+                  <>
+                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
+                      <p className="font-semibold text-sm mb-2">📱 页面1：领券中心</p>
+                      <div className="text-xs space-y-2">
+                        <div className="border p-3 rounded bg-white">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <div className="font-bold text-red-600 text-lg">满200减30</div>
                               <div className="text-slate-500 text-xs">新人专享券</div>
                             </div>
                             <button className="bg-red-500 text-white px-3 py-1 rounded text-xs">立即领取</button>
@@ -238,15 +318,21 @@ import MainLayout from '../PointsSystem/components/MainLayout'
                         <div className="text-slate-500">→ 后台配置的"叠加规则"决定哪些优惠可以一起用</div>
                       </div>
                     </div>
-
-                        • 后台设置"满200减30" → 前端校验"房费需≥¥200"
-                        <br />
-                        • 后台设置"有效期30天" → 前端显示"2025.02.14过期"
-                        <br />
-                        • 后台设置"可叠加积分" → 前端允许同时使用积分
-                        <br />
-                        • 后台设置"限定上海/北京" → 前端提示"仅限上海、北京使用"
-                      </p>
+                  </>
+                )
+              },
+              {
+                title: '🔗 配置关联',
+                content: (
+                  <p className="text-sm text-slate-700 leading-relaxed">
+                    • 后台设置"满200减30" → 前端校验"房费需≥¥200"
+                    <br />
+                    • 后台设置"有效期30天" → 前端显示"2025.02.14过期"
+                    <br />
+                    • 后台设置"可叠加积分" → 前端允许同时使用积分
+                    <br />
+                    • 后台设置"限定上海/北京" → 前端提示"仅限上海、北京使用"
+                  </p>
                 )
               }
             ]}

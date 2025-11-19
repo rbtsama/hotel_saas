@@ -8,6 +8,64 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '~/com
 import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import MainLayout from '../PointsSystem/components/MainLayout'
+
+interface RefundManagementPageProps {
+  refunds: RefundRequest[]
+  error?: string | null
+}
+
+const refundStatusLabels: Record<RefundStatus, string> = {
+  [RefundStatus.PENDING]: '待处理',
+  [RefundStatus.APPROVED]: '已同意',
+  [RefundStatus.REJECTED]: '已拒绝'
+}
+
+const OperationLogButton = ({ moduleName }: { moduleName: string }) => (
+  <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-600">
+    📋 {moduleName}操作记录
+  </Button>
+)
+
+const BusinessLogicPanel = ({ sections }: { sections: Array<{ title: string; content: React.ReactNode }> }) => (
+  <div className="p-6 space-y-6 overflow-y-auto">
+    <div>
+      <h2 className="text-xl font-bold text-slate-900">业务逻辑说明</h2>
+      <p className="text-sm text-slate-500 mt-1">
+        后台配置如何影响前端用户体验
+      </p>
+    </div>
+    {sections.map((section, index) => (
+      <div key={index}>
+        <h3 className="font-semibold mb-3">{section.title}</h3>
+        {section.content}
+      </div>
+    ))}
+  </div>
+)
+
+export default function RefundManagementPage({ refunds, error }: RefundManagementPageProps) {
+  if (error) {
+    return (
+      <MainLayout>
+        <div className="p-6">
+          <div className="text-destructive">错误: {error}</div>
+        </div>
+      </MainLayout>
+    )
+  }
+
+  return (
+    <MainLayout>
+      <div className="flex h-screen">
+        <div className="w-[60%] overflow-y-auto">
+          <div className="p-6 space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-slate-900">退款管理</h1>
+                <p className="text-sm text-slate-500 mt-1">
+                  处理用户退款申请
+                </p>
+              </div>
               <OperationLogButton moduleName="退款管理" />
             </div>
 
@@ -69,6 +127,14 @@ import MainLayout from '../PointsSystem/components/MainLayout'
         </div>
 
         <div className="w-[40%] h-full border-l">
+          <BusinessLogicPanel
+            sections={[
+              {
+                title: '📱 用户端体验',
+                content: (
+                  <div className="bg-slate-50 border rounded-lg p-4">
+                    <p className="font-semibold text-sm mb-2">📱 申请退款</p>
+                    <div className="text-xs space-y-1 text-slate-700">
                       <div>实付：¥1299</div>
                       <div className="border-t pt-1 mt-1">
                         <div>预计退款：<span className="text-green-600 font-bold">¥1039.20</span></div>

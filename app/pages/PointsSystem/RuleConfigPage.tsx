@@ -11,6 +11,62 @@ import { Label } from '~/components/ui/label'
 import { Button } from '~/components/ui/button'
 import MainLayout from './components/MainLayout'
 
+interface RuleConfigPageProps {
+  config: PointsRuleConfig
+  error?: string | null
+}
+
+const BusinessLogicPanel = ({ sections }: { sections: Array<{ title: string; content: React.ReactNode }> }) => (
+  <div className="p-6 space-y-6 overflow-y-auto">
+    <div>
+      <h2 className="text-xl font-bold text-slate-900">业务逻辑说明</h2>
+      <p className="text-sm text-slate-500 mt-1">
+        后台配置如何影响前端用户体验
+      </p>
+    </div>
+    {sections.map((section, index) => (
+      <div key={index}>
+        <h3 className="font-semibold mb-3">{section.title}</h3>
+        {section.content}
+      </div>
+    ))}
+  </div>
+)
+
+export default function RuleConfigPage({ config: initialConfig, error }: RuleConfigPageProps) {
+  const [config, setConfig] = useState(initialConfig)
+  const [isSaving, setIsSaving] = useState(false)
+
+  const handleSave = () => {
+    setIsSaving(true)
+    setTimeout(() => {
+      alert('保存成功')
+      setIsSaving(false)
+    }, 1000)
+  }
+
+  if (error) {
+    return (
+      <MainLayout>
+        <div className="p-6">
+          <div className="text-destructive">错误: {error}</div>
+        </div>
+      </MainLayout>
+    )
+  }
+
+  return (
+    <MainLayout>
+      <div className="flex h-screen">
+        <div className="w-[60%] overflow-y-auto">
+          <div className="p-6 space-y-6">
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900">积分规则配置</h1>
+              <p className="text-sm text-slate-500 mt-1">
+                配置积分获取、消耗、有效期规则
+              </p>
+            </div>
+
           {/* 积分获取规则 */}
           <Card>
             <CardHeader>
@@ -319,10 +375,24 @@ import MainLayout from './components/MainLayout'
               {isSaving ? '保存中...' : '保存配置'}
             </Button>
           </div>
+          </div>
         </div>
-      </div>
-        </div>
-                  </div>
+
+        {/* 右侧：业务逻辑说明 (40%) */}
+        <div className="w-[40%] h-full border-l">
+          <BusinessLogicPanel
+            sections={[
+              {
+                title: '📱 用户端体验',
+                content: (
+                  <>
+                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
+                      <p className="font-semibold text-sm mb-2">📱 页面1：我的积分</p>
+                      <div className="text-xs space-y-1 text-slate-700">
+                        <div className="text-2xl font-bold text-green-600">1258 积分</div>
+                        <div className="text-slate-500">可抵扣¥12.58</div>
+                      </div>
+                    </div>
 
                   <div className="bg-slate-50 border rounded-lg p-4 mb-4">
                     <p className="font-semibold text-sm mb-2">📱 页面2：积分明细</p>
@@ -346,6 +416,8 @@ import MainLayout from './components/MainLayout'
                     </div>
                   </div>
 
+                  <div className="mt-4">
+                    <p className="text-sm text-slate-700 leading-relaxed">
                       • 后台设置"获取比例1:1" → 前端显示"消费¥100得100积分"
                       <br />
                       • 后台设置"抽佣5%" → 前端不显示（用户不关心）
@@ -354,11 +426,13 @@ import MainLayout from './components/MainLayout'
                       <br />
                       • 后台设置"抵扣上限30%" → 前端提示"最多可抵扣¥107"
                     </p>
-              )
-            }
-          ]}
-        />
-      </div>
+                  </div>
+                  </>
+                )
+              }
+            ]}
+          />
+        </div>
       </div>
     </MainLayout>
   )

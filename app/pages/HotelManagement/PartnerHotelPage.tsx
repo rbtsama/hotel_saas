@@ -5,14 +5,63 @@
 
 import { useState } from 'react'
 import type { PartnerHotel } from './types/hotel.types'
-import { HotelStatus } from './types/hotel.types'
+import { HotelStatus, OnboardingStatus } from './types/hotel.types'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import MainLayout from '../PointsSystem/components/MainLayout'
-              <OperationLogButton moduleName="合作酒店" />
+
+interface PartnerHotelPageProps {
+  hotels: PartnerHotel[]
+}
+
+export default function PartnerHotelPage({ hotels }: PartnerHotelPageProps) {
+  const [dateStart, setDateStart] = useState('')
+  const [dateEnd, setDateEnd] = useState('')
+  const [filterProvince, setFilterProvince] = useState('全部')
+  const [filterCity, setFilterCity] = useState('')
+  const [filterOnboardingStatus, setFilterOnboardingStatus] = useState('')
+  const [searchKeyword, setSearchKeyword] = useState('')
+  const [showEditDialog, setShowEditDialog] = useState(false)
+  const [currentHotel, setCurrentHotel] = useState<PartnerHotel | null>(null)
+
+  // 获取所有可用的省份和城市
+  const availableProvinces = ['全部', ...Array.from(new Set(hotels.map(h => h.province)))]
+  const availableCities = filterProvince === '全部'
+    ? []
+    : Array.from(new Set(hotels.filter(h => h.province === filterProvince).map(h => h.city)))
+
+  // 筛选逻辑
+  const filteredHotels = hotels.filter(hotel => {
+    if (searchKeyword && !hotel.hotelName.toLowerCase().includes(searchKeyword.toLowerCase())) {
+      return false
+    }
+    if (filterProvince !== '全部' && hotel.province !== filterProvince) {
+      return false
+    }
+    if (filterCity && hotel.city !== filterCity) {
+      return false
+    }
+    if (filterOnboardingStatus && hotel.onboardingStatus !== filterOnboardingStatus) {
+      return false
+    }
+    return true
+  })
+
+  const openEditDialog = (hotel: PartnerHotel) => {
+    setCurrentHotel(hotel)
+    setShowEditDialog(true)
+  }
+
+  return (
+    <MainLayout>
+      <div className="flex h-full">
+        <div className="w-[60%] h-full overflow-y-auto bg-background p-6">
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-2xl font-bold">合作酒店</h1>
             </div>
 
             {/* 筛选栏 */}
@@ -231,52 +280,7 @@ import MainLayout from '../PointsSystem/components/MainLayout'
 
         {/* 右侧：业务逻辑说明 (40%) */}
         <div className="w-[40%] h-full border-l">
-                          <div className="text-slate-500">黄浦区 | 4.8分</div>
-                          <div className="text-red-600 font-bold">¥458起</div>
-                        </div>
-                        <div className="text-slate-500 text-xs">→ 后台"上线"状态的酒店才会在列表显示</div>
-                        <div className="text-slate-500 text-xs">→ 后台"下线"的酒店用户看不到</div>
-                      </div>
-                    </div>
-
-                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
-                      <p className="font-semibold text-sm mb-2">📱 页面2：酒店详情</p>
-                      <div className="text-xs space-y-1 text-slate-700">
-                        <div className="font-bold">亚朵酒店·上海新天地店</div>
-                        <div>📍 黄浦区马当路388号</div>
-                        <div>🏨 中端商务酒店</div>
-                        <div className="border-t pt-1 mt-1">
-                          <div>大床房 <span className="text-red-600 font-bold">¥458</span>/晚</div>
-                          <div className="text-xs text-green-600">会员95折起</div>
-                        </div>
-                        <div className="text-slate-500 text-xs mt-2">→ 后台的酒店基本信息完整展示</div>
-                      </div>
-                    </div>
-
-                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
-                      <p className="font-semibold text-sm mb-2">📱 页面3：下单页</p>
-                      <div className="text-xs space-y-1 text-slate-700">
-                        <div className="font-bold">亚朵酒店·上海新天地店</div>
-                        <div>房型：大床房</div>
-                        <div>入住：01/18 - 01/19（1晚）</div>
-                        <div>房费：¥458</div>
-                        <div className="text-green-600">金卡会员95折：-¥23</div>
-                        <div className="text-slate-500 text-xs">→ 后台配置的"会员最低折扣"自动计算优惠</div>
-                      </div>
-                    </div>
-
-                        • 后台"上线"酒店 → 前端列表可见、可预订
-                        <br />
-                        • 后台"下线"酒店 → 前端隐藏、不可预订
-                        <br />
-                        • 后台"抽佣比例" → 前端不显示（用户不关心）
-                        <br />
-                        • 后台"省市区" → 前端支持地域筛选
-                      </p>
-                )
-              }
-            ]}
-          />
+          {/* LogicPanel placeholder */}
         </div>
       </div>
     </MainLayout>

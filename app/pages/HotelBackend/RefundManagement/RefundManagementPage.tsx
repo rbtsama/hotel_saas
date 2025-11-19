@@ -44,55 +44,12 @@ export default function RefundManagementPage({ result, error }: RefundManagement
     )
   }
 
-  // LogicPanel 内容
-  const logicSections = [
-    {
-      title: '业务场景',
-      content: (
-        <div className="space-y-3">
-          <p>客诉退款管理是酒店SAAS系统的重要组成部分，用于处理客人因订单问题提出的退款申请。良好的退款管理能够：</p>
-        </div>
-      )
-    },
-    {
-      title: '退款处理流程',
-      content: (
-        <div className="space-y-3">
-          <p>标准退款处理流程包括以下环节：</p>
-      )
-    },
-    {
-      title: '处理进度说明',
-      content: (
-        <div className="space-y-3">
-          <p>系统提供多种退款状态，清晰展示处理进度：</p>
-        </div>
-      )
-    },
-    {
-      title: '操作说明',
-      content: (
-        <div className="space-y-3">
-          <p>商家可以通过以下方式管理退款申请：</p>
-      )
-    },
-    {
-      title: '字段说明',
-      content: (
-        <div className="space-y-3">
-      )
-    },
-    {
-      title: '风险提示',
-      content: (
-        <div className="space-y-3">
-      )
-    },
-  ]
-
-  // 主内容区
-  const mainContent = (
-    <div className="p-6 space-y-6">
+  return (
+    <MainLayout>
+      <div className="flex h-full">
+        {/* 左侧：主内容区（60%） */}
+        <div className={`${isPresentationMode ? 'w-full' : 'w-[60%]'} overflow-y-auto border-r`}>
+          <div className="p-6 space-y-6">
       {/* 筛选表单 */}
       <Card>
         <CardContent className="pt-6">
@@ -261,20 +218,13 @@ export default function RefundManagementPage({ result, error }: RefundManagement
           )}
         </CardContent>
       </Card>
-    </div>
-  )
-
-  return (
-    <MainLayout>
-      <div className="flex h-full">
-        {/* 左侧：主内容区（60%） */}
-        <div className={`${isPresentationMode ? 'w-full' : 'w-[60%]'} overflow-y-auto border-r`}>
-          {mainContent}
+          </div>
         </div>
 
         {/* 右侧：LogicPanel（40%） */}
         {!isPresentationMode && (
           <div className="w-[40%]">
+            {/* LogicPanel placeholder */}
           </div>
         )}
       </div>

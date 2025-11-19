@@ -12,6 +12,81 @@ import { Label } from '~/components/ui/label'
 import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import MainLayout from '../PointsSystem/components/MainLayout'
+
+interface ContractTemplatePageProps {
+  templates: ContractTemplate[]
+  error?: string | null
+}
+
+const templateStatusLabels: Record<TemplateStatus, string> = {
+  [TemplateStatus.DRAFT]: '草稿',
+  [TemplateStatus.ACTIVE]: '生效中',
+  [TemplateStatus.INACTIVE]: '已停用'
+}
+
+const OperationLogButton = ({ moduleName }: { moduleName: string }) => (
+  <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-600">
+    📋 {moduleName}操作记录
+  </Button>
+)
+
+const BusinessLogicPanel = ({ sections }: { sections: Array<{ title: string; content: React.ReactNode }> }) => (
+  <div className="p-6 space-y-6 overflow-y-auto">
+    <div>
+      <h2 className="text-xl font-bold text-slate-900">业务逻辑说明</h2>
+      <p className="text-sm text-slate-500 mt-1">
+        后台配置如何影响前端用户体验
+      </p>
+    </div>
+    {sections.map((section, index) => (
+      <div key={index}>
+        <h3 className="font-semibold mb-3">{section.title}</h3>
+        {section.content}
+      </div>
+    ))}
+  </div>
+)
+
+export default function ContractTemplatePage({ templates, error }: ContractTemplatePageProps) {
+  const [filterStatus, setFilterStatus] = useState<TemplateStatus | 'all'>('all')
+  const [showPreviewDialog, setShowPreviewDialog] = useState(false)
+  const [showEditDialog, setShowEditDialog] = useState(false)
+  const [currentTemplate, setCurrentTemplate] = useState<ContractTemplate | null>(null)
+
+  const filteredTemplates = templates.filter(t => filterStatus === 'all' || t.status === filterStatus)
+
+  const openPreview = (template: ContractTemplate) => {
+    setCurrentTemplate(template)
+    setShowPreviewDialog(true)
+  }
+
+  const openEdit = (template: ContractTemplate) => {
+    setCurrentTemplate(template)
+    setShowEditDialog(true)
+  }
+
+  if (error) {
+    return (
+      <MainLayout>
+        <div className="p-6">
+          <div className="text-destructive">错误: {error}</div>
+        </div>
+      </MainLayout>
+    )
+  }
+
+  return (
+    <MainLayout>
+      <div className="flex h-screen">
+        <div className="w-[60%] overflow-y-auto">
+          <div className="p-6 space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-slate-900">协议模板管理</h1>
+                <p className="text-sm text-slate-500 mt-1">
+                  管理协议模板，版本控制
+                </p>
+              </div>
               <OperationLogButton moduleName="协议模板管理" />
             </div>
 
@@ -168,6 +243,16 @@ import MainLayout from '../PointsSystem/components/MainLayout'
 
         {/* 右侧：业务逻辑说明 (40%) */}
         <div className="w-[40%] h-full border-l">
+          <BusinessLogicPanel
+            sections={[
+              {
+                title: '📱 用户端体验',
+                content: (
+                  <div className="text-sm text-slate-700">协议模板用于商家签约时使用</div>
+                )
+              }
+            ]}
+          />
         </div>
       </div>
     </MainLayout>

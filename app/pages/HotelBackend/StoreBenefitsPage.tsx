@@ -295,91 +295,10 @@ export default function StoreBenefitsPage({ config }: StoreBenefitsPageProps) {
             </Card>
           </div>
         )}
-        </div>
 
-                    <div className="bg-slate-50 border rounded p-3 text-sm space-y-2 mt-2">
-                      <div><strong>礼赠2：Mini Bar畅饮</strong></div>
-                      <div className="text-slate-600">
-                        • 适用：VIP2及以上<br/>
-                        • 使用说明：每份包含：Mini Bar全部饮品（酒水除外）<br/>
-                        • 预订规则：无需提前预订<br/>
-                        • 规则说明：入住期间每房每日享一次，使用地点为客房内<br/>
-                        • 接待时间：00:00-23:59
-                      </div>
-                    </div>
-                  </>
-                )
-              },
-              {
-                title: '适用条件设计',
-                content: (
-                  <>
-                    <p className="font-semibold mb-2">为什么需要"适用条件"？</p>
-                        • 全部会员：免费自行车、免费茶水<br/>
-                        • VIP2及以上：上述礼赠 + Mini Bar畅饮 + 延迟退房<br/>
-                        → 用户看到VIP2权益更丰富，更愿意消费升级
-                      </p>
-                  </>
-                )
-              },
-              {
-                title: '用户端呈现',
-                content: (
-                  <>
-                    <p className="font-semibold mb-2">后台配置如何影响用户端：</p>
-
-                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
-                      <p className="font-semibold text-sm mb-2">页面1：酒店详情页</p>
-                      <div className="text-xs space-y-2">
-                        <div className="border rounded p-2 bg-white">
-                          <div className="font-bold">亚朵酒店·上海新天地店</div>
-                          <div className="text-slate-500">黄浦区 | 4.8分</div>
-                          <div className="text-green-600 font-bold mt-2">会员专享礼赠：</div>
-                          <div className="text-slate-700">
-                            ✓ 免费自行车租借<br/>
-                            ✓ Mini Bar畅饮（VIP2及以上）<br/>
-                            ✓ 免费延迟退房至14:00（VIP2及以上）
-                          </div>
-                        </div>
-                        <div className="text-slate-500 text-xs">→ 后台启用的礼赠自动显示</div>
-                      </div>
-                    </div>
-
-                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
-                      <p className="font-semibold text-sm mb-2">页面2：订单确认页</p>
-                      <div className="text-xs space-y-1 text-slate-700">
-                        <div className="font-bold">您可享受以下礼赠：</div>
-                        <div className="text-green-600">✓ 免费自行车租借（08:00-20:00）</div>
-                        <div className="text-slate-400">✗ Mini Bar畅饮（需VIP2等级）</div>
-                        <div className="border-t pt-1 mt-1 text-xs text-blue-600">
-                          升级至VIP2，解锁2项额外礼赠 →
-                        </div>
-                        <div className="text-slate-500 text-xs mt-2">→ 根据用户会员等级自动匹配可享礼赠</div>
-                      </div>
-                    </div>
-
-                        • 后台"启用"的礼赠 → 前端展示在酒店详情、订单页
-                        <br />
-                        • 后台"适用条件" → 前端根据用户等级自动判断是否可享
-                        <br />
-                        • 后台"使用说明/规则说明" → 前端在礼赠详情中展示
-                        <br />
-                        • 后台"接待时间" → 前端提示可用时间段
-                      </p>
-                )
-              },
-              {
-                title: '最佳实践',
-                content: (
-                  <>
-                    <p className="font-semibold mb-2">礼赠配置建议：</p>
-
-                    <p className="font-semibold mt-4 mb-2">运营策略：</p>
-
-                )
-              }
-            ]}
-          />
+        {/* 右侧：LogicPanel (40%) */}
+        <div className="w-[40%] h-full border-l">
+          {/* LogicPanel placeholder */}
         </div>
       </div>
     </MainLayout>

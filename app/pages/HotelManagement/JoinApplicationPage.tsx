@@ -12,6 +12,110 @@ import { Label } from '~/components/ui/label'
 import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import MainLayout from '../PointsSystem/components/MainLayout'
+
+interface JoinApplicationPageProps {
+  applications: JoinApplication[]
+  error?: string | null
+}
+
+const followUpStatusLabels: Record<FollowUpStatus, string> = {
+  [FollowUpStatus.TO_CONTACT]: '待联系',
+  [FollowUpStatus.IN_NEGOTIATION]: '洽谈中',
+  [FollowUpStatus.TO_SIGN]: '待签约',
+  [FollowUpStatus.SIGNED]: '已签约',
+  [FollowUpStatus.REJECTED]: '已拒绝'
+}
+
+const getStatusColor = (status: FollowUpStatus) => {
+  const colors: Record<FollowUpStatus, string> = {
+    [FollowUpStatus.TO_CONTACT]: 'bg-yellow-100 text-yellow-700',
+    [FollowUpStatus.IN_NEGOTIATION]: 'bg-blue-100 text-blue-700',
+    [FollowUpStatus.TO_SIGN]: 'bg-purple-100 text-purple-700',
+    [FollowUpStatus.SIGNED]: 'bg-green-100 text-green-700',
+    [FollowUpStatus.REJECTED]: 'bg-red-100 text-red-700'
+  }
+  return colors[status]
+}
+
+const OperationLogButton = ({ moduleName }: { moduleName: string }) => (
+  <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-600">
+    📋 {moduleName}操作记录
+  </Button>
+)
+
+const BusinessLogicPanel = ({ sections }: { sections: Array<{ title: string; content: React.ReactNode }> }) => (
+  <div className="p-6 space-y-6 overflow-y-auto">
+    <div>
+      <h2 className="text-xl font-bold text-slate-900">业务逻辑说明</h2>
+      <p className="text-sm text-slate-500 mt-1">
+        后台配置如何影响前端用户体验
+      </p>
+    </div>
+    {sections.map((section, index) => (
+      <div key={index}>
+        <h3 className="font-semibold mb-3">{section.title}</h3>
+        {section.content}
+      </div>
+    ))}
+  </div>
+)
+
+export default function JoinApplicationPage({ applications, error }: JoinApplicationPageProps) {
+  const [filterStatus, setFilterStatus] = useState<FollowUpStatus | 'all'>('all')
+  const [searchKeyword, setSearchKeyword] = useState('')
+  const [showDetailDialog, setShowDetailDialog] = useState(false)
+  const [showImageDialog, setShowImageDialog] = useState(false)
+  const [showContractDialog, setShowContractDialog] = useState(false)
+  const [currentApp, setCurrentApp] = useState<JoinApplication | null>(null)
+  const [currentImages, setCurrentImages] = useState<string[]>([])
+  const [editingStatus, setEditingStatus] = useState<FollowUpStatus>(FollowUpStatus.TO_CONTACT)
+  const [editingNotes, setEditingNotes] = useState('')
+
+  const filteredApplications = applications.filter(app => {
+    if (filterStatus !== 'all' && app.followUpStatus !== filterStatus) return false
+    if (searchKeyword && !app.hotelName.includes(searchKeyword)) return false
+    return true
+  })
+
+  const openDetail = (app: JoinApplication) => {
+    setCurrentApp(app)
+    setEditingStatus(app.followUpStatus)
+    setEditingNotes(app.notes || '')
+    setShowDetailDialog(true)
+  }
+
+  const openImages = (images: string[]) => {
+    setCurrentImages(images)
+    setShowImageDialog(true)
+  }
+
+  const handleSave = () => {
+    alert('保存成功')
+    setShowDetailDialog(false)
+  }
+
+  if (error) {
+    return (
+      <MainLayout>
+        <div className="p-6">
+          <div className="text-destructive">错误: {error}</div>
+        </div>
+      </MainLayout>
+    )
+  }
+
+  return (
+    <MainLayout>
+      <div className="flex h-screen">
+        <div className="w-[60%] overflow-y-auto">
+          <div className="p-6 space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-slate-900">加盟申请</h1>
+                <p className="text-sm text-slate-500 mt-1">
+                  BD跟进酒店入驻申请
+                </p>
+              </div>
               <OperationLogButton moduleName="加盟申请" />
             </div>
 
@@ -303,6 +407,16 @@ import MainLayout from '../PointsSystem/components/MainLayout'
 
         {/* 右侧：业务逻辑说明 (40%) */}
         <div className="w-[40%] h-full border-l">
+          <BusinessLogicPanel
+            sections={[
+              {
+                title: '📱 用户端体验',
+                content: (
+                  <div className="text-sm text-slate-700">BD跟进加盟申请流程</div>
+                )
+              }
+            ]}
+          />
         </div>
       </div>
     </MainLayout>

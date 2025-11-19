@@ -9,7 +9,31 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import MainLayout from '../PointsSystem/components/MainLayout'
-              <OperationLogButton moduleName="核销记录" />
+
+interface VerifyRecordPageProps {
+  coupons: UserCoupon[]
+}
+
+const verifyStatusLabels = {
+  [VerifyStatus.UNUSED]: '未使用',
+  [VerifyStatus.USED]: '已使用',
+  [VerifyStatus.EXPIRED]: '已过期',
+}
+
+export default function VerifyRecordPage({ coupons }: VerifyRecordPageProps) {
+  const [filterStatus, setFilterStatus] = useState<VerifyStatus | 'all'>('all')
+
+  const filteredCoupons = filterStatus === 'all'
+    ? coupons
+    : coupons.filter(c => c.status === filterStatus)
+
+  return (
+    <MainLayout>
+      <div className="flex h-full">
+        <div className="w-[60%] h-full overflow-y-auto bg-background p-6">
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-2xl font-bold">核销记录</h1>
             </div>
 
             <Card>
@@ -86,14 +110,7 @@ import MainLayout from '../PointsSystem/components/MainLayout'
         </div>
 
         <div className="w-[40%] h-full border-l">
-                      <div className="opacity-50">已使用于订单：ORD_20250116001</div>
-                      <div className="text-slate-500">→ 后台核销记录同步到用户端</div>
-                    </div>
-                  </div>
-                )
-              }
-            ]}
-          />
+          {/* LogicPanel placeholder */}
         </div>
       </div>
     </MainLayout>

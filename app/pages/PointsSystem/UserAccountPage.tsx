@@ -13,7 +13,71 @@ import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import MainLayout from './components/MainLayout'
 
-          {/* 搜索用户 */}
+interface UserAccountPageProps {
+  error?: string | null
+}
+
+const getChangeTypeLabel = (type: PointsChangeType) => {
+  const labels: Record<PointsChangeType, string> = {
+    [PointsChangeType.ORDER_EARN]: '订单获得',
+    [PointsChangeType.ORDER_REDEEM]: '订单抵扣',
+    [PointsChangeType.MANUAL_ADJUST]: '手动调整',
+    [PointsChangeType.EXPIRE]: '过期扣除'
+  }
+  return labels[type]
+}
+
+const getChangeTypeColor = (type: PointsChangeType) => {
+  const colors: Record<PointsChangeType, string> = {
+    [PointsChangeType.ORDER_EARN]: 'text-green-600',
+    [PointsChangeType.ORDER_REDEEM]: 'text-orange-600',
+    [PointsChangeType.MANUAL_ADJUST]: 'text-blue-600',
+    [PointsChangeType.EXPIRE]: 'text-red-600'
+  }
+  return colors[type]
+}
+
+export default function UserAccountPage({ error }: UserAccountPageProps) {
+  const [searchPhone, setSearchPhone] = useState('')
+  const [selectedUser, setSelectedUser] = useState<UserPointsAccount | null>(null)
+  const [userDetails, setUserDetails] = useState<PointsDetail[]>([])
+  const [showAdjustDialog, setShowAdjustDialog] = useState(false)
+  const [adjustType, setAdjustType] = useState<ManualAdjustType>(ManualAdjustType.INCREASE)
+  const [adjustPoints, setAdjustPoints] = useState(0)
+  const [adjustReason, setAdjustReason] = useState('')
+
+  const handleSearch = () => {
+    alert(`搜索用户：${searchPhone}`)
+  }
+
+  const handleAdjust = () => {
+    alert(`调整积分：${adjustType === ManualAdjustType.INCREASE ? '+' : '-'}${adjustPoints}`)
+    setShowAdjustDialog(false)
+  }
+
+  if (error) {
+    return (
+      <MainLayout>
+        <div className="p-6">
+          <div className="text-destructive">错误: {error}</div>
+        </div>
+      </MainLayout>
+    )
+  }
+
+  return (
+    <MainLayout>
+      <div className="flex h-screen">
+        <div className="w-full overflow-y-auto">
+          <div className="p-6 space-y-6">
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900">用户积分账户</h1>
+              <p className="text-sm text-slate-500 mt-1">
+                搜索用户、查看积分余额、手动调整积分、查看明细
+              </p>
+            </div>
+
+            {/* 搜索用户 */}
           <Card>
             <CardHeader>
               <CardTitle>搜索用户</CardTitle>
@@ -238,9 +302,9 @@ import MainLayout from './components/MainLayout'
               </Card>
             </div>
           )}
+          </div>
         </div>
       </div>
-        </div>
     </MainLayout>
   )
 }

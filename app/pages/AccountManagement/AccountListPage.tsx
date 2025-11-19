@@ -13,6 +13,149 @@ import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import MainLayout from '../PointsSystem/components/MainLayout'
 
+// Helper Components
+const PermissionMatrix = ({ menuItems, permissions, onChange }: {
+  menuItems: MenuItem[]
+  permissions: Record<string, PermissionConfig>
+  onChange: (menuId: string, config: PermissionConfig) => void
+}) => (
+  <div className="space-y-2">
+    {menuItems.map(item => (
+      <div key={item.menuId} className="flex items-center justify-between p-2 border rounded">
+        <span className="text-sm">{item.menuName}</span>
+        <div className="flex gap-2">
+          <label className="flex items-center gap-1">
+            <input
+              type="checkbox"
+              checked={permissions[item.menuId]?.canView || false}
+              onChange={(e) => onChange(item.menuId, { ...permissions[item.menuId], canView: e.target.checked })}
+            />
+            <span className="text-xs">查看</span>
+          </label>
+          <label className="flex items-center gap-1">
+            <input
+              type="checkbox"
+              checked={permissions[item.menuId]?.canEdit || false}
+              onChange={(e) => onChange(item.menuId, { ...permissions[item.menuId], canEdit: e.target.checked })}
+            />
+            <span className="text-xs">编辑</span>
+          </label>
+        </div>
+      </div>
+    ))}
+  </div>
+)
+
+const PermissionQuickActions = ({ menuItems, onSelectAll, onClearAll }: {
+  menuItems: MenuItem[]
+  onSelectAll: () => void
+  onClearAll: () => void
+}) => (
+  <div className="flex gap-2">
+    <Button variant="outline" size="sm" onClick={onSelectAll}>全选</Button>
+    <Button variant="outline" size="sm" onClick={onClearAll}>清空</Button>
+  </div>
+)
+
+interface AccountListPageProps {
+  accounts: Account[]
+  menuItems: MenuItem[]
+  error?: string | null
+}
+
+export default function AccountListPage({ accounts, menuItems, error }: AccountListPageProps) {
+  const [filterStatus, setFilterStatus] = useState<AccountStatus | 'all'>('all')
+  const [searchKeyword, setSearchKeyword] = useState('')
+  const [showPermissionDialog, setShowPermissionDialog] = useState(false)
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false)
+  const [currentAccount, setCurrentAccount] = useState<Account | null>(null)
+  const [editingPermissions, setEditingPermissions] = useState<Record<string, PermissionConfig>>({})
+  const [oldPassword, setOldPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+
+  const roleLabels: Record<AccountRole, string> = {
+    [AccountRole.SUPER_ADMIN]: '超级管理员',
+    [AccountRole.ADMIN]: '管理员',
+    [AccountRole.OPERATOR]: '运营',
+    [AccountRole.CUSTOMER_SERVICE]: '客服'
+  }
+
+  const statusLabels: Record<AccountStatus, string> = {
+    [AccountStatus.ACTIVE]: '启用中',
+    [AccountStatus.DISABLED]: '已禁用'
+  }
+
+  const filteredAccounts = accounts.filter(acc => {
+    if (filterStatus !== 'all' && acc.status !== filterStatus) return false
+    if (searchKeyword && !acc.username.includes(searchKeyword) && !acc.realName.includes(searchKeyword)) return false
+    return true
+  })
+
+  const openPermissionDialog = (account: Account) => {
+    setCurrentAccount(account)
+    setEditingPermissions(account.permissions)
+    setShowPermissionDialog(true)
+  }
+
+  const openPasswordDialog = (account: Account) => {
+    setCurrentAccount(account)
+    setOldPassword('')
+    setNewPassword('')
+    setShowPasswordDialog(true)
+  }
+
+  const updatePermission = (menuId: string, config: PermissionConfig) => {
+    setEditingPermissions(prev => ({
+      ...prev,
+      [menuId]: config
+    }))
+  }
+
+  const handleSelectAll = () => {
+    const allPermissions: Record<string, PermissionConfig> = {}
+    menuItems.forEach(item => {
+      allPermissions[item.menuId] = { canView: true, canEdit: true }
+    })
+    setEditingPermissions(allPermissions)
+  }
+
+  const handleClearAll = () => {
+    setEditingPermissions({})
+  }
+
+  const handleSavePermission = () => {
+    alert('权限配置已保存')
+    setShowPermissionDialog(false)
+  }
+
+  const handleChangePassword = () => {
+    if (!oldPassword || !newPassword) {
+      alert('请填写完整信息')
+      return
+    }
+    if (newPassword.length < 6) {
+      alert('新密码至少6位字符')
+      return
+    }
+    alert('密码修改成功')
+    setShowPasswordDialog(false)
+  }
+
+  if (error) {
+    return (
+      <MainLayout>
+        <div className="p-6">
+          <div className="text-destructive">错误: {error}</div>
+        </div>
+      </MainLayout>
+    )
+  }
+
+  return (
+    <MainLayout>
+      <div className="flex h-screen">
+        <div className="flex-1 overflow-y-auto">
+          <div className="p-6 space-y-6">
             {/* 筛选栏 */}
             <Card>
               <CardContent className="pt-6">

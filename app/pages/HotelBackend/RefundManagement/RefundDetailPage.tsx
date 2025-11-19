@@ -27,51 +27,12 @@ export default function RefundDetailPage({ refund }: RefundDetailPageProps) {
     alert('协商改期功能开发中...')
   }
 
-  // LogicPanel 内容
-  const logicSections = [
-    {
-      title: '退款详情页说明',
-      content: (
-        <div className="space-y-3">
-          <p>退款详情页展示了客人退款申请的完整信息，帮助商家做出合理的处理决策。</p>
-        </div>
-      )
-    },
-    {
-      title: '处理决策指南',
-      content: (
-        <div className="space-y-3">
-          <p>在处理退款申请时，建议遵循以下原则：</p>
-      )
-    },
-    {
-      title: '时间线解读',
-      content: (
-        <div className="space-y-3">
-          <p>处理时间线记录了退款申请的完整流程，帮助追溯和分析：</p>
-      )
-    },
-    {
-      title: '操作按钮说明',
-      content: (
-        <div className="space-y-3">
-          <p className="text-sm text-muted-foreground">
-            注：只有状态为"待审核"的申请才能进行处理操作。
-          </p>
-        </div>
-      )
-    },
-    {
-      title: '最佳实践',
-      content: (
-        <div className="space-y-3">
-      )
-    },
-  ]
-
-  // 主内容区
-  const mainContent = (
-    <div className="p-6 space-y-6">
+  return (
+    <MainLayout>
+      <div className="flex h-full">
+        {/* 左侧：主内容区（60%） */}
+        <div className={`${isPresentationMode ? 'w-full' : 'w-[60%]'} overflow-y-auto border-r`}>
+          <div className="p-6 space-y-6">
       {/* 返回按钮 */}
       <div>
         <Link to="/hotel-backend/refund-management">
@@ -259,20 +220,13 @@ export default function RefundDetailPage({ refund }: RefundDetailPageProps) {
           </CardContent>
         </Card>
       )}
-    </div>
-  )
-
-  return (
-    <MainLayout>
-      <div className="flex h-full">
-        {/* 左侧：主内容区（60%） */}
-        <div className={`${isPresentationMode ? 'w-full' : 'w-[60%]'} overflow-y-auto border-r`}>
-          {mainContent}
+          </div>
         </div>
 
         {/* 右侧：LogicPanel（40%） */}
         {!isPresentationMode && (
           <div className="w-[40%]">
+            {/* LogicPanel placeholder */}
           </div>
         )}
       </div>

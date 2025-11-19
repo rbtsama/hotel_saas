@@ -624,23 +624,10 @@ export default function StorePolicyPage({ policy }: StorePolicyPageProps) {
         </Form>
         </div>
         </div>
-        </div>
 
-                  </>
-                )
-              },
-              {
-                title: '最佳实践',
-                content: (
-                  <>
-                    <p className="font-semibold mb-2">携程、美团的政策要求：</p>
-
-                    <p className="font-semibold mt-4 mb-2">政策完善度检查清单：</p>
-
-                )
-              }
-            ]}
-          />
+        {/* 右侧：LogicPanel (40%) */}
+        <div className="w-[40%] h-full border-l">
+          {/* LogicPanel placeholder */}
         </div>
       </div>
     </MainLayout>
