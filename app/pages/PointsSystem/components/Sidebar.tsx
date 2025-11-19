@@ -3,7 +3,7 @@
  */
 
 import { Link, useLocation } from '@remix-run/react'
-import { ChevronDown, ChevronRight, BookOpen, Presentation } from 'lucide-react'
+import { ChevronDown, ChevronRight, BookOpen, Presentation, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { useViewMode } from '~/contexts/ViewModeContext'
 
@@ -20,6 +20,7 @@ interface SidebarProps {
 export default function Sidebar({ menuItems }: SidebarProps) {
   const location = useLocation()
   const { mode, toggleMode, isLearningMode } = useViewMode()
+  const [isCollapsed, setIsCollapsed] = useState(false)
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
     // 默认展开所有菜单，提升用户体验
     '设计架构': true,
@@ -100,47 +101,72 @@ export default function Sidebar({ menuItems }: SidebarProps) {
   }
 
   return (
-    <div className="w-64 h-screen bg-slate-50 border-r border-slate-200 flex flex-col">
-      {/* Logo区域 */}
-      <div className="p-4 border-b border-slate-200">
-        <Link to="/" className="block">
-          <h1 className="text-xl font-bold text-slate-900">酒店SAAS学习平台</h1>
-          <p className="text-xs text-slate-500 mt-1">模块化设计参考</p>
-        </Link>
-      </div>
+    <>
+      {/* 收起时的迷你侧边栏 */}
+      {isCollapsed && (
+        <div className="w-16 h-screen bg-slate-50 border-r border-slate-200 flex flex-col items-center py-4">
+          <button
+            onClick={() => setIsCollapsed(false)}
+            className="p-2 hover:bg-slate-100 rounded-md transition-colors"
+            title="展开菜单"
+          >
+            <Menu className="w-5 h-5 text-slate-600" />
+          </button>
+        </div>
+      )}
 
-      {/* 菜单区域 */}
-      <div className="flex-1 overflow-y-auto p-4">
-        <nav className="space-y-2">
-          {menuItems.map((item) => renderMenuItem(item, 1))}
-        </nav>
-      </div>
+      {/* 完整侧边栏 */}
+      {!isCollapsed && (
+        <div className="w-64 h-screen bg-slate-50 border-r border-slate-200 flex flex-col">
+          {/* Logo区域 */}
+          <div className="p-4 border-b border-slate-200 flex items-center justify-between">
+            <Link to="/" className="block flex-1">
+              <h1 className="text-xl font-bold text-slate-900">酒店SAAS学习平台</h1>
+              <p className="text-xs text-slate-500 mt-1">模块化设计参考</p>
+            </Link>
+            <button
+              onClick={() => setIsCollapsed(true)}
+              className="p-2 hover:bg-slate-100 rounded-md transition-colors"
+              title="收起菜单"
+            >
+              <X className="w-4 h-4 text-slate-600" />
+            </button>
+          </div>
 
-      {/* 底部信息 */}
-      <div className="p-4 border-t border-slate-200 space-y-3">
-        {/* 模式切换按钮 */}
-        <button
-          onClick={toggleMode}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
-        >
-          {isLearningMode ? (
-            <>
-              <BookOpen className="w-4 h-4" />
-              <span>学习模式</span>
-            </>
-          ) : (
-            <>
-              <Presentation className="w-4 h-4" />
-              <span>展示模式</span>
-            </>
-          )}
-        </button>
+          {/* 菜单区域 */}
+          <div className="flex-1 overflow-y-auto p-4">
+            <nav className="space-y-2">
+              {menuItems.map((item) => renderMenuItem(item, 1))}
+            </nav>
+          </div>
 
-        <p className="text-xs text-slate-500 text-center">
-          参考：美团、携程、华住会
-        </p>
-      </div>
-    </div>
+          {/* 底部信息 */}
+          <div className="p-4 border-t border-slate-200 space-y-3">
+            {/* 模式切换按钮 */}
+            <button
+              onClick={toggleMode}
+              className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
+            >
+              {isLearningMode ? (
+                <>
+                  <BookOpen className="w-4 h-4" />
+                  <span>学习模式</span>
+                </>
+              ) : (
+                <>
+                  <Presentation className="w-4 h-4" />
+                  <span>展示模式</span>
+                </>
+              )}
+            </button>
+
+            <p className="text-xs text-slate-500 text-center">
+              参考：美团、携程、华住会
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
