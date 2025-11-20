@@ -193,7 +193,8 @@ export const menuConfig: MenuItem[] = [
       {
         title: '设计规范',
         children: [
-          { title: '配色系统', path: '/architecture/design/color-system' }
+          { title: '配色系统', path: '/architecture/design/color-system' },
+          { title: '配色系统2', path: '/architecture/design/color-system-2' }
         ]
       }
     ]

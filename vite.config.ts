@@ -18,6 +18,7 @@ export default defineConfig({
           // Architecture Routes
           route("/architecture/product/overview", "routes/architecture/product/overview.tsx")
           route("/architecture/design/color-system", "routes/architecture/design/color-system.tsx")
+          route("/architecture/design/color-system-2", "routes/architecture/design/color-system-2.tsx")
           route("/architecture/technical", "routes/architecture/technical/_index.tsx")
 
           // Points System Routes
