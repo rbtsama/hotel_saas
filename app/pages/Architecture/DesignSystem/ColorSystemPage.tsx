@@ -82,422 +82,412 @@ export default function ColorSystemPage() {
             </div>
           </section>
 
-          {/* 组件示例 - iPhone 高保真原型 */}
+          {/* 组件示例 */}
           <section>
             <h2 className="text-2xl font-bold text-[#2C5F8D] mb-4">组件示例</h2>
 
             <div className="grid lg:grid-cols-3 gap-6">
-              {/* 按钮组件 - 主按钮 & 辅助按钮 */}
-              <ComponentCard title="主按钮 & 辅助按钮" description="主要操作使用深蓝/深橙">
-                  <ComponentDemo label="主按钮 36px">
-                    <button className="h-9 px-3 text-sm font-medium text-white bg-[#2C5F8D] rounded-xl shadow-md">立即预订</button>
-                    <button className="h-9 px-3 text-sm font-medium text-white bg-[#C67A28] rounded-xl shadow-md">立即支付</button>
-                  </ComponentDemo>
-                  <ComponentDemo label="辅助按钮">
-                    <button className="h-9 px-3 text-sm font-medium text-white bg-[#B94D3D] rounded-xl shadow-md">删除订单</button>
-                    <button className="h-9 px-3 text-sm font-medium text-white bg-[#2C5F8D]/60 rounded-xl cursor-not-allowed">
-                      <Loader2 className="w-4 h-4 stroke-[1.5] inline mr-1 animate-spin" />提交中
-                    </button>
-                  </ComponentDemo>
-                </ComponentCard>
+              {/* 1. 主按钮 */}
+              <ComponentCard title="主按钮" description="立即预订、立即支付、确认入住等">
+                <ComponentDemo label="主按钮组">
+                  <button className="h-9 px-3 text-sm font-medium text-white bg-[#2C5F8D] rounded-xl">立即预订</button>
+                  <button className="h-9 px-3 text-sm font-medium text-white bg-[#C67A28] rounded-xl">立即支付</button>
+                  <button className="h-9 px-3 text-sm font-medium text-white bg-[#2C5F8D] rounded-xl">确认入住</button>
+                </ComponentDemo>
+              </ComponentCard>
 
-              {/* 按钮组件 - 空心 & 小按钮 */}
-              <ComponentCard title="空心 & 小按钮" description="次要操作和状态展示">
-                  <ComponentDemo label="描边按钮">
-                    <button className="h-9 px-3 text-sm font-medium text-[#2C5F8D] border-2 border-[#2C5F8D] rounded-xl">查看详情</button>
-                    <button className="h-9 px-3 text-sm font-medium text-[#B94D3D] border-2 border-[#B94D3D] rounded-xl">取消预订</button>
-                  </ComponentDemo>
-                  <ComponentDemo label="小按钮 28px">
-                    <button className="h-7 px-2.5 text-xs font-medium text-white bg-[#2C5F8D] rounded-xl shadow-sm">选择</button>
-                    <button className="h-7 px-2.5 text-xs font-medium text-gray-400 bg-gray-100 rounded-xl cursor-not-allowed">已售罄</button>
-                  </ComponentDemo>
-                </ComponentCard>
+              {/* 2. 辅助按钮 */}
+              <ComponentCard title="辅助按钮" description="查看详情、联系房东等">
+                <ComponentDemo label="辅助按钮组">
+                  <button className="h-9 px-3 text-sm font-medium text-white bg-[#B94D3D] rounded-xl">删除订单</button>
+                  <button className="h-9 px-3 text-sm font-medium text-white bg-[#4A8FBF] rounded-xl">查看详情</button>
+                  <button className="h-9 px-3 text-sm font-medium text-white bg-[#5A8A65] rounded-xl">申请退款</button>
+                </ComponentDemo>
+              </ComponentCard>
 
-              {/* 按钮组件 - 圆形 & 异形按钮 */}
-              <ComponentCard title="圆形 & 异形按钮" description="图标操作和特殊交互">
-                  <ComponentDemo label="圆形图标按钮">
-                    <button className="w-10 h-10 rounded-full bg-[#2C5F8D] text-white flex items-center justify-center shadow-md">
-                      <Search className="w-4 h-4 stroke-[1.5]" />
-                    </button>
-                    <button className="w-10 h-10 rounded-full border-2 border-gray-300 text-gray-600 flex items-center justify-center">
-                      <Bell className="w-4 h-4 stroke-[1.5]" />
-                    </button>
-                    <button className="w-10 h-10 rounded-full bg-[#C67A28] text-white flex items-center justify-center shadow-md">
-                      <ShoppingCart className="w-4 h-4 stroke-[1.5]" />
-                    </button>
-                  </ComponentDemo>
-                  <ComponentDemo label="图标组合按钮">
-                    <button className="h-9 px-3 text-sm font-medium text-white bg-[#2C5F8D] rounded-xl shadow-md flex items-center gap-1.5">
-                      <Heart className="w-4 h-4 stroke-[1.5]" />收藏
-                    </button>
-                    <button className="h-9 px-3 text-sm font-medium text-[#2C5F8D] border-2 border-[#2C5F8D] rounded-xl flex items-center gap-1.5">
-                      <Share2 className="w-4 h-4 stroke-[1.5]" />分享
-                    </button>
-                  </ComponentDemo>
-                </ComponentCard>
+              {/* 3. 空心按钮 */}
+              <ComponentCard title="空心按钮" description="加入收藏、申请退款等">
+                <ComponentDemo label="空心按钮组">
+                  <button className="h-9 px-3 text-sm font-medium text-[#2C5F8D] border-2 border-[#2C5F8D] rounded-xl">查看详情</button>
+                  <button className="h-9 px-3 text-sm font-medium text-[#C67A28] border-2 border-[#C67A28] rounded-xl">加入收藏</button>
+                  <button className="h-9 px-3 text-sm font-medium text-[#B94D3D] border-2 border-[#B94D3D] rounded-xl">取消预订</button>
+                </ComponentDemo>
+              </ComponentCard>
 
-              {/* 标签组件 - 促销 & 订单状态 */}
-              <ComponentCard title="促销 & 订单状态" description="促销活动和订单进度">
-                  <ComponentDemo label="促销标签">
-                    <span className="inline-flex items-center h-6 px-2 text-xs font-bold text-white bg-[#B94D3D] rounded shadow-md leading-none">限时特惠</span>
-                    <span className="inline-flex items-center h-6 px-2 text-xs font-bold text-white bg-[#C67A28] rounded shadow-md leading-none">首单立减</span>
-                    <span className="inline-flex items-center h-5 px-1.5 text-xs font-bold text-white bg-[#B94D3D] rounded shadow-sm leading-none">省¥180</span>
-                  </ComponentDemo>
-                  <ComponentDemo label="订单状态">
-                    <span className="inline-flex items-center h-6 px-2 text-xs font-medium text-[#5A8A65] bg-[#5A8A65]/10 rounded shadow-sm leading-none">
-                      <CheckCircle2 className="w-3 h-3 stroke-[1.5] mr-1" />已入住
-                    </span>
-                    <span className="inline-flex items-center h-6 px-2 text-xs font-medium text-[#4A8FBF] bg-[#4A8FBF]/10 rounded shadow-sm leading-none">待确认</span>
-                    <span className="inline-flex items-center h-6 px-2 text-xs font-medium text-[#B94D3D] bg-[#B94D3D]/10 rounded shadow-sm leading-none">已取消</span>
-                  </ComponentDemo>
-                </ComponentCard>
+              {/* 4. 小按钮 */}
+              <ComponentCard title="小按钮" description="选择房型、立即预订、已满房等">
+                <ComponentDemo label="小按钮组">
+                  <button className="h-7 px-2.5 text-xs font-medium text-white bg-[#2C5F8D] rounded-xl">选择房型</button>
+                  <button className="h-7 px-2.5 text-xs font-medium text-white bg-[#C67A28] rounded-xl">立即预订</button>
+                  <button className="h-7 px-2.5 text-xs font-medium text-gray-400 bg-gray-100 rounded-xl cursor-not-allowed">已满房</button>
+                </ComponentDemo>
+              </ComponentCard>
 
-              {/* 标签组件 - 空心 & 小标签 */}
-              <ComponentCard title="空心 & 小标签" description="房源特性和功能标记">
-                  <ComponentDemo label="空心标签">
-                    <span className="inline-flex items-center h-6 px-2 text-xs text-[#4A8FBF] border border-[#4A8FBF] rounded shadow-sm leading-none">山景</span>
-                    <span className="inline-flex items-center h-6 px-2 text-xs text-gray-600 border border-gray-300 rounded shadow-sm leading-none">小院</span>
-                  </ComponentDemo>
-                  <ComponentDemo label="圆点标记">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#5A8A65] shadow-sm"></span>
-                      <span className="text-xs text-gray-700">可预订</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#B94D3D] shadow-sm"></span>
-                      <span className="text-xs text-gray-700">已满房</span>
-                    </div>
-                  </ComponentDemo>
-                </ComponentCard>
+              {/* 5. 圆形标签 */}
+              <ComponentCard title="圆形标签" description="全部/民宿/酒店筛选">
+                <ComponentDemo label="筛选标签">
+                  <button className="h-7 px-3 text-xs font-medium text-white bg-[#2C5F8D] rounded-full">全部</button>
+                  <button className="h-7 px-3 text-xs text-gray-600 bg-gray-100 rounded-full">民宿</button>
+                  <button className="h-7 px-3 text-xs text-gray-600 bg-gray-100 rounded-full">酒店</button>
+                </ComponentDemo>
+              </ComponentCard>
 
-              {/* 标签组件 - 徽章 & 特性标签 */}
-              <ComponentCard title="徽章 & 特性标签" description="通知徽章和设施标签">
-                  <ComponentDemo label="数字徽章">
-                    <div className="relative inline-block">
-                      <Bell className="w-5 h-5 stroke-[1.5] text-gray-600" />
-                      <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#B94D3D] text-[10px] font-bold text-white shadow-md">3</span>
-                    </div>
-                    <div className="relative inline-block">
-                      <ShoppingCart className="w-5 h-5 stroke-[1.5] text-gray-600" />
-                      <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#C67A28] text-[10px] font-bold text-white shadow-md">5</span>
-                    </div>
-                  </ComponentDemo>
-                  <ComponentDemo label="特性标签">
-                    <span className="inline-flex items-center h-5 px-1.5 text-xs text-[#4A8FBF] bg-[#4A8FBF]/10 rounded shadow-sm leading-none">
-                      <Wifi className="w-3 h-3 stroke-[1.5] mr-0.5" />WiFi
-                    </span>
-                    <span className="inline-flex items-center h-5 px-1.5 text-xs text-[#C67A28] bg-[#C67A28]/10 rounded shadow-sm leading-none">
-                      <Utensils className="w-3 h-3 stroke-[1.5] mr-0.5" />早餐
-                    </span>
-                    <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded shadow-sm leading-none">
-                      <Bed className="w-3 h-3 stroke-[1.5] mr-0.5" />双床
-                    </span>
-                  </ComponentDemo>
-                </ComponentCard>
+              {/* 6. 异形按钮 */}
+              <ComponentCard title="异形按钮" description="带图标、加载状态、圆形图标按钮">
+                <ComponentDemo label="图标按钮">
+                  <button className="h-9 px-3 text-sm font-medium text-white bg-[#2C5F8D] rounded-xl flex items-center gap-1.5">
+                    <Heart className="w-4 h-4 stroke-[1.5]" />收藏
+                  </button>
+                  <button className="h-9 px-3 text-sm font-medium text-[#2C5F8D] border-2 border-[#2C5F8D] rounded-xl flex items-center gap-1.5">
+                    <Share2 className="w-4 h-4 stroke-[1.5]" />分享
+                  </button>
+                </ComponentDemo>
+                <ComponentDemo label="圆形按钮">
+                  <button className="w-10 h-10 rounded-full bg-[#2C5F8D] text-white flex items-center justify-center">
+                    <Search className="w-4 h-4 stroke-[1.5]" />
+                  </button>
+                  <button className="w-10 h-10 rounded-full bg-[#C67A28] text-white flex items-center justify-center">
+                    <ShoppingCart className="w-4 h-4 stroke-[1.5]" />
+                  </button>
+                </ComponentDemo>
+              </ComponentCard>
 
-              {/* 输入表单 */}
-              <ComponentCard title="输入表单" description="用户输入和信息收集">
-                  <ComponentDemo label="标准输入框 36px">
-                    <input type="text" placeholder="请输入手机号" className="w-full h-9 px-3 text-sm bg-[#F8F6F3] border-2 border-gray-200 rounded-xl shadow-sm focus:outline-none focus:border-[#2C5F8D] focus:ring-2 focus:ring-[#2C5F8D]/20" />
-                  </ComponentDemo>
-                  <ComponentDemo label="搜索框">
+              {/* 7. 促销标签 */}
+              <ComponentCard title="促销标签" description="限时特惠、首单立减、省¥180">
+                <ComponentDemo label="促销标签">
+                  <span className="inline-flex items-center h-6 px-2 text-xs font-bold text-white bg-[#B94D3D] rounded leading-none">限时特惠</span>
+                  <span className="inline-flex items-center h-6 px-2 text-xs font-bold text-white bg-[#C67A28] rounded leading-none">首单立减</span>
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs font-bold text-white bg-[#B94D3D] rounded leading-none">省¥180</span>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 8. 订单状态徽章 */}
+              <ComponentCard title="订单状态徽章" description="待支付、待确认、待入住、已完成、已取消">
+                <ComponentDemo label="状态徽章">
+                  <span className="inline-flex items-center h-6 px-2 text-xs font-medium text-[#B94D3D] bg-[#B94D3D]/10 rounded leading-none">待支付</span>
+                  <span className="inline-flex items-center h-6 px-2 text-xs font-medium text-[#4A8FBF] bg-[#4A8FBF]/10 rounded leading-none">待确认</span>
+                  <span className="inline-flex items-center h-6 px-2 text-xs font-medium text-[#2C5F8D] bg-[#2C5F8D]/10 rounded leading-none">待入住</span>
+                  <span className="inline-flex items-center h-6 px-2 text-xs font-medium text-[#5A8A65] bg-[#5A8A65]/10 rounded leading-none">已完成</span>
+                  <span className="inline-flex items-center h-6 px-2 text-xs font-medium text-gray-600 bg-gray-200 rounded leading-none">已取消</span>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 9. 空心标签 */}
+              <ComponentCard title="空心标签" description="可订、热门、山景房等">
+                <ComponentDemo label="空心标签">
+                  <span className="inline-flex items-center h-6 px-2 text-xs text-[#4A8FBF] border border-[#4A8FBF] rounded leading-none">可订</span>
+                  <span className="inline-flex items-center h-6 px-2 text-xs text-[#C67A28] border border-[#C67A28] rounded leading-none">热门</span>
+                  <span className="inline-flex items-center h-6 px-2 text-xs text-[#2C5F8D] border border-[#2C5F8D] rounded leading-none">山景房</span>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 10. 小标签 */}
+              <ComponentCard title="小标签" description="特价、新店、好评、HOT/NEW/VIP">
+                <ComponentDemo label="小标签">
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-[#C67A28] bg-[#C67A28]/10 rounded leading-none">特价</span>
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-[#2C5F8D] bg-[#2C5F8D]/10 rounded leading-none">新店</span>
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-[#5A8A65] bg-[#5A8A65]/10 rounded leading-none">好评</span>
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs font-bold text-white bg-[#B94D3D] rounded leading-none">HOT</span>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 11. 徽章 */}
+              <ComponentCard title="徽章" description="购物车数量(3)、收藏(5)、消息(99+)、在线状态点">
+                <ComponentDemo label="数字徽章">
+                  <div className="relative inline-block">
+                    <Bell className="w-5 h-5 stroke-[1.5] text-gray-600" />
+                    <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#B94D3D] text-[10px] font-bold text-white">3</span>
+                  </div>
+                  <div className="relative inline-block">
+                    <ShoppingCart className="w-5 h-5 stroke-[1.5] text-gray-600" />
+                    <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#C67A28] text-[10px] font-bold text-white">5</span>
+                  </div>
+                  <div className="relative inline-block">
+                    <Heart className="w-5 h-5 stroke-[1.5] text-gray-600" />
+                    <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#2C5F8D] text-[10px] font-bold text-white">99+</span>
+                  </div>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 12. 特性标签 */}
+              <ComponentCard title="特性标签" description="icon+文字：免费WiFi、含早餐、双床房等">
+                <ComponentDemo label="特性标签">
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-[#4A8FBF] bg-[#4A8FBF]/10 rounded leading-none">
+                    <Wifi className="w-3 h-3 stroke-[1.5] mr-0.5" />WiFi
+                  </span>
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-[#C67A28] bg-[#C67A28]/10 rounded leading-none">
+                    <Utensils className="w-3 h-3 stroke-[1.5] mr-0.5" />早餐
+                  </span>
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-[#2C5F8D] bg-[#2C5F8D]/10 rounded leading-none">
+                    <Bed className="w-3 h-3 stroke-[1.5] mr-0.5" />双床
+                  </span>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 13. 方形输入框 */}
+              <ComponentCard title="方形输入框" description="入住人姓名、备注信息（textarea）">
+                <ComponentDemo label="输入框">
+                  <input type="text" placeholder="入住人姓名" className="w-full h-9 px-3 text-sm bg-[#F8F6F3] border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#2C5F8D]" />
+                </ComponentDemo>
+                <ComponentDemo label="备注框">
+                  <textarea placeholder="备注信息（可选）" className="w-full h-20 px-3 py-2 text-sm bg-[#F8F6F3] border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#2C5F8D]" />
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 14. 搜索框 */}
+              <ComponentCard title="搜索框" description="带搜索icon的圆角输入">
+                <ComponentDemo label="搜索框">
+                  <div className="relative">
+                    <input type="text" placeholder="搜索房源、地点..." className="w-full h-9 pl-9 pr-3 text-sm bg-[#F8F6F3] border-2 border-gray-200 rounded-full focus:outline-none focus:border-[#2C5F8D]" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 stroke-[1.5] text-gray-400" />
+                  </div>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 15. 手机号+验证码 */}
+              <ComponentCard title="手机号+验证码" description="手机号输入+获取验证码按钮">
+                <ComponentDemo label="号码输入">
+                  <div className="flex gap-2">
+                    <input type="text" placeholder="手机号" className="flex-1 h-9 px-3 text-sm bg-[#F8F6F3] border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#2C5F8D]" />
+                    <button className="h-9 px-3 text-sm font-medium text-white bg-[#2C5F8D] rounded-xl whitespace-nowrap">获取验证码</button>
+                  </div>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 16. 备注填写框 */}
+              <ComponentCard title="备注填写框" description="多行textarea，带字数统计0/200">
+                <ComponentDemo label="备注框">
+                  <textarea placeholder="备注信息..." maxLength={200} className="w-full h-20 px-3 py-2 text-sm bg-[#F8F6F3] border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#2C5F8D]" />
+                  <div className="text-right text-xs text-gray-500">0/200</div>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 17. 筛选器 */}
+              <ComponentCard title="筛选器" description="价格区间、房型下拉选择">
+                <ComponentDemo label="价格筛选">
+                  <div className="relative">
+                    <select className="w-full h-9 pl-4 pr-10 text-sm bg-white border-2 border-gray-200 rounded-xl appearance-none focus:outline-none focus:border-[#2C5F8D]">
+                      <option>价格</option>
+                      <option>100-200元</option>
+                      <option>200-400元</option>
+                      <option>400+元</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 stroke-[1.5] text-gray-400 pointer-events-none" />
+                  </div>
+                </ComponentDemo>
+                <ComponentDemo label="房型选择">
+                  <div className="relative">
+                    <select className="w-full h-9 pl-4 pr-10 text-sm bg-white border-2 border-gray-200 rounded-xl appearance-none focus:outline-none focus:border-[#2C5F8D]">
+                      <option>选择房型</option>
+                      <option>标准双床房</option>
+                      <option>豪华大床房</option>
+                      <option>家庭套房</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 stroke-[1.5] text-gray-400 pointer-events-none" />
+                  </div>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 18. 排序 */}
+              <ComponentCard title="排序" description="Tab切换（综合/价格/好评/距离）">
+                <ComponentDemo label="排序Tab">
+                  <div className="flex border-b-2 border-gray-200 w-full">
+                    <button className="px-3 py-2 text-sm font-medium text-[#2C5F8D] border-b-2 border-[#2C5F8D] -mb-[2px]">综合</button>
+                    <button className="px-3 py-2 text-sm text-gray-600">价格</button>
+                    <button className="px-3 py-2 text-sm text-gray-600">好评</button>
+                    <button className="px-3 py-2 text-sm text-gray-600">距离</button>
+                  </div>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 19. 单选框 */}
+              <ComponentCard title="单选框" description="大床房/双床房/套房（含禁用）">
+                <ComponentDemo label="房型选择">
+                  <label className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer">
+                    <input type="radio" name="room" className="w-5 h-5 text-[#2C5F8D] border-2 border-gray-300 focus:ring-2 focus:ring-[#2C5F8D]/20" defaultChecked />
+                    <span>大床房</span>
+                  </label>
+                  <label className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer">
+                    <input type="radio" name="room" className="w-5 h-5 text-[#2C5F8D] border-2 border-gray-300 focus:ring-2 focus:ring-[#2C5F8D]/20" />
+                    <span>双床房</span>
+                  </label>
+                  <label className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer">
+                    <input type="radio" name="room" className="w-5 h-5 text-[#2C5F8D] border-2 border-gray-300 focus:ring-2 focus:ring-[#2C5F8D]/20" disabled />
+                    <span className="text-gray-400">套房（已满）</span>
+                  </label>
+                </ComponentDemo>
+              </ComponentCard>
+
+              {/* 20. 多选框 */}
+              <ComponentCard title="多选框" description="含早餐、免费WiFi、加床服务">
+                <ComponentDemo label="服务选择">
+                  <label className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer">
                     <div className="relative">
-                      <input type="text" placeholder="搜索房源" className="w-full h-9 pl-9 pr-3 text-sm bg-[#F8F6F3] border-2 border-gray-200 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-[#2C5F8D]/20 focus:border-[#2C5F8D]" />
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 stroke-[1.5] text-gray-400" />
+                      <input type="checkbox" className="peer w-5 h-5 text-[#2C5F8D] border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#2C5F8D]/20" defaultChecked />
+                      <Check className="absolute inset-0 w-5 h-5 stroke-[1.5] text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
                     </div>
-                  </ComponentDemo>
-                  <ComponentDemo label="带按钮组合">
-                    <div className="flex gap-2">
-                      <input type="text" placeholder="手机号" className="flex-1 h-9 px-3 text-sm bg-[#F8F6F3] border-2 border-gray-200 rounded-xl shadow-sm focus:outline-none focus:border-[#2C5F8D] focus:ring-2 focus:ring-[#2C5F8D]/20" />
-                      <button className="h-9 px-3 text-sm font-medium text-white bg-[#2C5F8D] rounded-xl shadow-md whitespace-nowrap">获取验证码</button>
-                    </div>
-                  </ComponentDemo>
-                </ComponentCard>
-
-              {/* 选择器 - 下拉选择 */}
-              <ComponentCard title="下拉选择" description="单选多选和日期选择">
-                  <ComponentDemo label="下拉选择">
+                    <span>含早餐</span>
+                  </label>
+                  <label className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer">
                     <div className="relative">
-                      <select className="w-full h-9 pl-4 pr-10 text-sm bg-white border-2 border-gray-200 rounded-xl shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#2C5F8D]/20 focus:border-[#2C5F8D] cursor-pointer">
-                        <option>请选择房型</option>
-                        <option>标准双床房</option>
-                        <option>豪华大床房</option>
-                        <option>家庭套房</option>
-                      </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 stroke-[1.5] text-gray-400 pointer-events-none" />
+                      <input type="checkbox" className="peer w-5 h-5 text-[#2C5F8D] border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#2C5F8D]/20" />
+                      <Check className="absolute inset-0 w-5 h-5 stroke-[1.5] text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
                     </div>
-                  </ComponentDemo>
-                  <ComponentDemo label="日期选择">
+                    <span>免费WiFi</span>
+                  </label>
+                  <label className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer">
                     <div className="relative">
-                      <input type="text" placeholder="选择日期" className="w-full h-9 pl-3 pr-9 text-sm bg-[#F8F6F3] border-2 border-gray-200 rounded-xl shadow-sm focus:outline-none focus:border-[#2C5F8D] focus:ring-2 focus:ring-[#2C5F8D]/20" />
-                      <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 stroke-[1.5] text-gray-400" />
+                      <input type="checkbox" className="peer w-5 h-5 text-[#2C5F8D] border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#2C5F8D]/20" />
+                      <Check className="absolute inset-0 w-5 h-5 stroke-[1.5] text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
                     </div>
-                  </ComponentDemo>
-                </ComponentCard>
+                    <span>加床服务</span>
+                  </label>
+                </ComponentDemo>
+              </ComponentCard>
 
-              {/* 选择器 - 复选框 */}
-              <ComponentCard title="复选框" description="多项选择和开关状态">
-                  <ComponentDemo label="复选框">
-                    <label className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer group">
-                      <div className="relative">
-                        <input type="checkbox" className="peer w-5 h-5 text-[#2C5F8D] border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#2C5F8D]/20 cursor-pointer" defaultChecked />
-                        <Check className="absolute inset-0 w-5 h-5 stroke-[1.5] text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
-                      </div>
-                      <span>含早餐</span>
-                    </label>
-                    <label className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer group">
-                      <div className="relative">
-                        <input type="checkbox" className="peer w-5 h-5 text-[#2C5F8D] border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#2C5F8D]/20 cursor-pointer" />
-                        <Check className="absolute inset-0 w-5 h-5 stroke-[1.5] text-white opacity-0 peer-checked:opacity-100 pointer-events-none" />
-                      </div>
-                      <span>加床服务</span>
-                    </label>
-                  </ComponentDemo>
-                </ComponentCard>
+              {/* 21. 开关 */}
+              <ComponentCard title="开关" description="Toggle开关（接收通知、自动确认、禁用状态）">
+                <ComponentDemo label="开关控制">
+                  <label className="relative inline-flex items-center cursor-pointer w-full mb-2">
+                    <input type="checkbox" className="sr-only peer" defaultChecked />
+                    <div className="w-11 h-6 bg-gray-200 peer-checked:bg-[#2C5F8D] rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                    <span className="ml-3 text-sm text-gray-700">接收通知</span>
+                  </label>
+                  <label className="relative inline-flex items-center cursor-pointer w-full">
+                    <input type="checkbox" className="sr-only peer" />
+                    <div className="w-11 h-6 bg-gray-200 peer-checked:bg-[#2C5F8D] rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                    <span className="ml-3 text-sm text-gray-700">自动确认</span>
+                  </label>
+                </ComponentDemo>
+              </ComponentCard>
 
-              {/* 选择器 - 单选框 */}
-              <ComponentCard title="单选框" description="单项选择和开关控制">
-                  <ComponentDemo label="单选框">
-                    <label className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer">
-                      <input type="radio" name="bed" className="w-5 h-5 text-[#2C5F8D] border-2 border-gray-300 focus:ring-2 focus:ring-[#2C5F8D]/20 cursor-pointer" defaultChecked />
-                      <span>大床</span>
-                    </label>
-                    <label className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer">
-                      <input type="radio" name="bed" className="w-5 h-5 text-[#2C5F8D] border-2 border-gray-300 focus:ring-2 focus:ring-[#2C5F8D]/20 cursor-pointer" />
-                      <span>双床</span>
-                    </label>
-                  </ComponentDemo>
-                  <ComponentDemo label="开关">
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" defaultChecked />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#2C5F8D]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all after:shadow-md peer-checked:bg-[#2C5F8D] shadow-sm"></div>
-                      <span className="ml-3 text-sm text-gray-700">接收通知</span>
-                    </label>
-                  </ComponentDemo>
-                </ComponentCard>
+              {/* 22. 日期范围选择器 */}
+              <ComponentCard title="日期范围选择器" description="入住日期、退房日期、共2晚">
+                <ComponentDemo label="日期选择">
+                  <div className="relative mb-2">
+                    <input type="text" placeholder="入住日期" className="w-full h-9 px-3 text-sm bg-[#F8F6F3] border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#2C5F8D]" />
+                    <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 stroke-[1.5] text-gray-400 pointer-events-none" />
+                  </div>
+                  <div className="relative mb-2">
+                    <input type="text" placeholder="退房日期" className="w-full h-9 px-3 text-sm bg-[#F8F6F3] border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#2C5F8D]" />
+                    <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 stroke-[1.5] text-gray-400 pointer-events-none" />
+                  </div>
+                  <div className="text-xs text-gray-600">共2晚</div>
+                </ComponentDemo>
+              </ComponentCard>
 
-              {/* 选择器 - Tab标签页 */}
-              <ComponentCard title="Tab标签页" description="页面切换和分类过滤">
-                  <ComponentDemo label="下划线Tab">
-                    <div className="flex border-b-2 border-gray-200">
-                      <button className="px-3 py-2 text-sm font-medium text-[#2C5F8D] border-b-2 border-[#2C5F8D] -mb-[2px]">全部</button>
-                      <button className="px-3 py-2 text-sm text-gray-600">待支付</button>
-                      <button className="px-3 py-2 text-sm text-gray-600">待入住</button>
+              {/* 23. 价格明细展示 */}
+              <ComponentCard title="价格明细展示" description="房费×2晚、早餐、优惠券、实付金额¥826">
+                <ComponentDemo label="费用明细">
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">房费 × 2晚</span>
+                      <span className="text-gray-900 font-medium">¥776</span>
                     </div>
-                  </ComponentDemo>
-                  <ComponentDemo label="胶囊Tab">
-                    <div className="flex gap-2">
-                      <button className="h-7 px-3 text-xs font-medium text-white bg-[#2C5F8D] rounded-full shadow-sm">全部</button>
-                      <button className="h-7 px-3 text-xs text-gray-600 bg-gray-100 rounded-full">民宿</button>
-                      <button className="h-7 px-3 text-xs text-gray-600 bg-gray-100 rounded-full">酒店</button>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">早餐</span>
+                      <span className="text-gray-900 font-medium">¥50</span>
                     </div>
-                  </ComponentDemo>
-                </ComponentCard>
-
-              {/* 价格展示 */}
-              <ComponentCard title="价格展示" description="价格和金额明细">
-                  <ComponentDemo label="主价格">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-2xl font-bold text-[#C67A28]">¥388</span>
-                      <span className="text-sm text-gray-400 line-through">¥568</span>
-                      <span className="inline-flex items-center h-5 px-1.5 text-xs font-bold text-white bg-[#B94D3D] rounded shadow-sm leading-none">省¥180</span>
+                    <div className="flex justify-between text-sm text-[#5A8A65]">
+                      <span>优惠券折扣</span>
+                      <span className="font-medium">-¥0</span>
                     </div>
-                  </ComponentDemo>
-                  <ComponentDemo label="列表价格">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-lg font-semibold text-[#C67A28]">¥199</span>
-                      <span className="text-xs text-gray-500">/晚</span>
-                    </div>
-                  </ComponentDemo>
-                  <ComponentDemo label="金额明细">
-                    <div className="space-y-1.5">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">房费 × 2晚</span>
-                        <span className="text-gray-900 font-medium">¥776</span>
-                      </div>
-                      <div className="flex justify-between text-sm text-[#5A8A65]">
-                        <span>优惠券折扣</span>
-                        <span className="font-medium">-¥50</span>
-                      </div>
-                      <div className="h-px bg-gray-200"></div>
-                      <div className="flex justify-between">
-                        <span className="text-sm font-medium">合计</span>
-                        <span className="text-lg font-bold text-[#C67A28]">¥776</span>
-                      </div>
-                    </div>
-                  </ComponentDemo>
-                </ComponentCard>
-
-              {/* 消息通知 */}
-              <ComponentCard title="消息通知" description="系统反馈和状态提醒">
-                  <div className="flex items-start gap-2 p-2.5 bg-[#5A8A65]/10 border-l-2 border-[#5A8A65] rounded text-sm shadow-sm">
-                    <CheckCircle2 className="w-4 h-4 stroke-[1.5] text-[#5A8A65] mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-gray-900">预订成功</p>
-                      <p className="text-xs text-gray-600 mt-0.5">订单已确认</p>
+                    <div className="h-px bg-gray-200"></div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium">实付金额</span>
+                      <span className="text-lg font-bold text-[#C67A28]">¥826</span>
                     </div>
                   </div>
-                  <div className="flex items-start gap-2 p-2.5 bg-[#B94D3D]/10 border-l-2 border-[#B94D3D] rounded text-sm mt-2.5 shadow-sm">
-                    <AlertCircle className="w-4 h-4 stroke-[1.5] text-[#B94D3D] mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-gray-900">预订失败</p>
-                      <p className="text-xs text-gray-600 mt-0.5">房源已被订</p>
-                    </div>
-                  </div>
-                </ComponentCard>
+                </ComponentDemo>
+              </ComponentCard>
 
-              {/* 房源卡片 */}
-              <ComponentCard title="房源卡片" description="列表展示和信息聚合">
-                  <div className="p-3 bg-white border-2 border-gray-200 rounded-xl shadow-lg">
-                    <div className="flex gap-2.5">
-                      <div className="relative w-20 h-20 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
-                        <div className="absolute inset-0 flex items-center justify-center text-xs text-gray-400">图</div>
-                        <span className="inline-flex absolute top-1 left-1 h-4 px-1.5 text-xs font-bold text-white bg-[#B94D3D] rounded shadow-sm leading-none">特惠</span>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-medium text-gray-900 truncate">山间小筑·独立小院</h4>
-                        <div className="flex gap-1 mt-1">
-                          <span className="inline-flex h-5 px-1.5 text-xs text-[#4A8FBF] bg-[#4A8FBF]/10 rounded shadow-sm leading-none">山景</span>
-                          <span className="inline-flex h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded shadow-sm leading-none">小院</span>
-                        </div>
-                        <div className="flex items-center gap-1 mt-1">
-                          <div className="flex text-[#C67A28]">
-                            {[1,2,3,4,5].map(i => (
-                              <svg key={i} className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                              </svg>
-                            ))}
-                          </div>
-                          <span className="text-xs text-gray-600">4.9</span>
-                        </div>
-                        <div className="flex items-baseline justify-between mt-1">
-                          <div className="flex items-baseline gap-1">
-                            <span className="text-lg font-bold text-[#C67A28]">¥388</span>
-                            <span className="text-xs text-gray-400 line-through">¥568</span>
-                          </div>
-                          <button className="h-6 px-2.5 text-xs font-medium text-white bg-[#2C5F8D] rounded shadow-md">订</button>
-                        </div>
-                      </div>
-                    </div>
+              {/* 24. 信息卡片 */}
+              <ComponentCard title="信息卡片" description="地址（MapPin icon）、联系方式（Phone icon）、营业时间（Clock icon）">
+                <ComponentDemo label="地址信息">
+                  <div className="flex items-start gap-2 text-sm">
+                    <MapPin className="w-4 h-4 stroke-[1.5] text-[#2C5F8D] mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700">杭州市上城区南山路100号</span>
                   </div>
-                </ComponentCard>
+                </ComponentDemo>
+                <ComponentDemo label="联系方式">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Phone className="w-4 h-4 stroke-[1.5] text-[#2C5F8D]" />
+                    <span className="text-gray-700">0571-8888-8888</span>
+                  </div>
+                </ComponentDemo>
+                <ComponentDemo label="营业时间">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Clock className="w-4 h-4 stroke-[1.5] text-[#2C5F8D]" />
+                    <span className="text-gray-700">08:00 - 22:00</span>
+                  </div>
+                </ComponentDemo>
+              </ComponentCard>
 
-              {/* 订单卡片 */}
-              <ComponentCard title="订单卡片" description="订单详情和操作入口">
-                  <div className="p-3 bg-white border-2 border-gray-200 rounded-xl shadow-lg">
-                    <div className="flex items-start justify-between mb-2.5">
-                      <h4 className="text-sm font-medium text-gray-900">山间小筑</h4>
-                      <span className="inline-flex h-5 px-1.5 text-xs font-medium text-[#4A8FBF] bg-[#4A8FBF]/10 rounded shadow-sm leading-none">待入住</span>
-                    </div>
-                    <div className="space-y-1 text-xs text-gray-600">
-                      <div className="flex justify-between">
-                        <span>订单号</span>
-                        <span className="text-gray-900">...001234</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>入住</span>
-                        <span className="text-gray-900">01/25-27 · 2晚</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>金额</span>
-                        <span className="text-base font-semibold text-[#C67A28]">¥776</span>
-                      </div>
-                    </div>
-                    <div className="flex gap-2 mt-2.5 pt-2.5 border-t border-gray-100">
-                      <button className="flex-1 h-7 text-xs text-gray-600 border-2 border-gray-300 rounded-xl">联系</button>
-                      <button className="flex-1 h-7 text-xs text-white bg-[#2C5F8D] rounded-xl shadow-md">详情</button>
-                    </div>
+              {/* 25. 设施特性卡片 */}
+              <ComponentCard title="设施特性卡片" description="10个主要设施+6个其他服务">
+                <div className="grid grid-cols-5 gap-2 mb-2">
+                  <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl">
+                    <Wifi className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
+                    <span className="text-xs text-gray-700">WiFi</span>
                   </div>
-                </ComponentCard>
-
-              {/* 评价组件 */}
-              <ComponentCard title="评价组件" description="用户反馈和评分展示">
-                  <div className="p-2.5 bg-[#F8F6F3] rounded-xl shadow-sm">
-                    <div className="flex items-start gap-2 mb-1.5">
-                      <div className="w-7 h-7 bg-gray-300 rounded-full flex-shrink-0"></div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-medium text-gray-900">张**</span>
-                          <span className="text-xs text-gray-500">01/15</span>
-                        </div>
-                        <div className="flex text-[#C67A28] mt-0.5">
-                          {[1,2,3,4,5].map(i => (
-                            <svg key={i} className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <p className="text-xs text-gray-700 leading-relaxed">房间干净，环境好，房东热情。下次还来！</p>
+                  <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl">
+                    <Utensils className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
+                    <span className="text-xs text-gray-700">早餐</span>
                   </div>
-                </ComponentCard>
-
-              {/* 设施特性卡片 */}
-              <ComponentCard title="设施特性" description="酒店服务和配套设施">
-                  <div className="grid grid-cols-5 gap-2">
-                    <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl shadow-sm">
-                      <Wifi className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
-                      <span className="text-xs text-gray-700">WiFi</span>
-                    </div>
-                    <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl shadow-sm">
-                      <Utensils className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
-                      <span className="text-xs text-gray-700">早餐</span>
-                    </div>
-                    <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl shadow-sm">
-                      <Wind className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
-                      <span className="text-xs text-gray-700">空调</span>
-                    </div>
-                    <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl shadow-sm">
-                      <Tv className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
-                      <span className="text-xs text-gray-700">电视</span>
-                    </div>
-                    <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl shadow-sm">
-                      <ParkingCircle className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
-                      <span className="text-xs text-gray-700">停车</span>
-                    </div>
-                    <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl shadow-sm">
-                      <Bath className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
-                      <span className="text-xs text-gray-700">浴缸</span>
-                    </div>
-                    <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl shadow-sm">
-                      <WashingMachine className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
-                      <span className="text-xs text-gray-700">洗衣</span>
-                    </div>
-                    <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl shadow-sm">
-                      <Dumbbell className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
-                      <span className="text-xs text-gray-700">健身</span>
-                    </div>
-                    <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl shadow-sm">
-                      <Lock className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
-                      <span className="text-xs text-gray-700">保险柜</span>
-                    </div>
-                    <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl shadow-sm">
-                      <BedDouble className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
-                      <span className="text-xs text-gray-700">加床</span>
-                    </div>
+                  <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl">
+                    <Wind className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
+                    <span className="text-xs text-gray-700">空调</span>
                   </div>
-                  <ComponentDemo label="其他服务">
-                    <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded shadow-sm leading-none">
-                      <Baby className="w-3 h-3 stroke-[1.5] mr-0.5" />儿童看护
-                    </span>
-                    <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded shadow-sm leading-none">
-                      <Dog className="w-3 h-3 stroke-[1.5] mr-0.5" />宠物友好
-                    </span>
-                    <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded shadow-sm leading-none">
-                      <CarFront className="w-3 h-3 stroke-[1.5] mr-0.5" />接送服务
-                    </span>
-                    <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded shadow-sm leading-none">
-                      <Shirt className="w-3 h-3 stroke-[1.5] mr-0.5" />洗衣服务
-                    </span>
-                    <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded shadow-sm leading-none">
-                      <Shield className="w-3 h-3 stroke-[1.5] mr-0.5" />24h安保
-                    </span>
-                    <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded shadow-sm leading-none">
-                      <Sparkles className="w-3 h-3 stroke-[1.5] mr-0.5" />客房清洁
-                    </span>
-                  </ComponentDemo>
-                </ComponentCard>
+                  <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl">
+                    <Tv className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
+                    <span className="text-xs text-gray-700">电视</span>
+                  </div>
+                  <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl">
+                    <ParkingCircle className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
+                    <span className="text-xs text-gray-700">停车</span>
+                  </div>
+                  <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl">
+                    <Bath className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
+                    <span className="text-xs text-gray-700">浴缸</span>
+                  </div>
+                  <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl">
+                    <WashingMachine className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
+                    <span className="text-xs text-gray-700">洗衣</span>
+                  </div>
+                  <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl">
+                    <Dumbbell className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
+                    <span className="text-xs text-gray-700">健身</span>
+                  </div>
+                  <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl">
+                    <Lock className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
+                    <span className="text-xs text-gray-700">保险柜</span>
+                  </div>
+                  <div className="flex flex-col items-center p-2 bg-[#2C5F8D]/10 rounded-xl">
+                    <BedDouble className="w-5 h-5 stroke-[1.5] text-[#2C5F8D] mb-1" />
+                    <span className="text-xs text-gray-700">加床</span>
+                  </div>
+                </div>
+                <ComponentDemo label="其他服务">
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded leading-none">
+                    <Baby className="w-3 h-3 stroke-[1.5] mr-0.5" />儿童看护
+                  </span>
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded leading-none">
+                    <Dog className="w-3 h-3 stroke-[1.5] mr-0.5" />宠物友好
+                  </span>
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded leading-none">
+                    <CarFront className="w-3 h-3 stroke-[1.5] mr-0.5" />接送服务
+                  </span>
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded leading-none">
+                    <Shirt className="w-3 h-3 stroke-[1.5] mr-0.5" />洗衣服务
+                  </span>
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded leading-none">
+                    <Shield className="w-3 h-3 stroke-[1.5] mr-0.5" />24h安保
+                  </span>
+                  <span className="inline-flex items-center h-5 px-1.5 text-xs text-gray-600 bg-[#F8F6F3] rounded leading-none">
+                    <Sparkles className="w-3 h-3 stroke-[1.5] mr-0.5" />客房清洁
+                  </span>
+                </ComponentDemo>
+              </ComponentCard>
             </div>
           </section>
 
