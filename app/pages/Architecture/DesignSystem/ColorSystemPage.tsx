@@ -27,10 +27,9 @@ export default function ColorSystemPage() {
           {/* 页面标题 */}
           <header className="text-center space-y-2">
             <h1 className="text-4xl font-bold text-gray-900 flex items-center justify-center gap-3">
-              <Palette className="w-10 h-10 text-[#2C5F8D]" />
+              <Palette className="w-10 h-10 text-[#2C5F8D]" strokeWidth={1.5} />
               小而美 Home Stay 配色系统
             </h1>
-            <p className="text-base text-gray-500">Version 1.0 | 全局设计规范</p>
           </header>
 
           {/* 设计理念 */}

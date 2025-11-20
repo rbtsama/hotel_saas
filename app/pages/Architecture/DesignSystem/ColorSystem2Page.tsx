@@ -28,10 +28,9 @@ export default function ColorSystem2Page() {
           {/* 页面标题 */}
           <header className="text-center space-y-2">
             <h1 className="text-4xl font-bold text-gray-900 flex items-center justify-center gap-3">
-              <Palette className="w-10 h-10 text-[#458559]" />
+              <Palette className="w-10 h-10 text-[#458559]" strokeWidth={1.5} />
               小而美 Home Stay 配色系统
             </h1>
-            <p className="text-base text-gray-500">Version 1.0 | 全局设计规范</p>
           </header>
 
           {/* 设计理念 */}
@@ -83,7 +82,7 @@ export default function ColorSystem2Page() {
 
             <div className="grid lg:grid-cols-3 gap-4">
               {/* 1. 按钮模块 */}
-              <ComponentSection title="按钮" icon={<ShoppingCart className="w-5 h-5" />}>
+              <ComponentSection title="按钮" icon={<ShoppingCart className="w-5 h-5" strokeWidth={1.5} />}>
               <div className="space-y-4">
                 {/* 主按钮 - 高度32px */}
                 <div>
@@ -96,7 +95,7 @@ export default function ColorSystem2Page() {
                       确认支付
                     </button>
                     <button className="px-4 py-1.5 bg-[#458559] text-white rounded font-medium text-sm flex items-center gap-1">
-                      <CreditCard className="w-3.5 h-3.5" />
+                      <CreditCard className="w-3.5 h-3.5" strokeWidth={1.5} />
                       去支付
                     </button>
                   </div>
@@ -113,7 +112,7 @@ export default function ColorSystem2Page() {
                       联系房东
                     </button>
                     <button className="px-4 py-1.5 bg-[#3D7350] text-white rounded font-medium text-sm flex items-center gap-1">
-                      <CheckCircle className="w-3.5 h-3.5" />
+                      <CheckCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
                       确认入住
                     </button>
                   </div>
@@ -133,7 +132,7 @@ export default function ColorSystem2Page() {
                       稍后再说
                     </button>
                     <button className="px-4 py-1.5 border border-[#B94D3D] text-[#B94D3D] rounded font-medium text-sm flex items-center gap-1">
-                      <XCircle className="w-3.5 h-3.5" />
+                      <XCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
                       申请退款
                     </button>
                   </div>
@@ -191,10 +190,10 @@ export default function ColorSystem2Page() {
                       限时抢购
                     </button>
                     <button className="w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center">
-                      <Heart className="w-4 h-4 text-gray-600" />
+                      <Heart className="w-4 h-4 text-gray-600" strokeWidth={1.5} />
                     </button>
                     <button className="w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center">
-                      <Share2 className="w-4 h-4 text-gray-600" />
+                      <Share2 className="w-4 h-4 text-gray-600" strokeWidth={1.5} />
                     </button>
                   </div>
                 </div>
@@ -215,7 +214,7 @@ export default function ColorSystem2Page() {
             </ComponentSection>
 
             {/* 2. 标签模块 */}
-            <ComponentSection title="标签" icon={<Tag className="w-5 h-5" />}>
+            <ComponentSection title="标签" icon={<Tag className="w-5 h-5" strokeWidth={1.5} />}>
               <div className="space-y-4">
                 {/* 促销标签 - 高20px，圆角2px */}
                 <div>
@@ -234,7 +233,7 @@ export default function ColorSystem2Page() {
                       双11特惠
                     </span>
                     <span className="px-1.5 py-0.5 bg-[#B94D3D] text-white rounded-sm text-xs font-bold leading-tight inline-flex items-center gap-0.5">
-                      <Sparkles className="w-2.5 h-2.5" />
+                      <Sparkles className="w-2.5 h-2.5" strokeWidth={1.5} />
                       限量抢购
                     </span>
                   </div>
@@ -260,7 +259,7 @@ export default function ColorSystem2Page() {
                       已完成
                     </span>
                     <span className="px-2 py-0.5 bg-[#3D7350]/10 text-[#3D7350] rounded-sm text-xs font-medium border border-[#3D7350]/20 inline-flex items-center gap-0.5">
-                      <CheckCircle className="w-2.5 h-2.5" />
+                      <CheckCircle className="w-2.5 h-2.5" strokeWidth={1.5} />
                       支付成功
                     </span>
                   </div>
@@ -313,19 +312,19 @@ export default function ColorSystem2Page() {
                   <div className="flex flex-wrap gap-3">
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 bg-[#3D7350] rounded-full flex items-center justify-center">
-                        <Shield className="w-4 h-4 text-white" />
+                        <Shield className="w-4 h-4 text-white" strokeWidth={1.5} />
                       </div>
                       <span className="text-xs text-gray-700">超赞房东</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 bg-[#A67B5B] rounded-full flex items-center justify-center">
-                        <Star className="w-4 h-4 text-white" />
+                        <Star className="w-4 h-4 text-white" strokeWidth={1.5} />
                       </div>
                       <span className="text-xs text-gray-700">5.0分好评</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 bg-[#4A85B8] rounded-full flex items-center justify-center">
-                        <CheckCircle className="w-4 h-4 text-white" />
+                        <CheckCircle className="w-4 h-4 text-white" strokeWidth={1.5} />
                       </div>
                       <span className="text-xs text-gray-700">已认证</span>
                     </div>
@@ -337,39 +336,39 @@ export default function ColorSystem2Page() {
                   <h4 className="text-sm font-semibold text-gray-700 mb-2">特性标签 (迷你空心，高22px，圆角2px)</h4>
                   <div className="flex flex-wrap gap-1.5">
                     <span className="px-1.5 py-0 border border-[#4A85B8] text-[#4A85B8] rounded-sm text-xs inline-flex items-center gap-0.5 leading-[20px]">
-                      <Wifi className="w-3 h-3" />
+                      <Wifi className="w-3 h-3" strokeWidth={1.5} />
                       免费WiFi
                     </span>
                     <span className="px-1.5 py-0 border border-[#A67B5B] text-[#A67B5B] rounded-sm text-xs inline-flex items-center gap-0.5 leading-[20px]">
-                      <Coffee className="w-3 h-3" />
+                      <Coffee className="w-3 h-3" strokeWidth={1.5} />
                       含早餐
                     </span>
                     <span className="px-1.5 py-0 border border-gray-400 text-gray-600 rounded-sm text-xs inline-flex items-center gap-0.5 leading-[20px]">
-                      <BedDouble className="w-3 h-3" />
+                      <BedDouble className="w-3 h-3" strokeWidth={1.5} />
                       双床
                     </span>
                     <span className="px-1.5 py-0 border border-gray-400 text-gray-600 rounded-sm text-xs inline-flex items-center gap-0.5 leading-[20px]">
-                      <ParkingCircle className="w-3 h-3" />
+                      <ParkingCircle className="w-3 h-3" strokeWidth={1.5} />
                       免费停车
                     </span>
                     <span className="px-1.5 py-0 border border-[#4A85B8] text-[#4A85B8] rounded-sm text-xs inline-flex items-center gap-0.5 leading-[20px]">
-                      <Wind className="w-3 h-3" />
+                      <Wind className="w-3 h-3" strokeWidth={1.5} />
                       空调
                     </span>
                     <span className="px-1.5 py-0 border border-gray-400 text-gray-600 rounded-sm text-xs inline-flex items-center gap-0.5 leading-[20px]">
-                      <Tv className="w-3 h-3" />
+                      <Tv className="w-3 h-3" strokeWidth={1.5} />
                       电视
                     </span>
                     <span className="px-1.5 py-0 border border-gray-400 text-gray-600 rounded-sm text-xs inline-flex items-center gap-0.5 leading-[20px]">
-                      <Bath className="w-3 h-3" />
+                      <Bath className="w-3 h-3" strokeWidth={1.5} />
                       独立卫浴
                     </span>
                     <span className="px-1.5 py-0 border border-gray-400 text-gray-600 rounded-sm text-xs inline-flex items-center gap-0.5 leading-[20px]">
-                      <Utensils className="w-3 h-3" />
+                      <Utensils className="w-3 h-3" strokeWidth={1.5} />
                       可做饭
                     </span>
                     <span className="px-1.5 py-0 border border-[#3D7350] text-[#3D7350] rounded-sm text-xs inline-flex items-center gap-0.5 leading-[20px]">
-                      <Trees className="w-3 h-3" />
+                      <Trees className="w-3 h-3" strokeWidth={1.5} />
                       景观房
                     </span>
                   </div>
@@ -378,7 +377,7 @@ export default function ColorSystem2Page() {
             </ComponentSection>
 
             {/* 3. 输入表单模块 */}
-            <ComponentSection title="输入表单" icon={<Search className="w-5 h-5" />}>
+            <ComponentSection title="输入表单" icon={<Search className="w-5 h-5" strokeWidth={1.5} />}>
               <div className="space-y-4">
                 {/* 方形输入框 - 高36px，圆角4px */}
                 <div>
@@ -408,7 +407,7 @@ export default function ColorSystem2Page() {
                   <h4 className="text-sm font-semibold text-gray-700 mb-2">搜索框 (全圆角)</h4>
                   <div className="max-w-md">
                     <div className="relative">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" strokeWidth={1.5} />
                       <input
                         type="search"
                         placeholder="搜索城市、民宿名称"
@@ -424,7 +423,7 @@ export default function ColorSystem2Page() {
                   <div className="space-y-2 max-w-md">
                     <div className="flex gap-2">
                       <div className="relative flex-1">
-                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" strokeWidth={1.5} />
                         <input
                           type="tel"
                           placeholder="请输入手机号"
@@ -471,7 +470,7 @@ export default function ColorSystem2Page() {
                       readOnly
                     />
                     <p className="text-xs text-[#B94D3D] flex items-center gap-0.5">
-                      <AlertCircle className="w-3 h-3" />
+                      <AlertCircle className="w-3 h-3" strokeWidth={1.5} />
                       请输入正确的手机号码
                     </p>
                   </div>
@@ -480,7 +479,7 @@ export default function ColorSystem2Page() {
             </ComponentSection>
 
             {/* 4. 选择器模块 */}
-            <ComponentSection title="选择器" icon={<Filter className="w-5 h-5" />}>
+            <ComponentSection title="选择器" icon={<Filter className="w-5 h-5" strokeWidth={1.5} />}>
               <div className="space-y-6">
                 {/* 筛选 */}
                 <div>
@@ -528,15 +527,15 @@ export default function ColorSystem2Page() {
                   <h4 className="text-sm font-semibold text-gray-700 mb-3">排序</h4>
                   <div className="flex gap-2">
                     <button className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-xs text-gray-700 flex items-center gap-1.5">
-                      <ArrowUpDown className="w-3.5 h-3.5" />
+                      <ArrowUpDown className="w-3.5 h-3.5" strokeWidth={1.5} />
                       综合排序
                     </button>
                     <button className="px-4 py-2.5 bg-white border border-[#458559] text-[#458559] rounded-lg text-xs font-medium flex items-center gap-1.5">
-                      <ArrowUpDown className="w-3.5 h-3.5" />
+                      <ArrowUpDown className="w-3.5 h-3.5" strokeWidth={1.5} />
                       价格从低到高
                     </button>
                     <button className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-xs text-gray-700 flex items-center gap-1.5">
-                      <Star className="w-3.5 h-3.5" />
+                      <Star className="w-3.5 h-3.5" strokeWidth={1.5} />
                       好评优先
                     </button>
                   </div>
@@ -614,14 +613,14 @@ export default function ColorSystem2Page() {
                         <label className="block text-xs text-gray-600 mb-1.5">入住日期</label>
                         <button className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 flex items-center justify-between">
                           <span>11/21</span>
-                          <Calendar className="w-4 h-4 text-gray-400" />
+                          <Calendar className="w-4 h-4 text-gray-400" strokeWidth={1.5} />
                         </button>
                       </div>
                       <div className="flex-1">
                         <label className="block text-xs text-gray-600 mb-1.5">退房日期</label>
                         <button className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 flex items-center justify-between">
                           <span>11/23</span>
-                          <Calendar className="w-4 h-4 text-gray-400" />
+                          <Calendar className="w-4 h-4 text-gray-400" strokeWidth={1.5} />
                         </button>
                       </div>
                     </div>
@@ -632,7 +631,7 @@ export default function ColorSystem2Page() {
             </ComponentSection>
 
             {/* 5. 卡片模块 */}
-            <ComponentSection title="卡片" icon={<Home className="w-5 h-5" />}>
+            <ComponentSection title="卡片" icon={<Home className="w-5 h-5" strokeWidth={1.5} />}>
               <div className="space-y-6">
                 {/* 价格明细展示 */}
                 <div>
@@ -650,7 +649,7 @@ export default function ColorSystem2Page() {
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-[#A67B5B] flex items-center gap-1">
-                          <Tag className="w-3.5 h-3.5" />
+                          <Tag className="w-3.5 h-3.5" strokeWidth={1.5} />
                           新客优惠
                         </span>
                         <span className="text-[#A67B5B]">-¥50</span>
@@ -668,21 +667,21 @@ export default function ColorSystem2Page() {
                   <h4 className="text-sm font-semibold text-gray-700 mb-3">地址信息、联系方式、营业时间</h4>
                   <div className="max-w-sm bg-white border border-gray-200 rounded-xl p-4 space-y-4">
                     <div className="flex gap-3">
-                      <MapPin className="w-5 h-5 text-[#4A85B8] flex-shrink-0 mt-0.5" />
+                      <MapPin className="w-5 h-5 text-[#4A85B8] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                       <div>
                         <p className="text-sm font-medium text-gray-900">民宿地址</p>
                         <p className="text-xs text-gray-600 mt-1">浙江省杭州市西湖区龙井路18号</p>
                       </div>
                     </div>
                     <div className="flex gap-3">
-                      <Phone className="w-5 h-5 text-[#3D7350] flex-shrink-0 mt-0.5" />
+                      <Phone className="w-5 h-5 text-[#3D7350] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                       <div>
                         <p className="text-sm font-medium text-gray-900">联系电话</p>
                         <p className="text-xs text-gray-600 mt-1">138-1234-5678</p>
                       </div>
                     </div>
                     <div className="flex gap-3">
-                      <Clock className="w-5 h-5 text-[#A67B5B] flex-shrink-0 mt-0.5" />
+                      <Clock className="w-5 h-5 text-[#A67B5B] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                       <div>
                         <p className="text-sm font-medium text-gray-900">入住/退房时间</p>
                         <p className="text-xs text-gray-600 mt-1">14:00 入住 · 12:00 退房</p>
@@ -696,51 +695,51 @@ export default function ColorSystem2Page() {
                   <h4 className="text-sm font-semibold text-gray-700 mb-3">设施特性 (直接摆放icon + 文字)</h4>
                   <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <Wifi className="w-6 h-6 text-[#4A85B8]" />
+                      <Wifi className="w-6 h-6 text-[#4A85B8]" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">免费WiFi</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <Coffee className="w-6 h-6 text-[#A67B5B]" />
+                      <Coffee className="w-6 h-6 text-[#A67B5B]" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">含早餐</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <ParkingCircle className="w-6 h-6 text-gray-600" />
+                      <ParkingCircle className="w-6 h-6 text-gray-600" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">免费停车</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <Wind className="w-6 h-6 text-gray-600" />
+                      <Wind className="w-6 h-6 text-gray-600" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">空调</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <Tv className="w-6 h-6 text-gray-600" />
+                      <Tv className="w-6 h-6 text-gray-600" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">电视</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <Bath className="w-6 h-6 text-gray-600" />
+                      <Bath className="w-6 h-6 text-gray-600" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">独立卫浴</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <WashingMachine className="w-6 h-6 text-gray-600" />
+                      <WashingMachine className="w-6 h-6 text-gray-600" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">洗衣机</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <Utensils className="w-6 h-6 text-gray-600" />
+                      <Utensils className="w-6 h-6 text-gray-600" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">可做饭</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <Trees className="w-6 h-6 text-[#3D7350]" />
+                      <Trees className="w-6 h-6 text-[#3D7350]" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">景观房</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <Dumbbell className="w-6 h-6 text-gray-600" />
+                      <Dumbbell className="w-6 h-6 text-gray-600" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">健身房</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <Dog className="w-6 h-6 text-gray-600" />
+                      <Dog className="w-6 h-6 text-gray-600" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">可带宠物</span>
                     </div>
                     <div className="flex flex-col items-center gap-1.5 text-center">
-                      <Baby className="w-6 h-6 text-gray-600" />
+                      <Baby className="w-6 h-6 text-gray-600" strokeWidth={1.5} />
                       <span className="text-xs text-gray-700">婴儿床</span>
                     </div>
                   </div>
