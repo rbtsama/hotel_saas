@@ -36,21 +36,17 @@ export default function ColorSystemPage() {
 
           {/* 设计理念 */}
           <section className="mt-12">
-            <h2 className="text-3xl font-bold text-[#2C5F8D] mb-6 text-center">设计理念</h2>
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-50 via-purple-50 to-orange-50 border border-gray-200 shadow-sm">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#2C5F8D]/5 rounded-full blur-3xl"></div>
               <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#C67A28]/5 rounded-full blur-3xl"></div>
               <div className="relative px-8 py-10">
                 <div className="max-w-3xl mx-auto text-center space-y-4">
-                  <p className="text-base text-gray-800 leading-relaxed font-medium">
+                  <p className="text-[18px] text-gray-800 leading-relaxed font-serif font-medium">
                     小而美 Home Stay — 精选独特民宿，轻松愉悦出行，融入自然美景
                   </p>
-                  <p className="text-sm text-gray-700 leading-relaxed italic">
+                  <p className="text-[16px] text-gray-700 leading-relaxed font-serif italic">
                     "从春日晨雾到冬日星空，四季流转中沉淀的温柔配色。<br/>
                     深蓝如夜空般沉静可靠，深橙如落日般温暖明快，湖蓝如晴空般清新舒展。"
-                  </p>
-                  <p className="text-xs text-gray-600 pt-2">
-                    — 这是属于旅人的诗意，也是归家的安心
                   </p>
                 </div>
               </div>

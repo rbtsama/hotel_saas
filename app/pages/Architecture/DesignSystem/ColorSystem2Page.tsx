@@ -36,21 +36,17 @@ export default function ColorSystem2Page() {
 
           {/* 设计理念 */}
           <section className="mt-12">
-            <h2 className="text-3xl font-bold text-[#458559] mb-6 text-center">设计理念</h2>
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-green-50 via-emerald-50 to-orange-50 border border-gray-200 shadow-sm">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#458559]/5 rounded-full blur-3xl"></div>
               <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#A67B5B]/5 rounded-full blur-3xl"></div>
               <div className="relative px-8 py-10">
                 <div className="max-w-3xl mx-auto text-center space-y-4">
-                  <p className="text-base text-gray-800 leading-relaxed font-medium">
+                  <p className="text-[18px] text-gray-800 leading-relaxed font-serif font-medium">
                     小而美 Home Stay — 精选独特民宿，轻松愉悦出行，融入自然美景
                   </p>
-                  <p className="text-sm text-gray-700 leading-relaxed italic">
+                  <p className="text-[16px] text-gray-700 leading-relaxed font-serif italic">
                     "山林间的呼吸，田野上的漫步，冰川下的宁静。<br/>
                     森林绿如夏日树荫般清爽宜人，田野色如秋日麦浪般质朴温暖，冰川蓝如冬日湖面般澄澈纯净。"
-                  </p>
-                  <p className="text-xs text-gray-600 pt-2">
-                    — 这是自然的馈赠，也是心灵的栖息
                   </p>
                 </div>
               </div>
