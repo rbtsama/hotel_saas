@@ -4,6 +4,7 @@
 
 import MobileFrame from '../components/MobileFrame'
 import { Badge } from '~/components/ui/badge'
+import { Button } from '~/components/ui/button'
 import { MapPin, Star } from 'lucide-react'
 
 interface HotelListPageProps {

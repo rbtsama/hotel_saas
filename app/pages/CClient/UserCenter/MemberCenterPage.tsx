@@ -4,7 +4,8 @@
 
 import MobileFrame from '../components/MobileFrame'
 import { Badge } from '~/components/ui/badge'
-import { Trophy, Star, Gift, Headphones } from 'lucide-react'
+import { Button } from '~/components/ui/button'
+import { Trophy, Star, Gift, Headphones, TrendingUp } from 'lucide-react'
 
 interface MemberCenterPageProps {
   currentLevel: number

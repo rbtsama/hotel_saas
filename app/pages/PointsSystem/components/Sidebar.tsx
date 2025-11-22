@@ -63,8 +63,8 @@ export default function Sidebar({ menuItems }: SidebarProps) {
   // 递归渲染菜单项 - 支持多级嵌套
   const renderMenuItem = (item: MenuItem, level: number = 1): React.ReactNode => {
     const hasChildren = item.children && item.children.length > 0
-    const hasModification = item.title.includes('*')
-    const displayTitle = item.title.replace(' *', '')
+    const titleHasModification = item.title.includes('*')
+    const titleDisplay = item.title.replace(' *', '')
 
     if (hasChildren) {
       return (
@@ -78,8 +78,8 @@ export default function Sidebar({ menuItems }: SidebarProps) {
             }`}
           >
             <span>
-              {displayTitle}
-              {hasModification && <span className="text-red-600 ml-1">*</span>}
+              {titleDisplay}
+              {titleHasModification && <span className="text-red-600 ml-1">*</span>}
             </span>
             {expandedMenus[item.title] ? (
               <ChevronDown className="w-4 h-4" />
@@ -99,9 +99,6 @@ export default function Sidebar({ menuItems }: SidebarProps) {
     }
 
     // 叶子节点（实际路径）
-    const hasModification = item.title.includes('*')
-    const displayTitle = item.title.replace(' *', '')
-
     return (
       <Link
         key={item.path}
@@ -114,8 +111,8 @@ export default function Sidebar({ menuItems }: SidebarProps) {
         }`}
       >
         <span>
-          {displayTitle}
-          {hasModification && <span className="text-red-600 ml-1">*</span>}
+          {titleDisplay}
+          {titleHasModification && <span className="text-red-600 ml-1">*</span>}
         </span>
       </Link>
     )
