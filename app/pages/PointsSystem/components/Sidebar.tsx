@@ -32,8 +32,8 @@ export default function Sidebar({ menuItems }: SidebarProps) {
     '酒店管理': true,
     '订单管理': true,
     '争议处理': true,
+    '积分管理': true,
     '会员管理': true,
-    '积分系统': true,
     '优惠券': true,
     '系统管理': true,
     '酒店后台': true,
@@ -245,17 +245,19 @@ export const menuConfig: MenuItem[] = [
       },
       // 用户运营：锦上添花
       {
-        title: '会员管理',
+        title: '积分管理',
         children: [
-          { title: '会员等级配置', path: '/member/level-config' },
-          { title: '会员列表', path: '/member-management/members' }
+          { title: '基础规则配置', path: '/platform-admin/points-management/base-rule' },
+          { title: '等级积分汇率', path: '/platform-admin/points-management/level-rates' },
+          { title: '积分统计', path: '/platform-admin/points-management/statistics' }
         ]
       },
       {
-        title: '积分系统',
+        title: '会员管理',
         children: [
-          { title: '积分规则配置', path: '/points-system/rule-config' },
-          { title: '用户积分管理', path: '/points-system/user-account' }
+          { title: '升级规则配置', path: '/platform-admin/member-management/upgrade-rules' },
+          { title: '折扣规则配置', path: '/platform-admin/member-management/discount-rules' },
+          { title: '用户会员管理', path: '/platform-admin/member-management/users' }
         ]
       },
       {
