@@ -91,6 +91,7 @@ export default function Sidebar({ menuItems }: SidebarProps) {
       <Link
         key={item.path}
         to={item.path || '#'}
+        preventScrollReset={true}
         className={`block px-3 py-2 text-sm rounded-md transition-colors ${
           isActive(item.path)
             ? 'bg-blue-50 text-blue-700 font-medium'

@@ -1,0 +1,88 @@
+/**
+ * 商户端 - 代客下单 Mock 数据
+ */
+
+import type { AgentOrder } from '../../types/agentOrder.types'
+import { AgentOrderStatus } from '../../types/agentOrder.types'
+
+/**
+ * 代客下单列表 Mock
+ */
+export const mockAgentOrders: AgentOrder[] = [
+  {
+    id: 'agent-order-1',
+    orderId: 'DKD2025120101234',
+    storeId: 'store-1',
+    storeName: 'XX豪华酒店',
+    roomTypeName: '豪华大床房',
+    checkInDate: '2025-12-01',
+    checkOutDate: '2025-12-02',
+    nights: 1,
+    marketPrice: 500,
+    specialPrice: 350,
+    specialRequirements: ['含双份早餐', '延迟退房至14:00'],
+    notes: '老客户张总专属订单，已电话沟通确认',
+    qrCodeUrl: '/qrcode/DKD2025120101234.png',
+    status: AgentOrderStatus.PENDING_PAYMENT,
+    validUntil: '2025-12-08',
+    createdAt: '2025-11-22 10:00:00',
+  },
+  {
+    id: 'agent-order-2',
+    orderId: 'DKD2025112801',
+    storeId: 'store-1',
+    storeName: 'XX豪华酒店',
+    roomTypeName: '豪华双床房',
+    checkInDate: '2025-11-28',
+    checkOutDate: '2025-11-29',
+    nights: 1,
+    marketPrice: 600,
+    specialPrice: 400,
+    specialRequirements: ['含单人早餐'],
+    notes: '会议客户',
+    customerName: '李四',
+    customerPhone: '139****5678',
+    status: AgentOrderStatus.PAID,
+    validUntil: '2025-12-05',
+    createdAt: '2025-11-21 14:30:00',
+    paidAt: '2025-11-21 15:00:00',
+  },
+  {
+    id: 'agent-order-3',
+    orderId: 'DKD2025112001',
+    storeId: 'store-1',
+    storeName: 'XX豪华酒店',
+    roomTypeName: '行政套房',
+    checkInDate: '2025-11-20',
+    checkOutDate: '2025-11-21',
+    nights: 1,
+    marketPrice: 800,
+    specialPrice: 600,
+    specialRequirements: ['免费升级房型'],
+    customerName: '王五',
+    customerPhone: '136****9012',
+    status: AgentOrderStatus.CHECKED_IN,
+    validUntil: '2025-11-27',
+    createdAt: '2025-11-19 16:00:00',
+    paidAt: '2025-11-19 17:00:00',
+  },
+  {
+    id: 'agent-order-4',
+    orderId: 'DKD2025111501',
+    storeId: 'store-1',
+    storeName: 'XX豪华酒店',
+    roomTypeName: '豪华大床房',
+    checkInDate: '2025-11-15',
+    checkOutDate: '2025-11-16',
+    nights: 1,
+    marketPrice: 500,
+    specialPrice: 350,
+    specialRequirements: [],
+    customerName: '赵六',
+    customerPhone: '137****3456',
+    status: AgentOrderStatus.CHECKED_OUT,
+    validUntil: '2025-11-22',
+    createdAt: '2025-11-14 09:00:00',
+    paidAt: '2025-11-14 10:00:00',
+  },
+]

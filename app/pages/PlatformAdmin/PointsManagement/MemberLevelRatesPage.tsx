@@ -120,25 +120,18 @@ export default function MemberLevelRatesPage({ rates }: MemberLevelRatesPageProp
                 <TableRow>
                   <TableHead>会员等级</TableHead>
                   <TableHead>积分汇率倍数</TableHead>
-                  <TableHead>价值示例（50积分）</TableHead>
                   <TableHead>最后更新时间</TableHead>
                   <TableHead className="text-right">操作</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {rates.map((rate) => {
-                  const exampleValue = (50 * 1.0 * rate.rateMultiplier).toFixed(0)
                   return (
                     <TableRow key={rate.id}>
                       <TableCell className="font-medium">{rate.levelName}</TableCell>
                       <TableCell>
                         <span className="text-lg font-semibold text-primary">
                           {rate.rateMultiplier.toFixed(1)}倍
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-slate-600">
-                          50积分 = <span className="font-semibold text-secondary">¥{exampleValue}</span>
                         </span>
                       </TableCell>
                       <TableCell className="text-sm text-slate-500">
