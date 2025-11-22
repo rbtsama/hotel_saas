@@ -11,15 +11,17 @@ import { Label } from '~/components/ui/label'
 import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '~/components/ui/dialog'
+import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 import LearningModal from '~/pages/Architecture/ScenarioDesign/components/LearningModal'
+import { useViewMode } from '~/contexts/ViewModeContext'
 import { Edit, TrendingUp } from 'lucide-react'
 
 interface UpgradeRulesPageProps {
   rules: MemberLevelUpgradeRule[]
-  isLearningMode?: boolean
 }
 
-export default function UpgradeRulesPage({ rules, isLearningMode = true }: UpgradeRulesPageProps) {
+export default function UpgradeRulesPage({ rules }: UpgradeRulesPageProps) {
+  const { isLearningMode } = useViewMode()
   const [editingRule, setEditingRule] = useState<MemberLevelUpgradeRule | null>(null)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
   const [formData, setFormData] = useState({
@@ -39,8 +41,9 @@ export default function UpgradeRulesPage({ rules, isLearningMode = true }: Upgra
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="max-w-7xl mx-auto p-6">
+    <MainLayout>
+      <div className="h-screen overflow-y-auto bg-slate-50">
+        <div className="max-w-7xl mx-auto p-6">
         {/* 页面头部 */}
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -277,7 +280,8 @@ export default function UpgradeRulesPage({ rules, isLearningMode = true }: Upgra
             </Form>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
-    </div>
+    </MainLayout>
   )
 }

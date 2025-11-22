@@ -4,7 +4,8 @@
 
 import { useState } from 'react'
 import { Form } from '@remix-run/react'
-import type { UserMemberInfo, UserNightRecord, PointsRecord } from '../MemberManagement/types/member.types'
+import type { UserMemberInfo, UserNightRecord } from '../MemberManagement/types/member.types'
+import type { PointsRecord } from './types/points.types'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
@@ -12,6 +13,7 @@ import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '~/components/ui/dialog'
 import { Badge } from '~/components/ui/badge'
+import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 import { ArrowLeft, Edit2, TrendingUp, TrendingDown } from 'lucide-react'
 
 interface UserPointsDetailPageProps {
@@ -31,8 +33,9 @@ export default function UserPointsDetailPage({
   const [adjustReason, setAdjustReason] = useState('')
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="max-w-7xl mx-auto p-6">
+    <MainLayout>
+      <div className="h-screen overflow-y-auto bg-slate-50">
+        <div className="max-w-7xl mx-auto p-6">
         {/* 页面头部 */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
@@ -310,7 +313,8 @@ export default function UserPointsDetailPage({
             </Form>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
-    </div>
+    </MainLayout>
   )
 }

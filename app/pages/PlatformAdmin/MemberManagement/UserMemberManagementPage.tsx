@@ -12,20 +12,21 @@ import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
 import { Badge } from '~/components/ui/badge'
+import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 import LearningModal from '~/pages/Architecture/ScenarioDesign/components/LearningModal'
+import { useViewMode } from '~/contexts/ViewModeContext'
 import { Search, Eye } from 'lucide-react'
 
 interface UserMemberManagementPageProps {
   users: UserMemberInfo[]
   total: number
-  isLearningMode?: boolean
 }
 
 export default function UserMemberManagementPage({
   users,
   total,
-  isLearningMode = true,
 }: UserMemberManagementPageProps) {
+  const { isLearningMode } = useViewMode()
   const [searchPhone, setSearchPhone] = useState('')
   const [filterLevel, setFilterLevel] = useState<string>('all')
 
@@ -38,8 +39,9 @@ export default function UserMemberManagementPage({
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="max-w-7xl mx-auto p-6">
+    <MainLayout>
+      <div className="h-screen overflow-y-auto bg-slate-50">
+        <div className="max-w-7xl mx-auto p-6">
         {/* 页面头部 */}
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -191,7 +193,8 @@ export default function UserMemberManagementPage({
             </Table>
           </CardContent>
         </Card>
+        </div>
       </div>
-    </div>
+    </MainLayout>
   )
 }

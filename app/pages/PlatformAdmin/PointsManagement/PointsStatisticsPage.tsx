@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/com
 import { Button } from '~/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
+import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 import { TrendingUp, TrendingDown, Activity, Download } from 'lucide-react'
 
 interface PointsStatisticsPageProps {
@@ -18,8 +19,9 @@ export default function PointsStatisticsPage({ statistics }: PointsStatisticsPag
   const [dateRange, setDateRange] = useState('7days')
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="max-w-7xl mx-auto p-6">
+    <MainLayout>
+      <div className="h-screen overflow-y-auto bg-slate-50">
+        <div className="max-w-7xl mx-auto p-6">
         {/* 页面头部 */}
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -189,7 +191,8 @@ export default function PointsStatisticsPage({ statistics }: PointsStatisticsPag
             </Table>
           </CardContent>
         </Card>
+        </div>
       </div>
-    </div>
+    </MainLayout>
   )
 }

@@ -11,15 +11,17 @@ import { Label } from '~/components/ui/label'
 import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
+import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 import LearningModal from '~/pages/Architecture/ScenarioDesign/components/LearningModal'
+import { useViewMode } from '~/contexts/ViewModeContext'
 import { Edit } from 'lucide-react'
 
 interface MemberLevelRatesPageProps {
   rates: MemberLevelPointsRate[]
-  isLearningMode?: boolean
 }
 
-export default function MemberLevelRatesPage({ rates, isLearningMode = true }: MemberLevelRatesPageProps) {
+export default function MemberLevelRatesPage({ rates }: MemberLevelRatesPageProps) {
+  const { isLearningMode } = useViewMode()
   const [editingRate, setEditingRate] = useState<MemberLevelPointsRate | null>(null)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
   const [rateValue, setRateValue] = useState(1.0)
@@ -31,8 +33,9 @@ export default function MemberLevelRatesPage({ rates, isLearningMode = true }: M
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="max-w-6xl mx-auto p-6">
+    <MainLayout>
+      <div className="h-screen overflow-y-auto bg-slate-50">
+        <div className="max-w-6xl mx-auto p-6">
         {/* 页面头部 */}
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -218,7 +221,8 @@ export default function MemberLevelRatesPage({ rates, isLearningMode = true }: M
             </Form>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
-    </div>
+    </MainLayout>
   )
 }
