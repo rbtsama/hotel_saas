@@ -108,20 +108,20 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
       title: '折扣与积分规则',
       content: (
         <div className="space-y-4">
-          <p>每个等级配置独立的折扣范围和积分汇率：</p>
+          <p>每个等级配置独立的折扣范围和积分倍数：</p>
           <LogicList items={[
             <><strong>折扣范围：</strong>平台设定的折扣区间，门店可在此范围内调整</>,
-            <><strong>积分汇率：</strong>消费1元可获得的积分数量，等级越高汇率越高</>,
+            <><strong>积分倍数：</strong>消费1元可获得的积分数量，等级越高倍数越高</>,
             <><strong>差异化激励：</strong>通过折扣和积分的差异化，激励用户升级</>
           ]} />
           <LogicTable
-            headers={['等级', '折扣范围', '积分汇率']}
+            headers={['等级', '折扣范围', '积分倍数']}
             rows={[
-              ['VIP0（注册会员）', '无折扣', '1.0（1元=1积分）'],
-              ['VIP1', '85% ~ 95%', '1.2（1元=1.2积分）'],
-              ['VIP3', '75% ~ 88%', '2.0（1元=2积分）'],
-              ['VIP5', '65% ~ 82%', '3.0（1元=3积分）'],
-              ['VIP9', '45% ~ 70%', '5.0（1元=5积分）']
+              ['VIP0（注册会员）', '无折扣', '1.0'],
+              ['VIP1', '85% ~ 95%', '1.2'],
+              ['VIP3', '75% ~ 88%', '2.0'],
+              ['VIP5', '65% ~ 82%', '3.0'],
+              ['VIP9', '45% ~ 70%', '5.0']
             ]}
           />
         </div>
@@ -139,7 +139,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
             ['保级间夜', '有效期内保持等级的最低订单次数', '正整数，无上限'],
             ['有效期（天）', '等级有效天数，0表示永久', '正整数或0'],
             ['折扣范围', '可设置的折扣百分比区间', '非负整数，最小值≤最大值'],
-            ['积分汇率', '消费1元获得的积分', '正数，支持2位小数'],
+            ['积分倍数', '消费1元获得的积分倍数', '正数，支持2位小数'],
             ['状态', '等级是否启用', '启用/禁用']
           ]}
         />
@@ -184,7 +184,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                   <TableHead className="min-w-[120px]">保级间夜</TableHead>
                   <TableHead className="min-w-[120px]">有效期（天）</TableHead>
                   <TableHead className="min-w-[150px]">折扣范围</TableHead>
-                  <TableHead className="min-w-[120px]">积分汇率</TableHead>
+                  <TableHead className="min-w-[120px]">积分倍数</TableHead>
                   <TableHead className="min-w-[100px]">状态</TableHead>
                 </TableRow>
               </TableHeader>
@@ -277,20 +277,17 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                       </div>
                     </TableCell>
 
-                    {/* 积分汇率 */}
+                    {/* 积分倍数 */}
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          min="0"
-                          step="0.01"
-                          value={level.pointsRate}
-                          onChange={(e) => updateLevel(level.id, 'pointsRate', Number(e.target.value))}
-                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
-                          disabled={!isEditMode}
-                        />
-                        <span className="text-xs text-muted-foreground">¥1={level.pointsRate}分</span>
-                      </div>
+                      <Input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={level.pointsRate}
+                        onChange={(e) => updateLevel(level.id, 'pointsRate', Number(e.target.value))}
+                        className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                        disabled={!isEditMode}
+                      />
                     </TableCell>
 
                     {/* 状态 - 不受修改设置限制，可独立操作 */}
@@ -364,11 +361,11 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
             </div>
 
             <div className="space-y-2">
-              <p className="font-medium text-foreground">积分汇率规则：</p>
+              <p className="font-medium text-foreground">积分倍数规则：</p>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>消费1元可获得的积分数量，支持最多2位小数</li>
-                <li>等级越高，积分汇率越高，激励用户升级</li>
-                <li>例如：VIP3汇率2.0，消费¥1000可获得2000积分</li>
+                <li>消费1元可获得的积分倍数，支持最多2位小数</li>
+                <li>等级越高，积分倍数越高，激励用户升级</li>
+                <li>例如：VIP3倍数2.0，消费¥1000可获得2000积分</li>
               </ul>
             </div>
           </div>
