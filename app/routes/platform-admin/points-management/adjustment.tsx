@@ -26,5 +26,5 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function PointsAdjustmentRoute() {
   const { userInfo, details } = useLoaderData<typeof loader>()
-  return <PointsAdjustmentPage userInfo={userInfo} details={details} />
+  return <PointsAdjustmentPage userInfo={userInfo} details={details || []} />
 }
