@@ -5,7 +5,7 @@
 import { Form } from '@remix-run/react'
 import type { PointsServiceConfig } from './types/pointsService.types'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { Button } from '~/components/ui/button'
+import { Switch } from '~/components/ui/switch'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 import { Gift, ShoppingBag } from 'lucide-react'
@@ -36,35 +36,36 @@ export default function PointsServiceConfigPage({ config }: PointsServiceConfigP
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>服务名称</TableHead>
-                    <TableHead className="text-right">奖励积分</TableHead>
-                    <TableHead>服务说明</TableHead>
-                    <TableHead>状态</TableHead>
+                    <TableHead className="min-w-[150px]">服务名称</TableHead>
+                    <TableHead className="min-w-[250px]">服务说明</TableHead>
+                    <TableHead className="min-w-[120px]">奖励积分</TableHead>
+                    <TableHead className="min-w-[100px]">状态</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {config.ecoRewards.map((service) => (
                     <TableRow key={service.id}>
                       <TableCell className="font-medium">{service.serviceName}</TableCell>
-                      <TableCell className="text-right">
-                        <span className="font-semibold text-green-600">
-                          {Math.abs(service.pointsAmount)}
-                        </span>
-                      </TableCell>
                       <TableCell className="text-sm text-slate-600">
                         {service.description || '-'}
+                      </TableCell>
+                      <TableCell>
+                        <span className="font-semibold text-green-600">
+                          {Math.abs(service.pointsAmount)} 积分
+                        </span>
                       </TableCell>
                       <TableCell>
                         <Form method="post">
                           <input type="hidden" name="_action" value="toggle" />
                           <input type="hidden" name="serviceId" value={service.id} />
-                          <Button
-                            type="submit"
-                            variant="ghost"
-                            size="sm"
-                          >
-                            {service.enabled ? '停用' : '启用'}
-                          </Button>
+                          <Switch
+                            checked={service.enabled}
+                            onCheckedChange={(checked) => {
+                              // 提交表单
+                              const form = document.getElementById(`toggle-${service.id}`) as HTMLFormElement
+                              if (form) form.requestSubmit()
+                            }}
+                          />
                         </Form>
                       </TableCell>
                     </TableRow>
@@ -86,35 +87,36 @@ export default function PointsServiceConfigPage({ config }: PointsServiceConfigP
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>服务名称</TableHead>
-                    <TableHead className="text-right">消耗积分</TableHead>
-                    <TableHead>服务说明</TableHead>
-                    <TableHead>状态</TableHead>
+                    <TableHead className="min-w-[150px]">服务名称</TableHead>
+                    <TableHead className="min-w-[250px]">服务说明</TableHead>
+                    <TableHead className="min-w-[120px]">消耗积分</TableHead>
+                    <TableHead className="min-w-[100px]">状态</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {config.valueAddedServices.map((service) => (
                     <TableRow key={service.id}>
                       <TableCell className="font-medium">{service.serviceName}</TableCell>
-                      <TableCell className="text-right">
-                        <span className="font-semibold text-secondary">
-                          +{service.pointsAmount}
-                        </span>
-                      </TableCell>
                       <TableCell className="text-sm text-slate-600">
                         {service.description || '-'}
                       </TableCell>
                       <TableCell>
-                        <Form method="post">
+                        <span className="font-semibold text-secondary">
+                          {service.pointsAmount} 积分
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <Form method="post" id={`toggle-${service.id}`}>
                           <input type="hidden" name="_action" value="toggle" />
                           <input type="hidden" name="serviceId" value={service.id} />
-                          <Button
-                            type="submit"
-                            variant="ghost"
-                            size="sm"
-                          >
-                            {service.enabled ? '停用' : '启用'}
-                          </Button>
+                          <Switch
+                            checked={service.enabled}
+                            onCheckedChange={(checked) => {
+                              // 提交表单
+                              const form = document.getElementById(`toggle-${service.id}`) as HTMLFormElement
+                              if (form) form.requestSubmit()
+                            }}
+                          />
                         </Form>
                       </TableCell>
                     </TableRow>

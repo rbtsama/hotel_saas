@@ -42,10 +42,11 @@ export default function VIPDiscountConfigPage({ config: initialConfig }: VIPDisc
   }
 
   const formatDiscountRange = (min: number, max: number) => {
-    if (min === 1.0 && max === 1.0) return '无折扣'
-    const minPercent = Math.round((1 - min) * 100)
-    const maxPercent = Math.round((1 - max) * 100)
-    return `${maxPercent}% - ${minPercent}%`
+    if (min === 1.0 && max === 1.0) return '100%'
+    // 转换为折扣百分比 (0.95 → 95%, 0.85 → 85%)
+    const minPercent = Math.round(min * 100)
+    const maxPercent = Math.round(max * 100)
+    return `${minPercent}% - ${maxPercent}%`
   }
 
   const formatDiscountPercent = (value: number) => {
@@ -92,27 +93,24 @@ export default function VIPDiscountConfigPage({ config: initialConfig }: VIPDisc
                       </TableCell>
                       <TableCell>
                         {discount.level === 0 ? (
-                          <span className="text-sm text-slate-400">无折扣</span>
+                          <span className="text-sm text-slate-400">100%</span>
                         ) : (
-                          <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-2">
                             <Input
                               type="number"
-                              min={Math.round((1 - discount.platformMinDiscount) * 100)}
-                              max={Math.round((1 - discount.platformMaxDiscount) * 100)}
+                              min={Math.round(discount.platformMinDiscount * 100)}
+                              max={Math.round(discount.platformMaxDiscount * 100)}
                               step="1"
-                              value={Math.round((1 - discount.storeDiscount) * 100)}
+                              value={Math.round(discount.storeDiscount * 100)}
                               onChange={(e) => {
                                 const percent = parseInt(e.target.value) || 0
-                                const value = 1 - (percent / 100)
+                                const value = percent / 100
                                 updateStoreDiscount(discount.id, value)
                               }}
                               className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
                               disabled={!isEditMode}
                             />
                             <span className="text-sm text-slate-600">%</span>
-                            <span className="text-xs text-slate-400">
-                              (范围: {Math.round((1 - discount.platformMinDiscount) * 100)}-{Math.round((1 - discount.platformMaxDiscount) * 100)}%)
-                            </span>
                           </div>
                         )}
                       </TableCell>
