@@ -67,8 +67,8 @@ export default defineConfig({
 
           // Platform Admin - Points Management
           route("/platform-admin/points-management/base-rule", "routes/platform-admin/points-management/base-rule.tsx")
+          route("/platform-admin/points-management/adjustment", "routes/platform-admin/points-management/adjustment.tsx")
           route("/platform-admin/points-management/level-rates", "routes/platform-admin/points-management/level-rates.tsx")
-          route("/platform-admin/points-management/statistics", "routes/platform-admin/points-management/statistics.tsx")
 
           // Platform Admin - Member Management
           route("/platform-admin/member-management/upgrade-rules", "routes/platform-admin/member-management/upgrade-rules.tsx")
