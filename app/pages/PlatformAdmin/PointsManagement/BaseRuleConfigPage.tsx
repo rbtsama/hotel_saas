@@ -126,9 +126,6 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
                     <span className="text-sm text-slate-600">积分 = 1 元</span>
                   </div>
                 </div>
-                <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-900">
-                  <strong>示例：</strong>汇率100，则用户使用500积分可抵扣 500 ÷ 100 = ¥5
-                </div>
               </div>
             </CardContent>
           </Card>
