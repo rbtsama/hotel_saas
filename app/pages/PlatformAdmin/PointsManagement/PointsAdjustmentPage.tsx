@@ -71,25 +71,26 @@ export default function PointsAdjustmentPage({ userInfo: initialUserInfo, detail
           </div>
 
           {/* 用户搜索 */}
-          <Card>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
             <CardHeader>
-              <CardTitle>用户搜索</CardTitle>
+              <CardTitle className="text-lg font-semibold text-slate-900">用户搜索</CardTitle>
             </CardHeader>
             <CardContent>
               <Form method="get">
                 <div className="flex gap-4">
                   <div className="flex-1">
-                    <Label htmlFor="userId">用户ID</Label>
+                    <Label htmlFor="userId" className="text-sm font-medium text-slate-700">用户ID</Label>
                     <Input
                       id="userId"
                       name="userId"
                       value={searchUserId}
                       onChange={(e) => setSearchUserId(e.target.value.toUpperCase())}
                       placeholder="请输入用户ID（如：U001）"
+                      className="h-9 mt-1.5 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                     />
                   </div>
                   <div className="flex items-end">
-                    <Button type="submit">
+                    <Button type="submit" className="h-9 bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm">
                       <Search className="h-4 w-4 mr-2" />
                       搜索
                     </Button>
@@ -105,67 +106,71 @@ export default function PointsAdjustmentPage({ userInfo: initialUserInfo, detail
           {/* 用户积分信息 */}
           {userInfo && (
             <>
-              <Card>
+              <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <CardTitle>用户积分信息</CardTitle>
+                  <CardTitle className="text-lg font-semibold text-slate-900">用户积分信息</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-4 gap-6">
                     <div>
-                      <div className="text-sm text-muted-foreground">用户ID</div>
-                      <div className="text-lg font-semibold">{userInfo.userId}</div>
+                      <div className="text-sm text-slate-600">用户ID</div>
+                      <div className="text-lg font-semibold text-slate-900 mt-1">{userInfo.userId}</div>
                     </div>
                     <div>
-                      <div className="text-sm text-muted-foreground">用户名</div>
-                      <div className="text-lg font-semibold">{userInfo.userName}</div>
+                      <div className="text-sm text-slate-600">用户名</div>
+                      <div className="text-lg font-semibold text-slate-900 mt-1">{userInfo.userName}</div>
                     </div>
                     <div>
-                      <div className="text-sm text-muted-foreground">手机号</div>
-                      <div className="text-lg font-semibold">{userInfo.phone}</div>
+                      <div className="text-sm text-slate-600">手机号</div>
+                      <div className="text-lg font-semibold text-slate-900 mt-1">{userInfo.phone}</div>
                     </div>
                     <div>
-                      <div className="text-sm text-muted-foreground">会员等级</div>
-                      <Badge variant="outline" className="text-sm font-semibold">
+                      <div className="text-sm text-slate-600">会员等级</div>
+                      <Badge variant="outline" className="text-sm font-semibold mt-1 border-blue-300 text-blue-700 bg-blue-50">
                         {userInfo.memberLevel}
                       </Badge>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-4 gap-6 mt-6 pt-6 border-t">
+                  <div className="grid grid-cols-4 gap-6 mt-6 pt-6 border-t border-slate-200">
                     <div>
-                      <div className="text-sm text-muted-foreground">当前积分</div>
-                      <div className="text-2xl font-bold text-primary">{userInfo.currentPoints.toLocaleString()}</div>
+                      <div className="text-sm text-slate-600">当前积分</div>
+                      <div className="text-2xl font-bold text-blue-600 mt-1">{userInfo.currentPoints.toLocaleString()}</div>
                     </div>
                     <div>
-                      <div className="text-sm text-muted-foreground">累计获得</div>
-                      <div className="text-lg font-semibold text-green-600">+{userInfo.totalEarned.toLocaleString()}</div>
+                      <div className="text-sm text-slate-600">累计获得</div>
+                      <div className="text-lg font-semibold text-green-600 mt-1">+{userInfo.totalEarned.toLocaleString()}</div>
                     </div>
                     <div>
-                      <div className="text-sm text-muted-foreground">累计消耗</div>
-                      <div className="text-lg font-semibold text-orange-600">-{userInfo.totalSpent.toLocaleString()}</div>
+                      <div className="text-sm text-slate-600">累计消耗</div>
+                      <div className="text-lg font-semibold text-orange-600 mt-1">-{userInfo.totalSpent.toLocaleString()}</div>
                     </div>
                     <div>
-                      <div className="text-sm text-muted-foreground">最后更新</div>
-                      <div className="text-sm">{userInfo.lastUpdateTime}</div>
+                      <div className="text-sm text-slate-600">最后更新</div>
+                      <div className="text-sm text-slate-900 mt-1">{userInfo.lastUpdateTime}</div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* 积分调整操作 */}
-              <Card>
+              <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <CardTitle>积分调整操作</CardTitle>
+                  <CardTitle className="text-lg font-semibold text-slate-900">积分调整操作</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-3 gap-4">
                     <div className="space-y-2">
-                      <Label>调整类型</Label>
+                      <Label className="text-sm font-medium text-slate-700">调整类型</Label>
                       <div className="flex gap-2">
                         <Button
                           variant={adjustmentType === 'increase' ? 'default' : 'outline'}
                           onClick={() => setAdjustmentType('increase')}
-                          className="flex-1"
+                          className={`h-9 flex-1 font-medium transition-all ${
+                            adjustmentType === 'increase'
+                              ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-sm'
+                              : 'border-slate-300 hover:border-slate-400'
+                          }`}
                         >
                           <Plus className="h-4 w-4 mr-2" />
                           增加积分
@@ -173,7 +178,11 @@ export default function PointsAdjustmentPage({ userInfo: initialUserInfo, detail
                         <Button
                           variant={adjustmentType === 'decrease' ? 'default' : 'outline'}
                           onClick={() => setAdjustmentType('decrease')}
-                          className="flex-1"
+                          className={`h-9 flex-1 font-medium transition-all ${
+                            adjustmentType === 'decrease'
+                              ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-sm'
+                              : 'border-slate-300 hover:border-slate-400'
+                          }`}
                         >
                           <Minus className="h-4 w-4 mr-2" />
                           减少积分
@@ -182,7 +191,7 @@ export default function PointsAdjustmentPage({ userInfo: initialUserInfo, detail
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="adjustmentAmount">调整数量</Label>
+                      <Label htmlFor="adjustmentAmount" className="text-sm font-medium text-slate-700">调整数量</Label>
                       <Input
                         id="adjustmentAmount"
                         type="number"
@@ -190,22 +199,24 @@ export default function PointsAdjustmentPage({ userInfo: initialUserInfo, detail
                         value={adjustmentAmount}
                         onChange={(e) => setAdjustmentAmount(e.target.value)}
                         placeholder="请输入积分数量"
+                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="adjustmentReason">调整原因</Label>
+                      <Label htmlFor="adjustmentReason" className="text-sm font-medium text-slate-700">调整原因</Label>
                       <Input
                         id="adjustmentReason"
                         value={adjustmentReason}
                         onChange={(e) => setAdjustmentReason(e.target.value)}
                         placeholder="如：客服补偿、运营活动"
+                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                       />
                     </div>
                   </div>
 
                   <div className="flex justify-end">
-                    <Button onClick={handleAdjustment} size="lg">
+                    <Button onClick={handleAdjustment} className="h-9 bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm">
                       确认调整
                     </Button>
                   </div>
@@ -213,31 +224,33 @@ export default function PointsAdjustmentPage({ userInfo: initialUserInfo, detail
               </Card>
 
               {/* 积分明细 */}
-              <Card>
+              <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <CardTitle>积分明细</CardTitle>
+                  <CardTitle className="text-lg font-semibold text-slate-900">积分明细</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <Table>
                     <TableHeader>
-                      <TableRow>
-                        <TableHead>类型</TableHead>
-                        <TableHead>积分变动</TableHead>
-                        <TableHead>操作后余额</TableHead>
-                        <TableHead>说明</TableHead>
-                        <TableHead>操作人</TableHead>
-                        <TableHead>时间</TableHead>
+                      <TableRow className="border-slate-200">
+                        <TableHead className="text-slate-600 font-semibold">类型</TableHead>
+                        <TableHead className="text-slate-600 font-semibold">积分变动</TableHead>
+                        <TableHead className="text-slate-600 font-semibold">操作后余额</TableHead>
+                        <TableHead className="text-slate-600 font-semibold">说明</TableHead>
+                        <TableHead className="text-slate-600 font-semibold">操作人</TableHead>
+                        <TableHead className="text-slate-600 font-semibold">时间</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {details.map((record) => (
-                        <TableRow key={record.id}>
+                        <TableRow key={record.id} className="hover:bg-slate-50 transition-colors">
                           <TableCell>
                             <Badge
-                              variant={
-                                record.type === 'earn' ? 'default' :
-                                record.type === 'spend' ? 'secondary' :
-                                'outline'
+                              className={
+                                record.type === 'earn'
+                                  ? 'border-green-300 text-green-700 bg-green-50'
+                                  : record.type === 'spend'
+                                  ? 'border-orange-300 text-orange-700 bg-orange-50'
+                                  : 'border-slate-300 text-slate-700 bg-slate-50'
                               }
                             >
                               {record.typeLabel}
@@ -250,16 +263,16 @@ export default function PointsAdjustmentPage({ userInfo: initialUserInfo, detail
                               {record.amount > 0 ? '+' : ''}{record.amount}
                             </span>
                           </TableCell>
-                          <TableCell className="font-medium">
+                          <TableCell className="font-medium text-slate-900">
                             {record.balance.toLocaleString()}
                           </TableCell>
-                          <TableCell className="text-sm text-muted-foreground">
+                          <TableCell className="text-sm text-slate-600">
                             {record.description}
                           </TableCell>
-                          <TableCell className="text-sm">
+                          <TableCell className="text-sm text-slate-900">
                             {record.operator}
                           </TableCell>
-                          <TableCell className="text-sm text-muted-foreground">
+                          <TableCell className="text-sm text-slate-600">
                             {record.createdAt}
                           </TableCell>
                         </TableRow>
@@ -268,7 +281,7 @@ export default function PointsAdjustmentPage({ userInfo: initialUserInfo, detail
                   </Table>
 
                   {details.length === 0 && (
-                    <div className="text-center py-12 text-muted-foreground">
+                    <div className="text-center py-12 text-slate-500">
                       暂无积分明细
                     </div>
                   )}
@@ -278,7 +291,7 @@ export default function PointsAdjustmentPage({ userInfo: initialUserInfo, detail
           )}
 
           {!userInfo && (
-            <div className="text-center py-12 text-muted-foreground">
+            <div className="text-center py-12 text-slate-500">
               请输入用户ID并搜索
             </div>
           )}
@@ -288,36 +301,37 @@ export default function PointsAdjustmentPage({ userInfo: initialUserInfo, detail
       {/* 调整确认对话框 */}
       {showConfirm && userInfo && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
-            <h3 className="text-lg font-semibold mb-2">确认积分调整</h3>
+          <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4 shadow-xl">
+            <h3 className="text-lg font-semibold text-slate-900 mb-2">确认积分调整</h3>
             <div className="text-sm text-slate-600 mb-6 space-y-2">
-              <p>用户：<strong className="text-primary">{userInfo.userName}</strong>（{userInfo.userId}）</p>
-              <p>当前积分：<strong>{userInfo.currentPoints.toLocaleString()}</strong></p>
+              <p>用户：<strong className="text-blue-600">{userInfo.userName}</strong>（{userInfo.userId}）</p>
+              <p>当前积分：<strong className="text-slate-900">{userInfo.currentPoints.toLocaleString()}</strong></p>
               <p>调整类型：
                 <strong className={adjustmentType === 'increase' ? 'text-green-600' : 'text-red-600'}>
                   {adjustmentType === 'increase' ? '增加' : '减少'}
                 </strong>
               </p>
-              <p>调整数量：<strong className="text-secondary">{adjustmentAmount}</strong> 积分</p>
+              <p>调整数量：<strong className="text-slate-900">{adjustmentAmount}</strong> 积分</p>
               <p>调整后余额：
-                <strong className="text-primary">
+                <strong className="text-blue-600">
                   {adjustmentType === 'increase'
                     ? userInfo.currentPoints + Number(adjustmentAmount)
                     : userInfo.currentPoints - Number(adjustmentAmount)
                   }
                 </strong>
               </p>
-              {adjustmentReason && <p>调整原因：{adjustmentReason}</p>}
+              {adjustmentReason && <p>调整原因：<span className="text-slate-900">{adjustmentReason}</span></p>}
               <p className="text-orange-600 mt-4">⚠️ 修改将立即生效</p>
             </div>
             <div className="flex justify-end gap-3">
               <Button
                 variant="outline"
                 onClick={() => setShowConfirm(false)}
+                className="h-9 border-slate-300 hover:border-slate-400"
               >
                 取消
               </Button>
-              <Button onClick={confirmAdjustment}>
+              <Button onClick={confirmAdjustment} className="h-9 bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm">
                 确认调整
               </Button>
             </div>

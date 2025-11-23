@@ -112,15 +112,15 @@ export default function ValueAddedServicesPage({
           />
 
           {/* 积分奖励卡片 */}
-          <Card>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-lg font-semibold text-slate-900">
                   <Gift className="w-5 h-5 text-green-600" />
                   积分奖励
                 </CardTitle>
                 {isEditMode && (
-                  <Button onClick={handleAddReward} size="sm">
+                  <Button onClick={handleAddReward} className="h-9 bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm">
                     <Plus className="h-4 w-4 mr-2" />
                     新增服务
                   </Button>
@@ -130,22 +130,22 @@ export default function ValueAddedServicesPage({
             <CardContent className="p-0">
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead className="min-w-[150px]">服务名称</TableHead>
-                    <TableHead className="min-w-[250px]">服务说明</TableHead>
-                    <TableHead className="min-w-[120px]">积分奖励</TableHead>
-                    <TableHead className="min-w-[100px]">状态</TableHead>
-                    {isEditMode && <TableHead className="w-[80px]">操作</TableHead>}
+                  <TableRow className="border-slate-200">
+                    <TableHead className="min-w-[150px] text-slate-600 font-semibold">服务名称</TableHead>
+                    <TableHead className="min-w-[250px] text-slate-600 font-semibold">服务说明</TableHead>
+                    <TableHead className="min-w-[120px] text-slate-600 font-semibold">积分奖励</TableHead>
+                    <TableHead className="min-w-[100px] text-slate-600 font-semibold">状态</TableHead>
+                    {isEditMode && <TableHead className="w-[80px] text-slate-600 font-semibold">操作</TableHead>}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {rewards.map((reward) => (
-                    <TableRow key={reward.id}>
+                    <TableRow key={reward.id} className="hover:bg-slate-50 transition-colors">
                       <TableCell>
                         <Input
                           value={reward.serviceName}
                           onChange={(e) => updateReward(reward.id, 'serviceName', e.target.value)}
-                          className={`h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                       </TableCell>
@@ -153,7 +153,7 @@ export default function ValueAddedServicesPage({
                         <Input
                           value={reward.serviceDescription}
                           onChange={(e) => updateReward(reward.id, 'serviceDescription', e.target.value)}
-                          className={`h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                       </TableCell>
@@ -164,10 +164,10 @@ export default function ValueAddedServicesPage({
                             min="0"
                             value={reward.pointsReward}
                             onChange={(e) => updateReward(reward.id, 'pointsReward', Number(e.target.value))}
-                            className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                            className={`w-20 h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
                             disabled={!isEditMode}
                           />
-                          <span className="text-sm text-muted-foreground">积分</span>
+                          <span className="text-sm text-slate-600">积分</span>
                         </div>
                       </TableCell>
                       <TableCell>
@@ -182,6 +182,7 @@ export default function ValueAddedServicesPage({
                             variant="ghost"
                             size="sm"
                             onClick={() => handleDeleteReward(reward.id)}
+                            className="h-8 hover:bg-red-50 hover:text-red-600"
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
@@ -193,7 +194,7 @@ export default function ValueAddedServicesPage({
               </Table>
 
               {rewards.length === 0 && (
-                <div className="text-center py-12 text-muted-foreground">
+                <div className="text-center py-12 text-slate-500">
                   暂无积分奖励服务
                 </div>
               )}
@@ -201,15 +202,15 @@ export default function ValueAddedServicesPage({
           </Card>
 
           {/* 积分换购卡片 */}
-          <Card>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
-                  <ShoppingBag className="w-5 h-5 text-secondary" />
+                <CardTitle className="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                  <ShoppingBag className="w-5 h-5 text-orange-600" />
                   积分换购
                 </CardTitle>
                 {isEditMode && (
-                  <Button onClick={handleAddExchange} size="sm">
+                  <Button onClick={handleAddExchange} className="h-9 bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm">
                     <Plus className="h-4 w-4 mr-2" />
                     新增服务
                   </Button>
@@ -219,22 +220,22 @@ export default function ValueAddedServicesPage({
             <CardContent className="p-0">
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead className="min-w-[150px]">服务名称</TableHead>
-                    <TableHead className="min-w-[250px]">服务说明</TableHead>
-                    <TableHead className="min-w-[120px]">积分消耗</TableHead>
-                    <TableHead className="min-w-[100px]">状态</TableHead>
-                    {isEditMode && <TableHead className="w-[80px]">操作</TableHead>}
+                  <TableRow className="border-slate-200">
+                    <TableHead className="min-w-[150px] text-slate-600 font-semibold">服务名称</TableHead>
+                    <TableHead className="min-w-[250px] text-slate-600 font-semibold">服务说明</TableHead>
+                    <TableHead className="min-w-[120px] text-slate-600 font-semibold">积分消耗</TableHead>
+                    <TableHead className="min-w-[100px] text-slate-600 font-semibold">状态</TableHead>
+                    {isEditMode && <TableHead className="w-[80px] text-slate-600 font-semibold">操作</TableHead>}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {exchanges.map((exchange) => (
-                    <TableRow key={exchange.id}>
+                    <TableRow key={exchange.id} className="hover:bg-slate-50 transition-colors">
                       <TableCell>
                         <Input
                           value={exchange.serviceName}
                           onChange={(e) => updateExchange(exchange.id, 'serviceName', e.target.value)}
-                          className={`h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                       </TableCell>
@@ -242,7 +243,7 @@ export default function ValueAddedServicesPage({
                         <Input
                           value={exchange.serviceDescription}
                           onChange={(e) => updateExchange(exchange.id, 'serviceDescription', e.target.value)}
-                          className={`h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                       </TableCell>
@@ -253,10 +254,10 @@ export default function ValueAddedServicesPage({
                             min="0"
                             value={exchange.pointsCost}
                             onChange={(e) => updateExchange(exchange.id, 'pointsCost', Number(e.target.value))}
-                            className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                            className={`w-20 h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
                             disabled={!isEditMode}
                           />
-                          <span className="text-sm text-muted-foreground">积分</span>
+                          <span className="text-sm text-slate-600">积分</span>
                         </div>
                       </TableCell>
                       <TableCell>
@@ -271,6 +272,7 @@ export default function ValueAddedServicesPage({
                             variant="ghost"
                             size="sm"
                             onClick={() => handleDeleteExchange(exchange.id)}
+                            className="h-8 hover:bg-red-50 hover:text-red-600"
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
@@ -282,7 +284,7 @@ export default function ValueAddedServicesPage({
               </Table>
 
               {exchanges.length === 0 && (
-                <div className="text-center py-12 text-muted-foreground">
+                <div className="text-center py-12 text-slate-500">
                   暂无积分换购服务
                 </div>
               )}
@@ -290,10 +292,10 @@ export default function ValueAddedServicesPage({
           </Card>
 
           {/* 说明 */}
-          <Card>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
             <CardContent className="p-4">
-              <div className="text-sm text-muted-foreground space-y-2">
-                <p className="font-medium text-foreground">配置说明:</p>
+              <div className="text-sm text-slate-600 space-y-2">
+                <p className="font-medium text-slate-900">配置说明:</p>
                 <ul className="list-disc list-inside space-y-1 ml-2">
                   <li>积分奖励: 用户的环保行为和良好习惯获得积分奖励</li>
                   <li>积分换购: 用户使用积分兑换增值服务</li>

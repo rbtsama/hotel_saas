@@ -4,6 +4,68 @@
 
 ---
 
+## 2025-11-24 15:30:00
+
+### UI规范整理和全站页面优化
+
+**修改文件：**
+- `CLAUDE.md` - 扩展Part 4设计规范，新增后台页面和C端小程序UI规范
+- `app/pages/PlatformAdmin/PointsManagement/BaseRuleConfigPage.tsx` - UI优化
+- `app/pages/PlatformAdmin/PointsManagement/PointsAdjustmentPage.tsx` - UI优化
+- `app/pages/PlatformAdmin/PointsManagement/ValueAddedServicesPage.tsx` - UI优化
+
+**修改内容：**
+
+1. **CLAUDE.md UI规范扩展**
+   - **后台页面UI规范**（平台后台 & 商户端）：
+     - 配色方案：品牌蓝#3b82f6、成功绿#10b981、警告橙#f97316、错误红#ef4444
+     - 组件规范：卡片、按钮、输入框、表格、标签的统一样式
+     - 交互动画：hover效果、过渡动画
+     - 布局规范：页面容器、筛选器布局
+   - **C端小程序UI规范**：
+     - 配色系统2：森林绿#458559、田野色#A67B5B、冰川蓝#4A85B8
+     - 组件规范：按钮（多种尺寸）、标签、输入框、卡片、设施图标
+     - 手机端适配：375px标准宽度、MobileFrame组件
+   - **开发检查清单**：后台页面、C端小程序、通用检查项
+
+2. **平台后台页面UI优化**
+   - **BaseRuleConfigPage.tsx**：
+     - 卡片：`rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow`
+     - 标题：`text-lg font-semibold text-slate-900`
+     - 输入框：`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20`
+     - 标签：`text-sm font-medium text-slate-700`
+
+   - **PointsAdjustmentPage.tsx**：
+     - 所有卡片应用统一样式
+     - 按钮：`h-9 bg-blue-600 hover:bg-blue-700 font-medium shadow-sm`
+     - 表格：`border-slate-200` + `hover:bg-slate-50 transition-colors`
+     - 表头：`text-slate-600 font-semibold`
+     - 状态标签：绿色/橙色/红色带背景
+     - 对话框：`rounded-xl` 圆角，统一按钮样式
+
+   - **ValueAddedServicesPage.tsx**：
+     - 双卡片布局优化（积分奖励+积分换购）
+     - 表格内输入框：`h-9` 统一高度
+     - 删除按钮：`hover:bg-red-50 hover:text-red-600`
+     - 说明卡片：`text-slate-600` 柔和文字
+
+3. **优化特点**
+   - **统一高度**：所有输入框和按钮统一为 `h-9` (36px)
+   - **统一圆角**：卡片 `rounded-xl` (12px)，输入框/按钮 `rounded-md` (6px)
+   - **统一边框**：`border-slate-200` / `border-slate-300`
+   - **统一聚焦**：`focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20`
+   - **统一hover**：卡片 `hover:shadow-md`，表格行 `hover:bg-slate-50`
+   - **统一颜色**：文字 `text-slate-900/600`，功能色 `blue-600/green-600/orange-600/red-600`
+   - **统一过渡**：`transition-all` / `transition-shadow` / `transition-colors`
+
+4. **功能影响**
+   - 视觉一致性提升：所有后台页面统一现代科技感风格
+   - 交互体验改善：添加 hover 效果和过渡动画
+   - 可访问性增强：统一聚焦样式，清晰的视觉反馈
+   - 开发效率提升：详细的UI规范减少开发决策时间
+
+---
+
 ## 2025-11-24 01:25:00
 
 ### 新增积分调整功能并删除积分统计

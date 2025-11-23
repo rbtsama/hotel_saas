@@ -836,3 +836,405 @@ module.exports = {
 **📄 `homestay-color-system.md`** - 完整配色系统文档
 
 ---
+
+## 后台页面UI规范 (平台后台 & 商户端)
+
+**⚠️ 适用范围**: `app/pages/PlatformAdmin/` 和 `app/pages/MerchantBackend/`
+
+### 配色方案
+
+后台页面使用现代科技感配色,基于 `setting_page_color.md`:
+
+```css
+/* 品牌色 */
+--brand-primary: #3b82f6;        /* 品牌蓝 - 主按钮 */
+--brand-primary-hover: #2563eb;  /* hover */
+--brand-primary-light: #dbeafe;  /* 浅色背景 */
+
+/* 功能色 */
+--success: #10b981;              /* 成功/完成 */
+--warning: #f97316;              /* 警告/待处理 */
+--error: #ef4444;                /* 错误/危险 */
+--info: #8b5cf6;                 /* 信息/链接 */
+
+/* 文字色系 */
+--text-primary: #0f172a;         /* 主文字 (slate-900) */
+--text-secondary: #475569;       /* 次要文字 (slate-600) */
+--text-tertiary: #94a3b8;        /* 辅助文字 (slate-400) */
+
+/* 背景色系 */
+--bg-primary: #ffffff;           /* 主背景 */
+--bg-secondary: #f8fafc;         /* 次要背景 (slate-50) */
+--bg-hover: #f1f5f9;             /* hover背景 (slate-100) */
+
+/* 边框色系 */
+--border-primary: #e2e8f0;       /* 主边框 (slate-200) */
+--border-focus: #3b82f6;         /* 聚焦边框 */
+```
+
+### 组件规范
+
+#### 卡片 (Card)
+```tsx
+<Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
+  <CardHeader>
+    <CardTitle className="text-lg font-semibold text-slate-900">标题</CardTitle>
+  </CardHeader>
+  <CardContent>
+    {/* 内容 */}
+  </CardContent>
+</Card>
+```
+
+**特点**:
+- 圆角: `rounded-xl` (12px)
+- 边框: `border-slate-200`
+- 阴影: `shadow-sm` → `hover:shadow-md`
+- 背景: `bg-white`
+
+#### 按钮 (Button)
+```tsx
+// 主按钮
+<Button className="h-9 bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm">
+  确认
+</Button>
+
+// 次要按钮
+<Button variant="outline" className="h-9 border-slate-300 hover:border-slate-400">
+  取消
+</Button>
+
+// 危险按钮
+<Button variant="destructive" className="h-9 bg-red-600 hover:bg-red-700">
+  删除
+</Button>
+```
+
+**特点**:
+- 统一高度: `h-9` (36px)
+- 圆角: `rounded-md` (6px)
+- 字重: `font-medium`
+- 过渡: `transition-all`
+
+#### 输入框 (Input)
+```tsx
+<Input className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" />
+```
+
+**特点**:
+- 高度: `h-9` (36px)
+- 边框: `border-slate-300`
+- 聚焦: `focus:border-blue-500` + `focus:ring-2`
+- 圆角: `rounded-md`
+
+#### 表格 (Table)
+```tsx
+<Table>
+  <TableHeader>
+    <TableRow className="border-slate-200">
+      <TableHead className="text-slate-600 font-semibold">列名</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow className="hover:bg-slate-50 transition-colors">
+      <TableCell className="text-slate-900">内容</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+**特点**:
+- 边框: `border-slate-200`
+- 标题: `text-slate-600 font-semibold`
+- hover: `hover:bg-slate-50`
+- 过渡: `transition-colors`
+
+#### 标签 (Badge)
+```tsx
+// 状态标签
+<Badge className="border-green-300 text-green-700 bg-green-50">已启用</Badge>
+<Badge className="border-orange-300 text-orange-700 bg-orange-50">待处理</Badge>
+<Badge className="border-red-300 text-red-700 bg-red-50">已禁用</Badge>
+
+// 信息标签
+<Badge variant="outline" className="border-slate-300 text-slate-700">
+  标签
+</Badge>
+```
+
+**特点**:
+- 圆角: `rounded` (4px)
+- 边框: 根据状态选择颜色
+- 背景: 浅色背景 (状态色/10)
+- 字号: `text-xs`
+
+### 交互动画
+
+#### 按钮交互
+```tsx
+className="hover:scale-105 active:scale-95 transition-transform"
+```
+
+#### 卡片交互
+```tsx
+className="hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+```
+
+#### 表格行交互
+```tsx
+className="hover:bg-slate-50 transition-colors cursor-pointer"
+```
+
+### 布局规范
+
+#### 页面容器
+```tsx
+<div className="p-6 space-y-6">
+  {/* 筛选器 */}
+  <Card>...</Card>
+
+  {/* 数据表格 */}
+  <Card>...</Card>
+</div>
+```
+
+#### 筛选器布局
+```tsx
+<div className="flex flex-wrap gap-2 lg:flex-nowrap">
+  <Input placeholder="搜索..." />
+  <Select>...</Select>
+  <Button>搜索</Button>
+</div>
+```
+
+**特点**:
+- 小屏: `flex-wrap` 自动换行
+- 大屏: `lg:flex-nowrap` 单行排列
+- 间距: `gap-2`
+
+---
+
+## C端小程序UI规范
+
+**⚠️ 适用范围**: `app/pages/CClient/`
+
+### 配色方案 (配色系统2)
+
+C端使用自然大地配色,基于 `ColorSystem2Page.tsx`:
+
+```css
+/* 主色系统 - 四季自然色 */
+--spring-sand: #F8F6F3;          /* 春·沙滩 - 背景色 */
+--summer-forest: #458559;        /* 夏·森林 - 品牌色/主按钮 */
+--autumn-field: #A67B5B;         /* 秋·田野 - 价格/促销 */
+--winter-glacier: #4A85B8;       /* 冬·冰川 - 链接/交互 */
+
+/* 功能色 */
+--pine-green: #3D7350;           /* 青松 - 成功状态 */
+--maple-red: #B94D3D;            /* 枫叶 - 错误/警示 */
+
+/* 文字色系 */
+--text-primary: #2A2A2A;         /* 主文字 */
+--text-secondary: #6B6B6B;       /* 次要文字 */
+--text-tertiary: #999999;        /* 占位符 */
+```
+
+### 组件规范
+
+#### 按钮
+
+**主按钮** (高32px, 圆角4px):
+```tsx
+<button className="px-4 py-1.5 bg-[#458559] text-white rounded font-medium text-sm">
+  立即预订
+</button>
+```
+
+**辅助按钮**:
+```tsx
+<button className="px-4 py-1.5 bg-[#4A85B8] text-white rounded font-medium text-sm">
+  查看详情
+</button>
+```
+
+**描边按钮**:
+```tsx
+<button className="px-4 py-1.5 border border-[#458559] text-[#458559] rounded font-medium text-sm">
+  取消订单
+</button>
+```
+
+**小按钮** (高24px, 全圆角):
+```tsx
+<button className="px-2.5 py-0.5 bg-[#458559] text-white rounded-full font-medium text-xs">
+  筛选
+</button>
+```
+
+**圆形标签按钮** (高22px):
+```tsx
+<button className="px-2 py-0.5 bg-[#4A85B8]/10 text-[#4A85B8] rounded-full text-xs">
+  近地铁
+</button>
+```
+
+#### 标签
+
+**促销标签** (高20px, 圆角2px):
+```tsx
+<span className="px-1.5 py-0.5 bg-[#B94D3D] text-white rounded-sm text-xs font-bold leading-tight">
+  限时特惠
+</span>
+```
+
+**订单状态徽章** (高24px, 圆角2px):
+```tsx
+<span className="px-2 py-0.5 bg-[#3D7350]/10 text-[#3D7350] rounded-sm text-xs font-medium border border-[#3D7350]/20">
+  已入住
+</span>
+<span className="px-2 py-0.5 bg-[#4A85B8]/10 text-[#4A85B8] rounded-sm text-xs font-medium border border-[#4A85B8]/20">
+  待入住
+</span>
+```
+
+**特性标签** (迷你空心, 高22px):
+```tsx
+<span className="px-1.5 py-0 border border-[#4A85B8] text-[#4A85B8] rounded-sm text-xs inline-flex items-center gap-0.5 leading-[20px]">
+  <Wifi className="w-3 h-3" />
+  免费WiFi
+</span>
+```
+
+#### 输入框
+
+**方形输入框** (高36px, 圆角4px):
+```tsx
+<input
+  type="text"
+  placeholder="请输入入住人姓名"
+  className="w-full px-3 py-2 bg-white border border-gray-300 rounded text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#458559]"
+/>
+```
+
+**搜索框** (全圆角):
+```tsx
+<div className="relative">
+  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+  <input
+    type="search"
+    placeholder="搜索城市、民宿名称"
+    className="w-full pl-9 pr-3 py-2 bg-white border border-gray-300 rounded-full text-sm"
+  />
+</div>
+```
+
+#### 卡片
+
+**价格明细卡片**:
+```tsx
+<div className="bg-white border border-gray-200 rounded-xl p-4 space-y-3">
+  <h5 className="text-sm font-semibold text-gray-900">价格明细</h5>
+  <div className="space-y-2.5">
+    <div className="flex justify-between text-sm">
+      <span className="text-gray-600">¥388 × 2晚</span>
+      <span className="text-gray-900">¥776</span>
+    </div>
+    <div className="border-t border-gray-200 pt-2.5 flex justify-between items-center">
+      <span className="text-sm font-semibold text-gray-900">总计</span>
+      <span className="text-xl font-bold text-[#A67B5B]">¥776</span>
+    </div>
+  </div>
+</div>
+```
+
+#### 设施图标
+
+**直接摆放icon + 文字**:
+```tsx
+<div className="grid grid-cols-4 md:grid-cols-6 gap-4">
+  <div className="flex flex-col items-center gap-1.5 text-center">
+    <Wifi className="w-6 h-6 text-[#4A85B8]" />
+    <span className="text-xs text-gray-700">免费WiFi</span>
+  </div>
+  <div className="flex flex-col items-center gap-1.5 text-center">
+    <Coffee className="w-6 h-6 text-[#A67B5B]" />
+    <span className="text-xs text-gray-700">含早餐</span>
+  </div>
+</div>
+```
+
+### 手机端适配
+
+**使用MobileFrame组件**:
+```tsx
+import MobileFrame from '~/pages/CClient/components/MobileFrame'
+
+export default function YourCClientPage() {
+  return (
+    <MobileFrame>
+      {/* 页面内容 */}
+    </MobileFrame>
+  )
+}
+```
+
+**设计尺寸**:
+- 标准宽度: 375px (iPhone标准尺寸)
+- 最小触摸区域: 44x44px
+- 安全区域: 考虑刘海屏和底部Home条
+
+**响应式要点**:
+- 使用 `px` 而非 `rem` (小程序场景)
+- 字号: 12px-16px 为主
+- 行高: 保证足够点击区域
+- 图片: 懒加载,压缩优化
+
+### 颜色使用示例
+
+```tsx
+// 主按钮 - 森林绿
+<button className="bg-[#458559] text-white">立即预订</button>
+
+// 价格 - 田野色
+<span className="text-[#A67B5B] font-semibold">¥388</span>
+
+// 链接 - 冰川蓝
+<a href="#" className="text-[#4A85B8]">查看详情</a>
+
+// 成功状态 - 青松
+<span className="text-[#3D7350]">已入住</span>
+
+// 错误状态 - 枫叶
+<span className="text-[#B94D3D]">已取消</span>
+```
+
+---
+
+## 开发检查清单
+
+### 后台页面检查
+- [ ] 使用品牌蓝 #3b82f6 作为主色
+- [ ] 卡片使用 `rounded-xl border-slate-200 shadow-sm`
+- [ ] 按钮统一高度 `h-9`
+- [ ] 输入框聚焦效果 `focus:border-blue-500 focus:ring-2`
+- [ ] 表格 hover 效果 `hover:bg-slate-50`
+- [ ] 状态标签使用合适的功能色
+
+### C端小程序检查
+- [ ] 使用自然色系: 森林绿/田野色/冰川蓝
+- [ ] 按钮高度: 主按钮32px, 小按钮24px
+- [ ] 标签圆角: 方形2px, 圆形full
+- [ ] 输入框高度36px, 圆角4px
+- [ ] 使用 MobileFrame 组件包裹
+- [ ] 字号范围12px-16px
+- [ ] 图标尺寸: 3-6个单位 (w-3到w-6)
+
+### 通用检查
+- [ ] 所有颜色从配色系统选取
+- [ ] 对比度符合WCAG标准
+- [ ] 添加 hover/focus 交互效果
+- [ ] 使用 transition 过渡动画
+- [ ] 响应式布局适配
+- [ ] 类型检查通过
+
+---

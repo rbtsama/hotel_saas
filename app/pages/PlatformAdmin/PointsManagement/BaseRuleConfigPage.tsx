@@ -51,14 +51,14 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
           />
 
           {/* 积分获取规则 */}
-          <Card>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
             <CardHeader>
-              <CardTitle>积分获取规则</CardTitle>
+              <CardTitle className="text-lg font-semibold text-slate-900">积分获取规则</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* 注册奖励积分 */}
               <div className="space-y-2">
-                <Label htmlFor="registerRewardPoints">注册奖励积分</Label>
+                <Label htmlFor="registerRewardPoints" className="text-sm font-medium text-slate-700">注册奖励积分</Label>
                 <div className="flex items-center gap-4">
                   <Input
                     id="registerRewardPoints"
@@ -69,7 +69,7 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
                     onChange={(e) =>
                       setFormData({ ...formData, registerRewardPoints: parseInt(e.target.value) || 0 })
                     }
-                    className={`max-w-xs ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`h-9 max-w-xs border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm text-slate-600">积分</span>
@@ -78,7 +78,7 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
 
               {/* 邀请奖励积分 */}
               <div className="space-y-2">
-                <Label htmlFor="inviteRewardPoints">邀请奖励积分</Label>
+                <Label htmlFor="inviteRewardPoints" className="text-sm font-medium text-slate-700">邀请奖励积分</Label>
                 <div className="flex items-center gap-4">
                   <Input
                     id="inviteRewardPoints"
@@ -89,7 +89,7 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
                     onChange={(e) =>
                       setFormData({ ...formData, inviteRewardPoints: parseInt(e.target.value) || 0 })
                     }
-                    className={`max-w-xs ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`h-9 max-w-xs border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm text-slate-600">积分</span>
@@ -99,14 +99,14 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
           </Card>
 
           {/* 积分使用规则 */}
-          <Card>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
             <CardHeader>
-              <CardTitle>积分使用规则</CardTitle>
+              <CardTitle className="text-lg font-semibold text-slate-900">积分使用规则</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* 基础兑换汇率 */}
               <div className="space-y-2">
-                <Label htmlFor="baseExchangeRate">积分兑换汇率</Label>
+                <Label htmlFor="baseExchangeRate" className="text-sm font-medium text-slate-700">积分兑换汇率</Label>
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2">
                     <Input
@@ -119,7 +119,7 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
                       onChange={(e) =>
                         setFormData({ ...formData, baseExchangeRate: parseFloat(e.target.value) || 1.0 })
                       }
-                      className={`w-32 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                      className={`h-9 w-32 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
                       disabled={!isEditMode}
                     />
                     <span className="text-sm text-slate-600">积分 = 1 元</span>
