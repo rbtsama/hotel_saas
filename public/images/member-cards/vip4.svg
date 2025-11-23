@@ -1,0 +1,45 @@
+<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景渐变 - 钻石黑金 -->
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- 卡片背景 -->
+  <rect width="400" height="250" rx="12" fill="url(#grad4)"/>
+
+  <!-- 金色装饰线 -->
+  <line x1="0" y1="0" x2="400" y2="0" stroke="#f59e0b" stroke-width="3"/>
+  <circle cx="350" cy="125" r="100" fill="#f59e0b" opacity="0.05"/>
+
+  <!-- 标题 - 金色 -->
+  <text x="30" y="60" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#f59e0b">
+    钻石会员
+  </text>
+
+  <!-- VIP等级 -->
+  <text x="30" y="95" font-family="Arial, sans-serif" font-size="20" fill="#f59e0b" opacity="0.9">
+    VIP 4
+  </text>
+
+  <!-- 权益标签 - 白色 -->
+  <text x="30" y="135" font-family="Arial, sans-serif" font-size="13" fill="#ffffff" opacity="0.9">
+    ✓ 赠送2次体验
+  </text>
+  <text x="30" y="160" font-family="Arial, sans-serif" font-size="13" fill="#ffffff" opacity="0.9">
+    ✓ 70%-85%折扣
+  </text>
+  <text x="30" y="185" font-family="Arial, sans-serif" font-size="13" fill="#ffffff" opacity="0.9">
+    ✓ 2.5倍积分
+  </text>
+
+  <!-- 底部文字 - 金色 -->
+  <text x="30" y="220" font-family="Arial, sans-serif" font-size="14" fill="#f59e0b" opacity="0.7">
+    酒店SAAS会员系统
+  </text>
+
+  <!-- 钻石图标装饰 -->
+  <polygon points="370,40 360,55 370,70 380,55" fill="#f59e0b" opacity="0.3"/>
+</svg>

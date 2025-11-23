@@ -14,7 +14,7 @@ export const mockMemberLevelsData: MemberLevel[] = [
     pointsRate: 1.0, // 1元=1积分
     giftTrialCount: 0, // 无赠送
     giftValidityDays: 30, // 赠送有效期30天
-    cardImage: 'https://via.placeholder.com/400x250/64748b/ffffff?text=VIP0+注册会员', // 模拟会员卡图片
+    cardImage: '/images/member-cards/vip0.svg', // 会员卡图片
     status: 'active',
     updatedAt: '2025/01/01 00:00:00'
   },
@@ -30,7 +30,7 @@ export const mockMemberLevelsData: MemberLevel[] = [
     pointsRate: 1.2, // 1元=1.2积分
     giftTrialCount: 1, // 赠送1次体验
     giftValidityDays: 30, // 赠送有效期30天
-    cardImage: 'https://via.placeholder.com/400x250/3b82f6/ffffff?text=VIP1+银卡会员', // 模拟会员卡图片
+    cardImage: '/images/member-cards/vip1.svg', // 会员卡图片
     status: 'active',
     updatedAt: '2025/01/10 14:30:00'
   },
@@ -46,7 +46,7 @@ export const mockMemberLevelsData: MemberLevel[] = [
     pointsRate: 1.5, // 1元=1.5积分
     giftTrialCount: 1,
     giftValidityDays: 60,
-    cardImage: 'https://via.placeholder.com/400x250/10b981/ffffff?text=VIP2+金卡会员', // 模拟会员卡图片
+    cardImage: '/images/member-cards/vip2.svg', // 会员卡图片
     status: 'active',
     updatedAt: '2025/01/10 14:35:00'
   },
@@ -62,7 +62,7 @@ export const mockMemberLevelsData: MemberLevel[] = [
     pointsRate: 2.0, // 1元=2积分
     giftTrialCount: 2,
     giftValidityDays: 90,
-    cardImage: 'https://via.placeholder.com/400x250/8b5cf6/ffffff?text=VIP3+白金会员', // 模拟会员卡图片
+    cardImage: '/images/member-cards/vip3.svg', // 会员卡图片
     status: 'active',
     updatedAt: '2025/01/10 14:40:00'
   },
@@ -78,7 +78,7 @@ export const mockMemberLevelsData: MemberLevel[] = [
     pointsRate: 2.5, // 1元=2.5积分
     giftTrialCount: 2,
     giftValidityDays: 180,
-    cardImage: 'https://via.placeholder.com/400x250/f59e0b/ffffff?text=VIP4+钻石会员', // 模拟会员卡图片
+    cardImage: '/images/member-cards/vip4.svg', // 会员卡图片
     status: 'active',
     updatedAt: '2025/01/10 14:45:00'
   },
