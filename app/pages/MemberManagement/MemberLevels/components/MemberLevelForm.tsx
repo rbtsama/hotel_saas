@@ -9,6 +9,7 @@ import type { MemberLevel, MemberLevelFormData } from '../types/memberLevels.typ
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
+import { Button } from '~/components/ui/button'
 import { Textarea } from '~/components/ui/textarea'
 import { Switch } from '~/components/ui/switch'
 import { ArrowLeft } from 'lucide-react'
@@ -26,6 +27,9 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
   const isSubmitting = navigation.state === 'submitting'
   const isEditingExisting = !!level
   const [isEditMode, setIsEditMode] = useState(!isEditingExisting) // 新增模式默认可编辑
+  const [confirmStatusChange, setConfirmStatusChange] = useState<{
+    newStatus: 'active' | 'inactive'
+  } | null>(null)
 
   const [formData, setFormData] = useState<MemberLevelFormData>({
     levelName: level?.levelName || '',
@@ -75,6 +79,26 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
     // 触发表单提交
     const form = document.getElementById('member-level-form') as HTMLFormElement
     form?.requestSubmit()
+  }
+
+  // 状态开关独立处理（不受修改设置限制）
+  const handleStatusToggle = (currentStatus: 'active' | 'inactive') => {
+    const newStatus = currentStatus === 'active' ? 'inactive' : 'active'
+    setConfirmStatusChange({ newStatus })
+  }
+
+  const confirmStatusToggle = () => {
+    if (confirmStatusChange) {
+      handleChange('status', confirmStatusChange.newStatus)
+      console.log('状态修改记录:', {
+        level: level?.levelName || '新等级',
+        from: confirmStatusChange.newStatus === 'active' ? 'inactive' : 'active',
+        to: confirmStatusChange.newStatus,
+        operator: '兔子',
+        time: new Date().toLocaleString('zh-CN')
+      })
+      setConfirmStatusChange(null)
+    }
   }
 
   return (
@@ -356,7 +380,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
           </CardContent>
         </Card>
 
-        {/* 状态 */}
+        {/* 状态 - 不受修改设置限制，可独立操作 */}
         <Card>
           <CardHeader>
             <CardTitle>状态</CardTitle>
@@ -366,8 +390,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
               <Switch
                 id="status"
                 checked={formData.status === 'active'}
-                onCheckedChange={(checked) => handleChange('status', checked ? 'active' : 'inactive')}
-                disabled={!isEditMode}
+                onCheckedChange={() => handleStatusToggle(formData.status)}
               />
               <Label htmlFor="status" className="text-sm font-normal cursor-pointer">
                 {formData.status === 'active' ? '启用中' : '已禁用'}
@@ -389,6 +412,32 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
           Submit
         </button>
       </Form>
+
+      {/* 状态修改确认对话框 */}
+      {confirmStatusChange && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+            <h3 className="text-lg font-semibold mb-2">确认修改状态</h3>
+            <p className="text-sm text-slate-600 mb-6">
+              确定要将状态修改为
+              <strong className="text-secondary ml-1">
+                {confirmStatusChange.newStatus === 'active' ? '启用' : '禁用'}
+              </strong> 吗？修改将立即生效。
+            </p>
+            <div className="flex justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setConfirmStatusChange(null)}
+              >
+                取消
+              </Button>
+              <Button onClick={confirmStatusToggle}>
+                确认修改
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

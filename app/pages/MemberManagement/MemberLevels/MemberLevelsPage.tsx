@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { MemberLevel } from './types/memberLevels.types'
 import { Card, CardContent } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
+import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Badge } from '~/components/ui/badge'
 import { Switch } from '~/components/ui/switch'
@@ -20,6 +21,11 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
   const { isLearningMode } = useViewMode()
   const [isEditMode, setIsEditMode] = useState(false)
   const [editedLevels, setEditedLevels] = useState<MemberLevel[]>(levels)
+  const [confirmStatusChange, setConfirmStatusChange] = useState<{
+    levelId: string
+    levelName: string
+    newStatus: 'active' | 'inactive'
+  } | null>(null)
 
   const handleEditToggle = () => {
     setIsEditMode(true)
@@ -41,6 +47,26 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
         level.id === id ? { ...level, [field]: value } : level
       )
     )
+  }
+
+  // 状态开关独立处理（不受修改设置限制）
+  const handleStatusToggle = (levelId: string, levelName: string, currentStatus: 'active' | 'inactive') => {
+    const newStatus = currentStatus === 'active' ? 'inactive' : 'active'
+    setConfirmStatusChange({ levelId, levelName, newStatus })
+  }
+
+  const confirmStatusToggle = () => {
+    if (confirmStatusChange) {
+      updateLevel(confirmStatusChange.levelId, 'status', confirmStatusChange.newStatus)
+      console.log('状态修改记录:', {
+        level: confirmStatusChange.levelName,
+        from: confirmStatusChange.newStatus === 'active' ? 'inactive' : 'active',
+        to: confirmStatusChange.newStatus,
+        operator: '兔子',
+        time: new Date().toLocaleString('zh-CN')
+      })
+      setConfirmStatusChange(null)
+    }
   }
 
   // LogicPanel 配置
@@ -267,18 +293,15 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                       </div>
                     </TableCell>
 
-                    {/* 状态 */}
+                    {/* 状态 - 不受修改设置限制，可独立操作 */}
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Switch
                           checked={level.status === 'active'}
-                          onCheckedChange={(checked) =>
-                            updateLevel(level.id, 'status', checked ? 'active' : 'inactive')
-                          }
-                          disabled={!isEditMode}
+                          onCheckedChange={() => handleStatusToggle(level.id, level.displayName, level.status)}
                         />
                         <span className="text-sm text-muted-foreground">
-                          {level.status === 'active' ? '启用' : '禁用'}
+                          {level.status === 'active' ? '启用中' : '已禁用'}
                         </span>
                       </div>
                     </TableCell>
@@ -363,6 +386,32 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
       {isLearningMode && (
         <div className="w-[480px] border-l border-border overflow-hidden">
           <LogicPanel title="会员等级设置" sections={logicSections} />
+        </div>
+      )}
+
+      {/* 状态修改确认对话框 */}
+      {confirmStatusChange && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+            <h3 className="text-lg font-semibold mb-2">确认修改状态</h3>
+            <p className="text-sm text-slate-600 mb-6">
+              确定要将 <strong className="text-primary">{confirmStatusChange.levelName}</strong> 的状态修改为
+              <strong className="text-secondary ml-1">
+                {confirmStatusChange.newStatus === 'active' ? '启用' : '禁用'}
+              </strong> 吗？修改将立即生效。
+            </p>
+            <div className="flex justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setConfirmStatusChange(null)}
+              >
+                取消
+              </Button>
+              <Button onClick={confirmStatusToggle}>
+                确认修改
+              </Button>
+            </div>
+          </div>
         </div>
       )}
     </div>
