@@ -185,6 +185,9 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                   <TableHead className="min-w-[120px]">有效期（天）</TableHead>
                   <TableHead className="min-w-[150px]">折扣范围</TableHead>
                   <TableHead className="min-w-[120px]">积分倍数</TableHead>
+                  <TableHead className="min-w-[140px]">赠送体验次数</TableHead>
+                  <TableHead className="min-w-[140px]">赠送有效期（天）</TableHead>
+                  <TableHead className="min-w-[200px]">会员卡图片</TableHead>
                   <TableHead className="min-w-[100px]">状态</TableHead>
                 </TableRow>
               </TableHeader>
@@ -290,6 +293,61 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                       />
                     </TableCell>
 
+                    {/* 赠送体验次数 */}
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Input
+                          type="number"
+                          min="0"
+                          value={level.giftTrialCount}
+                          onChange={(e) => updateLevel(level.id, 'giftTrialCount', Number(e.target.value))}
+                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          disabled={!isEditMode}
+                        />
+                        <span className="text-sm text-muted-foreground">次</span>
+                      </div>
+                    </TableCell>
+
+                    {/* 赠送有效期 */}
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Input
+                          type="number"
+                          min="1"
+                          value={level.giftValidityDays}
+                          onChange={(e) => updateLevel(level.id, 'giftValidityDays', Number(e.target.value))}
+                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          disabled={!isEditMode}
+                        />
+                        <span className="text-sm text-muted-foreground">天</span>
+                      </div>
+                    </TableCell>
+
+                    {/* 会员卡图片 */}
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0]
+                            if (file) {
+                              const url = URL.createObjectURL(file)
+                              updateLevel(level.id, 'cardImage', url)
+                            }
+                          }}
+                          className={`h-8 text-xs ${!isEditMode ? 'hidden' : ''}`}
+                          disabled={!isEditMode}
+                        />
+                        {!isEditMode && level.cardImage && (
+                          <img src={level.cardImage} alt="会员卡" className="h-8 w-auto rounded border" />
+                        )}
+                        {!isEditMode && !level.cardImage && (
+                          <span className="text-sm text-slate-400">未上传</span>
+                        )}
+                      </div>
+                    </TableCell>
+
                     {/* 状态 - 不受修改设置限制，可独立操作 */}
                     <TableCell>
                       <div className="flex items-center gap-2">
@@ -298,7 +356,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                           onCheckedChange={() => handleStatusToggle(level.id, level.displayName, level.status)}
                         />
                         <span className="text-sm text-muted-foreground">
-                          {level.status === 'active' ? '启用中' : '已禁用'}
+                          {level.status === 'active' ? '启用' : '禁用'}
                         </span>
                       </div>
                     </TableCell>

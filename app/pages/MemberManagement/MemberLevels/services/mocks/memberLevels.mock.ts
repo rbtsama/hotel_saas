@@ -12,6 +12,8 @@ export const mockMemberLevelsData: MemberLevel[] = [
     discountMin: 0,
     discountMax: 0,
     pointsRate: 1.0, // 1元=1积分
+    giftTrialCount: 0, // 无赠送
+    giftValidityDays: 30, // 赠送有效期30天
     status: 'active',
     updatedAt: '2025/01/01 00:00:00'
   },
@@ -25,6 +27,8 @@ export const mockMemberLevelsData: MemberLevel[] = [
     discountMin: 85,
     discountMax: 95,
     pointsRate: 1.2, // 1元=1.2积分
+    giftTrialCount: 1, // 赠送1次体验
+    giftValidityDays: 30, // 赠送有效期30天
     status: 'active',
     updatedAt: '2025/01/10 14:30:00'
   },
@@ -38,6 +42,8 @@ export const mockMemberLevelsData: MemberLevel[] = [
     discountMin: 80,
     discountMax: 90,
     pointsRate: 1.5, // 1元=1.5积分
+    giftTrialCount: 1,
+    giftValidityDays: 60,
     status: 'active',
     updatedAt: '2025/01/10 14:35:00'
   },
@@ -51,6 +57,8 @@ export const mockMemberLevelsData: MemberLevel[] = [
     discountMin: 75,
     discountMax: 88,
     pointsRate: 2.0, // 1元=2积分
+    giftTrialCount: 2,
+    giftValidityDays: 90,
     status: 'active',
     updatedAt: '2025/01/10 14:40:00'
   },
@@ -64,6 +72,8 @@ export const mockMemberLevelsData: MemberLevel[] = [
     discountMin: 70,
     discountMax: 85,
     pointsRate: 2.5, // 1元=2.5积分
+    giftTrialCount: 2,
+    giftValidityDays: 180,
     status: 'active',
     updatedAt: '2025/01/10 14:45:00'
   },
@@ -77,6 +87,8 @@ export const mockMemberLevelsData: MemberLevel[] = [
     discountMin: 65,
     discountMax: 82,
     pointsRate: 3.0, // 1元=3积分
+    giftTrialCount: 3,
+    giftValidityDays: 180,
     status: 'active',
     updatedAt: '2025/01/10 14:50:00'
   },
@@ -90,6 +102,8 @@ export const mockMemberLevelsData: MemberLevel[] = [
     discountMin: 60,
     discountMax: 80,
     pointsRate: 3.5, // 1元=3.5积分
+    giftTrialCount: 3,
+    giftValidityDays: 365,
     status: 'active',
     updatedAt: '2025/01/10 14:55:00'
   },
@@ -103,6 +117,8 @@ export const mockMemberLevelsData: MemberLevel[] = [
     discountMin: 55,
     discountMax: 78,
     pointsRate: 4.0, // 1元=4积分
+    giftTrialCount: 4,
+    giftValidityDays: 365,
     status: 'active',
     updatedAt: '2025/01/10 15:00:00'
   },
@@ -116,6 +132,8 @@ export const mockMemberLevelsData: MemberLevel[] = [
     discountMin: 50,
     discountMax: 75,
     pointsRate: 4.5, // 1元=4.5积分
+    giftTrialCount: 5,
+    giftValidityDays: 730,
     status: 'active',
     updatedAt: '2025/01/10 15:05:00'
   },
@@ -129,6 +147,8 @@ export const mockMemberLevelsData: MemberLevel[] = [
     discountMin: 45,
     discountMax: 70,
     pointsRate: 5.0, // 1元=5积分
+    giftTrialCount: 6,
+    giftValidityDays: 730,
     status: 'active',
     updatedAt: '2025/01/10 15:10:00'
   }

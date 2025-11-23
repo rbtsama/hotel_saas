@@ -17,6 +17,11 @@ export interface MemberLevel {
   // 积分汇率（消费 1 元 = X 积分）
   pointsRate: number // 积分汇率（支持2位小数的正数）
 
+  // 赠送规则
+  giftTrialCount: number // 赠送体验次数（≥0整数）
+  giftValidityDays: number // 赠送有效期（天）（>0整数）
+  cardImage?: string // 会员卡图片URL
+
   status: 'active' | 'inactive' // 状态
   updatedAt?: string
 }
@@ -35,5 +40,8 @@ export interface MemberLevelFormData {
   discountMin: number
   discountMax: number
   pointsRate: number
+  giftTrialCount: number
+  giftValidityDays: number
+  cardImage?: string
   status: 'active' | 'inactive'
 }
