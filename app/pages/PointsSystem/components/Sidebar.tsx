@@ -343,10 +343,10 @@ export const menuConfig: MenuItem[] = [
         ]
       },
       {
-        title: '代客下单',
+        title: '老客服务 *',
         children: [
-          { title: '创建订单 *', path: '/merchant-backend/agent-order/create' },
-          { title: '订单列表 *', path: '/merchant-backend/agent-order' }
+          { title: '代客下单 *', path: '/merchant-backend/agent-order/create' },
+          { title: '邀请会员 *', path: '/merchant-backend/old-customer/invite-member' }
         ]
       }
     ]

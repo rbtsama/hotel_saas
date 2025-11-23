@@ -126,6 +126,7 @@ export default defineConfig({
           route("/merchant-backend/vip-discount/config", "routes/merchant-backend/vip-discount/config.tsx")
           route("/merchant-backend/agent-order", "routes/merchant-backend/agent-order/_index.tsx")
           route("/merchant-backend/agent-order/create", "routes/merchant-backend/agent-order/create.tsx")
+          route("/merchant-backend/old-customer/invite-member", "routes/merchant-backend/old-customer/invite-member.tsx")
 
           // C Client - User Center
           route("/c-client/user-center/my-points", "routes/c-client/user-center/my-points.tsx")
