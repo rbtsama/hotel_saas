@@ -902,6 +902,137 @@
 
 ---
 
+## 2025-11-24 02:50:00
+
+### 会员邀请功能重构 - 平台端与商户端
+
+**新增文件:**
+- `app/pages/PlatformAdmin/MemberManagement/types/memberInvitation.types.ts`
+- `app/pages/PlatformAdmin/MemberManagement/services/mocks/memberInvitation.mock.ts`
+- `app/pages/PlatformAdmin/MemberManagement/MemberInvitationPage.tsx`
+- `app/routes/platform-admin/member-management/invitations.tsx`
+
+**修改文件:**
+- `app/pages/PointsSystem/components/Sidebar.tsx`
+- `vite.config.ts`
+- `app/pages/MerchantBackend/OldCustomer/types/inviteMember.types.ts`
+- `app/pages/MerchantBackend/OldCustomer/services/mocks/inviteMember.mock.ts`
+- `app/pages/MerchantBackend/OldCustomer/InviteMemberPage.tsx`
+- `app/routes/merchant-backend/old-customer/invite-member.tsx`
+
+**修改内容:**
+
+### 一、平台端 - 会员邀请
+
+1. **新增会员邀请菜单**
+   - 位置: 平台后台 → 会员管理 → 会员邀请
+   - 菜单层级: 三级菜单
+   - 菜单标记: 红色"*"
+   - **功能影响**: 平台可以查看所有会员邀请记录
+
+2. **邀请记录列表字段**
+   - **VIP获得时间**(主键): 受邀人获得VIP的时间,格式`2025/5/31 23:14:36`
+   - **VIP等级**:
+     - 用户邀请 → VIP0 (灰色边框徽章)
+     - 商户邀请 → VIP1 (琥珀色徽章)
+     - 体验卡赠送 → 根据赠送等级决定
+   - **受邀人**: 用户ID
+   - **邀请角色**: 用户(蓝色徽章) / 商户(紫色徽章)
+   - **邀请人**:
+     - 用户邀请: 显示邀请人用户ID
+     - 商户邀请: 显示"-"
+   - **用户注册时间**: 受邀人注册时间,格式`2025/5/31 23:14:36`
+   - **功能影响**: 完整记录所有邀请渠道的会员获取情况
+
+3. **排序规则**
+   - 按VIP获得时间倒序排列
+   - 最新的邀请记录显示在最上方
+   - **功能影响**: 方便查看最新的邀请情况
+
+4. **类型定义**
+   - `MemberInvitationRecord`: 会员邀请记录
+   - `InviterRole`: 邀请角色枚举('user' | 'merchant')
+   - **功能影响**: 完整的类型系统支持
+
+5. **Mock数据**
+   - 8条邀请记录示例
+   - 包含用户邀请和商户邀请两种类型
+   - 时间范围: 11/23 - 11/24
+   - **功能影响**: 提供真实场景的测试数据
+
+### 二、商户端 - 邀请会员重构
+
+1. **页面简化**
+   - 删除副标题("帮助老客户邀请新会员注册,双方获得奖励")
+   - 删除统计卡片(总邀请数、成功注册、待注册、总奖励积分)
+   - 删除发起邀请弹窗(老客户手机号、被邀请人手机号输入)
+   - 删除手机号搜索功能
+   - 删除邀请规则说明卡片
+   - **功能影响**: 页面极简化,聚焦核心功能
+
+2. **主按钮调整**
+   - 按钮文字: "发起邀请" → "邀请会员"
+   - 位置: 页面右上角
+   - 尺寸: lg大号按钮
+   - 功能: 点击直接弹出邀请二维码
+   - **功能影响**: 一键生成邀请二维码,无需填写表单
+
+3. **邀请二维码弹窗**
+   - 删除DialogHeader和DialogTitle
+   - 只显示: 二维码 + 关闭按钮 + 保存图片按钮
+   - 关闭按钮: 右上角X图标
+   - 保存按钮: 下方全宽按钮,"保存图片"文字
+   - 二维码尺寸: 256x256
+   - **功能影响**: 极简设计,用户扫码获得VIP1体验卡(7天有效期)
+
+4. **邀请记录表格简化**
+   - 只保留2个字段:
+     - 受邀人: 显示用户ID或姓名
+     - 受邀时间: 格式`2025/11/24 15:30:25`
+   - 删除字段:
+     - 老客户信息
+     - 注册状态
+     - 奖励状态
+     - 过期时间
+   - **功能影响**: 表格极简,只记录核心信息
+
+5. **排序规则**
+   - 按受邀时间倒序排列
+   - 最新的邀请记录显示在最上方
+   - **功能影响**: 方便查看最新的邀请情况
+
+6. **业务逻辑**
+   - 商户邀请的会员自带7天VIP1体验卡
+   - 扫码用户自动获得VIP1体验卡
+   - 有效期7天
+   - 无需填写任何信息,扫码即可
+   - **功能影响**: 简化邀请流程,提升转化率
+
+7. **类型定义简化**
+   - `InviteRecord`只保留:
+     - id
+     - inviteeId (受邀人用户ID)
+     - inviteeName (受邀人姓名,可选)
+     - invitedAt (受邀时间)
+   - 删除所有复杂的邀请人、状态、奖励等字段
+   - **功能影响**: 类型系统更简洁
+
+8. **Mock数据简化**
+   - 8条简单的邀请记录
+   - 只包含受邀人ID、姓名(可选)、受邀时间
+   - 删除InviteStatistics统计数据
+   - **功能影响**: 数据结构更清晰
+
+**访问路径:**
+- 平台端-会员邀请: `/platform-admin/member-management/invitations`
+- 商户端-邀请会员: `/merchant-backend/old-customer/invite-member`
+
+**菜单标记:**
+- `平台后台` → `会员管理 *` → `会员邀请 *` (新增)
+- `商户端` → `老客服务 *` → `邀请会员 *` (保持)
+
+---
+
 ## 2025-11-24 02:40:00
 
 ### 会员等级设置字段扩展

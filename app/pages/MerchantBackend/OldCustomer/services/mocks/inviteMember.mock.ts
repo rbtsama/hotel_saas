@@ -2,78 +2,55 @@
  * 商户端 - 邀请会员 Mock 数据
  */
 
-import type { InviteRecord, InviteStatistics } from '../../types/inviteMember.types'
+import type { InviteRecord } from '../../types/inviteMember.types'
 
 /**
- * 邀请记录 Mock
+ * 邀请记录 Mock (简化版)
  */
 export const mockInviteRecords: InviteRecord[] = [
   {
     id: 'invite-1',
-    inviterName: '张三',
-    inviterPhone: '138****1234',
-    inviteePhone: '139****5678',
-    inviteeName: '李四',
-    registrationStatus: 'registered',
-    registeredAt: '11/20/25 14:30:00',
-    rewardStatus: 'rewarded',
-    rewardPoints: 50,
-    invitedAt: '11/18/25 10:20:00',
-    expiresAt: '11/25/25 10:20:00',
+    inviteeId: 'U10086',
+    inviteeName: '张三',
+    invitedAt: '2025/11/24 15:30:25',
   },
   {
     id: 'invite-2',
-    inviterName: '王五',
-    inviterPhone: '136****2345',
-    inviteePhone: '137****6789',
-    registrationStatus: 'pending',
-    rewardStatus: 'not_eligible',
-    invitedAt: '11/22/25 16:45:00',
-    expiresAt: '11/29/25 16:45:00',
+    inviteeId: 'U10087',
+    inviteeName: '李四',
+    invitedAt: '2025/11/24 14:20:15',
   },
   {
     id: 'invite-3',
-    inviterName: '赵六',
-    inviterPhone: '135****3456',
-    inviteePhone: '138****7890',
-    inviteeName: '钱七',
-    registrationStatus: 'registered',
-    registeredAt: '11/23/25 09:15:00',
-    rewardStatus: 'pending',
-    invitedAt: '11/23/25 08:00:00',
-    expiresAt: '11/30/25 08:00:00',
+    inviteeId: 'U10088',
+    invitedAt: '2025/11/24 12:45:50',
   },
   {
     id: 'invite-4',
-    inviterName: '孙八',
-    inviterPhone: '134****4567',
-    inviteePhone: '139****8901',
-    registrationStatus: 'expired',
-    rewardStatus: 'not_eligible',
-    invitedAt: '11/10/25 13:20:00',
-    expiresAt: '11/17/25 13:20:00',
+    inviteeId: 'U10089',
+    inviteeName: '王五',
+    invitedAt: '2025/11/24 11:10:35',
   },
   {
     id: 'invite-5',
-    inviterName: '周九',
-    inviterPhone: '133****5678',
-    inviteePhone: '136****9012',
-    inviteeName: '吴十',
-    registrationStatus: 'registered',
-    registeredAt: '11/21/25 11:30:00',
-    rewardStatus: 'rewarded',
-    rewardPoints: 50,
-    invitedAt: '11/20/25 10:00:00',
-    expiresAt: '11/27/25 10:00:00',
+    inviteeId: 'U10090',
+    invitedAt: '2025/11/24 09:25:10',
+  },
+  {
+    id: 'invite-6',
+    inviteeId: 'U10091',
+    inviteeName: '赵六',
+    invitedAt: '2025/11/23 18:50:22',
+  },
+  {
+    id: 'invite-7',
+    inviteeId: 'U10092',
+    invitedAt: '2025/11/23 16:35:40',
+  },
+  {
+    id: 'invite-8',
+    inviteeId: 'U10093',
+    inviteeName: '孙七',
+    invitedAt: '2025/11/23 14:15:30',
   },
 ]
-
-/**
- * 邀请统计 Mock
- */
-export const mockInviteStatistics: InviteStatistics = {
-  totalInvites: 15,
-  successfulRegistrations: 8,
-  pendingRegistrations: 5,
-  totalRewardPoints: 400,
-}
