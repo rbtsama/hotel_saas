@@ -323,27 +323,50 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                       </div>
                     </TableCell>
 
-                    {/* 会员卡图片 */}
+                    {/* 会员卡图片 - 独立操作,不受修改设置限制 */}
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <Input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => {
-                            const file = e.target.files?.[0]
-                            if (file) {
-                              const url = URL.createObjectURL(file)
-                              updateLevel(level.id, 'cardImage', url)
-                            }
-                          }}
-                          className={`h-8 text-xs ${!isEditMode ? 'hidden' : ''}`}
-                          disabled={!isEditMode}
-                        />
-                        {!isEditMode && level.cardImage && (
-                          <img src={level.cardImage} alt="会员卡" className="h-8 w-auto rounded border" />
-                        )}
-                        {!isEditMode && !level.cardImage && (
-                          <span className="text-sm text-slate-400">未上传</span>
+                        {level.cardImage ? (
+                          <>
+                            <img src={level.cardImage} alt="会员卡" className="h-12 w-auto rounded border" />
+                            <label className="cursor-pointer">
+                              <Button variant="ghost" size="sm" asChild>
+                                <span>修改</span>
+                              </Button>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0]
+                                  if (file) {
+                                    const url = URL.createObjectURL(file)
+                                    updateLevel(level.id, 'cardImage', url)
+                                    console.log('上传会员卡图片:', { level: level.displayName, file: file.name })
+                                  }
+                                }}
+                              />
+                            </label>
+                          </>
+                        ) : (
+                          <label className="cursor-pointer">
+                            <Button variant="outline" size="sm" asChild>
+                              <span>上传图片</span>
+                            </Button>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0]
+                                if (file) {
+                                  const url = URL.createObjectURL(file)
+                                  updateLevel(level.id, 'cardImage', url)
+                                  console.log('上传会员卡图片:', { level: level.displayName, file: file.name })
+                                }
+                              }}
+                            />
+                          </label>
                         )}
                       </div>
                     </TableCell>
