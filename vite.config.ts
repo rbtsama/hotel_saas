@@ -124,7 +124,6 @@ export default defineConfig({
           // Merchant Backend - New Modules
           route("/merchant-backend/points-service/config", "routes/merchant-backend/points-service/config.tsx")
           route("/merchant-backend/vip-discount/config", "routes/merchant-backend/vip-discount/config.tsx")
-          route("/merchant-backend/agent-order", "routes/merchant-backend/agent-order/_index.tsx")
           route("/merchant-backend/agent-order/create", "routes/merchant-backend/agent-order/create.tsx")
           route("/merchant-backend/old-customer/invite-member", "routes/merchant-backend/old-customer/invite-member.tsx")
 

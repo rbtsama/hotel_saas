@@ -902,6 +902,52 @@
 
 ---
 
+## 2025-11-24 03:50:00
+
+### 项目清理 - 删除多余文件和路由
+
+**删除文件:**
+- `app/routes/platform-admin/points-management/value-added/reward.tsx` (已废弃)
+- `app/routes/platform-admin/points-management/value-added/exchange.tsx` (已废弃)
+- `app/pages/PlatformAdmin/PointsManagement/PointsRewardPage.tsx` (已废弃)
+- `app/pages/PlatformAdmin/PointsManagement/PointsExchangePage.tsx` (已废弃)
+- `app/pages/MerchantBackend/AgentOrder/AgentOrderListPage.tsx` (已废弃)
+- `app/routes/merchant-backend/agent-order/_index.tsx` (已废弃)
+
+**修改文件:**
+- `vite.config.ts` - 删除已废弃的路由配置
+
+**清理原因:**
+
+1. **积分增值服务重构**
+   - 原来: 两个独立页面(PointsRewardPage, PointsExchangePage)
+   - 现在: 一个双卡片页面(ValueAddedServicesPage)
+   - 删除: 旧的独立页面和路由
+   - **功能影响**: 减少代码重复,维护更简单
+
+2. **商户端订单列表移除**
+   - 原来: 有AgentOrderListPage和对应路由
+   - 现在: 菜单中已删除"订单列表"
+   - 删除: 未使用的页面和路由文件
+   - **功能影响**: 清理无用代码,减少混淆
+
+3. **路由配置清理**
+   - 删除: `/merchant-backend/agent-order` (订单列表路由)
+   - 保留: `/merchant-backend/agent-order/create` (创建订单路由)
+   - **功能影响**: 路由配置与实际菜单保持一致
+
+**清理统计:**
+- 删除文件: 6个
+- 删除代码: 约400行
+- 清理路由: 3条
+
+**验证:**
+- ✅ 所有新功能路由可正常访问
+- ✅ 没有引用已删除的文件
+- ✅ vite.config.ts与菜单保持一致
+
+---
+
 ## 2025-11-24 03:40:00
 
 ### 核心场景与产品架构更新
