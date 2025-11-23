@@ -3,7 +3,7 @@
  */
 
 import { Link, useLocation } from '@remix-run/react'
-import { ChevronDown, ChevronRight, BookOpen, Presentation, Menu, X } from 'lucide-react'
+import { ChevronDown, ChevronRight, ChevronLeft, BookOpen, Presentation, Menu } from 'lucide-react'
 import { useState } from 'react'
 import { useViewMode } from '~/contexts/ViewModeContext'
 
@@ -104,6 +104,7 @@ export default function Sidebar({ menuItems }: SidebarProps) {
         key={item.path}
         to={item.path || '#'}
         preventScrollReset={true}
+        reloadDocument={false}
         className={`block px-3 py-2 text-sm rounded-md transition-colors ${
           isActive(item.path)
             ? 'bg-blue-50 text-blue-700 font-medium'
@@ -120,15 +121,15 @@ export default function Sidebar({ menuItems }: SidebarProps) {
 
   return (
     <>
-      {/* 收起时的迷你侧边栏 */}
+      {/* 收起时的迷你按钮 */}
       {isSidebarCollapsed && (
-        <div className="w-16 h-screen bg-slate-50 border-r border-slate-200 flex flex-col items-center py-4 transition-all duration-300">
+        <div className="fixed left-0 top-20 z-50">
           <button
             onClick={toggleSidebar}
-            className="p-2 hover:bg-slate-100 rounded-md transition-colors"
+            className="p-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-r-md shadow-md transition-colors"
             title="展开菜单"
           >
-            <Menu className="w-5 h-5 text-slate-600" />
+            <ChevronRight className="w-4 h-4 text-slate-600" />
           </button>
         </div>
       )}
@@ -147,7 +148,7 @@ export default function Sidebar({ menuItems }: SidebarProps) {
               className="p-2 hover:bg-slate-100 rounded-md transition-colors"
               title="收起菜单"
             >
-              <X className="w-4 h-4 text-slate-600" />
+              <ChevronLeft className="w-4 h-4 text-slate-600" />
             </button>
           </div>
 
