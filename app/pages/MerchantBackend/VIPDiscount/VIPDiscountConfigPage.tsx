@@ -1,131 +1,119 @@
 /**
- * 商户端 - VIP等级折扣策略配置页面
+ * 商户端 - VIP折扣配置页面
  */
 
 import { useState } from 'react'
-import { Form } from '@remix-run/react'
 import type { VIPLevelDiscount, MerchantVIPDiscountConfig } from './types/vipDiscount.types'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { Card, CardContent } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
-import { Label } from '~/components/ui/label'
-import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '~/components/ui/dialog'
-import { Checkbox } from '~/components/ui/checkbox'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
-import { Edit } from 'lucide-react'
+import SettingsPageHeader from '~/pages/SharedComponents/SettingsPageHeader'
 
 interface VIPDiscountConfigPageProps {
   config: MerchantVIPDiscountConfig
 }
 
-export default function VIPDiscountConfigPage({ config }: VIPDiscountConfigPageProps) {
-  const [editDialogOpen, setEditDialogOpen] = useState(false)
-  const [editingDiscount, setEditingDiscount] = useState<VIPLevelDiscount | null>(null)
-  const [formData, setFormData] = useState({
-    storeDiscount: 1.0,
-    weekdayExtraDiscount: 0,
-    weekendExtraDiscount: 0,
-    weekdayEnabled: false,
-    weekendEnabled: false,
-    holidayAllowed: true,
-  })
+export default function VIPDiscountConfigPage({ config: initialConfig }: VIPDiscountConfigPageProps) {
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [config, setConfig] = useState<MerchantVIPDiscountConfig>(initialConfig)
 
-  const handleEdit = (discount: VIPLevelDiscount) => {
-    setEditingDiscount(discount)
-    setFormData({
-      storeDiscount: discount.storeDiscount,
-      weekdayExtraDiscount: discount.weekdayExtraDiscount || 0,
-      weekendExtraDiscount: discount.weekendExtraDiscount || 0,
-      weekdayEnabled: !!discount.weekdayExtraDiscount,
-      weekendEnabled: !!discount.weekendExtraDiscount,
-      holidayAllowed: discount.holidayAllowed,
-    })
-    setEditDialogOpen(true)
+  const handleEditToggle = () => {
+    setIsEditMode(true)
   }
 
-  const formatDiscount = (val: number) => val === 1.0 ? '无' : `${(val * 10).toFixed(1)}折`
+  const handleCancel = () => {
+    setIsEditMode(false)
+    setConfig(initialConfig) // 恢复原始数据
+  }
+
+  const handleSave = () => {
+    console.log('保存VIP折扣配置:', config)
+    setIsEditMode(false)
+  }
+
+  const updateStoreDiscount = (id: string, value: number) => {
+    setConfig(prev => ({
+      ...prev,
+      discounts: prev.discounts.map(d =>
+        d.id === id ? { ...d, storeDiscount: value } : d
+      )
+    }))
+  }
+
+  const formatDiscountRange = (min: number, max: number) => {
+    if (min === 1.0 && max === 1.0) return '无折扣'
+    const minPercent = Math.round((1 - min) * 100)
+    const maxPercent = Math.round((1 - max) * 100)
+    return `${maxPercent}% - ${minPercent}%`
+  }
+
+  const formatDiscountPercent = (value: number) => {
+    if (value === 1.0) return '0%'
+    return `${Math.round((1 - value) * 100)}%`
+  }
 
   return (
     <MainLayout>
       <div className="h-screen overflow-y-auto bg-slate-50">
-        <div className="max-w-7xl mx-auto p-6">
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-slate-900">会员折扣策略配置</h1>
-            <p className="text-slate-600 mt-1">
-              在平台允许的范围内，设置各会员等级的折扣，以及平日/周末/节假日的差异化折扣
-            </p>
-          </div>
+        <div className="max-w-6xl mx-auto p-6 space-y-6">
+          {/* 页面标题 */}
+          <SettingsPageHeader
+            title="会员折扣设置"
+            isEditing={isEditMode}
+            onEditToggle={handleEditToggle}
+            onSave={handleSave}
+            onCancel={handleCancel}
+            changeLogs={[]}
+            changeLogTitle="会员折扣设置 - 修改记录"
+          />
 
-          <Card className="mb-6 border-blue-200 bg-blue-50">
-            <CardContent className="pt-6 text-sm text-blue-900">
-              <p><strong>说明：</strong></p>
-              <ul className="list-disc list-inside mt-2 space-y-1">
-                <li><strong>本店折扣：</strong>必须在平台限制范围内</li>
-                <li><strong>平日额外：</strong>在本店折扣基础上再打折（吸引平日客流）</li>
-                <li><strong>周末额外：</strong>周末是否给予额外折扣</li>
-                <li><strong>节假日：</strong>节假日是否允许使用VIP折扣</li>
-              </ul>
-            </CardContent>
-          </Card>
-
+          {/* 折扣配置表格 */}
           <Card>
-            <CardHeader>
-              <CardTitle>VIP等级折扣配置</CardTitle>
-              <CardDescription>配置{config.storeName}的VIP会员折扣策略</CardDescription>
-            </CardHeader>
-            <CardContent>
+            <CardContent className="p-0">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>等级</TableHead>
-                    <TableHead>平台限制范围</TableHead>
-                    <TableHead>本店折扣</TableHead>
-                    <TableHead>平日额外</TableHead>
-                    <TableHead>周末额外</TableHead>
-                    <TableHead>节假日</TableHead>
-                    <TableHead className="text-right">操作</TableHead>
+                    <TableHead className="min-w-[100px]">等级</TableHead>
+                    <TableHead className="min-w-[150px]">展示名称</TableHead>
+                    <TableHead className="min-w-[150px]">平台折扣</TableHead>
+                    <TableHead className="min-w-[180px]">本店折扣设置</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {config.discounts.map((discount) => (
                     <TableRow key={discount.id}>
-                      <TableCell className="font-medium">{discount.levelName}</TableCell>
+                      <TableCell className="font-medium">VIP{discount.level}</TableCell>
+                      <TableCell>{discount.levelName}</TableCell>
+                      <TableCell>
+                        <span className="text-sm text-slate-600">
+                          {formatDiscountRange(discount.platformMinDiscount, discount.platformMaxDiscount)}
+                        </span>
+                      </TableCell>
                       <TableCell>
                         {discount.level === 0 ? (
-                          <span className="text-slate-400">无</span>
+                          <span className="text-sm text-slate-400">无折扣</span>
                         ) : (
-                          <span className="text-sm text-slate-600">
-                            {formatDiscount(discount.platformMinDiscount)} ~ {formatDiscount(discount.platformMaxDiscount)}
-                          </span>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <span className="font-semibold text-primary">
-                          {formatDiscount(discount.storeDiscount)}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm text-slate-700">
-                          {discount.weekdayExtraDiscount ? `再${formatDiscount(discount.weekdayExtraDiscount)}` : '无'}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm text-slate-700">
-                          {discount.weekendExtraDiscount ? `再${formatDiscount(discount.weekendExtraDiscount)}` : '无'}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm">
-                          {discount.holidayAllowed ? '可用' : '不可用'}
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {discount.level !== 0 && (
-                          <Button variant="ghost" size="sm" onClick={() => handleEdit(discount)}>
-                            <Edit className="w-4 h-4 mr-1" />
-                            编辑
-                          </Button>
+                          <div className="flex items-center gap-3">
+                            <Input
+                              type="number"
+                              min={Math.round((1 - discount.platformMinDiscount) * 100)}
+                              max={Math.round((1 - discount.platformMaxDiscount) * 100)}
+                              step="1"
+                              value={Math.round((1 - discount.storeDiscount) * 100)}
+                              onChange={(e) => {
+                                const percent = parseInt(e.target.value) || 0
+                                const value = 1 - (percent / 100)
+                                updateStoreDiscount(discount.id, value)
+                              }}
+                              className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                              disabled={!isEditMode}
+                            />
+                            <span className="text-sm text-slate-600">%</span>
+                            <span className="text-xs text-slate-400">
+                              (范围: {Math.round((1 - discount.platformMinDiscount) * 100)}-{Math.round((1 - discount.platformMaxDiscount) * 100)}%)
+                            </span>
+                          </div>
                         )}
                       </TableCell>
                     </TableRow>
@@ -135,107 +123,20 @@ export default function VIPDiscountConfigPage({ config }: VIPDiscountConfigPageP
             </CardContent>
           </Card>
 
-          {/* 编辑弹窗 */}
-          <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-            <DialogContent className="max-w-lg">
-              <DialogHeader>
-                <DialogTitle>编辑{editingDiscount?.levelName}折扣策略</DialogTitle>
-                <DialogDescription>
-                  配置该等级的折扣策略和时段规则
-                </DialogDescription>
-              </DialogHeader>
-              <Form method="post" onSubmit={() => setEditDialogOpen(false)}>
-                <input type="hidden" name="_action" value="update_discount" />
-                <input type="hidden" name="level" value={editingDiscount?.level} />
-                <div className="space-y-4 py-4">
-                  <div className="p-3 bg-slate-100 rounded-lg text-sm text-slate-700">
-                    平台限制范围：{formatDiscount(editingDiscount?.platformMinDiscount || 1)} ~ {formatDiscount(editingDiscount?.platformMaxDiscount || 1)}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="storeDiscount">本店折扣</Label>
-                    <div className="flex items-center gap-2">
-                      <Input
-                        id="storeDiscount"
-                        name="storeDiscount"
-                        type="number"
-                        min={editingDiscount?.platformMinDiscount}
-                        max={editingDiscount?.platformMaxDiscount}
-                        step="0.01"
-                        value={formData.storeDiscount}
-                        onChange={(e) => setFormData({ ...formData, storeDiscount: parseFloat(e.target.value) || 1 })}
-                      />
-                      <span className="text-sm text-slate-600">（例如：88折 = 0.88）</span>
-                    </div>
-                    <p className="text-xs text-slate-500">必须在平台范围内</p>
-                  </div>
-
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <Checkbox
-                        id="weekdayEnabled"
-                        checked={formData.weekdayEnabled}
-                        onCheckedChange={(checked) => setFormData({ ...formData, weekdayEnabled: !!checked })}
-                      />
-                      <Label htmlFor="weekdayEnabled">启用平日额外折扣</Label>
-                    </div>
-                    {formData.weekdayEnabled && (
-                      <Input
-                        name="weekdayExtraDiscount"
-                        type="number"
-                        min="0.5"
-                        max="1.0"
-                        step="0.01"
-                        value={formData.weekdayExtraDiscount}
-                        onChange={(e) => setFormData({ ...formData, weekdayExtraDiscount: parseFloat(e.target.value) || 1 })}
-                        placeholder="在本店折扣基础上再打折"
-                      />
-                    )}
-                  </div>
-
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <Checkbox
-                        id="weekendEnabled"
-                        checked={formData.weekendEnabled}
-                        onCheckedChange={(checked) => setFormData({ ...formData, weekendEnabled: !!checked })}
-                      />
-                      <Label htmlFor="weekendEnabled">启用周末额外折扣</Label>
-                    </div>
-                    {formData.weekendEnabled && (
-                      <Input
-                        name="weekendExtraDiscount"
-                        type="number"
-                        min="0.5"
-                        max="1.0"
-                        step="0.01"
-                        value={formData.weekendExtraDiscount}
-                        onChange={(e) => setFormData({ ...formData, weekendExtraDiscount: parseFloat(e.target.value) || 1 })}
-                      />
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>节假日折扣</Label>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2">
-                        <Checkbox
-                          id="holidayAllowed"
-                          checked={formData.holidayAllowed}
-                          onCheckedChange={(checked) => setFormData({ ...formData, holidayAllowed: !!checked })}
-                        />
-                        <Label htmlFor="holidayAllowed">允许节假日使用VIP折扣</Label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-end gap-2">
-                  <Button type="button" variant="outline" onClick={() => setEditDialogOpen(false)}>取消</Button>
-                  <Button type="submit">确定</Button>
-                </div>
-              </Form>
-            </DialogContent>
-          </Dialog>
+          {/* 说明 */}
+          <Card>
+            <CardContent className="p-4">
+              <div className="text-sm text-muted-foreground space-y-2">
+                <p className="font-medium text-foreground">配置说明:</p>
+                <ul className="list-disc list-inside space-y-1 ml-2">
+                  <li>本店折扣设置必须在平台折扣范围内(包含边界值)</li>
+                  <li>默认值为平台折扣的最大值(最优惠)</li>
+                  <li>VIP0无会员折扣,仅显示不可编辑</li>
+                  <li>折扣以百分比形式显示,例如 15% 表示打 8.5 折</li>
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </MainLayout>

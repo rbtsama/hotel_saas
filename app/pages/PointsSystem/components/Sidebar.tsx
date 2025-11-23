@@ -299,7 +299,14 @@ export const menuConfig: MenuItem[] = [
         title: '积分管理 *',
         children: [
           { title: '积分规则配置 *', path: '/platform-admin/points-management/base-rule' },
-          { title: '积分调整 *', path: '/platform-admin/points-management/adjustment' }
+          { title: '积分调整 *', path: '/platform-admin/points-management/adjustment' },
+          {
+            title: '积分增值服务 *',
+            children: [
+              { title: '积分奖励 *', path: '/platform-admin/points-management/value-added/reward' },
+              { title: '积分换购 *', path: '/platform-admin/points-management/value-added/exchange' }
+            ]
+          }
         ]
       },
       {
