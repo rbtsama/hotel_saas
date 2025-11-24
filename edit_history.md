@@ -2767,3 +2767,63 @@ C端小程序
 
 ---
 
+## 2025-11-24 16:00:00 (下午)
+
+### UI全面优化 - 批量优化26个页面
+
+**修改目标：**
+按照 `setting_page_color.md` 和 `homestay-color-system.md` 规范，批量优化所有后台和C端页面的UI样式。
+
+**已完成优化的页面 (2个):**
+1. **PlatformAdmin/PointsManagement/MemberLevelRatesPage.tsx**
+   - 标题: "会员等级积分汇率配置" → "会员等级积分倍数配置"
+   - 卡片: `rounded-xl border-slate-200 shadow-sm hover:shadow-md`
+   - 品牌色: 统一使用 `text-blue-600`
+   - 表格: `border-slate-200 hover:bg-slate-50 transition-colors`
+   - 按钮: `h-9 rounded-md bg-blue-600 hover:bg-blue-700`
+   - 输入框: `h-9 focus:border-blue-500 focus:ring-2`
+
+2. **PlatformAdmin/PointsManagement/PointsStatisticsPage.tsx**
+   - 所有卡片添加hover阴影效果
+   - 按钮统一品牌蓝配色
+   - Select组件添加focus样式
+   - 表格行添加hover过渡效果
+   - 进度条添加圆角和过渡动画
+
+**待优化页面清单 (24个):**
+- 平台后台积分管理: UserPointsDetailPage.tsx等 (2个)
+- 平台后台会员管理: DiscountRulesPage.tsx, UpgradeRulesPage.tsx, UserMemberManagementPage.tsx (3个)
+- 会员管理: MembersPage.tsx, MemberDetailPage.tsx (2个)
+- C端小程序: MyPointsPage.tsx等 (9个)
+- 商户端: 已在前期优化 (4个) ✅
+- 会员等级: 已优化 (1个) ✅
+
+**优化规范总结:**
+
+后台页面 (品牌蓝 #3b82f6):
+- 卡片: `rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow`
+- 主按钮: `h-9 rounded-md bg-blue-600 hover:bg-blue-700 shadow-sm`
+- 输入框: `h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20`
+- 表格行: `border-slate-200 hover:bg-slate-50 transition-colors`
+- 重要数据: `text-blue-600 font-semibold`
+
+C端小程序 (森林绿 #458559):
+- 主按钮: `h-8 px-6 rounded-full bg-[#458559] hover:bg-[#3D7350]`
+- 价格: `text-2xl font-semibold text-[#A67B5B]`
+- 成功状态: `bg-[#3D7350]/15 text-[#3D7350]`
+- 链接: `text-[#4A85B8] hover:underline`
+
+**生成文件:**
+- `UI_OPTIMIZATION_REPORT.md` - 详细优化报告和模板
+
+**优化效果:**
+- ✅ 更精致的圆角和阴影
+- ✅ 统一的配色系统 (后台蓝+C端绿)
+- ✅ 流畅的hover和focus交互
+- ✅ 清晰的视觉层次
+
+**类型检查状态:**
+本次UI优化未引入新的类型错误。现有错误与本次优化无关(AccountManagement权限类型、HotelBackend字段缺失、MemberManagement字段名称)。
+
+---
+

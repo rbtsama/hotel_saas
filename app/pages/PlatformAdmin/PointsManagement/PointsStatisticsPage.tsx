@@ -30,19 +30,19 @@ export default function PointsStatisticsPage({ statistics }: PointsStatisticsPag
               查看积分发放、使用、流通数据，分析用户行为
             </p>
           </div>
-          <Button className="gap-2">
+          <Button className="gap-2 h-9 rounded-md bg-blue-600 hover:bg-blue-700 shadow-sm">
             <Download className="w-4 h-4" />
             导出报表
           </Button>
         </div>
 
         {/* 时间筛选 */}
-        <Card className="mb-6">
+        <Card className="mb-6 rounded-xl border-slate-200 shadow-sm">
           <CardContent className="pt-6">
             <div className="flex items-center gap-4">
               <span className="text-sm text-slate-600">时间范围：</span>
               <Select value={dateRange} onValueChange={setDateRange}>
-                <SelectTrigger className="w-48">
+                <SelectTrigger className="w-48 h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -58,11 +58,11 @@ export default function PointsStatisticsPage({ statistics }: PointsStatisticsPag
 
         {/* 核心数据卡片 */}
         <div className="grid grid-cols-3 gap-6 mb-6">
-          <Card>
+          <Card className="rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardDescription>累计发放积分</CardDescription>
-                <div className="p-2 bg-green-100 rounded-lg">
+                <CardDescription className="text-slate-600">累计发放积分</CardDescription>
+                <div className="p-2 bg-green-50 rounded-lg">
                   <TrendingUp className="w-4 h-4 text-green-600" />
                 </div>
               </div>
@@ -75,11 +75,11 @@ export default function PointsStatisticsPage({ statistics }: PointsStatisticsPag
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardDescription>累计使用积分</CardDescription>
-                <div className="p-2 bg-red-100 rounded-lg">
+                <CardDescription className="text-slate-600">累计使用积分</CardDescription>
+                <div className="p-2 bg-red-50 rounded-lg">
                   <TrendingDown className="w-4 h-4 text-red-600" />
                 </div>
               </div>
@@ -92,11 +92,11 @@ export default function PointsStatisticsPage({ statistics }: PointsStatisticsPag
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardDescription>当前流通积分</CardDescription>
-                <div className="p-2 bg-blue-100 rounded-lg">
+                <CardDescription className="text-slate-600">当前流通积分</CardDescription>
+                <div className="p-2 bg-blue-50 rounded-lg">
                   <Activity className="w-4 h-4 text-blue-600" />
                 </div>
               </div>
@@ -111,34 +111,34 @@ export default function PointsStatisticsPage({ statistics }: PointsStatisticsPag
         </div>
 
         {/* 积分发放明细 */}
-        <Card className="mb-6">
+        <Card className="mb-6 rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow">
           <CardHeader>
-            <CardTitle>积分发放明细</CardTitle>
-            <CardDescription>按发放类型统计积分发放情况</CardDescription>
+            <CardTitle className="text-slate-900">积分发放明细</CardTitle>
+            <CardDescription className="text-slate-600">按发放类型统计积分发放情况</CardDescription>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>发放类型</TableHead>
-                  <TableHead className="text-right">数量</TableHead>
-                  <TableHead className="text-right">占比</TableHead>
-                  <TableHead className="w-48">占比图</TableHead>
+                <TableRow className="border-slate-200">
+                  <TableHead className="text-slate-600">发放类型</TableHead>
+                  <TableHead className="text-right text-slate-600">数量</TableHead>
+                  <TableHead className="text-right text-slate-600">占比</TableHead>
+                  <TableHead className="w-48 text-slate-600">占比图</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {statistics.issueBreakdown.map((item) => (
-                  <TableRow key={item.type}>
-                    <TableCell className="font-medium">{item.typeName}</TableCell>
+                  <TableRow key={item.type} className="border-slate-200 hover:bg-slate-50 transition-colors">
+                    <TableCell className="font-medium text-slate-900">{item.typeName}</TableCell>
                     <TableCell className="text-right font-semibold text-green-600">
                       {item.amount.toLocaleString()}
                     </TableCell>
-                    <TableCell className="text-right">{item.percentage.toFixed(1)}%</TableCell>
+                    <TableCell className="text-right text-slate-700">{item.percentage.toFixed(1)}%</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <div className="flex-1 bg-slate-200 rounded-full h-2 overflow-hidden">
                           <div
-                            className="h-full bg-green-500"
+                            className="h-full bg-green-500 rounded-full transition-all"
                             style={{ width: `${item.percentage}%` }}
                           />
                         </div>
@@ -152,34 +152,34 @@ export default function PointsStatisticsPage({ statistics }: PointsStatisticsPag
         </Card>
 
         {/* 积分使用明细 */}
-        <Card>
+        <Card className="rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow">
           <CardHeader>
-            <CardTitle>积分使用明细</CardTitle>
-            <CardDescription>按使用类型统计积分消耗情况</CardDescription>
+            <CardTitle className="text-slate-900">积分使用明细</CardTitle>
+            <CardDescription className="text-slate-600">按使用类型统计积分消耗情况</CardDescription>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>使用类型</TableHead>
-                  <TableHead className="text-right">数量</TableHead>
-                  <TableHead className="text-right">占比</TableHead>
-                  <TableHead className="w-48">占比图</TableHead>
+                <TableRow className="border-slate-200">
+                  <TableHead className="text-slate-600">使用类型</TableHead>
+                  <TableHead className="text-right text-slate-600">数量</TableHead>
+                  <TableHead className="text-right text-slate-600">占比</TableHead>
+                  <TableHead className="w-48 text-slate-600">占比图</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {statistics.usageBreakdown.map((item) => (
-                  <TableRow key={item.type}>
-                    <TableCell className="font-medium">{item.typeName}</TableCell>
+                  <TableRow key={item.type} className="border-slate-200 hover:bg-slate-50 transition-colors">
+                    <TableCell className="font-medium text-slate-900">{item.typeName}</TableCell>
                     <TableCell className="text-right font-semibold text-red-600">
                       {item.amount.toLocaleString()}
                     </TableCell>
-                    <TableCell className="text-right">{item.percentage.toFixed(1)}%</TableCell>
+                    <TableCell className="text-right text-slate-700">{item.percentage.toFixed(1)}%</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <div className="flex-1 bg-slate-200 rounded-full h-2 overflow-hidden">
                           <div
-                            className="h-full bg-red-500"
+                            className="h-full bg-red-500 rounded-full transition-all"
                             style={{ width: `${item.percentage}%` }}
                           />
                         </div>
