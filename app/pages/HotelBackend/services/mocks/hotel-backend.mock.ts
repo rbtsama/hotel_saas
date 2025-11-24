@@ -12,7 +12,7 @@ export const mockStaffAccounts: StaffAccount[] = [
     id: 'staff-001',
     position: '前台主管',
     name: '张小花',
-    phone: '138****0001',
+    phone: '13812340001',
     createdAt: '01/10/25 09:00:00',
     createdBy: '酒店管理员',
   },
@@ -20,7 +20,7 @@ export const mockStaffAccounts: StaffAccount[] = [
     id: 'staff-002',
     position: '保洁员',
     name: '李阿姨',
-    phone: '139****0002',
+    phone: '13923450002',
     createdAt: '01/10/25 09:10:00',
     createdBy: '酒店管理员',
   },
@@ -28,27 +28,27 @@ export const mockStaffAccounts: StaffAccount[] = [
     id: 'staff-003',
     position: '维修工',
     name: '王师傅',
-    phone: '186****0003',
+    phone: '18689010003',
     createdAt: '01/10/25 09:20:00',
     createdBy: '酒店管理员',
   },
   {
     id: 'staff-004',
     position: '前台',
-    phone: '177****0004', // 只有手机号,姓名未填
+    phone: '17767800004', // 只有手机号,姓名未填
     createdAt: '01/12/25 14:30:00',
     createdBy: '酒店管理员',
   },
   {
     id: 'staff-005',
     name: '赵师傅', // 只有姓名,岗位未填
-    phone: '151****0005',
+    phone: '15112340005',
     createdAt: '01/15/25 10:00:00',
     createdBy: '酒店管理员',
   },
   {
     id: 'staff-006',
-    phone: '159****0006', // 只有手机号(最小信息)
+    phone: '15934560006', // 只有手机号(最小信息)
     createdAt: '01/16/25 08:20:00',
     createdBy: '酒店管理员',
   },
@@ -215,7 +215,7 @@ export const mockHotelMembers: HotelMember[] = [
   {
     id: 'hm-001',
     name: '陈女士',
-    phone: '138****1111',
+    phone: '13812341111',
     level: HotelMemberLevel.SVIP,
     levelName: '超级VIP',
     points: 8900,
@@ -229,7 +229,7 @@ export const mockHotelMembers: HotelMember[] = [
   {
     id: 'hm-002',
     name: '刘先生',
-    phone: '139****2222',
+    phone: '13923452222',
     level: HotelMemberLevel.VIP,
     levelName: 'VIP',
     points: 3200,
@@ -242,7 +242,7 @@ export const mockHotelMembers: HotelMember[] = [
   {
     id: 'hm-003',
     name: '孙女士',
-    phone: '186****3333',
+    phone: '18689013333',
     level: HotelMemberLevel.NORMAL,
     levelName: '普通会员',
     points: 560,

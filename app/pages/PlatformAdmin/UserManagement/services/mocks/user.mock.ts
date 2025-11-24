@@ -9,7 +9,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U001',
     name: '张三',
-    phone: '138****8888',
+    phone: '13812348888',
     memberLevel: '钻石会员',
     currentPoints: 12580,
     registeredAt: '2023-01-15 10:30:00',
@@ -18,7 +18,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U002',
     name: '李四',
-    phone: '139****6666',
+    phone: '13923456666',
     memberLevel: '白金会员',
     currentPoints: 8650,
     registeredAt: '2023-02-20 14:20:00',
@@ -27,7 +27,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U003',
     name: '王五',
-    phone: '136****9999',
+    phone: '13634569999',
     memberLevel: '金卡会员',
     currentPoints: 4320,
     registeredAt: '2023-03-10 09:15:00',
@@ -36,7 +36,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U004',
     name: '赵六',
-    phone: '137****7777',
+    phone: '13745677777',
     memberLevel: '银卡会员',
     currentPoints: 2150,
     registeredAt: '2023-04-05 16:45:00',
@@ -45,7 +45,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U005',
     name: '钱七',
-    phone: '135****5555',
+    phone: '13556785555',
     memberLevel: '普通会员',
     currentPoints: 850,
     registeredAt: '2023-05-12 11:00:00',
@@ -54,7 +54,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U006',
     name: '孙八',
-    phone: '133****4444',
+    phone: '13367894444',
     memberLevel: '金卡会员',
     currentPoints: 5670,
     registeredAt: '2023-06-18 13:30:00',
@@ -63,7 +63,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U007',
     name: '周九',
-    phone: '188****3333',
+    phone: '18878903333',
     memberLevel: '白金会员',
     currentPoints: 9420,
     registeredAt: '2023-07-22 15:10:00',
@@ -72,7 +72,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U008',
     name: '吴十',
-    phone: '186****2222',
+    phone: '18689012222',
     memberLevel: '银卡会员',
     currentPoints: 1980,
     registeredAt: '2023-08-08 10:25:00',
@@ -81,7 +81,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U009',
     name: '郑十一',
-    phone: '185****1111',
+    phone: '18590121111',
     memberLevel: '钻石会员',
     currentPoints: 15680,
     registeredAt: '2023-09-14 09:40:00',
@@ -90,7 +90,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U010',
     name: '王十二',
-    phone: '152****8888',
+    phone: '15201238888',
     memberLevel: '普通会员',
     currentPoints: 520,
     registeredAt: '2023-10-20 14:55:00',
@@ -99,7 +99,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U011',
     name: '刘十三',
-    phone: '151****7777',
+    phone: '15112347777',
     memberLevel: '金卡会员',
     currentPoints: 6830,
     registeredAt: '2023-11-05 16:20:00',
@@ -108,7 +108,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U012',
     name: '陈十四',
-    phone: '150****6666',
+    phone: '15023456666',
     memberLevel: '白金会员',
     currentPoints: 11250,
     registeredAt: '2023-12-10 11:35:00',
@@ -117,7 +117,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U013',
     name: '杨十五',
-    phone: '159****5555',
+    phone: '15934565555',
     memberLevel: '银卡会员',
     currentPoints: 2680,
     registeredAt: '2024-01-15 13:45:00',
@@ -126,7 +126,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U014',
     name: '黄十六',
-    phone: '158****4444',
+    phone: '15845674444',
     memberLevel: '普通会员',
     currentPoints: 320,
     registeredAt: '2024-02-20 10:15:00',
@@ -135,7 +135,7 @@ export const mockUsers: User[] = [
   {
     userId: 'U015',
     name: '林十七',
-    phone: '157****3333',
+    phone: '15756783333',
     memberLevel: '钻石会员',
     currentPoints: 18920,
     registeredAt: '2024-03-08 15:50:00',
@@ -148,7 +148,7 @@ export const mockUserDetails: Record<string, UserDetail> = {
   'U001': {
     userId: 'U001',
     name: '张三',
-    phone: '138****8888',
+    phone: '13812348888',
     memberLevel: '钻石会员',
     currentPoints: 12580,
     registeredAt: '2023-01-15 10:30:00',
@@ -211,7 +211,7 @@ export const mockUserDetails: Record<string, UserDetail> = {
   'U002': {
     userId: 'U002',
     name: '李四',
-    phone: '139****6666',
+    phone: '13923456666',
     memberLevel: '白金会员',
     currentPoints: 8650,
     registeredAt: '2023-02-20 14:20:00',
@@ -264,7 +264,7 @@ export const mockUserDetails: Record<string, UserDetail> = {
   'U003': {
     userId: 'U003',
     name: '王五',
-    phone: '136****9999',
+    phone: '13634569999',
     memberLevel: '金卡会员',
     currentPoints: 4320,
     registeredAt: '2023-03-10 09:15:00',
@@ -307,7 +307,7 @@ export const mockUserDetails: Record<string, UserDetail> = {
   'U004': {
     userId: 'U004',
     name: '赵六',
-    phone: '137****7777',
+    phone: '13745677777',
     memberLevel: '银卡会员',
     currentPoints: 2150,
     registeredAt: '2023-04-05 16:45:00',
@@ -350,7 +350,7 @@ export const mockUserDetails: Record<string, UserDetail> = {
   'U005': {
     userId: 'U005',
     name: '钱七',
-    phone: '135****5555',
+    phone: '13556785555',
     memberLevel: '普通会员',
     currentPoints: 850,
     registeredAt: '2023-05-12 11:00:00',

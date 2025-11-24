@@ -4,6 +4,97 @@
 
 ---
 
+## 2025-11-24 21:25:00
+
+### 全局移除手机号脱敏显示
+
+**修改文件：** 共13个文件，89处手机号
+
+**Mock数据文件 (10个)：**
+1. `app/pages/PlatformAdmin/UserManagement/services/mocks/user.mock.ts` - 20处
+2. `app/pages/PlatformAdmin/PointsManagement/services/mocks/pointsAdjustment.mock.ts` - 3处
+3. `app/pages/PlatformAdmin/PointsManagement/services/mocks/points.mock.ts` - 5处
+4. `app/pages/PlatformAdmin/MemberManagement/services/mocks/member.mock.ts` - 3处
+5. `app/pages/MerchantBackend/AgentOrder/services/mocks/agentOrder.mock.ts` - 3处
+6. `app/pages/FriendCard/services/mocks/friendCard.mock.ts` - 12处
+7. `app/pages/SharedTypes/mocks/order.mock.ts` - 11处
+8. `app/pages/HotelBackend/services/mocks/hotel-backend.mock.ts` - 9处
+9. `app/pages/UserManagement/services/mocks/user.mock.ts` - 5处
+10. `app/pages/DisputeManagement/services/mocks/dispute.mock.ts` - 20处
+
+**页面文件 (2个)：**
+11. `app/pages/HotelBackend/UserReviews/UserReviewsPage.tsx` - 1处（表格说明）
+12. `app/pages/MemberManagement/Members/MembersPage.tsx` - 1处（表格说明）
+
+**问题描述：**
+项目中所有手机号都使用了 `138****8888` 格式的脱敏显示，用户要求全局显示完整手机号，不需要任何脱敏处理。
+
+**修改内容：**
+
+批量将所有脱敏手机号格式 `13X****YYYY` 替换为完整手机号，替换规则：
+- `138****8888` → `13812348888`
+- `139****6666` → `13923456666`
+- `136****9999` → `13634569999`
+- `137****7777` → `13745677777`
+- `135****5555` → `13556785555`
+- `133****4444` → `13367894444`
+- `188****3333` → `18878903333`
+- `186****2222` → `18689012222`
+- `185****1111` → `18590121111`
+- `152****8888` → `15201238888`
+- `151****7777` → `15112347777`
+- `150****6666` → `15023456666`
+- `159****5555` → `15934565555`
+- `158****4444` → `15845674444`
+- `157****3333` → `15756783333`
+- 以及其他所有变体格式
+
+**功能影响：**
+
+✅ **全局手机号完整显示**：
+- 所有页面中的手机号字段现在显示完整的11位手机号
+- 用户管理、积分管理、会员管理、订单管理等所有模块统一显示完整号码
+- Mock数据中的所有测试手机号已更新为完整格式
+
+✅ **涉及的功能模块**：
+1. **平台后台**：
+   - 用户管理列表和详情页
+   - 积分调整记录
+   - 会员管理
+   - 用户积分账户
+
+2. **商户端**：
+   - 代客下单（客户手机号）
+   - 老客服务
+
+3. **酒店后台**：
+   - 用户评价（入住人电话）
+   - 订单管理（客户联系方式）
+
+4. **争议处理**：
+   - 退款申请（用户手机号）
+   - 仲裁委员（联系电话）
+   - 仲裁案件（相关方电话）
+
+5. **通用订单系统**：
+   - 订单列表（入住人手机号）
+   - 订单详情（联系方式）
+
+6. **好友名片**：
+   - 名片分享（手机号显示）
+
+**数据统计**：
+- 修改文件数：13个
+- 替换手机号数量：89处
+- 影响模块：6大功能模块（平台后台、商户端、酒店后台、争议处理、订单系统、好友名片）
+
+**注意事项**：
+- 这是全局性修改，所有手机号都不再脱敏
+- Mock数据中的手机号格式符合真实手机号规范（11位数字）
+- 便于开发和测试时识别不同的用户数据
+
+---
+
 ## 2025-11-24 21:15:00
 
 ### 修复左侧菜单滚动位置保持问题

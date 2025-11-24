@@ -95,7 +95,7 @@ export const mockUserPointsAccounts: UserPointsAccount[] = [
   {
     userId: 'user-1',
     userName: '张三',
-    phone: '138****1234',
+    phone: '13812341234',
     memberLevel: 3,
     memberLevelName: 'VIP3',
     currentPoints: 150,
@@ -106,7 +106,7 @@ export const mockUserPointsAccounts: UserPointsAccount[] = [
   {
     userId: 'user-2',
     userName: '李四',
-    phone: '139****5678',
+    phone: '13923455678',
     memberLevel: 2,
     memberLevelName: 'VIP2',
     currentPoints: 80,
@@ -117,7 +117,7 @@ export const mockUserPointsAccounts: UserPointsAccount[] = [
   {
     userId: 'user-3',
     userName: '王五',
-    phone: '136****9012',
+    phone: '13634569012',
     memberLevel: 1,
     memberLevelName: 'VIP1',
     currentPoints: 200,
@@ -128,7 +128,7 @@ export const mockUserPointsAccounts: UserPointsAccount[] = [
   {
     userId: 'user-4',
     userName: '赵六',
-    phone: '137****3456',
+    phone: '13745673456',
     memberLevel: 4,
     memberLevelName: 'VIP4',
     currentPoints: 350,
@@ -139,7 +139,7 @@ export const mockUserPointsAccounts: UserPointsAccount[] = [
   {
     userId: 'user-5',
     userName: '孙七',
-    phone: '135****7890',
+    phone: '13556787890',
     memberLevel: 0,
     memberLevelName: 'VIP0',
     currentPoints: 30,

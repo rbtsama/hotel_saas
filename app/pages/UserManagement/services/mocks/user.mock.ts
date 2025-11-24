@@ -10,7 +10,7 @@ export const mockUserList: UserListItem[] = [
   {
     id: 'user-001',
     name: '张伟',
-    phone: '138****8888',
+    phone: '13812348888',
     memberLevel: MemberLevel.DIAMOND,
     memberLevelName: '钻石会员',
     pointsBalance: 12580,
@@ -22,7 +22,7 @@ export const mockUserList: UserListItem[] = [
   {
     id: 'user-002',
     name: '李娜',
-    phone: '139****6666',
+    phone: '13923456666',
     memberLevel: MemberLevel.GOLD,
     memberLevelName: '金卡会员',
     pointsBalance: 6890,
@@ -34,7 +34,7 @@ export const mockUserList: UserListItem[] = [
   {
     id: 'user-003',
     name: '王强',
-    phone: '186****7777',
+    phone: '18689017777',
     memberLevel: MemberLevel.SILVER,
     memberLevelName: '银卡会员',
     pointsBalance: 3420,
@@ -46,7 +46,7 @@ export const mockUserList: UserListItem[] = [
   {
     id: 'user-004',
     name: '赵敏',
-    phone: '177****5555',
+    phone: '17767805555',
     memberLevel: MemberLevel.NORMAL,
     memberLevelName: '普通会员',
     pointsBalance: 980,
@@ -58,7 +58,7 @@ export const mockUserList: UserListItem[] = [
   {
     id: 'user-005',
     name: '刘洋',
-    phone: '151****4444',
+    phone: '15112344444',
     memberLevel: MemberLevel.GOLD,
     memberLevelName: '金卡会员',
     pointsBalance: 0,
@@ -75,7 +75,7 @@ export const mockUserDetails: Record<string, UserDetail> = {
     basic: {
       id: 'user-001',
       name: '张伟',
-      phone: '138****8888',
+      phone: '13812348888',
       avatar: 'https://i.pravatar.cc/150?img=12',
       gender: 'male',
       birthday: '1985/08/15',
@@ -212,7 +212,7 @@ export const mockUserDetails: Record<string, UserDetail> = {
     basic: {
       id: 'user-002',
       name: '李娜',
-      phone: '139****6666',
+      phone: '13923456666',
       avatar: 'https://i.pravatar.cc/150?img=5',
       gender: 'female',
       birthday: '1990/05/20',
@@ -310,7 +310,7 @@ export const mockUserDetails: Record<string, UserDetail> = {
     basic: {
       id: 'user-003',
       name: '王强',
-      phone: '186****7777',
+      phone: '18689017777',
       gender: 'male',
       birthday: '1992/12/08',
       idCardNumber: '',

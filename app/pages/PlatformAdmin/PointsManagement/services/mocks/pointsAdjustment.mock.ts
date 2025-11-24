@@ -9,7 +9,7 @@ export const mockUserPointsInfo: Record<string, UserPointsInfo> = {
   'U001': {
     userId: 'U001',
     userName: '张三',
-    phone: '138****8888',
+    phone: '13812348888',
     memberLevel: 'VIP3',
     currentPoints: 2580,
     totalEarned: 15800,
@@ -19,7 +19,7 @@ export const mockUserPointsInfo: Record<string, UserPointsInfo> = {
   'U002': {
     userId: 'U002',
     userName: '李四',
-    phone: '139****6666',
+    phone: '13923456666',
     memberLevel: 'VIP1',
     currentPoints: 450,
     totalEarned: 1200,
@@ -29,7 +29,7 @@ export const mockUserPointsInfo: Record<string, UserPointsInfo> = {
   'U003': {
     userId: 'U003',
     userName: '王五',
-    phone: '136****9999',
+    phone: '13634569999',
     memberLevel: 'VIP5',
     currentPoints: 8900,
     totalEarned: 45000,

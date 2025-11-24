@@ -209,7 +209,7 @@ export const mockUserMemberInfos: UserMemberInfo[] = [
   {
     userId: 'user-1',
     userName: '张三',
-    phone: '138****1234',
+    phone: '13812341234',
     currentLevel: 3,
     currentLevelName: 'VIP3',
     totalNights: 32,
@@ -221,7 +221,7 @@ export const mockUserMemberInfos: UserMemberInfo[] = [
   {
     userId: 'user-2',
     userName: '李四',
-    phone: '139****5678',
+    phone: '13923455678',
     currentLevel: 2,
     currentLevelName: 'VIP2',
     totalNights: 18,
@@ -233,7 +233,7 @@ export const mockUserMemberInfos: UserMemberInfo[] = [
   {
     userId: 'user-3',
     userName: '王五',
-    phone: '136****9012',
+    phone: '13634569012',
     currentLevel: 1,
     currentLevelName: 'VIP1',
     totalNights: 7,
