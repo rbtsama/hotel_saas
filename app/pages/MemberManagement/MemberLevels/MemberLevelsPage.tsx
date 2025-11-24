@@ -197,7 +197,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                   <TableHead className="min-w-[120px]">积分倍数</TableHead>
                   <TableHead className="min-w-[140px]">赠送体验次数</TableHead>
                   <TableHead className="min-w-[140px]">赠送有效期（天）</TableHead>
-                  <TableHead className="w-[100px]">会员卡图片</TableHead>
+                  <TableHead className="w-[120px]">会员卡图片</TableHead>
                   <TableHead className="min-w-[100px]">启用</TableHead>
                   <TableHead className="w-[80px]">操作</TableHead>
                 </TableRow>
