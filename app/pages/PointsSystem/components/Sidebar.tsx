@@ -55,27 +55,40 @@ export default function Sidebar({ menuItems }: SidebarProps) {
     '系统设置': true
   })
 
-  // 保存滚动位置
+  // 保存滚动位置 - 实时保存
   useEffect(() => {
     const menuElement = menuScrollRef.current
     if (menuElement) {
       // 保存当前滚动位置
       const handleScroll = () => {
         scrollPositionRef.current = menuElement.scrollTop
+        // 同时保存到 sessionStorage，确保持久化
+        sessionStorage.setItem('sidebar-scroll-position', String(menuElement.scrollTop))
       }
-      menuElement.addEventListener('scroll', handleScroll)
+      menuElement.addEventListener('scroll', handleScroll, { passive: true })
       return () => menuElement.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
-  // 路由变化时恢复滚动位置
+  // 恢复滚动位置 - 组件挂载和路由变化时
   useEffect(() => {
     const menuElement = menuScrollRef.current
-    if (menuElement && scrollPositionRef.current > 0) {
-      // 使用 setTimeout 确保 DOM 已经更新
-      setTimeout(() => {
-        menuElement.scrollTop = scrollPositionRef.current
-      }, 0)
+    if (menuElement) {
+      // 先从 sessionStorage 读取
+      const savedPosition = sessionStorage.getItem('sidebar-scroll-position')
+      const targetPosition = savedPosition ? parseInt(savedPosition, 10) : scrollPositionRef.current
+
+      if (targetPosition > 0) {
+        // 使用 requestAnimationFrame 确保在浏览器下一次重绘前恢复
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (menuElement) {
+              menuElement.scrollTop = targetPosition
+              scrollPositionRef.current = targetPosition
+            }
+          })
+        })
+      }
     }
   }, [location.pathname])
 
