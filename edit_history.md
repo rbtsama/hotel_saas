@@ -4,6 +4,175 @@
 
 ---
 
+## 2025-11-24 23:20:00
+
+### 全局按钮和标签圆角规范统一
+
+**修改文件：**
+1. `app/components/ui/button.tsx` - 按钮组件圆角
+2. `app/components/ui/badge.tsx` - 标签组件圆角和间距
+
+**问题背景：**
+原有按钮和标签使用shadcn/ui默认样式，圆角过大（rounded-md = 6px，rounded-full = 9999px），不符合项目设计规范。需要统一调整为更小的圆角值。
+
+**修改内容：**
+
+#### 1. 按钮圆角规范
+
+**修改位置**: `app/components/ui/button.tsx`
+
+**旧圆角**:
+- 基础类: `rounded-md`（6px）
+- 所有size: `rounded-md`（6px）
+
+**新圆角**:
+- **大按钮**（default、lg）: `rounded`（**4px**）
+- **小按钮**（sm）: `rounded-sm`（**2px**）
+- **图标按钮**（icon）: `rounded`（4px）
+
+**代码对比**:
+```typescript
+// 修改前
+const buttonVariants = cva(
+  "... rounded-md ...",  // 基础类有rounded-md
+  {
+    variants: {
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",  // sm也是rounded-md
+        lg: "h-11 rounded-md px-8",  // lg也是rounded-md
+      }
+    }
+  }
+)
+
+// 修改后
+const buttonVariants = cva(
+  "... ...",  // 移除基础类的rounded-md
+  {
+    variants: {
+      size: {
+        default: "h-10 px-4 py-2 rounded",      // 4px
+        sm: "h-9 px-3 rounded-sm",              // 2px
+        lg: "h-11 px-8 rounded",                // 4px
+        icon: "h-10 w-10 rounded",              // 4px
+      }
+    }
+  }
+)
+```
+
+**Tailwind圆角值对照**:
+- `rounded-sm` = 2px（小按钮）
+- `rounded` = 4px（大按钮）
+- `rounded-md` = 6px（旧值，删除）
+
+#### 2. 标签圆角和间距规范
+
+**修改位置**: `app/components/ui/badge.tsx`
+
+**旧样式**:
+- 圆角: `rounded-full`（完全圆角，9999px）
+- 水平间距: `px-2.5`（10px）
+
+**新样式**:
+- 圆角: `rounded-sm`（**2px**）
+- 水平间距: `px-2`（**8px**，减小间距）
+
+**代码对比**:
+```typescript
+// 修改前
+const badgeVariants = cva(
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 ...",
+  // rounded-full（完全圆角）+ px-2.5（10px间距）
+)
+
+// 修改后
+const badgeVariants = cva(
+  "inline-flex items-center rounded-sm border px-2 py-0.5 ...",
+  // rounded-sm（2px圆角）+ px-2（8px间距）
+)
+```
+
+**视觉对比**:
+
+**修改前（rounded-full + px-2.5）**:
+```
+┌──────────────┐
+│ ●  VIP1  ● │  ← 完全圆角，较大间距
+└──────────────┘
+```
+
+**修改后（rounded-sm + px-2）**:
+```
+┌────────────┐
+│  VIP1  │  ← 小圆角，紧凑间距
+└────────────┘
+```
+
+#### 3. 统一规范说明
+
+**按钮圆角规范**:
+- **大按钮**（default、lg）: 4px圆角
+- **小按钮**（sm）: 2px圆角
+
+**标签规范**:
+- **圆角**: 2px（统一中号标签）
+- **水平间距**: 8px（从10px减小到8px）
+- **垂直间距**: 2px（保持不变）
+
+**应用场景**:
+
+**大按钮**（h-10/h-11，4px圆角）:
+- 主要操作按钮（提交、确认、生成等）
+- 页面级操作（创建、保存等）
+
+**小按钮**（h-9，2px圆角）:
+- 表格内操作按钮（编辑、删除等）
+- 次要操作按钮（取消、重置等）
+- 搜索按钮等
+
+**标签**（2px圆角，8px间距）:
+- 状态标签（待支付、入住中等）
+- 等级标签（VIP0、VIP1等）
+- 所有Badge组件
+
+**功能影响：**
+
+✅ **视觉风格统一**：
+- 全局按钮圆角统一为4px（大）/ 2px（小）
+- 全局标签圆角统一为2px
+- 不再有6px或完全圆角的不一致
+
+✅ **设计更现代**：
+- 小圆角比大圆角更现代、更专业
+- 完全圆角（rounded-full）适合头像，不适合标签
+- 2px/4px的圆角在后台管理系统中更常见
+
+✅ **标签更紧凑**：
+- 水平间距从10px减小到8px
+- 标签整体更紧凑，占用空间更小
+- 在表格密集场景中更友好
+
+✅ **全局生效**：
+- 修改shadcn/ui组件源码
+- 所有使用Button和Badge的地方自动生效
+- 无需逐页修改
+
+**Tailwind圆角值参考**:
+- `rounded-sm` = 0.125rem = 2px
+- `rounded` = 0.25rem = 4px
+- `rounded-md` = 0.375rem = 6px（旧值）
+- `rounded-lg` = 0.5rem = 8px
+- `rounded-full` = 9999px（旧值）
+
+**间距值参考**:
+- `px-2` = 0.5rem = 8px（新值）
+- `px-2.5` = 0.625rem = 10px（旧值）
+- `px-3` = 0.75rem = 12px
+
+---
+
 ## 2025-11-24 23:10:00
 
 ### 会员卡图片列宽度调整 + 订单状态颜色优化
