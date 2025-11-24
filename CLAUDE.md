@@ -968,6 +968,30 @@ module.exports = {
 - 背景: 浅色背景 (状态色/10)
 - 字号: `text-xs`
 
+#### 开关 (Switch)
+```tsx
+<Switch checked={isEnabled} onCheckedChange={setIsEnabled} />
+```
+
+**特点**:
+- 开启状态: 绿色背景 `bg-green-600`
+- 禁用状态: 灰色背景 `bg-slate-300`
+- 高度: `h-6` (24px)
+- 宽度: `w-11` (44px)
+- 过渡: `transition-colors`
+- 滑块: 白色圆形,带阴影
+
+**使用场景**:
+```tsx
+// 启用/禁用功能
+<div className="flex items-center gap-2">
+  <Switch checked={status === 'active'} />
+  <span className="text-sm text-slate-600">
+    {status === 'active' ? '启用' : '禁用'}
+  </span>
+</div>
+```
+
 ### 交互动画
 
 #### 按钮交互
