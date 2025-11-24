@@ -74,9 +74,6 @@ export default function PointsAdjustmentPage({ userInfo, details }: PointsAdjust
           {/* 页面标题 */}
           <div>
             <h1 className="text-2xl font-bold text-slate-900">积分调整</h1>
-            <p className="text-sm text-slate-500 mt-1">
-              搜索用户并调整其积分余额
-            </p>
           </div>
 
           {/* 用户搜索 */}
@@ -88,14 +85,13 @@ export default function PointsAdjustmentPage({ userInfo, details }: PointsAdjust
               <Form method="get">
                 <div className="flex gap-4">
                   <div className="flex-1">
-                    <Label htmlFor="userId" className="text-sm font-medium text-slate-700">用户ID</Label>
                     <Input
                       id="userId"
                       name="userId"
                       value={searchUserId}
-                      onChange={(e) => setSearchUserId(e.target.value.toUpperCase())}
-                      placeholder="请输入用户ID（如：U001）"
-                      className="h-9 mt-1.5 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                      onChange={(e) => setSearchUserId(e.target.value)}
+                      placeholder="请输入用户ID，如154655"
+                      className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                     />
                   </div>
                   <div className="flex items-end">
@@ -106,9 +102,6 @@ export default function PointsAdjustmentPage({ userInfo, details }: PointsAdjust
                   </div>
                 </div>
               </Form>
-              <div className="mt-3 text-xs text-slate-500">
-                可搜索用户: U001(张三), U002(李四), U003(王五)
-              </div>
             </CardContent>
           </Card>
 
@@ -299,11 +292,7 @@ export default function PointsAdjustmentPage({ userInfo, details }: PointsAdjust
             </>
           )}
 
-          {!userInfo && (
-            <div className="text-center py-12 text-slate-500">
-              请输入用户ID并搜索
-            </div>
-          )}
+          {/* 如果没有用户信息，不显示任何提示 */}
         </div>
       </div>
 
