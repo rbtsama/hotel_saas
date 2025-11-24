@@ -81,7 +81,7 @@ export default function RuleConfigPage({ config: initialConfig, error }: RuleCon
                         earnRule: { ...config.earnRule, earnRatio: Number(e.target.value) }
                       })
                     }
-                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm">积分</span>
@@ -105,7 +105,7 @@ export default function RuleConfigPage({ config: initialConfig, error }: RuleCon
                         earnRule: { ...config.earnRule, minOrderAmount: Number(e.target.value) }
                       })
                     }
-                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm">元起算</span>
@@ -129,7 +129,7 @@ export default function RuleConfigPage({ config: initialConfig, error }: RuleCon
                         earnRule: { ...config.earnRule, registerBonus: Number(e.target.value) }
                       })
                     }
-                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm">积分</span>
@@ -151,7 +151,7 @@ export default function RuleConfigPage({ config: initialConfig, error }: RuleCon
                         earnRule: { ...config.earnRule, inviteBonus: Number(e.target.value) }
                       })
                     }
-                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm">积分</span>
@@ -173,7 +173,7 @@ export default function RuleConfigPage({ config: initialConfig, error }: RuleCon
                       earnRule: { ...config.earnRule, delayHours: Number(e.target.value) }
                     })
                   }
-                  className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                  className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                   disabled={!isEditMode}
                 />
                 <span className="text-sm">小时发放积分</span>
@@ -243,7 +243,7 @@ export default function RuleConfigPage({ config: initialConfig, error }: RuleCon
                         redeemRule: { ...config.redeemRule, redeemRatio: Number(e.target.value) }
                       })
                     }
-                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm">积分 = 1 元</span>
@@ -267,7 +267,7 @@ export default function RuleConfigPage({ config: initialConfig, error }: RuleCon
                         redeemRule: { ...config.redeemRule, minRedeemPoints: Number(e.target.value) }
                       })
                     }
-                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm">积分起用</span>
@@ -289,7 +289,7 @@ export default function RuleConfigPage({ config: initialConfig, error }: RuleCon
                       redeemRule: { ...config.redeemRule, maxRedeemPercent: Number(e.target.value) }
                     })
                   }
-                  className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                  className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                   disabled={!isEditMode}
                 />
                 <span className="text-sm">%</span>
@@ -335,7 +335,7 @@ export default function RuleConfigPage({ config: initialConfig, error }: RuleCon
                       expiryRule: { ...config.expiryRule, baseExpiryMonths: Number(e.target.value) }
                     })
                   }
-                  className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                  className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                   disabled={!isEditMode}
                 />
                 <span className="text-sm">个月</span>
@@ -360,7 +360,7 @@ export default function RuleConfigPage({ config: initialConfig, error }: RuleCon
                       expiryRule: { ...config.expiryRule, reminderDays: Number(e.target.value) }
                     })
                   }
-                  className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                  className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                   disabled={!isEditMode}
                 />
                 <span className="text-sm">天提醒</span>

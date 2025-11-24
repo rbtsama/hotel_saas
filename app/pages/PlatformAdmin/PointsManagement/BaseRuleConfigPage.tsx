@@ -69,7 +69,7 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
                     onChange={(e) =>
                       setFormData({ ...formData, registerRewardPoints: parseInt(e.target.value) || 0 })
                     }
-                    className={`h-9 max-w-xs border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`h-9 max-w-xs border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm text-slate-600">积分</span>
@@ -89,7 +89,7 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
                     onChange={(e) =>
                       setFormData({ ...formData, inviteRewardPoints: parseInt(e.target.value) || 0 })
                     }
-                    className={`h-9 max-w-xs border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`h-9 max-w-xs border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm text-slate-600">积分</span>
@@ -119,7 +119,7 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
                       onChange={(e) =>
                         setFormData({ ...formData, baseExchangeRate: parseFloat(e.target.value) || 1.0 })
                       }
-                      className={`h-9 w-32 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                      className={`h-9 w-32 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                       disabled={!isEditMode}
                     />
                     <span className="text-sm text-slate-600">积分 = 1 元</span>

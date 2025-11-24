@@ -145,7 +145,7 @@ export default function ValueAddedServicesPage({
                         <Input
                           value={reward.serviceName}
                           onChange={(e) => updateReward(reward.id, 'serviceName', e.target.value)}
-                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                       </TableCell>
@@ -153,7 +153,7 @@ export default function ValueAddedServicesPage({
                         <Input
                           value={reward.serviceDescription}
                           onChange={(e) => updateReward(reward.id, 'serviceDescription', e.target.value)}
-                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                       </TableCell>
@@ -164,7 +164,7 @@ export default function ValueAddedServicesPage({
                             min="0"
                             value={reward.pointsReward}
                             onChange={(e) => updateReward(reward.id, 'pointsReward', Number(e.target.value))}
-                            className={`w-20 h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                            className={`w-20 h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                             disabled={!isEditMode}
                           />
                           <span className="text-sm text-slate-600">积分</span>
@@ -235,7 +235,7 @@ export default function ValueAddedServicesPage({
                         <Input
                           value={exchange.serviceName}
                           onChange={(e) => updateExchange(exchange.id, 'serviceName', e.target.value)}
-                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                       </TableCell>
@@ -243,7 +243,7 @@ export default function ValueAddedServicesPage({
                         <Input
                           value={exchange.serviceDescription}
                           onChange={(e) => updateExchange(exchange.id, 'serviceDescription', e.target.value)}
-                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                       </TableCell>
@@ -254,7 +254,7 @@ export default function ValueAddedServicesPage({
                             min="0"
                             value={exchange.pointsCost}
                             onChange={(e) => updateExchange(exchange.id, 'pointsCost', Number(e.target.value))}
-                            className={`w-20 h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                            className={`w-20 h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                             disabled={!isEditMode}
                           />
                           <span className="text-sm text-slate-600">积分</span>

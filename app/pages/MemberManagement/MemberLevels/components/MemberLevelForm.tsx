@@ -143,7 +143,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
                   placeholder="如：VIP1、银卡会员"
                   required
                   disabled={!isEditMode}
-                  className={`${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''} ${errors?.levelName ? 'border-destructive' : ''}`}
+                  className={`${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''} ${errors?.levelName ? 'border-destructive' : ''}`}
                 />
                 {errors?.levelName && (
                   <p className="text-sm text-destructive">{errors.levelName}</p>
@@ -160,7 +160,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
                   placeholder="如：1年、2年、永久"
                   required
                   disabled={!isEditMode}
-                  className={!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}
+                  className={!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}
                 />
               </div>
             </div>
@@ -174,7 +174,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
                 onChange={(e) => handleChange('upgradeCondition', e.target.value)}
                 placeholder="如：预订1次及以上"
                 disabled={!isEditMode}
-                className={!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}
+                className={!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}
               />
               <p className="text-xs text-muted-foreground">
                 将根据下方的具体条件自动生成，也可手动修改
@@ -191,7 +191,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
                 placeholder="描述该等级会员可享受的权益"
                 rows={3}
                 disabled={!isEditMode}
-                className={!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}
+                className={!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}
               />
             </div>
           </CardContent>
@@ -216,7 +216,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
                     min="0"
                     value={formData.requiredNights}
                     onChange={(e) => handleChange('requiredNights', Number(e.target.value))}
-                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm text-muted-foreground">次</span>
@@ -234,7 +234,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
                     min="0"
                     value={formData.requiredAmount}
                     onChange={(e) => handleChange('requiredAmount', Number(e.target.value))}
-                    className={`w-32 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-32 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                 </div>
@@ -268,7 +268,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
                     max="100"
                     value={formData.discountRangeMin}
                     onChange={(e) => handleChange('discountRangeMin', Number(e.target.value))}
-                    className={`w-20 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-20 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm text-muted-foreground">%</span>
@@ -286,7 +286,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
                     max="100"
                     value={formData.discountRangeMax}
                     onChange={(e) => handleChange('discountRangeMax', Number(e.target.value))}
-                    className={`w-20 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-20 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm text-muted-foreground">%</span>
@@ -304,7 +304,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
                     max="100"
                     value={formData.discountPercentage}
                     onChange={(e) => handleChange('discountPercentage', Number(e.target.value))}
-                    className={`w-20 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-20 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm text-muted-foreground">% ({(formData.discountPercentage / 10).toFixed(1)}折)</span>
@@ -340,7 +340,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
                     step="0.1"
                     value={formData.pointsEarnRatio}
                     onChange={(e) => handleChange('pointsEarnRatio', Number(e.target.value))}
-                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm text-muted-foreground">积分</span>
@@ -361,7 +361,7 @@ export default function MemberLevelForm({ level, errors }: MemberLevelFormProps)
                     min="0"
                     value={formData.upgradeGiftSets}
                     onChange={(e) => handleChange('upgradeGiftSets', Number(e.target.value))}
-                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed' : ''}`}
+                    className={`w-24 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
                     disabled={!isEditMode}
                   />
                   <span className="text-sm text-muted-foreground">套免费住宿</span>

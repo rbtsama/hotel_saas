@@ -918,7 +918,11 @@ module.exports = {
 
 #### 输入框 (Input)
 ```tsx
+// 可编辑状态
 <Input className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" />
+
+// 锁定状态 (只读)
+<Input className="h-9 bg-slate-50 text-slate-700 cursor-not-allowed border-0" disabled />
 ```
 
 **特点**:
@@ -926,6 +930,7 @@ module.exports = {
 - 边框: `border-slate-300`
 - 聚焦: `focus:border-blue-500` + `focus:ring-2`
 - 圆角: `rounded-md`
+- **锁定样式**: `bg-slate-50 text-slate-700` (保持易读性)
 
 #### 表格 (Table)
 ```tsx

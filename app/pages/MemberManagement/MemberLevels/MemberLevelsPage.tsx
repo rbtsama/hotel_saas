@@ -204,7 +204,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                       <Input
                         value={level.displayName}
                         onChange={(e) => updateLevel(level.id, 'displayName', e.target.value)}
-                        className={`h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                        className={`h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                         disabled={!isEditMode}
                       />
                     </TableCell>
@@ -217,7 +217,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                           min="0"
                           value={level.upgradeNights}
                           onChange={(e) => updateLevel(level.id, 'upgradeNights', Number(e.target.value))}
-                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                         <span className="text-sm text-muted-foreground">次</span>
@@ -232,7 +232,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                           min="0"
                           value={level.maintainNights}
                           onChange={(e) => updateLevel(level.id, 'maintainNights', Number(e.target.value))}
-                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                         <span className="text-sm text-muted-foreground">次</span>
@@ -247,7 +247,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                           min="0"
                           value={level.validityDays}
                           onChange={(e) => updateLevel(level.id, 'validityDays', Number(e.target.value))}
-                          className={`w-24 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`w-24 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                         <span className="text-sm text-muted-foreground">{level.validityDays === 0 ? '永久' : '天'}</span>
@@ -263,7 +263,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                           max="100"
                           value={level.discountMin}
                           onChange={(e) => updateLevel(level.id, 'discountMin', Number(e.target.value))}
-                          className={`w-16 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`w-16 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                         <span className="text-sm">~</span>
@@ -273,7 +273,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                           max="100"
                           value={level.discountMax}
                           onChange={(e) => updateLevel(level.id, 'discountMax', Number(e.target.value))}
-                          className={`w-16 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`w-16 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                         <span className="text-sm text-muted-foreground">%</span>
@@ -288,7 +288,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                         step="0.01"
                         value={level.pointsRate}
                         onChange={(e) => updateLevel(level.id, 'pointsRate', Number(e.target.value))}
-                        className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                        className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                         disabled={!isEditMode}
                       />
                     </TableCell>
@@ -301,7 +301,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                           min="0"
                           value={level.giftTrialCount}
                           onChange={(e) => updateLevel(level.id, 'giftTrialCount', Number(e.target.value))}
-                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                         <span className="text-sm text-muted-foreground">次</span>
@@ -316,7 +316,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                           min="1"
                           value={level.giftValidityDays}
                           onChange={(e) => updateLevel(level.id, 'giftValidityDays', Number(e.target.value))}
-                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-500 cursor-not-allowed border-0' : ''}`}
+                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
                           disabled={!isEditMode}
                         />
                         <span className="text-sm text-muted-foreground">天</span>
