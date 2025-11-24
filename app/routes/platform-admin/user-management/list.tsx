@@ -1,61 +1,38 @@
 /**
- * 平台后台 - 用户列表路由
+ * 平台后台 - 用户搜索路由（精确匹配用户ID或手机号）
  */
 
 import { json, type LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import UserListPage from '~/pages/PlatformAdmin/UserManagement/UserListPage'
-import { mockUsers, memberLevels } from '~/pages/PlatformAdmin/UserManagement/services/mocks/user.mock'
-import type { UserFilterParams } from '~/pages/PlatformAdmin/UserManagement/types/user.types'
+import UserSearchPage from '~/pages/PlatformAdmin/UserManagement/UserSearchPage'
+import { mockUsers, mockUserDetails } from '~/pages/PlatformAdmin/UserManagement/services/mocks/user.mock'
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url)
   const search = url.searchParams.get('search') || undefined
-  const memberLevel = url.searchParams.get('memberLevel') || undefined
-  const status = url.searchParams.get('status') || undefined
-  const registeredFrom = url.searchParams.get('registeredFrom') || undefined
-  const registeredTo = url.searchParams.get('registeredTo') || undefined
 
   try {
-    // 筛选用户
-    let filteredUsers = [...mockUsers]
+    let userDetail = null
 
-    // 搜索筛选（用户ID、手机号、姓名）
+    // 精确匹配用户ID或手机号
     if (search) {
-      const searchLower = search.toLowerCase()
-      filteredUsers = filteredUsers.filter(
-        (user) =>
-          user.userId.toLowerCase().includes(searchLower) ||
-          user.phone.includes(search) ||
-          user.name.toLowerCase().includes(searchLower)
+      const searchTrim = search.trim()
+      const foundUser = mockUsers.find(
+        (user) => user.userId === searchTrim || user.phone === searchTrim
       )
+
+      if (foundUser) {
+        userDetail = mockUserDetails[foundUser.userId] || null
+      }
     }
 
-    // 会员等级筛选
-    if (memberLevel && memberLevel !== 'all') {
-      filteredUsers = filteredUsers.filter((user) => user.memberLevel === memberLevel)
-    }
-
-    // 状态筛选
-    if (status && status !== 'all') {
-      filteredUsers = filteredUsers.filter((user) => user.status === status)
-    }
-
-    // 注册时间筛选
-    if (registeredFrom) {
-      filteredUsers = filteredUsers.filter((user) => user.registeredAt >= registeredFrom)
-    }
-    if (registeredTo) {
-      filteredUsers = filteredUsers.filter((user) => user.registeredAt <= registeredTo + ' 23:59:59')
-    }
-
-    return json({ users: filteredUsers, memberLevels })
+    return json({ userDetail, searchQuery: search || '' })
   } catch (error) {
-    return json({ users: [], memberLevels }, { status: 500 })
+    return json({ userDetail: null, searchQuery: search || '' }, { status: 500 })
   }
 }
 
-export default function UserListRoute() {
-  const { users, memberLevels } = useLoaderData<typeof loader>()
-  return <UserListPage users={users} memberLevels={memberLevels} />
+export default function UserSearchRoute() {
+  const { userDetail, searchQuery } = useLoaderData<typeof loader>()
+  return <UserSearchPage userDetail={userDetail} searchQuery={searchQuery} />
 }
