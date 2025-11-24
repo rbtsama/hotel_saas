@@ -265,15 +265,10 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
 
                     {/* 状态 - 不受修改设置限制，可独立操作 */}
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Switch
-                          checked={level.status === 'active'}
-                          onCheckedChange={() => handleStatusToggle(level.id, level.displayName, level.status)}
-                        />
-                        <span className="text-sm text-muted-foreground">
-                          {level.status === 'active' ? '启用' : '禁用'}
-                        </span>
-                      </div>
+                      <Switch
+                        checked={level.status === 'active'}
+                        onCheckedChange={() => handleStatusToggle(level.id, level.displayName, level.status)}
+                      />
                     </TableCell>
 
                     {/* 操作 */}

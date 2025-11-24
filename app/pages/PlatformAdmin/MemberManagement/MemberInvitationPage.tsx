@@ -6,7 +6,6 @@ import { useState } from 'react'
 import type { MemberInvitationRecord } from './types/memberInvitation.types'
 import { Card, CardContent } from '~/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
-import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
@@ -25,18 +24,12 @@ export default function MemberInvitationPage({ invitations }: MemberInvitationPa
   const endIndex = startIndex + itemsPerPage
   const currentInvitations = invitations.slice(startIndex, endIndex)
 
-  const getRoleBadge = (role: 'user' | 'merchant') => {
-    if (role === 'user') {
-      return <Badge className="bg-blue-50 text-blue-700 border-blue-200">用户</Badge>
-    }
-    return <Badge className="bg-purple-50 text-purple-700 border-purple-200">商户</Badge>
+  const getRoleText = (role: 'user' | 'merchant') => {
+    return role === 'user' ? '用户' : '商户'
   }
 
-  const getVipLevelBadge = (level: number) => {
-    if (level === 0) {
-      return <Badge className="bg-slate-50 text-slate-700 border-slate-200">VIP0</Badge>
-    }
-    return <Badge className="bg-amber-50 text-amber-700 border-amber-200">VIP{level}</Badge>
+  const getVipLevelText = (level: number) => {
+    return `VIP${level}`
   }
 
   return (
@@ -65,12 +58,12 @@ export default function MemberInvitationPage({ invitations }: MemberInvitationPa
                 <TableBody>
                   {currentInvitations.map((record) => (
                     <TableRow key={record.id} className="hover:bg-slate-50 transition-colors border-slate-200">
-                      <TableCell>{getRoleBadge(record.inviterRole)}</TableCell>
+                      <TableCell className="text-sm text-slate-900">{getRoleText(record.inviterRole)}</TableCell>
                       <TableCell className="text-sm text-slate-900 font-medium">
                         {record.inviterId}
                       </TableCell>
                       <TableCell className="text-sm text-slate-900 font-medium">{record.inviteeId}</TableCell>
-                      <TableCell>{getVipLevelBadge(record.vipLevel)}</TableCell>
+                      <TableCell className="text-sm text-slate-900">{getVipLevelText(record.vipLevel)}</TableCell>
                       <TableCell className="text-sm text-slate-900">{record.vipAcquiredAt}</TableCell>
                       <TableCell className="text-sm text-slate-900">{record.userRegisteredAt}</TableCell>
                     </TableRow>

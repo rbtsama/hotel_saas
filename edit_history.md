@@ -4,6 +4,177 @@
 
 ---
 
+## 2025-11-24 23:50:00
+
+### 会员等级开关和会员邀请显示优化
+
+**修改文件：**
+1. `app/pages/MemberManagement/MemberLevels/MemberLevelsPage.tsx` - 启用开关
+2. `app/pages/PlatformAdmin/MemberManagement/MemberInvitationPage.tsx` - 邀请角色和VIP等级
+
+**修改内容：**
+
+#### 1. 会员等级启用开关简化
+
+**修改位置**: 会员等级设置页面 - 启用列
+
+**修改前**:
+```tsx
+<TableCell>
+  <div className="flex items-center gap-2">
+    <Switch checked={level.status === 'active'} />
+    <span className="text-sm text-muted-foreground">
+      {level.status === 'active' ? '启用' : '禁用'}
+    </span>
+  </div>
+</TableCell>
+```
+
+**修改后**:
+```tsx
+<TableCell>
+  <Switch checked={level.status === 'active'} />
+</TableCell>
+```
+
+**改进点**:
+- 移除开关旁边的"启用"/"禁用"文字
+- Switch组件本身的状态已经很明显（绿色=启用，灰色=禁用）
+- 列标题已经是"启用"，无需重复显示
+- 界面更简洁
+
+**视觉对比**:
+```
+修改前:
+┌─────────────┐
+│ 启用        │
+├─────────────┤
+│ [开关] 启用 │  ← 有文字
+│ [开关] 禁用 │
+└─────────────┘
+
+修改后:
+┌──────┐
+│ 启用 │
+├──────┤
+│ [开关] │  ← 只有开关
+│ [开关] │
+└──────┘
+```
+
+#### 2. 会员邀请角色和VIP等级改为普通文字
+
+**修改位置**: 平台后台 - 会员邀请页面
+
+**修改前**:
+```tsx
+const getRoleBadge = (role: 'user' | 'merchant') => {
+  if (role === 'user') {
+    return <Badge className="bg-blue-50 text-blue-700 border-blue-200">用户</Badge>
+  }
+  return <Badge className="bg-purple-50 text-purple-700 border-purple-200">商户</Badge>
+}
+
+const getVipLevelBadge = (level: number) => {
+  if (level === 0) {
+    return <Badge className="bg-slate-50 text-slate-700 border-slate-200">VIP0</Badge>
+  }
+  return <Badge className="bg-amber-50 text-amber-700 border-amber-200">VIP{level}</Badge>
+}
+
+// 使用
+<TableCell>{getRoleBadge(record.inviterRole)}</TableCell>
+<TableCell>{getVipLevelBadge(record.vipLevel)}</TableCell>
+```
+
+**修改后**:
+```tsx
+const getRoleText = (role: 'user' | 'merchant') => {
+  return role === 'user' ? '用户' : '商户'
+}
+
+const getVipLevelText = (level: number) => {
+  return `VIP${level}`
+}
+
+// 使用
+<TableCell className="text-sm text-slate-900">{getRoleText(record.inviterRole)}</TableCell>
+<TableCell className="text-sm text-slate-900">{getVipLevelText(record.vipLevel)}</TableCell>
+```
+
+**改进点**:
+- 邀请角色从彩色Badge改为普通文字（"用户"/"商户"）
+- VIP等级从彩色Badge改为普通文字（"VIP0"/"VIP1"等）
+- 移除Badge组件导入
+- 统一使用 `text-sm text-slate-900` 样式
+- 界面更简洁，信息密度更合理
+
+**视觉对比**:
+
+**修改前**:
+```
+┌──────────────────────────────────┐
+│ 邀请角色 | 邀请人 | VIP等级      │
+├──────────────────────────────────┤
+│ [用户]   | 100001 | [VIP0]      │  ← 使用彩色Badge
+│ [商户]   | 10000  | [VIP1]      │
+└──────────────────────────────────┘
+```
+
+**修改后**:
+```
+┌──────────────────────────────────┐
+│ 邀请角色 | 邀请人 | VIP等级      │
+├──────────────────────────────────┤
+│ 用户     | 100001 | VIP0        │  ← 普通文字
+│ 商户     | 10000  | VIP1        │
+└──────────────────────────────────┘
+```
+
+**功能影响：**
+
+✅ **会员等级开关更简洁**：
+- 移除冗余的状态文字
+- Switch组件颜色已清晰表达状态
+- 列标题"启用"已说明含义
+- 减少视觉干扰
+
+✅ **会员邀请表格更清爽**：
+- 不使用彩色Badge，改用普通文字
+- "用户"/"商户"直接显示，无背景色
+- "VIP0"/"VIP1"直接显示，无背景色
+- 表格视觉更统一，不会过于花哨
+
+✅ **信息密度更合理**：
+- Badge会占用更多空间（背景色+边框+间距）
+- 普通文字更紧凑
+- 表格整体更清爽
+- 便于快速浏览大量数据
+
+✅ **语义更直接**：
+- "用户"/"商户"本身就是简单的分类信息
+- "VIP0"/"VIP1"本身就是等级编号
+- 不需要通过颜色来强调区分
+- 文字本身已足够清晰
+
+**组件对比**:
+
+**Badge方式**（旧）:
+- 优点: 视觉醒目，有背景色区分
+- 缺点: 占用空间大，表格过于花哨，信息密度低
+
+**普通文字**（新）:
+- 优点: 简洁清爽，信息密度高，易于快速浏览
+- 缺点: 无
+- 适用: 邀请角色和等级是简单的分类信息，不需要强调
+
+**保留Badge的场景**:
+- 订单状态（需要颜色区分紧急程度）
+- 会员等级徽章（需要视觉层级感）
+- 重要的状态标识
+
+---
+
 ## 2025-11-24 23:40:00
 
 ### 新增测试用户154655全套数据
