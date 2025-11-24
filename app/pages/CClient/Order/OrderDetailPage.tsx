@@ -10,8 +10,8 @@ export default function OrderDetailPage() {
     <MobileFrame navTitle="订单详情" showTabBar={false}>
       <div className="p-4 space-y-4">
         {/* 订单状态 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200 text-center">
-          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 text-center shadow-sm">
+          <div className="w-16 h-16 bg-[#4A85B8]/15 rounded-full flex items-center justify-center mx-auto mb-3">
             <span className="text-2xl">🏨</span>
           </div>
           <p className="text-lg font-semibold text-slate-900 mb-1">待入住</p>
@@ -19,9 +19,9 @@ export default function OrderDetailPage() {
         </div>
 
         {/* 酒店信息 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <h3 className="font-semibold text-slate-900 mb-3">酒店信息</h3>
-          <p className="font-medium text-base mb-2">XX豪华酒店</p>
+          <p className="font-medium text-base mb-2 text-slate-900">XX豪华酒店</p>
           <div className="space-y-1 text-sm text-slate-600">
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4" />
@@ -35,33 +35,33 @@ export default function OrderDetailPage() {
         </div>
 
         {/* 入住信息 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <h3 className="font-semibold text-slate-900 mb-3">入住信息</h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-slate-600">房型：</span>
-              <span className="font-medium">豪华大床房</span>
+              <span className="font-medium text-slate-900">豪华大床房</span>
             </div>
             <div className="flex justify-between">
               <span className="text-slate-600">入住：</span>
-              <span className="font-medium">2025-11-28 14:00后</span>
+              <span className="font-medium text-slate-900">2025-11-28 14:00后</span>
             </div>
             <div className="flex justify-between">
               <span className="text-slate-600">离店：</span>
-              <span className="font-medium">2025-11-29 12:00前</span>
+              <span className="font-medium text-slate-900">2025-11-29 12:00前</span>
             </div>
           </div>
         </div>
 
         {/* 费用明细 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <h3 className="font-semibold text-slate-900 mb-3">费用明细</h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-slate-600">房费：</span>
-              <span>¥396</span>
+              <span className="text-slate-900">¥396</span>
             </div>
-            <div className="flex justify-between text-green-600">
+            <div className="flex justify-between text-[#3D7350]">
               <span>积分抵扣：</span>
               <span>-¥60（50积分×1.2）</span>
             </div>
@@ -70,8 +70,8 @@ export default function OrderDetailPage() {
               <span>-20积分（单人早餐）</span>
             </div>
             <div className="flex justify-between pt-2 border-t border-slate-100">
-              <span className="font-medium">应付金额：</span>
-              <span className="text-xl font-bold text-secondary">¥336</span>
+              <span className="font-medium text-slate-600">应付金额：</span>
+              <span className="text-xl font-bold text-[#A67B5B]">¥336</span>
             </div>
           </div>
         </div>

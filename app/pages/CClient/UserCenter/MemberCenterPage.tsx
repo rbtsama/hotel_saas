@@ -31,7 +31,7 @@ export default function MemberCenterPage({
     <MobileFrame navTitle="会员中心" showTabBar={true}>
       <div className="p-4 space-y-4">
         {/* 当前等级卡片 */}
-        <div className="bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl p-6 text-white relative overflow-hidden">
+        <div className="bg-gradient-to-br from-[#A67B5B] to-[#B8936F] rounded-2xl p-6 text-white relative overflow-hidden shadow-lg">
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
@@ -52,19 +52,19 @@ export default function MemberCenterPage({
         </div>
 
         {/* 升级进度 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold text-slate-900">升级进度</h3>
-            <Badge variant="outline" className="text-primary border-primary">
+            <Badge variant="outline" className="text-[#4A85B8] border-[#4A85B8] rounded-sm">
               VIP{upgradeTarget.level}
             </Badge>
           </div>
           <p className="text-sm text-slate-600 mb-2">
             距离VIP{upgradeTarget.level}还差{upgradeTarget.needs}间夜
           </p>
-          <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+          <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-primary to-accent transition-all"
+              className="h-full bg-gradient-to-r from-[#458559] to-[#5A9F6E] transition-all"
               style={{ width: `${upgradePercent}%` }}
             />
           </div>
@@ -74,7 +74,7 @@ export default function MemberCenterPage({
         </div>
 
         {/* 保级进度 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold text-slate-900">保级进度</h3>
             <span className="text-xs text-slate-500">有效期内</span>
@@ -82,9 +82,9 @@ export default function MemberCenterPage({
           <p className="text-sm text-slate-600 mb-2">
             已完成{maintainProgress.current}间夜，还需{maintainProgress.target - maintainProgress.current}间夜即可保级
           </p>
-          <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+          <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all"
+              className="h-full bg-gradient-to-r from-[#3D7350] to-[#4A8F65] transition-all"
               style={{ width: `${maintainPercent}%` }}
             />
           </div>
@@ -94,42 +94,42 @@ export default function MemberCenterPage({
         </div>
 
         {/* 会员权益 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <h3 className="font-semibold text-slate-900 mb-3">会员权益</h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Star className="w-4 h-4 text-blue-600" />
+              <div className="w-8 h-8 bg-[#4A85B8]/15 rounded-lg flex items-center justify-center">
+                <Star className="w-4 h-4 text-[#4A85B8]" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium">88折专享折扣</p>
+                <p className="text-sm font-medium text-slate-900">88折专享折扣</p>
                 <p className="text-xs text-slate-500">预订享受会员价</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-4 h-4 text-purple-600" />
+              <div className="w-8 h-8 bg-[#A67B5B]/15 rounded-lg flex items-center justify-center">
+                <TrendingUp className="w-4 h-4 text-[#A67B5B]" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium">积分价值1.2倍</p>
+                <p className="text-sm font-medium text-slate-900">积分价值1.2倍</p>
                 <p className="text-xs text-slate-500">积分更值钱</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                <Gift className="w-4 h-4 text-green-600" />
+              <div className="w-8 h-8 bg-[#3D7350]/15 rounded-lg flex items-center justify-center">
+                <Gift className="w-4 h-4 text-[#3D7350]" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium">平日额外折扣</p>
+                <p className="text-sm font-medium text-slate-900">平日额外折扣</p>
                 <p className="text-xs text-slate-500">工作日更优惠</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
-                <Headphones className="w-4 h-4 text-amber-600" />
+              <div className="w-8 h-8 bg-[#A67B5B]/15 rounded-lg flex items-center justify-center">
+                <Headphones className="w-4 h-4 text-[#A67B5B]" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium">优先客服</p>
+                <p className="text-sm font-medium text-slate-900">优先客服</p>
                 <p className="text-xs text-slate-500">专属服务</p>
               </div>
             </div>
@@ -137,7 +137,7 @@ export default function MemberCenterPage({
         </div>
 
         {/* 等级说明按钮 */}
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full h-8 rounded-full">
           查看完整等级体系
         </Button>
       </div>

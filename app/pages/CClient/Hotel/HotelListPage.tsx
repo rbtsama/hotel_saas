@@ -63,13 +63,13 @@ export default function HotelListPage({
       <div className="p-4 space-y-3">
         {/* 筛选栏 */}
         <div className="flex gap-2 overflow-x-auto pb-2">
-          <button className="px-4 py-2 bg-primary text-white rounded-full text-xs whitespace-nowrap">
+          <button className="px-4 py-2 bg-[#458559] text-white rounded-full text-xs whitespace-nowrap shadow-sm">
             全部区域
           </button>
-          <button className="px-4 py-2 bg-white border border-slate-200 rounded-full text-xs whitespace-nowrap">
+          <button className="px-4 py-2 bg-white border border-gray-200 rounded-full text-xs whitespace-nowrap hover:bg-slate-50">
             价格排序
           </button>
-          <button className="px-4 py-2 bg-white border border-slate-200 rounded-full text-xs whitespace-nowrap">
+          <button className="px-4 py-2 bg-white border border-gray-200 rounded-full text-xs whitespace-nowrap hover:bg-slate-50">
             筛选
           </button>
         </div>
@@ -78,7 +78,7 @@ export default function HotelListPage({
         {hotels.map((hotel) => (
           <div
             key={hotel.id}
-            className="bg-white rounded-xl overflow-hidden border border-slate-200 active:bg-slate-50"
+            className="bg-white rounded-xl overflow-hidden border border-gray-200 active:bg-slate-50 shadow-sm"
           >
             {/* 酒店图片 */}
             <div className="h-40 bg-slate-200 flex items-center justify-center">
@@ -108,18 +108,18 @@ export default function HotelListPage({
               <div className="flex items-end justify-between pt-2 border-t border-slate-100">
                 <div>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-secondary">¥{hotel.minPrice}</span>
+                    <span className="text-2xl font-bold text-[#A67B5B]">¥{hotel.minPrice}</span>
                     <span className="text-xs text-slate-500">起/晚</span>
                   </div>
                   <div className="flex items-center gap-2 mt-1">
-                    <Badge variant="outline" className="text-xs text-primary border-primary">
+                    <Badge variant="outline" className="text-xs text-[#4A85B8] border-[#4A85B8] rounded-sm">
                       {hotel.vipLevel}专享
                     </Badge>
                     <span className="text-xs text-slate-400 line-through">¥{hotel.originalPrice}</span>
-                    <span className="text-xs text-green-600">{hotel.period}</span>
+                    <span className="text-xs text-[#3D7350]">{hotel.period}</span>
                   </div>
                 </div>
-                <Button size="sm" className="h-8">
+                <Button size="sm" className="h-8 rounded-full bg-[#458559] hover:bg-[#3D7350]">
                   查看详情
                 </Button>
               </div>

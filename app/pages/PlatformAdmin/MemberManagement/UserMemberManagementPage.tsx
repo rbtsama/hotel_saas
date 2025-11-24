@@ -85,9 +85,9 @@ export default function UserMemberManagementPage({
         </div>
 
         {/* 搜索筛选 */}
-        <Card className="mb-6">
+        <Card className="mb-6 rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
           <CardHeader>
-            <CardTitle>搜索筛选</CardTitle>
+            <CardTitle className="text-slate-900">搜索筛选</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-end gap-4">
@@ -98,12 +98,13 @@ export default function UserMemberManagementPage({
                   placeholder="输入手机号搜索"
                   value={searchPhone}
                   onChange={(e) => setSearchPhone(e.target.value)}
+                  className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                 />
               </div>
               <div className="w-48 space-y-2">
                 <Label>会员等级</Label>
                 <Select value={filterLevel} onValueChange={setFilterLevel}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-9">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -121,51 +122,51 @@ export default function UserMemberManagementPage({
                   </SelectContent>
                 </Select>
               </div>
-              <Button className="gap-2">
+              <Button className="h-9 gap-2 bg-blue-600 hover:bg-blue-700">
                 <Search className="w-4 h-4" />
                 搜索
               </Button>
-              <Button variant="outline">重置</Button>
+              <Button variant="outline" className="h-9">重置</Button>
             </div>
           </CardContent>
         </Card>
 
         {/* 用户列表 */}
-        <Card>
+        <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle>用户列表</CardTitle>
-                <CardDescription>共 {total} 位用户</CardDescription>
+                <CardTitle className="text-slate-900">用户列表</CardTitle>
+                <CardDescription className="text-slate-600">共 {total} 位用户</CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>手机号</TableHead>
-                  <TableHead>姓名</TableHead>
-                  <TableHead>会员等级</TableHead>
-                  <TableHead>累计间夜</TableHead>
-                  <TableHead>保级进度</TableHead>
-                  <TableHead>有效期至</TableHead>
-                  <TableHead>积分</TableHead>
-                  <TableHead className="text-right">操作</TableHead>
+                <TableRow className="hover:bg-transparent">
+                  <TableHead className="text-slate-600 font-semibold">手机号</TableHead>
+                  <TableHead className="text-slate-600 font-semibold">姓名</TableHead>
+                  <TableHead className="text-slate-600 font-semibold">会员等级</TableHead>
+                  <TableHead className="text-slate-600 font-semibold">累计间夜</TableHead>
+                  <TableHead className="text-slate-600 font-semibold">保级进度</TableHead>
+                  <TableHead className="text-slate-600 font-semibold">有效期至</TableHead>
+                  <TableHead className="text-slate-600 font-semibold">积分</TableHead>
+                  <TableHead className="text-right text-slate-600 font-semibold">操作</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {users.map((user) => (
-                  <TableRow key={user.userId}>
-                    <TableCell className="font-medium">{user.phone}</TableCell>
-                    <TableCell>{user.userName}</TableCell>
+                  <TableRow key={user.userId} className="hover:bg-slate-50 transition-colors">
+                    <TableCell className="font-medium text-slate-900">{user.phone}</TableCell>
+                    <TableCell className="text-slate-700">{user.userName}</TableCell>
                     <TableCell>
-                      <Badge className={getLevelBadgeClass(user.currentLevel)}>
+                      <Badge className={`${getLevelBadgeClass(user.currentLevel)} border-0`}>
                         {user.currentLevelName}
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      <span className="font-semibold text-primary">{user.totalNights}</span>
+                      <span className="font-semibold text-blue-600">{user.totalNights}</span>
                       <span className="text-slate-500 text-sm ml-1">晚</span>
                     </TableCell>
                     <TableCell>
@@ -177,11 +178,11 @@ export default function UserMemberManagementPage({
                       {user.validityDate}
                     </TableCell>
                     <TableCell>
-                      <span className="font-semibold text-secondary">{user.pointsBalance}</span>
+                      <span className="font-semibold text-blue-600">{user.pointsBalance}</span>
                     </TableCell>
                     <TableCell className="text-right">
                       <Link to={`/platform-admin/member-management/user/${user.userId}`}>
-                        <Button variant="ghost" size="sm" className="gap-1">
+                        <Button variant="ghost" size="sm" className="gap-1 hover:bg-slate-100">
                           <Eye className="w-4 h-4" />
                           详情
                         </Button>

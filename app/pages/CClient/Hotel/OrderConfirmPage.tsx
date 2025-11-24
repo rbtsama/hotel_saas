@@ -30,7 +30,7 @@ export default function OrderConfirmPage() {
     <MobileFrame navTitle="订单确认" showTabBar={false}>
       <div className="p-4 space-y-4">
         {/* 酒店信息 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <h3 className="font-semibold text-slate-900 mb-2">XX豪华酒店 - 豪华大床房</h3>
           <div className="flex items-center gap-2 text-sm text-slate-600 mb-1">
             <MapPin className="w-3 h-3" />
@@ -39,23 +39,23 @@ export default function OrderConfirmPage() {
         </div>
 
         {/* 入住信息 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <h3 className="font-semibold text-slate-900 mb-3">入住信息</h3>
           <div className="grid grid-cols-2 gap-3 text-sm">
             <div>
               <p className="text-slate-500 mb-1">入住日期</p>
-              <p className="font-medium">2025-11-28</p>
+              <p className="font-medium text-slate-900">2025-11-28</p>
             </div>
             <div>
               <p className="text-slate-500 mb-1">离店日期</p>
-              <p className="font-medium">2025-11-29</p>
+              <p className="font-medium text-slate-900">2025-11-29</p>
             </div>
           </div>
           <p className="text-xs text-slate-500 mt-2">共1晚</p>
         </div>
 
         {/* 房费明细 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-slate-600">房费：</span>
             <span className="font-semibold text-slate-900">¥{roomFee}</span>
@@ -64,7 +64,7 @@ export default function OrderConfirmPage() {
         </div>
 
         {/* 积分服务 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <h3 className="font-semibold text-slate-900 mb-3">积分服务</h3>
 
           <div className="mb-4">
@@ -137,7 +137,7 @@ export default function OrderConfirmPage() {
         </div>
 
         {/* 积分抵扣 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <h3 className="font-semibold text-slate-900 mb-3">积分抵扣</h3>
           <div className="space-y-2 text-sm mb-3">
             <div className="flex justify-between">
@@ -171,15 +171,15 @@ export default function OrderConfirmPage() {
         </div>
 
         {/* 费用明细 */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200">
+        <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <h3 className="font-semibold text-slate-900 mb-3">费用明细</h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-slate-600">房费：</span>
-              <span>¥{roomFee}</span>
+              <span className="text-slate-900">¥{roomFee}</span>
             </div>
             {pointsDeduct > 0 && (
-              <div className="flex justify-between text-green-600">
+              <div className="flex justify-between text-[#3D7350]">
                 <span>积分抵扣：</span>
                 <span>-¥{deductAmount}</span>
               </div>
@@ -195,14 +195,14 @@ export default function OrderConfirmPage() {
           <div className="border-t border-slate-200 mt-3 pt-3">
             <div className="flex items-baseline justify-between">
               <span className="text-slate-600">应付金额：</span>
-              <span className="text-3xl font-bold text-secondary">¥{finalAmount.toFixed(0)}</span>
+              <span className="text-3xl font-bold text-[#A67B5B]">¥{finalAmount.toFixed(0)}</span>
             </div>
           </div>
         </div>
 
         {/* 确认支付按钮 */}
         <div className="px-4 pb-4">
-          <Button className="w-full h-12 text-base">
+          <Button className="w-full h-8 px-6 rounded-full bg-[#458559] hover:bg-[#3D7350] text-base">
             确认支付
           </Button>
         </div>

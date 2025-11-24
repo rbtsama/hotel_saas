@@ -124,13 +124,13 @@ export default function MembersPage({ result, error }: MembersPageProps) {
   const mainContent = (
     <div className="p-6 space-y-6">
       {/* 筛选表单 */}
-      <Card>
+      <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
         <CardContent className="pt-6">
           <Form method="get" className="space-y-4">
             <div className="grid grid-cols-4 gap-4">
               {/* 注册日期 */}
               <div className="space-y-2 col-span-2">
-                <label className="text-sm text-muted-foreground">注册日期</label>
+                <label className="text-sm text-slate-600 font-medium">注册日期</label>
                 <div className="flex gap-2 items-center">
                   <Input
                     type="date"
@@ -138,6 +138,7 @@ export default function MembersPage({ result, error }: MembersPageProps) {
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                     placeholder="开始日期"
+                    className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   />
                   <span>-</span>
                   <Input
@@ -146,26 +147,28 @@ export default function MembersPage({ result, error }: MembersPageProps) {
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
                     placeholder="结束日期"
+                    className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   />
                 </div>
               </div>
 
               {/* 电话 */}
               <div className="space-y-2">
-                <label className="text-sm text-muted-foreground">电话</label>
+                <label className="text-sm text-slate-600 font-medium">电话</label>
                 <Input
                   name="phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="请输入电话"
+                  className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                 />
               </div>
 
               {/* 等级 */}
               <div className="space-y-2">
-                <label className="text-sm text-muted-foreground">等级</label>
+                <label className="text-sm text-slate-600 font-medium">等级</label>
                 <Select name="level" value={level} onValueChange={setLevel}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-9">
                     <SelectValue placeholder="请选择等级" />
                   </SelectTrigger>
                   <SelectContent>
@@ -180,9 +183,9 @@ export default function MembersPage({ result, error }: MembersPageProps) {
 
               {/* 是否积分会员 */}
               <div className="space-y-2">
-                <label className="text-sm text-muted-foreground">是否积分会员</label>
+                <label className="text-sm text-slate-600 font-medium">是否积分会员</label>
                 <Select name="isPointsMember" value={isPointsMember} onValueChange={setIsPointsMember}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-9">
                     <SelectValue placeholder="请选择是否积分会员" />
                   </SelectTrigger>
                   <SelectContent>
@@ -195,11 +198,11 @@ export default function MembersPage({ result, error }: MembersPageProps) {
             </div>
 
             <div className="flex gap-2">
-              <Button type="submit">
+              <Button type="submit" className="h-9 bg-blue-600 hover:bg-blue-700">
                 <Search className="h-4 w-4 mr-2" />
                 搜索
               </Button>
-              <Button type="button" variant="outline" onClick={() => window.location.href = '/member-management/members'}>
+              <Button type="button" variant="outline" onClick={() => window.location.href = '/member-management/members'} className="h-9">
                 重置
               </Button>
             </div>
@@ -209,41 +212,41 @@ export default function MembersPage({ result, error }: MembersPageProps) {
 
       {/* 导入会员按钮 */}
       <div className="flex gap-2">
-        <Button variant="destructive">
+        <Button variant="destructive" className="h-9">
           <UserCheck className="h-4 w-4 mr-2" />
           导入会员
         </Button>
-        <Button variant="outline" className="text-orange-600 border-orange-600 hover:bg-orange-50">
+        <Button variant="outline" className="h-9 text-orange-600 border-orange-600 hover:bg-orange-50">
           <Users className="h-4 w-4 mr-2" />
           清除会员
         </Button>
       </div>
 
       {/* 会员列表 */}
-      <Card>
+      <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
         <CardContent className="p-0">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>注册时间</TableHead>
-                <TableHead>昵称</TableHead>
-                <TableHead>姓名</TableHead>
-                <TableHead>电话</TableHead>
-                <TableHead>等级</TableHead>
-                <TableHead className="text-center">订单数</TableHead>
-                <TableHead className="text-center">间夜数</TableHead>
-                <TableHead className="text-center">消费金额</TableHead>
-                <TableHead className="text-center">是否积分会员</TableHead>
-                <TableHead className="text-right">操作</TableHead>
+              <TableRow className="hover:bg-transparent">
+                <TableHead className="text-slate-600 font-semibold">注册时间</TableHead>
+                <TableHead className="text-slate-600 font-semibold">昵称</TableHead>
+                <TableHead className="text-slate-600 font-semibold">姓名</TableHead>
+                <TableHead className="text-slate-600 font-semibold">电话</TableHead>
+                <TableHead className="text-slate-600 font-semibold">等级</TableHead>
+                <TableHead className="text-center text-slate-600 font-semibold">订单数</TableHead>
+                <TableHead className="text-center text-slate-600 font-semibold">间夜数</TableHead>
+                <TableHead className="text-center text-slate-600 font-semibold">消费金额</TableHead>
+                <TableHead className="text-center text-slate-600 font-semibold">是否积分会员</TableHead>
+                <TableHead className="text-right text-slate-600 font-semibold">操作</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {members.map((member) => (
-                <TableRow key={member.id}>
-                  <TableCell className="text-sm">{member.registrationTime}</TableCell>
-                  <TableCell>{member.nickname || '-'}</TableCell>
-                  <TableCell>{member.name || '-'}</TableCell>
-                  <TableCell>{member.phone}</TableCell>
+                <TableRow key={member.id} className="hover:bg-slate-50 transition-colors">
+                  <TableCell className="text-sm text-slate-600">{member.registrationTime}</TableCell>
+                  <TableCell className="text-slate-700">{member.nickname || '-'}</TableCell>
+                  <TableCell className="text-slate-700">{member.name || '-'}</TableCell>
+                  <TableCell className="text-slate-900 font-medium">{member.phone}</TableCell>
                   <TableCell>
                     <span
                       className={cn(
@@ -254,21 +257,21 @@ export default function MembersPage({ result, error }: MembersPageProps) {
                       {MEMBER_LEVEL_LABELS[member.level].label}
                     </span>
                   </TableCell>
-                  <TableCell className="text-center">{member.orderCount}</TableCell>
-                  <TableCell className="text-center">{member.nightCount}</TableCell>
-                  <TableCell className="text-center">{member.consumptionAmount}</TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-center text-slate-700">{member.orderCount}</TableCell>
+                  <TableCell className="text-center text-slate-700">{member.nightCount}</TableCell>
+                  <TableCell className="text-center font-semibold text-slate-900">{member.consumptionAmount}</TableCell>
+                  <TableCell className="text-center text-slate-700">
                     {member.isPointsMember ? '是' : '-'}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Link to={`/member-management/members/${member.id}`}>
-                        <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
+                        <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
                           查
                         </Button>
                       </Link>
                       <Link to={`/member-management/members/${member.id}/edit`}>
-                        <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
+                        <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
                           拉黑
                         </Button>
                       </Link>

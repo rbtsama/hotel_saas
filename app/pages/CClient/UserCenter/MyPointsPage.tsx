@@ -38,7 +38,7 @@ export default function MyPointsPage({
     <MobileFrame navTitle="我的积分" showTabBar={true}>
       <div className="p-4 space-y-4">
         {/* 积分余额卡片 */}
-        <Card className="bg-gradient-to-br from-primary to-accent text-white overflow-hidden relative">
+        <Card className="bg-gradient-to-br from-[#458559] to-[#5A9F6E] text-white overflow-hidden relative rounded-xl shadow-md">
           <div className="p-6">
             <p className="text-sm opacity-90 mb-2">当前积分</p>
             <p className="text-5xl font-bold mb-4">{currentPoints}</p>
@@ -57,44 +57,44 @@ export default function MyPointsPage({
 
         {/* 获取积分入口 */}
         <div className="grid grid-cols-2 gap-3">
-          <button className="bg-white rounded-lg p-4 text-center border border-slate-200 active:bg-slate-50">
+          <button className="bg-white rounded-xl p-4 text-center border border-gray-200 active:bg-slate-50 transition-colors">
             <div className="flex justify-center mb-2">
-              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                <UserPlus className="w-5 h-5 text-green-600" />
+              <div className="w-10 h-10 bg-[#3D7350]/15 rounded-full flex items-center justify-center">
+                <UserPlus className="w-5 h-5 text-[#3D7350]" />
               </div>
             </div>
-            <p className="font-medium text-sm">邀请好友</p>
+            <p className="font-medium text-sm text-slate-900">邀请好友</p>
             <p className="text-xs text-slate-500 mt-1">每邀请1位好友</p>
             <p className="text-xs text-slate-500">完成首单得30积分</p>
           </button>
 
-          <button className="bg-white rounded-lg p-4 text-center border border-slate-200 active:bg-slate-50">
+          <button className="bg-white rounded-xl p-4 text-center border border-gray-200 active:bg-slate-50 transition-colors">
             <div className="flex justify-center mb-2">
-              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                <Gift className="w-5 h-5 text-blue-600" />
+              <div className="w-10 h-10 bg-[#4A85B8]/15 rounded-full flex items-center justify-center">
+                <Gift className="w-5 h-5 text-[#4A85B8]" />
               </div>
             </div>
-            <p className="font-medium text-sm">环保行动</p>
+            <p className="font-medium text-sm text-slate-900">环保行动</p>
             <p className="text-xs text-slate-500 mt-1">自带拖鞋/牙刷</p>
             <p className="text-xs text-slate-500">离店后获得积分</p>
           </button>
         </div>
 
         {/* 积分明细 */}
-        <div className="bg-white rounded-lg">
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
           <div className="p-4 border-b border-slate-100">
             <h3 className="font-semibold text-slate-900">积分明细</h3>
           </div>
           <div className="divide-y divide-slate-100">
             {pointsRecords.map((record) => (
-              <div key={record.id} className="p-4">
+              <div key={record.id} className="p-4 hover:bg-slate-50 transition-colors">
                 <div className="flex items-start justify-between mb-1">
                   <div className="flex-1">
                     <p className="text-sm font-medium text-slate-900">{record.type}</p>
                     <p className="text-xs text-slate-500 mt-0.5">{record.description}</p>
                   </div>
                   <div className="text-right">
-                    <p className={`text-sm font-semibold ${record.amount > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <p className={`text-sm font-semibold ${record.amount > 0 ? 'text-[#3D7350]' : 'text-red-600'}`}>
                       {record.amount > 0 ? '+' : ''}{record.amount}
                     </p>
                   </div>
@@ -107,7 +107,7 @@ export default function MyPointsPage({
             ))}
           </div>
           <div className="p-4 text-center">
-            <button className="text-sm text-primary">查看更多</button>
+            <button className="text-sm text-[#4A85B8] hover:underline">查看更多</button>
           </div>
         </div>
       </div>

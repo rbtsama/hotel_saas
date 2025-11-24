@@ -69,7 +69,7 @@ export default function HotelDetailPage() {
           <h2 className="font-semibold text-slate-900">房型列表</h2>
 
           {roomTypes.map((room) => (
-            <div key={room.id} className="bg-white rounded-xl overflow-hidden border border-slate-200">
+            <div key={room.id} className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm">
               <div className="h-32 bg-slate-200 flex items-center justify-center">
                 <span className="text-slate-400 text-sm">房型图片</span>
               </div>
@@ -97,12 +97,12 @@ export default function HotelDetailPage() {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-slate-500">平日特惠：</span>
-                    <span className="text-xl font-bold text-secondary">¥{room.specialPrice}</span>
-                    <span className="text-xs text-green-600">（再85折）</span>
+                    <span className="text-xl font-bold text-[#A67B5B]">¥{room.specialPrice}</span>
+                    <span className="text-xs text-[#3D7350]">（再85折）</span>
                   </div>
                 </div>
 
-                <Button className="w-full" size="sm">
+                <Button className="w-full h-8 rounded-full bg-[#458559] hover:bg-[#3D7350]" size="sm">
                   选择
                 </Button>
               </div>

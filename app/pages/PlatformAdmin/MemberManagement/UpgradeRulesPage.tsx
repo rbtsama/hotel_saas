@@ -107,7 +107,7 @@ export default function UpgradeRulesPage({ rules }: UpgradeRulesPageProps) {
         </div>
 
         {/* 说明卡片 */}
-        <Card className="mb-6 border-blue-200 bg-blue-50">
+        <Card className="mb-6 border-blue-200 bg-blue-50 rounded-xl shadow-sm">
           <CardContent className="pt-6">
             <div className="flex items-start gap-3">
               <TrendingUp className="w-5 h-5 text-blue-600 mt-0.5" />
@@ -115,7 +115,7 @@ export default function UpgradeRulesPage({ rules }: UpgradeRulesPageProps) {
                 <p className="font-semibold mb-1">升级与保级机制</p>
                 <p>
                   升级条件基于<strong>累计总间夜数</strong>，保级条件基于<strong>有效期内间夜数</strong>。
-                  设置合理的梯度可以激励用户持续消费，提升用户粘性。
+                  设置合理的梯度可以激励用户持续消费,提升用户粘性。
                 </p>
               </div>
             </div>
@@ -123,34 +123,34 @@ export default function UpgradeRulesPage({ rules }: UpgradeRulesPageProps) {
         </Card>
 
         {/* 规则配置表格 */}
-        <Card>
+        <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
           <CardHeader>
-            <CardTitle>会员等级升级与保级规则</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-slate-900">会员等级升级与保级规则</CardTitle>
+            <CardDescription className="text-slate-600">
               配置VIP0-VIP9共10个等级的升级和保级规则
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>等级</TableHead>
-                  <TableHead>升级条件<br /><span className="text-xs text-slate-500">（累计间夜数）</span></TableHead>
-                  <TableHead>会员有效期<br /><span className="text-xs text-slate-500">（天）</span></TableHead>
-                  <TableHead>保级条件<br /><span className="text-xs text-slate-500">（有效期内间夜）</span></TableHead>
-                  <TableHead>最后更新</TableHead>
-                  <TableHead className="text-right">操作</TableHead>
+                <TableRow className="hover:bg-transparent">
+                  <TableHead className="text-slate-600 font-semibold">等级</TableHead>
+                  <TableHead className="text-slate-600 font-semibold">升级条件<br /><span className="text-xs text-slate-500">（累计间夜数）</span></TableHead>
+                  <TableHead className="text-slate-600 font-semibold">会员有效期<br /><span className="text-xs text-slate-500">（天）</span></TableHead>
+                  <TableHead className="text-slate-600 font-semibold">保级条件<br /><span className="text-xs text-slate-500">（有效期内间夜）</span></TableHead>
+                  <TableHead className="text-slate-600 font-semibold">最后更新</TableHead>
+                  <TableHead className="text-right text-slate-600 font-semibold">操作</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {rules.map((rule) => (
-                  <TableRow key={rule.id}>
-                    <TableCell className="font-medium">{rule.levelName}</TableCell>
+                  <TableRow key={rule.id} className="hover:bg-slate-50 transition-colors">
+                    <TableCell className="font-medium text-slate-900">{rule.levelName}</TableCell>
                     <TableCell>
                       {rule.level === 0 ? (
                         <span className="text-slate-400">-</span>
                       ) : (
-                        <span className="font-semibold text-primary">{rule.upgradeNights}间夜</span>
+                        <span className="font-semibold text-blue-600">{rule.upgradeNights}间夜</span>
                       )}
                     </TableCell>
                     <TableCell>
@@ -164,13 +164,13 @@ export default function UpgradeRulesPage({ rules }: UpgradeRulesPageProps) {
                       {rule.level === 0 ? (
                         <span className="text-slate-400">-</span>
                       ) : (
-                        <span className="text-secondary">{rule.maintainNights}间夜</span>
+                        <span className="text-blue-600 font-semibold">{rule.maintainNights}间夜</span>
                       )}
                     </TableCell>
                     <TableCell className="text-sm text-slate-500">{rule.updatedAt}</TableCell>
                     <TableCell className="text-right">
                       {rule.level !== 0 && (
-                        <Button variant="ghost" size="sm" onClick={() => handleEdit(rule)}>
+                        <Button variant="ghost" size="sm" onClick={() => handleEdit(rule)} className="hover:bg-slate-100">
                           <Edit className="w-4 h-4 mr-1" />
                           编辑
                         </Button>
@@ -208,7 +208,7 @@ export default function UpgradeRulesPage({ rules }: UpgradeRulesPageProps) {
                       max="999"
                       value={formData.upgradeNights}
                       onChange={(e) => setFormData({ ...formData, upgradeNights: parseInt(e.target.value) || 0 })}
-                      className="max-w-xs"
+                      className="max-w-xs h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     />
                     <span className="text-sm text-slate-600">间夜</span>
                   </div>
@@ -229,7 +229,7 @@ export default function UpgradeRulesPage({ rules }: UpgradeRulesPageProps) {
                       max="730"
                       value={formData.validityDays}
                       onChange={(e) => setFormData({ ...formData, validityDays: parseInt(e.target.value) || 365 })}
-                      className="max-w-xs"
+                      className="max-w-xs h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     />
                     <span className="text-sm text-slate-600">天</span>
                   </div>
@@ -250,7 +250,7 @@ export default function UpgradeRulesPage({ rules }: UpgradeRulesPageProps) {
                       max="999"
                       value={formData.maintainNights}
                       onChange={(e) => setFormData({ ...formData, maintainNights: parseInt(e.target.value) || 0 })}
-                      className="max-w-xs"
+                      className="max-w-xs h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     />
                     <span className="text-sm text-slate-600">间夜</span>
                   </div>
@@ -267,12 +267,13 @@ export default function UpgradeRulesPage({ rules }: UpgradeRulesPageProps) {
                 )}
               </div>
               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={() => setEditDialogOpen(false)}>
+                <Button type="button" variant="outline" onClick={() => setEditDialogOpen(false)} className="h-9">
                   取消
                 </Button>
                 <Button
                   type="submit"
                   disabled={formData.maintainNights > formData.upgradeNights}
+                  className="h-9 bg-blue-600 hover:bg-blue-700"
                 >
                   确定
                 </Button>

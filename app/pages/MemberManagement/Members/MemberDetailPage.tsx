@@ -47,10 +47,10 @@ export default function MemberDetailPage({ member, error }: MemberDetailPageProp
       </div>
 
       {/* 会员基本信息 */}
-      <Card>
+      <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>会员信息</CardTitle>
+            <CardTitle className="text-slate-900">会员信息</CardTitle>
             <span
               className={cn(
                 "px-3 py-1 rounded text-sm font-medium",
@@ -64,87 +64,87 @@ export default function MemberDetailPage({ member, error }: MemberDetailPageProp
         <CardContent className="space-y-6">
           <div className="grid grid-cols-3 gap-6">
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-slate-600">
                 <User className="h-4 w-4" />
                 <span>姓名</span>
               </div>
-              <div className="font-medium">{member.name || '-'}</div>
+              <div className="font-medium text-slate-900">{member.name || '-'}</div>
             </div>
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-slate-600">
                 <User className="h-4 w-4" />
                 <span>昵称</span>
               </div>
-              <div className="font-medium">{member.nickname || '-'}</div>
+              <div className="font-medium text-slate-900">{member.nickname || '-'}</div>
             </div>
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-slate-600">
                 <Phone className="h-4 w-4" />
                 <span>电话</span>
               </div>
-              <div className="font-medium">{member.phone}</div>
+              <div className="font-medium text-slate-900">{member.phone}</div>
             </div>
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-slate-600">
                 <Mail className="h-4 w-4" />
                 <span>邮箱</span>
               </div>
-              <div className="font-medium">{member.email || '-'}</div>
+              <div className="font-medium text-slate-900">{member.email || '-'}</div>
             </div>
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-slate-600">
                 <Calendar className="h-4 w-4" />
                 <span>生日</span>
               </div>
-              <div className="font-medium">{member.birthday || '-'}</div>
+              <div className="font-medium text-slate-900">{member.birthday || '-'}</div>
             </div>
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-slate-600">
                 <User className="h-4 w-4" />
                 <span>性别</span>
               </div>
-              <div className="font-medium">
+              <div className="font-medium text-slate-900">
                 {member.gender === 'male' ? '男' : member.gender === 'female' ? '女' : '-'}
               </div>
             </div>
             <div className="space-y-2">
-              <div className="text-sm text-muted-foreground">注册时间</div>
-              <div className="font-medium">{member.registrationTime}</div>
+              <div className="text-sm text-slate-600">注册时间</div>
+              <div className="font-medium text-slate-900">{member.registrationTime}</div>
             </div>
             <div className="space-y-2">
-              <div className="text-sm text-muted-foreground">成为会员</div>
-              <div className="font-medium">{member.memberSince}</div>
+              <div className="text-sm text-slate-600">成为会员</div>
+              <div className="font-medium text-slate-900">{member.memberSince}</div>
             </div>
             <div className="space-y-2">
-              <div className="text-sm text-muted-foreground">最近登录</div>
-              <div className="font-medium">{member.lastLoginTime || '-'}</div>
+              <div className="text-sm text-slate-600">最近登录</div>
+              <div className="font-medium text-slate-900">{member.lastLoginTime || '-'}</div>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* 消费统计 */}
-      <Card>
+      <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
         <CardHeader>
-          <CardTitle>消费统计</CardTitle>
+          <CardTitle className="text-slate-900">消费统计</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-4 gap-6">
             <div className="space-y-2">
-              <div className="text-sm text-muted-foreground">订单数</div>
+              <div className="text-sm text-slate-600">订单数</div>
               <div className="text-2xl font-bold text-blue-600">{member.orderCount}</div>
             </div>
             <div className="space-y-2">
-              <div className="text-sm text-muted-foreground">间夜数</div>
-              <div className="text-2xl font-bold text-purple-600">{member.nightCount}</div>
+              <div className="text-sm text-slate-600">间夜数</div>
+              <div className="text-2xl font-bold text-blue-600">{member.nightCount}</div>
             </div>
             <div className="space-y-2">
-              <div className="text-sm text-muted-foreground">消费金额</div>
-              <div className="text-2xl font-bold text-orange-600">¥{member.consumptionAmount}</div>
+              <div className="text-sm text-slate-600">消费金额</div>
+              <div className="text-2xl font-bold text-blue-600">¥{member.consumptionAmount}</div>
             </div>
             <div className="space-y-2">
-              <div className="text-sm text-muted-foreground">最近下单</div>
-              <div className="text-sm font-medium">{member.lastOrderTime || '-'}</div>
+              <div className="text-sm text-slate-600">最近下单</div>
+              <div className="text-sm font-medium text-slate-700">{member.lastOrderTime || '-'}</div>
             </div>
           </div>
         </CardContent>
@@ -152,9 +152,9 @@ export default function MemberDetailPage({ member, error }: MemberDetailPageProp
 
       {/* 积分信息 */}
       {member.isPointsMember && (
-        <Card>
+        <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-slate-900">
               <CreditCard className="h-5 w-5" />
               积分信息
             </CardTitle>
@@ -162,16 +162,16 @@ export default function MemberDetailPage({ member, error }: MemberDetailPageProp
           <CardContent>
             <div className="grid grid-cols-3 gap-6">
               <div className="space-y-2">
-                <div className="text-sm text-muted-foreground">当前积分</div>
+                <div className="text-sm text-slate-600">当前积分</div>
                 <div className="text-2xl font-bold text-green-600">{member.currentPoints}</div>
               </div>
               <div className="space-y-2">
-                <div className="text-sm text-muted-foreground">累计获得积分</div>
+                <div className="text-sm text-slate-600">累计获得积分</div>
                 <div className="text-2xl font-bold text-blue-600">{member.totalPoints}</div>
               </div>
               <div className="space-y-2">
-                <div className="text-sm text-muted-foreground">已使用积分</div>
-                <div className="text-2xl font-bold text-gray-600">{member.usedPoints}</div>
+                <div className="text-sm text-slate-600">已使用积分</div>
+                <div className="text-2xl font-bold text-slate-600">{member.usedPoints}</div>
               </div>
             </div>
           </CardContent>
@@ -179,35 +179,35 @@ export default function MemberDetailPage({ member, error }: MemberDetailPageProp
       )}
 
       {/* 订单记录 */}
-      <Card>
+      <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
         <CardHeader>
-          <CardTitle>订单记录</CardTitle>
+          <CardTitle className="text-slate-900">订单记录</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>订单号</TableHead>
-                <TableHead>酒店名称</TableHead>
-                <TableHead>房型</TableHead>
-                <TableHead>入住日期</TableHead>
-                <TableHead>间夜数</TableHead>
-                <TableHead>订单金额</TableHead>
-                <TableHead>状态</TableHead>
-                <TableHead>下单时间</TableHead>
+              <TableRow className="hover:bg-transparent">
+                <TableHead className="text-slate-600 font-semibold">订单号</TableHead>
+                <TableHead className="text-slate-600 font-semibold">酒店名称</TableHead>
+                <TableHead className="text-slate-600 font-semibold">房型</TableHead>
+                <TableHead className="text-slate-600 font-semibold">入住日期</TableHead>
+                <TableHead className="text-slate-600 font-semibold">间夜数</TableHead>
+                <TableHead className="text-slate-600 font-semibold">订单金额</TableHead>
+                <TableHead className="text-slate-600 font-semibold">状态</TableHead>
+                <TableHead className="text-slate-600 font-semibold">下单时间</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {member.orders.map((order) => (
-                <TableRow key={order.id}>
-                  <TableCell className="font-medium">{order.orderNumber}</TableCell>
-                  <TableCell>{order.hotelName}</TableCell>
-                  <TableCell>{order.roomType}</TableCell>
-                  <TableCell className="text-sm">
+                <TableRow key={order.id} className="hover:bg-slate-50 transition-colors">
+                  <TableCell className="font-medium text-slate-900">{order.orderNumber}</TableCell>
+                  <TableCell className="text-slate-700">{order.hotelName}</TableCell>
+                  <TableCell className="text-slate-700">{order.roomType}</TableCell>
+                  <TableCell className="text-sm text-slate-600">
                     {order.checkInDate} 至 {order.checkOutDate}
                   </TableCell>
-                  <TableCell className="text-center">{order.nightCount}</TableCell>
-                  <TableCell className="font-medium text-orange-600">¥{order.totalAmount}</TableCell>
+                  <TableCell className="text-center text-slate-700">{order.nightCount}</TableCell>
+                  <TableCell className="font-medium text-blue-600">¥{order.totalAmount}</TableCell>
                   <TableCell>
                     <span
                       className={cn(
@@ -218,7 +218,7 @@ export default function MemberDetailPage({ member, error }: MemberDetailPageProp
                       {ORDER_STATUS_LABELS[order.status].label}
                     </span>
                   </TableCell>
-                  <TableCell className="text-sm">{order.orderTime}</TableCell>
+                  <TableCell className="text-sm text-slate-600">{order.orderTime}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

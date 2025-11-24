@@ -43,7 +43,7 @@ export default function OrderListPage() {
               onClick={() => setActiveTab(tab)}
               className={`flex-1 py-3 text-sm ${
                 activeTab === tab
-                  ? 'text-primary border-b-2 border-primary font-medium'
+                  ? 'text-[#458559] border-b-2 border-[#458559] font-medium'
                   : 'text-slate-600'
               }`}
             >
@@ -58,7 +58,7 @@ export default function OrderListPage() {
         {/* 订单列表 */}
         <div className="p-4 space-y-3">
           {orders.map((order) => (
-            <div key={order.id} className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+            <div key={order.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
               <div className="p-4">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
@@ -71,8 +71,8 @@ export default function OrderListPage() {
                   <Badge
                     className={
                       order.status === 'pending'
-                        ? 'bg-blue-100 text-blue-700'
-                        : 'bg-slate-100 text-slate-600'
+                        ? 'bg-[#4A85B8]/15 text-[#4A85B8] border-0 rounded-sm'
+                        : 'bg-slate-100 text-slate-600 border-0 rounded-sm'
                     }
                   >
                     {order.statusText}
@@ -82,19 +82,19 @@ export default function OrderListPage() {
                 <div className="flex items-center justify-between pt-3 border-t border-slate-100">
                   <div>
                     <p className="text-xs text-slate-500">实付金额</p>
-                    <p className="text-lg font-bold text-secondary">¥{order.amount}</p>
+                    <p className="text-lg font-bold text-[#A67B5B]">¥{order.amount}</p>
                     {order.points && (
-                      <p className="text-xs text-green-600 mt-1">
+                      <p className="text-xs text-[#3D7350] mt-1">
                         获得积分：+{order.points}（环保奖励）
                       </p>
                     )}
                   </div>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" className="h-8 rounded-full">
                       查看详情
                     </Button>
                     {order.status === 'completed' && (
-                      <Button size="sm">再次预订</Button>
+                      <Button size="sm" className="h-8 rounded-full bg-[#458559] hover:bg-[#3D7350]">再次预订</Button>
                     )}
                   </div>
                 </div>
