@@ -2,29 +2,41 @@
  * 平台后台 - 会员邀请页面
  */
 
+import { useState } from 'react'
 import type { MemberInvitationRecord } from './types/memberInvitation.types'
 import { Card, CardContent } from '~/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Badge } from '~/components/ui/badge'
+import { Button } from '~/components/ui/button'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface MemberInvitationPageProps {
   invitations: MemberInvitationRecord[]
 }
 
 export default function MemberInvitationPage({ invitations }: MemberInvitationPageProps) {
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
+
+  // 计算分页
+  const totalPages = Math.ceil(invitations.length / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const currentInvitations = invitations.slice(startIndex, endIndex)
+
   const getRoleBadge = (role: 'user' | 'merchant') => {
     if (role === 'user') {
-      return <Badge className="bg-blue-100 text-blue-700">用户</Badge>
+      return <Badge className="bg-blue-50 text-blue-700 border-blue-200">用户</Badge>
     }
-    return <Badge className="bg-purple-100 text-purple-700">商户</Badge>
+    return <Badge className="bg-purple-50 text-purple-700 border-purple-200">商户</Badge>
   }
 
   const getVipLevelBadge = (level: number) => {
     if (level === 0) {
-      return <Badge variant="outline" className="text-slate-900">VIP0</Badge>
+      return <Badge className="bg-slate-50 text-slate-700 border-slate-200">VIP0</Badge>
     }
-    return <Badge className="bg-amber-100 text-amber-700">VIP{level}</Badge>
+    return <Badge className="bg-amber-50 text-amber-700 border-amber-200">VIP{level}</Badge>
   }
 
   return (
@@ -37,29 +49,29 @@ export default function MemberInvitationPage({ invitations }: MemberInvitationPa
           </div>
 
           {/* 邀请记录列表 */}
-          <Card>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
             <CardContent className="p-0">
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead className="min-w-[180px]">VIP获得时间</TableHead>
-                    <TableHead className="min-w-[100px]">VIP等级</TableHead>
-                    <TableHead className="min-w-[120px]">受邀人</TableHead>
-                    <TableHead className="min-w-[100px]">邀请角色</TableHead>
-                    <TableHead className="min-w-[120px]">邀请人</TableHead>
-                    <TableHead className="min-w-[180px]">用户注册时间</TableHead>
+                  <TableRow className="border-slate-200">
+                    <TableHead className="min-w-[100px] text-slate-900 font-semibold">邀请角色</TableHead>
+                    <TableHead className="min-w-[120px] text-slate-900 font-semibold">邀请人</TableHead>
+                    <TableHead className="min-w-[120px] text-slate-900 font-semibold">受邀人</TableHead>
+                    <TableHead className="min-w-[100px] text-slate-900 font-semibold">VIP等级</TableHead>
+                    <TableHead className="min-w-[180px] text-slate-900 font-semibold">VIP获得时间</TableHead>
+                    <TableHead className="min-w-[180px] text-slate-900 font-semibold">受邀人注册时间</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {invitations.map((record) => (
-                    <TableRow key={record.id}>
-                      <TableCell className="font-medium">{record.vipAcquiredAt}</TableCell>
-                      <TableCell>{getVipLevelBadge(record.vipLevel)}</TableCell>
-                      <TableCell className="text-slate-900">{record.inviteeId}</TableCell>
+                  {currentInvitations.map((record) => (
+                    <TableRow key={record.id} className="hover:bg-slate-50 transition-colors border-slate-200">
                       <TableCell>{getRoleBadge(record.inviterRole)}</TableCell>
-                      <TableCell className="text-slate-900">
-                        {record.inviterRole === 'merchant' ? '-' : record.inviterId}
+                      <TableCell className="text-sm text-slate-900 font-medium">
+                        {record.inviterId}
                       </TableCell>
+                      <TableCell className="text-sm text-slate-900 font-medium">{record.inviteeId}</TableCell>
+                      <TableCell>{getVipLevelBadge(record.vipLevel)}</TableCell>
+                      <TableCell className="text-sm text-slate-900">{record.vipAcquiredAt}</TableCell>
                       <TableCell className="text-sm text-slate-900">{record.userRegisteredAt}</TableCell>
                     </TableRow>
                   ))}
@@ -67,27 +79,46 @@ export default function MemberInvitationPage({ invitations }: MemberInvitationPa
               </Table>
 
               {invitations.length === 0 && (
-                <div className="text-center py-12 text-muted-foreground">
+                <div className="text-center py-12 text-slate-500">
                   暂无邀请记录
                 </div>
               )}
             </CardContent>
           </Card>
 
-          {/* 说明 */}
-          <Card>
-            <CardContent className="p-4">
-              <div className="text-sm text-muted-foreground space-y-2">
-                <p className="font-medium text-foreground">记录说明:</p>
-                <ul className="list-disc list-inside space-y-1 ml-2">
-                  <li>用户邀请: 普通用户邀请他人注册,受邀人获得VIP0</li>
-                  <li>商户邀请: 商户发起邀请,受邀人获得VIP1体验卡(7天有效期)</li>
-                  <li>VIP获得时间为受邀人实际获得VIP的时间</li>
-                  <li>记录按VIP获得时间倒序排列</li>
-                </ul>
+          {/* 分页组件 */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between">
+              <div className="text-sm text-slate-600">
+                共 {invitations.length} 条记录，第 {currentPage} / {totalPages} 页
               </div>
-            </CardContent>
-          </Card>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                  disabled={currentPage === 1}
+                  className="h-8 border-slate-300"
+                >
+                  <ChevronLeft className="h-4 w-4 mr-1" />
+                  上一页
+                </Button>
+                <div className="text-sm text-slate-900 px-3">
+                  {currentPage} / {totalPages}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                  disabled={currentPage === totalPages}
+                  className="h-8 border-slate-300"
+                >
+                  下一页
+                  <ChevronRight className="h-4 w-4 ml-1" />
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </MainLayout>
