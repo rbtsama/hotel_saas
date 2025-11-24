@@ -4,6 +4,237 @@
 
 ---
 
+## 2025-11-24 22:10:00
+
+### 重构会员等级设置页面 - 只读展示 + 行内编辑弹窗
+
+**修改文件：**
+- `app/pages/MemberManagement/MemberLevels/MemberLevelsPage.tsx`
+
+**问题描述：**
+原有页面使用全局编辑模式，点击"修改配置"后所有输入框同时可编辑，容易误操作。需要改为只读展示，通过行内编辑按钮打开弹窗进行单条修改。
+
+**修改内容：**
+
+#### 1. 移除全局编辑模式
+- **删除**: `isEditMode` 状态变量
+- **删除**: `handleEditToggle`, `handleCancel`, `handleSave` 函数
+- **删除**: `SettingsPageHeader` 组件（包含"修改配置"按钮）
+- **删除**: `memberLevelsChangeLogs` 导入（修改记录）
+
+#### 2. 简化页面标题
+**修改前**:
+```tsx
+<SettingsPageHeader
+  title="会员等级设置"
+  isEditing={isEditMode}
+  onEditToggle={handleEditToggle}
+  onSave={handleSave}
+  onCancel={handleCancel}
+  changeLogs={memberLevelsChangeLogs}
+/>
+```
+
+**修改后**:
+```tsx
+<h1 className="text-2xl font-bold text-slate-900">会员等级设置</h1>
+```
+
+#### 3. 表格改为只读展示
+
+所有可编辑字段从Input组件改为纯文本显示：
+
+**展示名称**:
+```tsx
+// 修改前
+<Input value={level.displayName} disabled={!isEditMode} />
+
+// 修改后
+<div className="text-sm text-slate-900">{level.displayName}</div>
+```
+
+**数字 + 单位字段**（升级间夜、保级间夜、有效期等）:
+```tsx
+// 修改前
+<Input type="number" value={level.upgradeNights} disabled={!isEditMode} />
+
+// 修改后
+<div className="text-sm text-slate-900">{level.upgradeNights} 次</div>
+```
+
+**折扣范围**:
+```tsx
+// 修改前
+<Input value={level.discountMin} /> - <Input value={level.discountMax} />
+
+// 修改后
+<div className="text-sm text-slate-900">{level.discountMin}% - {level.discountMax}%</div>
+```
+
+**会员卡图片**:
+```tsx
+// 修改前
+<label><input type="file" /></label>
+
+// 修改后
+<div className="flex items-center gap-2">
+  {level.cardImage ? (
+    <img src={level.cardImage} alt={level.displayName} className="h-8 rounded" />
+  ) : (
+    <span className="text-sm text-slate-400">未设置</span>
+  )}
+</div>
+```
+
+#### 4. 添加操作列
+
+**表头新增**:
+```tsx
+<TableHead className="w-[80px]">操作</TableHead>
+```
+
+**每行新增编辑按钮**:
+```tsx
+<TableCell>
+  <Button
+    size="sm"
+    variant="outline"
+    onClick={() => handleEditLevel(level)}
+    className="h-8 text-sm border-slate-300 hover:border-blue-500 hover:text-blue-600"
+  >
+    编辑
+  </Button>
+</TableCell>
+```
+
+#### 5. 新增编辑弹窗功能
+
+**状态管理**:
+```tsx
+const [editingLevel, setEditingLevel] = useState<MemberLevel | null>(null)
+const [editFormData, setEditFormData] = useState<MemberLevel | null>(null)
+```
+
+**处理函数**:
+```tsx
+// 打开编辑弹窗
+const handleEditLevel = (level: MemberLevel) => {
+  setEditingLevel(level)
+  setEditFormData({ ...level })
+}
+
+// 更新表单数据
+const updateFormData = (field: keyof MemberLevel, value: string | number) => {
+  if (editFormData) {
+    setEditFormData({ ...editFormData, [field]: value })
+  }
+}
+
+// 保存编辑
+const handleSaveEdit = () => {
+  if (editFormData && editingLevel) {
+    setEditedLevels(prev =>
+      prev.map(level =>
+        level.id === editingLevel.id ? editFormData : level
+      )
+    )
+    console.log('保存会员等级配置:', editFormData)
+    setEditingLevel(null)
+    setEditFormData(null)
+  }
+}
+```
+
+**编辑弹窗结构**:
+- 弹窗标题：显示正在编辑的等级名称
+- 表单字段：所有可编辑字段（9个）
+- 图片上传：显示预览 + 上传按钮
+- 底部按钮：取消 + 保存
+- 最大高度：`max-h-[90vh]`（可滚动）
+- 遮罩层：`bg-black/50`
+
+**弹窗表单字段**:
+1. 展示名称（文本输入）
+2. 升级间夜（数字输入 + "次"）
+3. 保级间夜（数字输入 + "次"）
+4. 有效期（数字输入 + 动态单位）
+5. 最小折扣（数字输入 + %）
+6. 最大折扣（数字输入 + %）
+7. 积分倍数（数字输入，支持小数）
+8. 赠送体验次数（数字输入 + "次"）
+9. 赠送有效期（数字输入 + "天"）
+10. 会员卡图片（图片预览 + 上传按钮）
+
+#### 6. 保留的功能
+
+✅ **状态开关独立操作**：
+- `handleStatusToggle` 函数保持不变
+- 状态修改确认对话框保持不变
+- Switch组件仍然可以独立切换启用/禁用
+
+✅ **LogicPanel（学习模式）**：
+- 业务场景说明
+- 升级与保级规则
+- 配置示例
+- 完全保持不变
+
+✅ **配置说明卡片**：
+- 升级规则说明
+- 保级规则说明
+- 配置注意事项
+- 完全保持不变
+
+**功能影响：**
+
+✅ **界面更清晰**：
+- 默认只读展示，数据一目了然
+- 无需切换编辑模式，直接点击编辑按钮
+- 避免误操作修改其他等级数据
+
+✅ **操作更精准**：
+- 每次只编辑一个等级
+- 编辑界面独立，专注于当前等级
+- 取消操作不影响其他数据
+
+✅ **用户体验提升**：
+- 点击编辑 → 弹窗表单 → 保存/取消
+- 流程清晰，符合用户习惯
+- 适合批量管理多个等级的场景
+
+**页面对比**:
+
+**修改前**:
+```
+会员等级设置              [修改配置] [保存] [取消]
+
+┌─────────────────────────────────────────┐
+│ 等级 | 名称 | 间夜 | ... | 启用        │
+│ VIP0 | [输入框] | [输入框] | ... | [开关] │  ← 所有行同时可编辑
+│ VIP1 | [输入框] | [输入框] | ... | [开关] │
+└─────────────────────────────────────────┘
+```
+
+**修改后**:
+```
+会员等级设置
+
+┌─────────────────────────────────────────────┐
+│ 等级 | 名称 | 间夜 | ... | 启用 | 操作   │
+│ VIP0 | 银卡会员 | 3次 | ... | [开关] | [编辑] │  ← 只读展示
+│ VIP1 | 金卡会员 | 5次 | ... | [开关] | [编辑] │
+└─────────────────────────────────────────────┘
+
+[点击编辑 → 弹出编辑弹窗]
+```
+
+**代码统计**:
+- 文件总行数：从 484 行增加到 588 行
+- 新增代码：编辑弹窗相关逻辑和UI（约100行）
+- 简化代码：移除全局编辑模式相关逻辑（约20行）
+- 净增加：约80行
+
+---
+
 ## 2025-11-24 22:00:00
 
 ### 统一所有状态滑块标题为"启用"

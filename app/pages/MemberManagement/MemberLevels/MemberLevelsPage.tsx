@@ -9,8 +9,7 @@ import { Switch } from '~/components/ui/switch'
 import { useViewMode } from '~/contexts/ViewModeContext'
 import Sidebar, { menuConfig } from '~/pages/PointsSystem/components/Sidebar'
 import LogicPanel, { LogicTable, LogicList, LogicHighlight } from '~/pages/PointsSystem/components/LogicPanel'
-import SettingsPageHeader from '~/pages/SharedComponents/SettingsPageHeader'
-import { memberLevelsChangeLogs } from './services/mocks/memberLevels.changeLog'
+import { Upload } from 'lucide-react'
 
 interface MemberLevelsPageProps {
   levels: MemberLevel[]
@@ -19,27 +18,14 @@ interface MemberLevelsPageProps {
 
 export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProps) {
   const { isLearningMode } = useViewMode()
-  const [isEditMode, setIsEditMode] = useState(false)
   const [editedLevels, setEditedLevels] = useState<MemberLevel[]>(levels)
   const [confirmStatusChange, setConfirmStatusChange] = useState<{
     levelId: string
     levelName: string
     newStatus: 'active' | 'inactive'
   } | null>(null)
-
-  const handleEditToggle = () => {
-    setIsEditMode(true)
-  }
-
-  const handleCancel = () => {
-    setIsEditMode(false)
-    setEditedLevels(levels) // 恢复原始数据
-  }
-
-  const handleSave = () => {
-    console.log('保存会员等级配置:', editedLevels)
-    setIsEditMode(false)
-  }
+  const [editingLevel, setEditingLevel] = useState<MemberLevel | null>(null)
+  const [editFormData, setEditFormData] = useState<MemberLevel | null>(null)
 
   const updateLevel = (id: string, field: keyof MemberLevel, value: string | number) => {
     setEditedLevels(prev =>
@@ -47,6 +33,38 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
         level.id === id ? { ...level, [field]: value } : level
       )
     )
+  }
+
+  // 打开编辑弹窗
+  const handleEditLevel = (level: MemberLevel) => {
+    setEditingLevel(level)
+    setEditFormData({ ...level })
+  }
+
+  // 保存编辑
+  const handleSaveEdit = () => {
+    if (editFormData && editingLevel) {
+      setEditedLevels(prev =>
+        prev.map(level =>
+          level.id === editingLevel.id ? editFormData : level
+        )
+      )
+      console.log('保存会员等级配置:', {
+        level: editFormData.displayName,
+        changes: editFormData,
+        operator: '兔子',
+        time: new Date().toLocaleString('zh-CN')
+      })
+      setEditingLevel(null)
+      setEditFormData(null)
+    }
+  }
+
+  // 更新表单数据
+  const updateFormData = (field: keyof MemberLevel, value: string | number) => {
+    if (editFormData) {
+      setEditFormData({ ...editFormData, [field]: value })
+    }
   }
 
   // 状态开关独立处理（不受修改设置限制）
@@ -160,16 +178,8 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
 
   const mainContent = (
     <div className="p-6 space-y-6">
-      {/* 页面标题 - 使用通用头部组件 */}
-      <SettingsPageHeader
-        title="会员等级设置"
-        isEditing={isEditMode}
-        onEditToggle={handleEditToggle}
-        onSave={handleSave}
-        onCancel={handleCancel}
-        changeLogs={memberLevelsChangeLogs}
-        changeLogTitle="会员等级设置 - 修改记录"
-      />
+      {/* 页面标题 */}
+      <h1 className="text-2xl font-bold text-slate-900">会员等级设置</h1>
 
       {/* 会员等级列表 */}
       <Card>
@@ -189,6 +199,7 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                   <TableHead className="min-w-[140px]">赠送有效期（天）</TableHead>
                   <TableHead className="min-w-[200px]">会员卡图片</TableHead>
                   <TableHead className="min-w-[100px]">启用</TableHead>
+                  <TableHead className="w-[80px]">操作</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -201,161 +212,55 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
 
                     {/* 展示名称 */}
                     <TableCell>
-                      <Input
-                        value={level.displayName}
-                        onChange={(e) => updateLevel(level.id, 'displayName', e.target.value)}
-                        className={`h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
-                        disabled={!isEditMode}
-                      />
+                      <div className="text-sm text-slate-900">{level.displayName}</div>
                     </TableCell>
 
                     {/* 升级间夜 */}
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          min="0"
-                          value={level.upgradeNights}
-                          onChange={(e) => updateLevel(level.id, 'upgradeNights', Number(e.target.value))}
-                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
-                          disabled={!isEditMode}
-                        />
-                        <span className="text-sm text-muted-foreground">次</span>
-                      </div>
+                      <div className="text-sm text-slate-900">{level.upgradeNights} 次</div>
                     </TableCell>
 
                     {/* 保级间夜 */}
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          min="0"
-                          value={level.maintainNights}
-                          onChange={(e) => updateLevel(level.id, 'maintainNights', Number(e.target.value))}
-                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
-                          disabled={!isEditMode}
-                        />
-                        <span className="text-sm text-muted-foreground">次</span>
-                      </div>
+                      <div className="text-sm text-slate-900">{level.maintainNights} 次</div>
                     </TableCell>
 
                     {/* 有效期（天） */}
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          min="0"
-                          value={level.validityDays}
-                          onChange={(e) => updateLevel(level.id, 'validityDays', Number(e.target.value))}
-                          className={`w-24 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
-                          disabled={!isEditMode}
-                        />
-                        <span className="text-sm text-muted-foreground">{level.validityDays === 0 ? '永久' : '天'}</span>
+                      <div className="text-sm text-slate-900">
+                        {level.validityDays === 0 ? '永久' : `${level.validityDays} 天`}
                       </div>
                     </TableCell>
 
                     {/* 折扣范围 */}
                     <TableCell>
-                      <div className="flex items-center gap-1">
-                        <Input
-                          type="number"
-                          min="0"
-                          max="100"
-                          value={level.discountMin}
-                          onChange={(e) => updateLevel(level.id, 'discountMin', Number(e.target.value))}
-                          className={`w-16 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
-                          disabled={!isEditMode}
-                        />
-                        <span className="text-sm">~</span>
-                        <Input
-                          type="number"
-                          min="0"
-                          max="100"
-                          value={level.discountMax}
-                          onChange={(e) => updateLevel(level.id, 'discountMax', Number(e.target.value))}
-                          className={`w-16 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
-                          disabled={!isEditMode}
-                        />
-                        <span className="text-sm text-muted-foreground">%</span>
-                      </div>
+                      <div className="text-sm text-slate-900">{level.discountMin}% - {level.discountMax}%</div>
                     </TableCell>
 
                     {/* 积分倍数 */}
                     <TableCell>
-                      <Input
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        value={level.pointsRate}
-                        onChange={(e) => updateLevel(level.id, 'pointsRate', Number(e.target.value))}
-                        className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
-                        disabled={!isEditMode}
-                      />
+                      <div className="text-sm text-slate-900">{level.pointsRate}</div>
                     </TableCell>
 
                     {/* 赠送体验次数 */}
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          min="0"
-                          value={level.giftTrialCount}
-                          onChange={(e) => updateLevel(level.id, 'giftTrialCount', Number(e.target.value))}
-                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
-                          disabled={!isEditMode}
-                        />
-                        <span className="text-sm text-muted-foreground">次</span>
-                      </div>
+                      <div className="text-sm text-slate-900">{level.giftTrialCount} 次</div>
                     </TableCell>
 
                     {/* 赠送有效期 */}
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          min="1"
-                          value={level.giftValidityDays}
-                          onChange={(e) => updateLevel(level.id, 'giftValidityDays', Number(e.target.value))}
-                          className={`w-20 h-8 ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed border-0' : ''}`}
-                          disabled={!isEditMode}
-                        />
-                        <span className="text-sm text-muted-foreground">天</span>
-                      </div>
+                      <div className="text-sm text-slate-900">{level.giftValidityDays} 天</div>
                     </TableCell>
 
-                    {/* 会员卡图片 - 独立操作,不受修改设置限制 */}
+                    {/* 会员卡图片 */}
                     <TableCell>
-                      <label className="cursor-pointer group">
+                      <div className="flex items-center gap-2">
                         {level.cardImage ? (
-                          <div className="relative inline-block">
-                            <img
-                              src={level.cardImage}
-                              alt="会员卡"
-                              className="h-16 w-auto rounded border border-slate-300 transition-opacity group-hover:opacity-80"
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                              <span className="text-white text-sm font-medium">点击更换</span>
-                            </div>
-                          </div>
+                          <img src={level.cardImage} alt={level.displayName} className="h-8 rounded" />
                         ) : (
-                          <Button variant="outline" size="sm" asChild>
-                            <span>上传图片</span>
-                          </Button>
+                          <span className="text-sm text-slate-400">未设置</span>
                         )}
-                        <input
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => {
-                            const file = e.target.files?.[0]
-                            if (file) {
-                              const url = URL.createObjectURL(file)
-                              updateLevel(level.id, 'cardImage', url)
-                              console.log('上传会员卡图片:', { level: level.displayName, file: file.name })
-                            }
-                          }}
-                        />
-                      </label>
+                      </div>
                     </TableCell>
 
                     {/* 状态 - 不受修改设置限制，可独立操作 */}
@@ -369,6 +274,18 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
                           {level.status === 'active' ? '启用' : '禁用'}
                         </span>
                       </div>
+                    </TableCell>
+
+                    {/* 操作 */}
+                    <TableCell>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleEditLevel(level)}
+                        className="h-8 text-sm"
+                      >
+                        编辑
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -451,6 +368,193 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
       {isLearningMode && (
         <div className="w-[480px] border-l border-border overflow-hidden">
           <LogicPanel title="会员等级设置" sections={logicSections} />
+        </div>
+      )}
+
+      {/* 编辑弹窗 */}
+      {editingLevel && editFormData && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 shadow-xl max-h-[90vh] overflow-y-auto">
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">
+              编辑会员等级 - {editingLevel.displayName}
+            </h3>
+
+            <div className="space-y-4">
+              {/* 展示名称 */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">展示名称</label>
+                <Input
+                  value={editFormData.displayName}
+                  onChange={(e) => updateFormData('displayName', e.target.value)}
+                  className="h-9"
+                />
+              </div>
+
+              {/* 升级间夜 */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">升级间夜</label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    type="number"
+                    min="0"
+                    value={editFormData.upgradeNights}
+                    onChange={(e) => updateFormData('upgradeNights', Number(e.target.value))}
+                    className="h-9"
+                  />
+                  <span className="text-sm text-slate-600">次</span>
+                </div>
+              </div>
+
+              {/* 保级间夜 */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">保级间夜</label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    type="number"
+                    min="0"
+                    value={editFormData.maintainNights}
+                    onChange={(e) => updateFormData('maintainNights', Number(e.target.value))}
+                    className="h-9"
+                  />
+                  <span className="text-sm text-slate-600">次</span>
+                </div>
+              </div>
+
+              {/* 有效期（天） */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">有效期（天）</label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    type="number"
+                    min="0"
+                    value={editFormData.validityDays}
+                    onChange={(e) => updateFormData('validityDays', Number(e.target.value))}
+                    className="h-9"
+                  />
+                  <span className="text-sm text-slate-600">{editFormData.validityDays === 0 ? '永久' : '天'}</span>
+                </div>
+              </div>
+
+              {/* 折扣范围 */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">折扣范围</label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={editFormData.discountMin}
+                    onChange={(e) => updateFormData('discountMin', Number(e.target.value))}
+                    className="h-9"
+                    placeholder="最小值"
+                  />
+                  <span className="text-sm text-slate-600">~</span>
+                  <Input
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={editFormData.discountMax}
+                    onChange={(e) => updateFormData('discountMax', Number(e.target.value))}
+                    className="h-9"
+                    placeholder="最大值"
+                  />
+                  <span className="text-sm text-slate-600">%</span>
+                </div>
+              </div>
+
+              {/* 积分倍数 */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">积分倍数</label>
+                <Input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={editFormData.pointsRate}
+                  onChange={(e) => updateFormData('pointsRate', Number(e.target.value))}
+                  className="h-9"
+                />
+              </div>
+
+              {/* 赠送体验次数 */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">赠送体验次数</label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    type="number"
+                    min="0"
+                    value={editFormData.giftTrialCount}
+                    onChange={(e) => updateFormData('giftTrialCount', Number(e.target.value))}
+                    className="h-9"
+                  />
+                  <span className="text-sm text-slate-600">次</span>
+                </div>
+              </div>
+
+              {/* 赠送有效期 */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">赠送有效期</label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    type="number"
+                    min="1"
+                    value={editFormData.giftValidityDays}
+                    onChange={(e) => updateFormData('giftValidityDays', Number(e.target.value))}
+                    className="h-9"
+                  />
+                  <span className="text-sm text-slate-600">天</span>
+                </div>
+              </div>
+
+              {/* 会员卡图片上传 */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">会员卡图片</label>
+                <div className="flex items-center gap-4">
+                  {editFormData.cardImage && (
+                    <img
+                      src={editFormData.cardImage}
+                      alt="会员卡预览"
+                      className="h-16 rounded border border-slate-300"
+                    />
+                  )}
+                  <label className="cursor-pointer">
+                    <div className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-md hover:bg-slate-50 transition-colors">
+                      <Upload className="w-4 h-4" />
+                      <span className="text-sm">
+                        {editFormData.cardImage ? '更换图片' : '上传图片'}
+                      </span>
+                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0]
+                        if (file) {
+                          const url = URL.createObjectURL(file)
+                          updateFormData('cardImage', url)
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 mt-6">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setEditingLevel(null)
+                  setEditFormData(null)
+                }}
+              >
+                取消
+              </Button>
+              <Button onClick={handleSaveEdit}>
+                保存
+              </Button>
+            </div>
+          </div>
         </div>
       )}
 
