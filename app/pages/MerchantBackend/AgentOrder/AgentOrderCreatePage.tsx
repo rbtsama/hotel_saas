@@ -49,15 +49,27 @@ export default function AgentOrderCreatePage() {
     }
   }, [formData.checkInDate, formData.checkOutDate])
 
-  // 选择房型后自动填充售卖价
+  // 计算间夜数
+  const calculateNights = () => {
+    if (!formData.checkInDate || !formData.checkOutDate) return 0
+    const checkIn = new Date(formData.checkInDate)
+    const checkOut = new Date(formData.checkOutDate)
+    const diffTime = checkOut.getTime() - checkIn.getTime()
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+    return Math.max(0, diffDays)
+  }
+
+  // 选择房型或日期变化后自动计算售卖总价
   useEffect(() => {
-    if (formData.roomType) {
+    if (formData.roomType && formData.checkInDate && formData.checkOutDate) {
       const selectedRoom = roomTypes.find(r => r.id === formData.roomType)
-      if (selectedRoom) {
-        setFormData(prev => ({ ...prev, salePrice: selectedRoom.price.toString() }))
+      const nights = calculateNights()
+      if (selectedRoom && nights > 0) {
+        const totalPrice = selectedRoom.price * nights
+        setFormData(prev => ({ ...prev, salePrice: totalPrice.toString() }))
       }
     }
-  }, [formData.roomType, roomTypes])
+  }, [formData.roomType, formData.checkInDate, formData.checkOutDate, roomTypes])
 
   const handleGenerate = () => {
     if (!formData.checkInDate || !formData.checkOutDate || !formData.roomType || !formData.specialPrice) {
@@ -130,7 +142,7 @@ export default function AgentOrderCreatePage() {
                         value={room.id}
                         disabled={!room.available}
                       >
-                        {room.name} (¥{room.price}) {!room.available && '- 不可售'}
+                        {room.name} {!room.available && '- 不可售'}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -140,14 +152,19 @@ export default function AgentOrderCreatePage() {
               {/* 价格设置 */}
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label>售卖价</Label>
+                  <Label>售卖总价</Label>
                   <div className="text-2xl font-semibold text-slate-900">
                     {formData.salePrice ? `¥${formData.salePrice}` : '-'}
                   </div>
+                  {formData.salePrice && calculateNights() > 0 && (
+                    <div className="text-xs text-slate-500">
+                      {selectedRoom?.name} × {calculateNights()} 晚
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="specialPrice">专属优惠价 <span className="text-red-500">*</span></Label>
+                  <Label htmlFor="specialPrice">专属优惠总价 <span className="text-red-500">*</span></Label>
                   <div className="flex items-center gap-2">
                     <span className="text-lg">¥</span>
                     <Input

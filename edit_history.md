@@ -4,6 +4,182 @@
 
 ---
 
+## 2025-11-24 22:30:00
+
+### 三处UI和逻辑优化
+
+**修改文件：**
+1. `app/pages/MemberManagement/MemberLevels/MemberLevelsPage.tsx` - 会员卡图片列宽度
+2. `app/pages/PlatformAdmin/MemberManagement/DiscountRulesPage.tsx` - VIP0折扣设置
+3. `app/pages/MerchantBackend/AgentOrder/AgentOrderCreatePage.tsx` - 专属订单价格计算
+
+**修改内容：**
+
+#### 1. 缩小会员卡图片列宽度
+
+**修改位置**: 会员等级设置页面表头
+
+**修改前**:
+```tsx
+<TableHead className="min-w-[200px]">会员卡图片</TableHead>
+```
+
+**修改后**:
+```tsx
+<TableHead className="w-[100px]">会员卡图片</TableHead>
+```
+
+**原因**:
+- 会员卡图片只需显示小缩略图（高度32px）
+- 200px过宽，浪费表格空间
+- 100px刚好容纳图片，更紧凑
+
+#### 2. VIP0支持折扣设置
+
+**修改位置**: 会员折扣规则页面
+
+**修改前**:
+- VIP0的商户折扣范围显示为 `-`（横线）
+- VIP0的示例价格显示为 `¥500（原价）`
+- VIP0不显示编辑按钮（`{rule.level !== 0 && <Button>编辑</Button>}`）
+
+**修改后**:
+- VIP0的商户折扣范围正常显示（如 `95% ~ 100%`）
+- VIP0的示例价格计算折扣（如 `¥475`）
+- VIP0显示编辑按钮，可以设置折扣
+
+**代码对比**:
+```tsx
+// 修改前
+{rule.level === 0 ? (
+  <span className="text-slate-400">-</span>
+) : (
+  <span>{formatDiscount(rule.merchantDiscountMin)} ~ {formatDiscount(rule.merchantDiscountMax)}</span>
+)}
+
+{rule.level !== 0 && <Button onClick={() => handleEdit(rule)}>编辑</Button>}
+
+// 修改后
+<span>{formatDiscount(rule.merchantDiscountMin)} ~ {formatDiscount(rule.merchantDiscountMax)}</span>
+
+<Button onClick={() => handleEdit(rule)}>编辑</Button>
+```
+
+**功能影响**:
+- VIP0作为基础会员等级，也可以享受折扣
+- 运营可以为VIP0设置商户折扣范围
+- 所有等级折扣设置规则统一
+
+#### 3. 专属订单价格计算优化
+
+**修改位置**: 创建专属订单页面
+
+##### A. 移除房型选项中的价格显示
+
+**修改前**:
+```tsx
+{room.name} (¥{room.price}) {!room.available && '- 不可售'}
+// 示例: 豪华大床房 (¥588) - 不可售
+```
+
+**修改后**:
+```tsx
+{room.name} {!room.available && '- 不可售'}
+// 示例: 豪华大床房 - 不可售
+```
+
+**原因**:
+- 多天订单的每日价格可能不同
+- 显示单价会造成误解
+- 总价会根据日期范围自动计算
+
+##### B. 售卖价改为售卖总价，并自动计算
+
+**修改前**:
+- 标签: "售卖价"
+- 计算逻辑: 选择房型后，显示房型单价
+- 示例: ¥588
+
+**修改后**:
+- 标签: "售卖总价"
+- 计算逻辑: 单价 × 间夜数
+- 显示: 总价 + 计算说明
+- 示例:
+  ```
+  ¥1176
+  豪华大床房 × 2 晚
+  ```
+
+**计算逻辑**:
+```tsx
+// 新增间夜数计算函数
+const calculateNights = () => {
+  const checkIn = new Date(formData.checkInDate)
+  const checkOut = new Date(formData.checkOutDate)
+  const diffDays = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24))
+  return Math.max(0, diffDays)
+}
+
+// 修改售卖价计算
+const totalPrice = selectedRoom.price * calculateNights()
+setFormData({ ...formData, salePrice: totalPrice.toString() })
+```
+
+##### C. 专属优惠价改为专属优惠总价
+
+**修改前**:
+```tsx
+<Label htmlFor="specialPrice">专属优惠价 *</Label>
+```
+
+**修改后**:
+```tsx
+<Label htmlFor="specialPrice">专属优惠总价 *</Label>
+```
+
+**依赖关系**:
+- 日期修改 → 重新计算间夜数 → 重新计算售卖总价
+- 房型修改 → 获取房型单价 → 重新计算售卖总价
+- 自动填充总价后，运营可手动输入专属优惠总价
+
+**功能影响：**
+
+✅ **会员卡图片列更紧凑**：
+- 从200px缩小到100px
+- 刚好容纳图片，不浪费空间
+- 表格整体布局更合理
+
+✅ **VIP0折扣功能完整**：
+- VIP0可以设置商户折扣范围
+- 支持编辑功能
+- 与其他等级折扣设置规则统一
+- 业务更灵活（VIP0也可以有优惠）
+
+✅ **专属订单价格计算准确**：
+- 自动计算多日订单总价（单价 × 间夜数）
+- 显示计算明细（房型 × X晚）
+- 房型选项不显示单价，避免误解
+- 售卖总价和专属优惠总价语义明确
+
+**示例场景**:
+
+**选择日期**: 2025/11/24 ~ 2025/11/26（2晚）
+**选择房型**: 豪华大床房
+**自动计算售卖总价**: ¥1176（¥588 × 2晚）
+**手动输入专属优惠总价**: ¥888
+
+**页面显示**:
+```
+售卖总价
+¥1176
+豪华大床房 × 2 晚
+
+专属优惠总价 *
+¥ [888]
+```
+
+---
+
 ## 2025-11-24 22:20:00
 
 ### 优化会员邀请页面 - 统一ID格式 + 分页功能

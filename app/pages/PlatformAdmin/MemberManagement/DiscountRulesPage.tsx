@@ -121,7 +121,7 @@ export default function DiscountRulesPage({ rules }: DiscountRulesPageProps) {
               </TableHeader>
               <TableBody>
                 {rules.map((rule) => {
-                  const examplePrice = rule.level === 0 ? 500 : (500 * rule.platformBaseDiscount).toFixed(0)
+                  const examplePrice = (500 * rule.platformBaseDiscount).toFixed(0)
                   return (
                     <TableRow key={rule.id} className="hover:bg-slate-50 transition-colors">
                       <TableCell className="font-medium text-slate-900">{rule.levelName}</TableCell>
@@ -131,29 +131,19 @@ export default function DiscountRulesPage({ rules }: DiscountRulesPageProps) {
                         </span>
                       </TableCell>
                       <TableCell>
-                        {rule.level === 0 ? (
-                          <span className="text-slate-400">-</span>
-                        ) : (
-                          <span className="text-sm text-slate-700">
-                            {formatDiscount(rule.merchantDiscountMin)} ~ {formatDiscount(rule.merchantDiscountMax)}
-                          </span>
-                        )}
+                        <span className="text-sm text-slate-700">
+                          {formatDiscount(rule.merchantDiscountMin)} ~ {formatDiscount(rule.merchantDiscountMax)}
+                        </span>
                       </TableCell>
                       <TableCell>
-                        {rule.level === 0 ? (
-                          <span className="text-slate-500">¥500（原价）</span>
-                        ) : (
-                          <span className="text-blue-600 font-semibold">¥{examplePrice}</span>
-                        )}
+                        <span className="text-blue-600 font-semibold">¥{examplePrice}</span>
                       </TableCell>
                       <TableCell className="text-sm text-slate-500">{rule.updatedAt}</TableCell>
                       <TableCell className="text-right">
-                        {rule.level !== 0 && (
-                          <Button variant="ghost" size="sm" onClick={() => handleEdit(rule)} className="hover:bg-slate-100">
-                            <Edit className="w-4 h-4 mr-1" />
-                            编辑
-                          </Button>
-                        )}
+                        <Button variant="ghost" size="sm" onClick={() => handleEdit(rule)} className="hover:bg-slate-100">
+                          <Edit className="w-4 h-4 mr-1" />
+                          编辑
+                        </Button>
                       </TableCell>
                     </TableRow>
                   )
