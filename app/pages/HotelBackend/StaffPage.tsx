@@ -1,5 +1,5 @@
 /**
- * 员工账号管理页面 - 增删改查
+ * 员工账号管理页面
  */
 
 import { useState } from 'react'
@@ -10,7 +10,15 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
-import { Edit, Trash2 } from 'lucide-react'
+import { Badge } from '~/components/ui/badge'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '~/components/ui/dialog'
+import { Edit, Trash2, Plus } from 'lucide-react'
 import MainLayout from '../PointsSystem/components/MainLayout'
 
 interface StaffPageProps {
@@ -44,7 +52,7 @@ export default function StaffPage({ staff }: StaffPageProps) {
   }
 
   const handleDelete = (id: string) => {
-    if (confirm('确认删除此员工账号吗?')) {
+    if (confirm('确认删除此员工账号吗？')) {
       setDeletingId(id)
     }
   }
@@ -53,119 +61,135 @@ export default function StaffPage({ staff }: StaffPageProps) {
     <MainLayout>
       <div className="h-screen overflow-y-auto bg-slate-50">
         <div className="p-6 space-y-6">
-        {/* 页面标题 */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900">账号管理</h1>
-            <p className="text-sm text-slate-500 mt-1">
-              管理酒店员工账号 (手机号必填,姓名和岗位选填)
-            </p>
+          {/* 页面标题 */}
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900">员工账号</h1>
+            </div>
+            <Button
+              onClick={handleCreate}
+              className="h-9 bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              添加员工
+            </Button>
           </div>
-          <Button onClick={handleCreate}>添加员工</Button>
-        </div>
 
-        {/* 员工列表 */}
-        <Card>
-          <CardHeader>
-            <CardTitle>员工列表 (共 {staff.length} 人)</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>手机号</TableHead>
-                  <TableHead>姓名</TableHead>
-                  <TableHead>岗位</TableHead>
-                  <TableHead>创建时间</TableHead>
-                  <TableHead>创建人</TableHead>
-                  <TableHead className="w-[180px]">操作</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {staff.map((s) => (
-                  <TableRow key={s.id}>
-                    {/* 手机号 */}
-                    <TableCell className="font-mono font-medium">
-                      {s.phone}
-                    </TableCell>
-
-                    {/* 姓名 */}
-                    <TableCell>
-                      {s.name || (
-                        <span className="text-slate-400 italic">未填写</span>
-                      )}
-                    </TableCell>
-
-                    {/* 岗位 */}
-                    <TableCell>
-                      {s.position || (
-                        <span className="text-slate-400 italic">未填写</span>
-                      )}
-                    </TableCell>
-
-                    {/* 创建时间 */}
-                    <TableCell className="text-sm text-slate-900">
-                      {s.createdAt}
-                    </TableCell>
-
-                    {/* 创建人 */}
-                    <TableCell className="text-sm text-slate-900">
-                      {s.createdBy}
-                    </TableCell>
-
-                    {/* 操作 */}
-                    <TableCell>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleEdit(s)}
-                        >
-                          <Edit className="w-4 h-4 mr-1" />
-                          编辑
-                        </Button>
-
-                        <Form method="post" style={{ display: 'inline' }}>
-                          <input type="hidden" name="_action" value="deleteStaff" />
-                          <input type="hidden" name="staffId" value={s.id} />
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                            type="submit"
-                            disabled={isDeleting(s.id)}
-                            onClick={(e) => {
-                              e.preventDefault()
-                              handleDelete(s.id)
-                              if (deletingId === s.id) {
-                                e.currentTarget.form?.submit()
-                              }
-                            }}
-                          >
-                            <Trash2 className="w-4 h-4 mr-1" />
-                            {isDeleting(s.id) ? '删除中...' : '删除'}
-                          </Button>
-                        </Form>
-                      </div>
-                    </TableCell>
+          {/* 员工列表 */}
+          <Card className="rounded-xl border-slate-200 shadow-sm">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold text-slate-900">
+                员工列表
+                <Badge variant="outline" className="ml-3 border-slate-300 text-slate-700">
+                  共 {staff.length} 人
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-slate-200">
+                    <TableHead className="text-slate-600 font-semibold">手机号</TableHead>
+                    <TableHead className="text-slate-600 font-semibold">姓名</TableHead>
+                    <TableHead className="text-slate-600 font-semibold">岗位</TableHead>
+                    <TableHead className="text-slate-600 font-semibold">创建时间</TableHead>
+                    <TableHead className="text-slate-600 font-semibold">创建人</TableHead>
+                    <TableHead className="text-slate-600 font-semibold w-[150px]">操作</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+                </TableHeader>
+                <TableBody>
+                  {staff.length > 0 ? (
+                    staff.map((s) => (
+                      <TableRow key={s.id} className="hover:bg-slate-50 transition-colors">
+                        {/* 手机号 */}
+                        <TableCell className="font-mono font-medium text-slate-900">
+                          {s.phone}
+                        </TableCell>
 
-        {/* 员工表单弹窗 */}
-        {isFormOpen && (
-          <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
-              <div className="p-6 border-b border-slate-200">
-                <h2 className="text-xl font-bold text-slate-900">
+                        {/* 姓名 */}
+                        <TableCell className="text-slate-900">
+                          {s.name || (
+                            <span className="text-slate-400 italic">未填写</span>
+                          )}
+                        </TableCell>
+
+                        {/* 岗位 */}
+                        <TableCell className="text-slate-900">
+                          {s.position || (
+                            <span className="text-slate-400 italic">未填写</span>
+                          )}
+                        </TableCell>
+
+                        {/* 创建时间 */}
+                        <TableCell className="text-sm text-slate-600">
+                          {s.createdAt}
+                        </TableCell>
+
+                        {/* 创建人 */}
+                        <TableCell className="text-sm text-slate-600">
+                          {s.createdBy}
+                        </TableCell>
+
+                        {/* 操作 */}
+                        <TableCell>
+                          <div className="flex gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleEdit(s)}
+                              className="h-8 hover:bg-slate-100"
+                            >
+                              <Edit className="w-3.5 h-3.5 mr-1" />
+                              编辑
+                            </Button>
+
+                            <Form method="post" style={{ display: 'inline' }}>
+                              <input type="hidden" name="_action" value="deleteStaff" />
+                              <input type="hidden" name="staffId" value={s.id} />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-8 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                type="submit"
+                                disabled={isDeleting(s.id)}
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  handleDelete(s.id)
+                                  if (deletingId === s.id) {
+                                    e.currentTarget.form?.submit()
+                                  }
+                                }}
+                              >
+                                <Trash2 className="w-3.5 h-3.5 mr-1" />
+                                {isDeleting(s.id) ? '删除中...' : '删除'}
+                              </Button>
+                            </Form>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={6} className="text-center text-slate-500 py-8">
+                        暂无员工账号，点击右上角"添加员工"按钮添加
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+
+          {/* 员工表单弹窗 - 使用 Dialog 组件 */}
+          <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+            <DialogContent className="sm:max-w-[500px]">
+              <DialogHeader>
+                <DialogTitle className="text-xl font-bold text-slate-900">
                   {editingStaff ? '编辑员工' : '添加员工'}
-                </h2>
-              </div>
+                </DialogTitle>
+              </DialogHeader>
 
-              <Form method="post" className="p-6 space-y-4">
+              <Form method="post" className="space-y-4">
                 <input
                   type="hidden"
                   name="_action"
@@ -177,61 +201,71 @@ export default function StaffPage({ staff }: StaffPageProps) {
 
                 {/* 手机号(必填) */}
                 <div className="space-y-2">
-                  <Label htmlFor="phone">
+                  <Label htmlFor="phone" className="text-slate-700 font-medium">
                     手机号 <span className="text-red-500">*</span>
                   </Label>
                   <Input
                     id="phone"
                     name="phone"
                     type="tel"
-                    placeholder="请输入手机号"
+                    placeholder="请输入11位手机号"
                     defaultValue={editingStaff?.phone}
                     required
                     pattern="[0-9]{11}"
                     title="请输入11位手机号"
+                    className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   />
                 </div>
 
                 {/* 姓名(选填) */}
                 <div className="space-y-2">
-                  <Label htmlFor="name">姓名 (选填)</Label>
+                  <Label htmlFor="name" className="text-slate-700 font-medium">
+                    姓名 <span className="text-slate-400 text-sm">(选填)</span>
+                  </Label>
                   <Input
                     id="name"
                     name="name"
                     placeholder="请输入姓名"
                     defaultValue={editingStaff?.name}
+                    className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   />
                 </div>
 
                 {/* 岗位(选填) */}
                 <div className="space-y-2">
-                  <Label htmlFor="position">岗位 (选填)</Label>
+                  <Label htmlFor="position" className="text-slate-700 font-medium">
+                    岗位 <span className="text-slate-400 text-sm">(选填)</span>
+                  </Label>
                   <Input
                     id="position"
                     name="position"
-                    placeholder="如: 前台、保洁、维修等"
+                    placeholder="如：前台、保洁、维修等"
                     defaultValue={editingStaff?.position}
+                    className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   />
                 </div>
 
-                {/* 表单按钮 */}
-                <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
+                <DialogFooter className="gap-2">
                   <Button
                     type="button"
                     variant="outline"
                     onClick={() => setIsFormOpen(false)}
                     disabled={isSubmitting}
+                    className="h-9 border-slate-300"
                   >
                     取消
                   </Button>
-                  <Button type="submit" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="h-9 bg-blue-600 hover:bg-blue-700"
+                  >
                     {isSubmitting ? '提交中...' : editingStaff ? '更新' : '添加'}
                   </Button>
-                </div>
+                </DialogFooter>
               </Form>
-            </div>
-          </div>
-        )}
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </MainLayout>

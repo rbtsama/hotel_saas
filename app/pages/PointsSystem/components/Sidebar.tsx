@@ -392,16 +392,6 @@ export const menuConfig: MenuItem[] = [
   {
     title: '酒店后台',
     children: [
-      // 经营数据：最重要（新增）
-      {
-        title: '经营管理',
-        children: [
-          { title: '经营概览', path: '/hotel-backend/business/overview' },
-          { title: '经营统计', path: '/hotel-backend/business/statistics' },
-          { title: '财务对账', path: '/hotel-backend/business/financial-statements' },
-          { title: '结算管理', path: '/hotel-backend/business/settlements' }
-        ]
-      },
       // 日常运营：订单和收益
       {
         title: '订单管理',
@@ -427,7 +417,10 @@ export const menuConfig: MenuItem[] = [
           { title: '门店设施', path: '/hotel-backend/store/facilities' },
           { title: '门店图片', path: '/hotel-backend/store/images' },
           { title: '周边信息', path: '/hotel-backend/store/surrounding' },
-          { title: '酒店政策', path: '/hotel-backend/store/policy' }
+          { title: '酒店政策', path: '/hotel-backend/store/policy' },
+          { title: '早餐政策', path: '/hotel-backend/store/breakfast' },
+          { title: '加床政策', path: '/hotel-backend/store/extra-bed' },
+          { title: '非房产品', path: '/hotel-backend/non-room-products' }
         ]
       },
       {
@@ -435,9 +428,7 @@ export const menuConfig: MenuItem[] = [
         children: [
           { title: '房型列表', path: '/hotel-backend/room-type-list' },
           { title: '房型图片', path: '/hotel-backend/room-type-images' },
-          { title: '早餐政策', path: '/hotel-backend/store/breakfast' },
-          { title: '加床政策', path: '/hotel-backend/store/extra-bed' },
-          { title: '非房产品', path: '/hotel-backend/non-room-products' }
+          { title: '房间管理', path: '/hotel-backend/rooms' }
         ]
       },
       // 系统配置
@@ -445,7 +436,6 @@ export const menuConfig: MenuItem[] = [
         title: '系统设置',
         children: [
           { title: 'PMS对接', path: '/hotel-backend/pms-integration' },
-          { title: '房间管理', path: '/hotel-backend/rooms' },
           { title: '员工账号', path: '/hotel-backend/staff' }
         ]
       }
