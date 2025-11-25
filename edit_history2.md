@@ -272,3 +272,69 @@
 
 ---
 
+## 2025-11-26 14:30:00
+
+### 商户端门店信息菜单路由配置
+
+**修改文件：**
+- `app/pages/PointsSystem/components/Sidebar.tsx` - 菜单配置
+- `vite.config.ts` - 路由配置
+
+**新增路由文件（7个）：**
+- `app/routes/merchant-backend/store-info/basic.tsx` - 基本信息
+- `app/routes/merchant-backend/store-info/policy.tsx` - 政策相关
+- `app/routes/merchant-backend/store-info/facilities.tsx` - 门店设施
+- `app/routes/merchant-backend/store-info/surrounding.tsx` - 周边信息
+- `app/routes/merchant-backend/store-info/breakfast.tsx` - 早餐政策
+- `app/routes/merchant-backend/store-info/extra-bed.tsx` - 加床政策
+- `app/routes/merchant-backend/store-info/images.tsx` - 门店图片
+
+**修改内容：**
+
+#### 1. 菜单结构调整
+**原菜单（8项）：**
+```
+门店信息
+├─ 基本信息
+├─ 政策相关
+├─ 门店设施
+├─ 周边信息
+├─ 早餐政策
+├─ 加床政策
+├─ 门店图片
+└─ 支付结算  ← 删除
+```
+
+**新菜单（7项）：**
+```
+门店信息
+├─ 基本信息
+├─ 政策相关
+├─ 门店设施
+├─ 周边信息
+├─ 早餐政策
+├─ 加床政策
+└─ 门店图片
+```
+
+#### 2. 路由路径调整
+- 原路径：`/merchant-backend/store/xxx`
+- 新路径：`/merchant-backend/store-info/xxx`
+
+#### 3. 每个子页面独立路由
+- 每个子菜单对应独立的路由文件
+- 各路由独立加载对应的数据
+- 使用 MainLayout 包裹，保持统一布局
+
+**功能影响：**
+
+✅ **导航更清晰**：
+- 每个子菜单点击后直接进入对应页面
+- 删除了"支付结算"菜单（用户要求7个子菜单）
+
+✅ **代码结构更清晰**：
+- 每个功能模块有独立的路由文件
+- 便于后续维护和功能扩展
+
+---
+

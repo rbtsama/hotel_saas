@@ -132,6 +132,13 @@ export default defineConfig({
 
           // Merchant Backend - Store Info
           route("/merchant-backend/store-info", "routes/merchant-backend/store-info/_index.tsx", { index: true })
+          route("/merchant-backend/store-info/basic", "routes/merchant-backend/store-info/basic.tsx")
+          route("/merchant-backend/store-info/policy", "routes/merchant-backend/store-info/policy.tsx")
+          route("/merchant-backend/store-info/facilities", "routes/merchant-backend/store-info/facilities.tsx")
+          route("/merchant-backend/store-info/surrounding", "routes/merchant-backend/store-info/surrounding.tsx")
+          route("/merchant-backend/store-info/breakfast", "routes/merchant-backend/store-info/breakfast.tsx")
+          route("/merchant-backend/store-info/extra-bed", "routes/merchant-backend/store-info/extra-bed.tsx")
+          route("/merchant-backend/store-info/images", "routes/merchant-backend/store-info/images.tsx")
 
           // C Client - User Center
           route("/c-client/user-center/my-points", "routes/c-client/user-center/my-points.tsx")

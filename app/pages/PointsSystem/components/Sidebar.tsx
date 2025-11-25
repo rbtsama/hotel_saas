@@ -3,7 +3,7 @@
  */
 
 import { Link, useLocation } from '@remix-run/react'
-import { ChevronDown, ChevronRight, ChevronLeft, BookOpen, Presentation, Menu } from 'lucide-react'
+import { ChevronDown, ChevronRight, ChevronLeft } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { useViewMode } from '~/contexts/ViewModeContext'
 
@@ -19,7 +19,7 @@ interface SidebarProps {
 
 export default function Sidebar({ menuItems }: SidebarProps) {
   const location = useLocation()
-  const { mode, toggleMode, isLearningMode, isSidebarCollapsed, toggleSidebar } = useViewMode()
+  const { isSidebarCollapsed, toggleSidebar } = useViewMode()
   const menuScrollRef = useRef<HTMLDivElement>(null)
   const scrollPositionRef = useRef<number>(0)
 
@@ -209,25 +209,7 @@ export default function Sidebar({ menuItems }: SidebarProps) {
           </div>
 
           {/* 底部信息 */}
-          <div className="p-4 border-t border-slate-200 space-y-3">
-            {/* 模式切换按钮 */}
-            <button
-              onClick={toggleMode}
-              className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
-            >
-              {isLearningMode ? (
-                <>
-                  <BookOpen className="w-4 h-4" />
-                  <span>学习模式</span>
-                </>
-              ) : (
-                <>
-                  <Presentation className="w-4 h-4" />
-                  <span>展示模式</span>
-                </>
-              )}
-            </button>
-
+          <div className="p-4 border-t border-slate-200">
             <p className="text-xs text-slate-500 text-center">
               参考：美团、携程、华住会
             </p>
@@ -347,14 +329,13 @@ export const menuConfig: MenuItem[] = [
       {
         title: '门店信息',
         children: [
-          { title: '基本信息', path: '/merchant-backend/store/basic-info' },
-          { title: '政策相关', path: '/merchant-backend/store/policy' },
-          { title: '门店设施', path: '/merchant-backend/store/facilities' },
-          { title: '周边信息', path: '/merchant-backend/store/surrounding' },
-          { title: '早餐政策', path: '/merchant-backend/store/breakfast' },
-          { title: '加床政策', path: '/merchant-backend/store/extra-bed' },
-          { title: '门店图片', path: '/merchant-backend/store/images' },
-          { title: '支付结算', path: '/merchant-backend/store/payment-settlement' }
+          { title: '基本信息', path: '/merchant-backend/store-info/basic' },
+          { title: '政策相关', path: '/merchant-backend/store-info/policy' },
+          { title: '门店设施', path: '/merchant-backend/store-info/facilities' },
+          { title: '周边信息', path: '/merchant-backend/store-info/surrounding' },
+          { title: '早餐政策', path: '/merchant-backend/store-info/breakfast' },
+          { title: '加床政策', path: '/merchant-backend/store-info/extra-bed' },
+          { title: '门店图片', path: '/merchant-backend/store-info/images' }
         ]
       },
       {
