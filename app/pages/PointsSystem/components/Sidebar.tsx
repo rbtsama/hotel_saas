@@ -322,7 +322,7 @@ export const menuConfig: MenuItem[] = [
         title: '会员管理 *',
         children: [
           { title: '会员等级设置 *', path: '/member-management/levels' },
-          { title: '会员邀请 *', path: '/platform-admin/member-management/invitations' }
+          { title: '会员邀请记录 *', path: '/platform-admin/member-management/invitations' }
         ]
       },
       {
