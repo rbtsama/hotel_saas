@@ -270,10 +270,11 @@ export const menuConfig: MenuItem[] = [
       {
         title: '酒店管理',
         children: [
-          { title: '经营数据', path: '/platform-admin/hotel-monitor' },
-          { title: '房价管理', path: '/platform-admin/hotel-monitor?tab=price' },
-          { title: '库存管理', path: '/platform-admin/hotel-monitor?tab=inventory' },
-          { title: '评价管理', path: '/platform-admin/hotel-monitor?tab=reviews' }
+          { title: '房态总览', path: '/platform-admin/hotel/room-status' },
+          { title: '预订管理', path: '/platform-admin/hotel/reservations' },
+          { title: '入住管理', path: '/platform-admin/hotel/check-in' },
+          { title: '房价管理', path: '/platform-admin/hotel/pricing' },
+          { title: '客房管理', path: '/platform-admin/hotel/rooms' }
         ]
       },
       {

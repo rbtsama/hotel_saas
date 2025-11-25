@@ -63,6 +63,11 @@ export default defineConfig({
 
           // Platform Admin - Hotel Monitoring
           route("/platform-admin/hotel-monitor", "routes/platform-admin/hotel-monitor.tsx")
+          route("/platform-admin/hotel/room-status", "routes/platform-admin/hotel/room-status.tsx")
+          route("/platform-admin/hotel/reservations", "routes/platform-admin/hotel/reservations.tsx")
+          route("/platform-admin/hotel/pricing", "routes/platform-admin/hotel/pricing.tsx")
+          route("/platform-admin/hotel/check-in", "routes/platform-admin/hotel/check-in.tsx")
+          route("/platform-admin/hotel/rooms", "routes/platform-admin/hotel/rooms.tsx")
 
           // Platform Admin - Points Management
           route("/platform-admin/points-management/base-rule", "routes/platform-admin/points-management/base-rule.tsx")
