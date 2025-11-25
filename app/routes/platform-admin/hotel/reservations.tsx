@@ -45,5 +45,5 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function ReservationsRoute() {
   const { paginatedData, error } = useLoaderData<typeof loader>()
-  return <ReservationsPage paginatedData={paginatedData} error={error} />
+  return <ReservationsPage paginatedData={paginatedData as any} error={error} />
 }

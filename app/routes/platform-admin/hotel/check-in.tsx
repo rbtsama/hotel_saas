@@ -98,9 +98,9 @@ export default function CheckInRoute() {
 
   return (
     <CheckInPage
-      waitingCheckIns={waitingCheckIns}
-      checkedInGuests={checkedInGuests}
-      availableRooms={availableRooms}
+      waitingCheckIns={waitingCheckIns as any}
+      checkedInGuests={checkedInGuests as any}
+      availableRooms={availableRooms as any}
     />
   )
 }
