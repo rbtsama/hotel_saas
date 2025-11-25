@@ -12,8 +12,6 @@ import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '~/components/ui/dialog'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
-import LearningModal from '~/pages/Architecture/ScenarioDesign/components/LearningModal'
-import { useViewMode } from '~/contexts/ViewModeContext'
 import { Edit, TrendingUp } from 'lucide-react'
 
 interface UpgradeRulesPageProps {
@@ -21,7 +19,6 @@ interface UpgradeRulesPageProps {
 }
 
 export default function UpgradeRulesPage({ rules }: UpgradeRulesPageProps) {
-  const { isLearningMode } = useViewMode()
   const [editingRule, setEditingRule] = useState<MemberLevelUpgradeRule | null>(null)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
   const [formData, setFormData] = useState({
@@ -49,58 +46,6 @@ export default function UpgradeRulesPage({ rules }: UpgradeRulesPageProps) {
           <div>
             <h1 className="text-2xl font-bold text-slate-900">会员等级升级与保级规则配置</h1>
           </div>
-          <LearningModal title="会员等级升级规则 - 学习内容" isLearningMode={isLearningMode}>
-            <div className="space-y-4">
-              <section>
-                <h3 className="text-lg font-semibold mb-2">核心概念</h3>
-                <ul className="list-disc list-inside space-y-2 text-slate-900">
-                  <li><strong>升级条件：</strong>用户累计总间夜数达到此标准即可升级</li>
-                  <li><strong>会员有效期：</strong>升级后会员等级的有效期（从升级日起计算）</li>
-                  <li><strong>保级条件：</strong>有效期内需完成的间夜数，否则降级</li>
-                </ul>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold mb-2">升级流程示例</h3>
-                <div className="p-3 bg-slate-100 rounded-lg space-y-2 text-sm">
-                  <p><strong>场景：</strong>用户当前VIP2，累计间夜29晚</p>
-                  <ol className="list-decimal list-inside ml-2 space-y-1 text-slate-900">
-                    <li>用户完成新订单，离店后增加1间夜</li>
-                    <li>累计间夜数变为30晚</li>
-                    <li>系统检测：30晚 ≥ VIP3升级条件（30晚）</li>
-                    <li>自动升级至VIP3</li>
-                    <li>设置有效期：2026-11-22（365天后）</li>
-                    <li>重置保级间夜计数器 = 0</li>
-                  </ol>
-                </div>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold mb-2">保级/降级流程示例</h3>
-                <div className="p-3 bg-slate-100 rounded-lg space-y-2 text-sm">
-                  <p><strong>场景：</strong>用户VIP3有效期即将到期</p>
-                  <ol className="list-decimal list-inside ml-2 space-y-1 text-slate-900">
-                    <li>定时任务每日凌晨检查会员有效期</li>
-                    <li>发现用户A的VIP3今日到期</li>
-                    <li>检查保级间夜：12晚（需要15晚）</li>
-                    <li>未达标 → 降级至VIP2</li>
-                    <li>重新设置VIP2有效期</li>
-                    <li>发送降级通知</li>
-                  </ol>
-                </div>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold mb-2">配置规则</h3>
-                <ul className="list-disc list-inside space-y-1 text-slate-900">
-                  <li>升级条件必须递增：VIP9 &gt; VIP8 &gt; ... &gt; VIP1</li>
-                  <li>保级条件 ≤ 升级条件</li>
-                  <li>有效期建议为365天</li>
-                  <li>修改后立即生效</li>
-                </ul>
-              </section>
-            </div>
-          </LearningModal>
         </div>
 
         {/* 说明卡片 */}

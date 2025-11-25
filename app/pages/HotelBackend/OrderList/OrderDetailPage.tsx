@@ -40,10 +40,7 @@ export default function OrderDetailPage({ order, error }: OrderDetailPageProps) 
 
   return (
     <MainLayout>
-      <div className="flex h-full">
-        {/* 左侧：订单详情界面 (60%) */}
-        <div className="h-full overflow-y-auto p-6 bg-background">
-          <div className="p-6 space-y-6">
+      <div className="p-6 bg-background space-y-6">
             {/* 页面头部 */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -214,13 +211,6 @@ export default function OrderDetailPage({ order, error }: OrderDetailPageProps) 
                 </Button>
               )}
             </div>
-          </div>
-        </div>
-
-        {/* 右侧：LogicPanel (40%) */}
-        <div className="w-[40%] h-full border-l">
-          {/* LogicPanel placeholder */}
-        </div>
       </div>
     </MainLayout>
   )

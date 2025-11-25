@@ -8,7 +8,6 @@ import { Input } from '~/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Search, FileText, ChevronLeft, ChevronRight } from 'lucide-react'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
-import { useViewMode } from '~/contexts/ViewModeContext'
 
 interface RefundManagementPageProps {
   result: RefundListResponse | null
@@ -17,7 +16,6 @@ interface RefundManagementPageProps {
 
 export default function RefundManagementPage({ result, error }: RefundManagementPageProps) {
   const navigate = useNavigate()
-  const { isPresentationMode } = useViewMode()
   const [orderNumber, setOrderNumber] = useState('')
   const [guestPhone, setGuestPhone] = useState('')
   const [startDate, setStartDate] = useState('')
@@ -46,10 +44,7 @@ export default function RefundManagementPage({ result, error }: RefundManagement
 
   return (
     <MainLayout>
-      <div className="flex h-full">
-        {/* 左侧：主内容区（60%） */}
-        <div className={`${isPresentationMode ? 'w-full' : 'w-[60%]'} overflow-y-auto border-r`}>
-          <div className="p-6 space-y-6">
+      <div className="p-6 space-y-6">
       {/* 筛选表单 */}
       <Card>
         <CardContent className="pt-6">
@@ -218,15 +213,6 @@ export default function RefundManagementPage({ result, error }: RefundManagement
           )}
         </CardContent>
       </Card>
-          </div>
-        </div>
-
-        {/* 右侧：LogicPanel（40%） */}
-        {!isPresentationMode && (
-          <div className="w-[40%]">
-            {/* LogicPanel placeholder */}
-          </div>
-        )}
       </div>
     </MainLayout>
   )

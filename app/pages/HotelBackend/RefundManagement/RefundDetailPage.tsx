@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Button } from '~/components/ui/button'
 import { ArrowLeft, CheckCircle, XCircle, Calendar, AlertCircle } from 'lucide-react'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
-import { useViewMode } from '~/contexts/ViewModeContext'
 
 interface RefundDetailPageProps {
   refund: RefundRequest
@@ -13,7 +12,6 @@ interface RefundDetailPageProps {
 
 export default function RefundDetailPage({ refund }: RefundDetailPageProps) {
   const navigate = useNavigate()
-  const { isPresentationMode } = useViewMode()
 
   const handleApprove = () => {
     alert('同意退款功能开发中...')
@@ -29,10 +27,7 @@ export default function RefundDetailPage({ refund }: RefundDetailPageProps) {
 
   return (
     <MainLayout>
-      <div className="flex h-full">
-        {/* 左侧：主内容区（60%） */}
-        <div className={`${isPresentationMode ? 'w-full' : 'w-[60%]'} overflow-y-auto border-r`}>
-          <div className="p-6 space-y-6">
+      <div className="p-6 space-y-6">
       {/* 返回按钮 */}
       <div>
         <Link to="/hotel-backend/refund-management">
@@ -220,15 +215,6 @@ export default function RefundDetailPage({ refund }: RefundDetailPageProps) {
           </CardContent>
         </Card>
       )}
-          </div>
-        </div>
-
-        {/* 右侧：LogicPanel（40%） */}
-        {!isPresentationMode && (
-          <div className="w-[40%]">
-            {/* LogicPanel placeholder */}
-          </div>
-        )}
       </div>
     </MainLayout>
   )

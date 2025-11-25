@@ -30,23 +30,6 @@ const OperationLogButton = ({ moduleName }: { moduleName: string }) => (
   </Button>
 )
 
-const BusinessLogicPanel = ({ sections }: { sections: Array<{ title: string; content: React.ReactNode }> }) => (
-  <div className="p-6 space-y-6 overflow-y-auto">
-    <div>
-      <h2 className="text-xl font-bold text-slate-900">业务逻辑说明</h2>
-      <p className="text-sm text-slate-500 mt-1">
-        后台配置如何影响前端用户体验
-      </p>
-    </div>
-    {sections.map((section, index) => (
-      <div key={index}>
-        <h3 className="font-semibold mb-3">{section.title}</h3>
-        {section.content}
-      </div>
-    ))}
-  </div>
-)
-
 export default function ContractTemplatePage({ templates, error }: ContractTemplatePageProps) {
   const [filterStatus, setFilterStatus] = useState<TemplateStatus | 'all'>('all')
   const [showPreviewDialog, setShowPreviewDialog] = useState(false)
@@ -77,9 +60,7 @@ export default function ContractTemplatePage({ templates, error }: ContractTempl
 
   return (
     <MainLayout>
-      <div className="flex h-screen">
-        <div className="w-[60%] overflow-y-auto">
-          <div className="p-6 space-y-6">
+      <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-2xl font-bold text-slate-900">协议模板管理</h1>
@@ -172,7 +153,6 @@ export default function ContractTemplatePage({ templates, error }: ContractTempl
               </CardContent>
             </Card>
           </div>
-        </div>
 
         {/* 预览弹窗 */}
         {showPreviewDialog && currentTemplate && (
@@ -240,21 +220,6 @@ export default function ContractTemplatePage({ templates, error }: ContractTempl
             </Card>
           </div>
         )}
-
-        {/* 右侧：业务逻辑说明 (40%) */}
-        <div className="w-[40%] h-full border-l">
-          <BusinessLogicPanel
-            sections={[
-              {
-                title: '📱 用户端体验',
-                content: (
-                  <div className="text-sm text-slate-700">协议模板用于商家签约时使用</div>
-                )
-              }
-            ]}
-          />
-        </div>
-      </div>
     </MainLayout>
   )
 }

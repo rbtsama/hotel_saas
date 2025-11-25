@@ -44,22 +44,6 @@ const OperationLogButton = ({ moduleName }: { moduleName: string }) => (
   </Button>
 )
 
-const BusinessLogicPanel = ({ sections }: { sections: Array<{ title: string; content: React.ReactNode }> }) => (
-  <div className="p-6 space-y-6 overflow-y-auto">
-    <div>
-      <h2 className="text-xl font-bold text-slate-900">业务逻辑说明</h2>
-      <p className="text-sm text-slate-500 mt-1">
-        后台配置如何影响前端用户体验
-      </p>
-    </div>
-    {sections.map((section, index) => (
-      <div key={index}>
-        <h3 className="font-semibold mb-3">{section.title}</h3>
-        {section.content}
-      </div>
-    ))}
-  </div>
-)
 
 export default function OrderListPage({ orders, error }: OrderListPageProps) {
   const [filterStatus, setFilterStatus] = useState<OrderStatus | 'all'>('all')
@@ -83,9 +67,7 @@ export default function OrderListPage({ orders, error }: OrderListPageProps) {
 
   return (
     <MainLayout>
-      <div className="flex h-screen">
-        <div className="w-[60%] overflow-y-auto">
-          <div className="p-6 space-y-6">
+      <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-2xl font-bold text-slate-900">订单列表</h1>
@@ -206,72 +188,6 @@ export default function OrderListPage({ orders, error }: OrderListPageProps) {
                 </Table>
               </CardContent>
             </Card>
-          </div>
-        </div>
-
-        {/* 右侧：业务逻辑说明 (40%) */}
-        <div className="w-[40%] h-full border-l">
-          <BusinessLogicPanel
-            sections={[
-              {
-                title: '📱 用户端体验',
-                content: (
-                  <>
-                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
-                      <p className="font-semibold text-sm mb-2">📱 页面1：我的订单</p>
-                      <div className="text-xs space-y-1 text-slate-700">
-                        <div>
-                          <div className="text-slate-500 mt-1">入住：01/18 - 01/19（1晚）</div>
-                          <div className="text-slate-500">实付：¥428</div>
-                        </div>
-                        <div className="text-slate-500 text-xs">→ 后台订单状态"待入住"映射到前端</div>
-                      </div>
-                    </div>
-
-                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
-                      <p className="font-semibold text-sm mb-2">📱 页面2：订单详情</p>
-                      <div className="text-xs space-y-1 text-slate-700">
-                        <div className="font-bold border-b pb-1 mb-1">亚朵酒店·上海新天地店</div>
-                        <div>订单号：ORD_20250116001</div>
-                        <div>入住时间：01/18 14:00 - 01/19 12:00</div>
-                        <div>房型：大床房 × 1晚</div>
-                        <div className="border-t pt-1 mt-1">
-                          <div className="flex justify-between"><span>房费小计</span><span>¥458</span></div>
-                          <div className="flex justify-between text-red-600"><span>优惠券</span><span>-¥30</span></div>
-                          <div className="flex justify-between font-bold"><span>实付金额</span><span className="text-red-600">¥428</span></div>
-                        </div>
-                        <div className="text-slate-500 text-xs mt-2">→ 后台的价格明细完整透出给用户</div>
-                      </div>
-                    </div>
-
-                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
-                      <p className="font-semibold text-sm mb-2">📱 页面3：订单状态提醒</p>
-                      <div className="text-xs space-y-1 text-slate-700">
-                        <div>🔔 您的订单已确认，01/18可入住</div>
-                        <div>📅 距离入住还有2天</div>
-                        <div>📍 酒店地址：黄浦区马当路388号</div>
-                        <div><button className="text-blue-600 underline">查看路线</button></div>
-                        <div className="text-slate-500 text-xs mt-2">→ 后台状态"待入住"触发入住提醒</div>
-                      </div>
-                    </div>
-
-                    <div className="mt-4">
-                      <p className="text-sm text-slate-700 leading-relaxed">
-                        • 后台状态"待入住" → 前端显示倒计时"距离入住还有2天"
-                        <br />
-                        • 后台状态"已入住" → 前端解锁"申请退款"按钮
-                        <br />
-                        • 后台状态"已完成" → 前端弹出"请评价"
-                        <br />
-                        • 后台价格明细 → 前端完整展示优惠明细
-                      </p>
-                    </div>
-                  </>
-                )
-              }
-            ]}
-          />
-        </div>
       </div>
     </MainLayout>
   )

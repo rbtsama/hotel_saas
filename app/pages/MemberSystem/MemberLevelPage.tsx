@@ -24,23 +24,6 @@ const OperationLogButton = ({ moduleName }: { moduleName: string }) => (
   </Button>
 )
 
-const BusinessLogicPanel = ({ sections }: { sections: Array<{ title: string; content: React.ReactNode }> }) => (
-  <div className="p-6 space-y-6 overflow-y-auto">
-    <div>
-      <h2 className="text-xl font-bold text-slate-900">业务逻辑说明</h2>
-      <p className="text-sm text-slate-500 mt-1">
-        后台配置如何影响前端用户体验
-      </p>
-    </div>
-    {sections.map((section, index) => (
-      <div key={index}>
-        <h3 className="font-semibold mb-3">{section.title}</h3>
-        {section.content}
-      </div>
-    ))}
-  </div>
-)
-
 export default function MemberLevelPage({ levels, error }: MemberLevelPageProps) {
   const [showEditDialog, setShowEditDialog] = useState(false)
   const [currentLevel, setCurrentLevel] = useState<MemberLevel | null>(null)
@@ -71,9 +54,7 @@ export default function MemberLevelPage({ levels, error }: MemberLevelPageProps)
 
   return (
     <MainLayout>
-      <div className="flex h-screen">
-        <div className="w-[60%] overflow-y-auto">
-          <div className="p-6 space-y-6">
+      <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-2xl font-bold text-slate-900">会员等级配置</h1>
@@ -164,7 +145,6 @@ export default function MemberLevelPage({ levels, error }: MemberLevelPageProps)
               </CardContent>
             </Card>
           </div>
-        </div>
 
         {/* 编辑弹窗 */}
         {showEditDialog && currentLevel && (
@@ -288,76 +268,6 @@ export default function MemberLevelPage({ levels, error }: MemberLevelPageProps)
             </Card>
           </div>
         )}
-
-        {/* 右侧：业务逻辑说明 (40%) */}
-        <div className="w-[40%] h-full border-l">
-          <BusinessLogicPanel
-            sections={[
-              {
-                title: '📱 用户端体验',
-                content: (
-                  <>
-                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
-                      <p className="font-semibold text-sm mb-2">📱 页面1：我的会员等级</p>
-                      <div className="text-xs space-y-1 text-slate-700">
-                        <div>
-                          <div className="font-bold">金卡会员</div>
-                          <div className="text-xs mt-1">1.2× 积分加成</div>
-                        </div>
-                        <div className="text-slate-700">
-                          <div>• 本年度已住：<span className="font-bold">8</span> 晚</div>
-                          <div>• 升级到白金还需：<span className="text-orange-600 font-bold">12</span> 晚</div>
-                          <div className="text-slate-500 text-xs">→ 后台配置的"白金升级20晚"决定升级要求</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
-                      <p className="font-semibold text-sm mb-2">📱 页面2：会员权益</p>
-                      <div className="text-xs space-y-1 text-slate-700">
-                        <div>✓ 积分1.2倍加成</div>
-                        <div>✓ 最低95折优惠</div>
-                        <div>✓ 赠送5张体验卡（15天有效）</div>
-                        <div>✗ 延迟退房（需白金以上）</div>
-                        <div>✗ 免费升房（需钻石以上）</div>
-                        <div className="text-slate-500">→ 后台配置的"适用等级"决定哪些权益可用</div>
-                      </div>
-                    </div>
-
-                    <div className="bg-slate-50 border rounded-lg p-4 mb-4">
-                      <p className="font-semibold text-sm mb-2">📱 页面3：会员商城-购买会员卡</p>
-                      <div className="text-xs space-y-1 text-slate-700">
-                        <div className="border-b pb-2 mb-2">
-                          <div className="font-bold">金卡会员</div>
-                          <div className="flex items-baseline gap-2 mt-1">
-                            <span className="text-red-600 font-bold text-lg">¥158</span>
-                            <span className="text-slate-400 line-through text-xs">¥298</span>
-                            <span className="bg-red-100 text-red-600 px-1.5 rounded text-xs">5.3折</span>
-                          </div>
-                        </div>
-                        <div className="text-slate-500">→ 后台配置的"促销价¥158"和"划线价¥298"</div>
-                        <div className="text-slate-500">→ 自动计算折扣：158÷298×10=5.3折</div>
-                      </div>
-                    </div>
-
-                    <div className="mt-4">
-                      <p className="text-sm text-slate-700 leading-relaxed">
-                        • 后台设置"金卡升级10晚" → 前端显示进度条"8/10晚"
-                        <br />
-                        • 后台设置"积分倍率1.2×" → 前端提示"本次订单将获得120积分（1.2倍加成）"
-                        <br />
-                        • 后台设置"最低折扣95%" → 前端显示"会员专享95折起"
-                        <br />
-                        • 后台设置"体验卡5张/15天" → 前端显示"赠送5张15天体验卡"
-                      </p>
-                    </div>
-                  </>
-                )
-              }
-            ]}
-          />
-        </div>
-      </div>
     </MainLayout>
   )
 }

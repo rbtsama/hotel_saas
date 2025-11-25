@@ -6,7 +6,6 @@ import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { ArrowLeft, User, Phone, Mail, Calendar, CreditCard } from 'lucide-react'
 import { cn } from '~/lib/utils'
-import { useViewMode } from '~/contexts/ViewModeContext'
 import Sidebar, { menuConfig } from '~/pages/PointsSystem/components/Sidebar'
 
 interface MemberDetailPageProps {
@@ -21,8 +20,6 @@ const ORDER_STATUS_LABELS = {
 } as const
 
 export default function MemberDetailPage({ member, error }: MemberDetailPageProps) {
-  const { isLearningMode } = useViewMode()
-
   if (error || !member) {
     return (
       <div className="flex h-screen">

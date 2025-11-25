@@ -18,23 +18,6 @@ interface SigningRecordPageProps {
   error?: string | null
 }
 
-const BusinessLogicPanel = ({ sections }: { sections: Array<{ title: string; content: React.ReactNode }> }) => (
-  <div className="p-6 space-y-6 overflow-y-auto">
-    <div>
-      <h2 className="text-xl font-bold text-slate-900">业务逻辑说明</h2>
-      <p className="text-sm text-slate-500 mt-1">
-        后台配置如何影响前端用户体验
-      </p>
-    </div>
-    {sections.map((section, index) => (
-      <div key={index}>
-        <h3 className="font-semibold mb-3">{section.title}</h3>
-        {section.content}
-      </div>
-    ))}
-  </div>
-)
-
 export default function SigningRecordPage({ records, error }: SigningRecordPageProps) {
   const [dateStart, setDateStart] = useState('')
   const [dateEnd, setDateEnd] = useState('')
@@ -66,10 +49,7 @@ export default function SigningRecordPage({ records, error }: SigningRecordPageP
 
   return (
     <MainLayout>
-      <div className="flex h-full">
-        {/* 左侧：功能区 (60%) */}
-        <div className="w-[60%] h-full overflow-y-auto">
-          <div className="p-6 space-y-6">
+      <div className="p-6 space-y-6">
             {/* 页面标题 */}
             <div className="flex items-center justify-between">
               <div>
@@ -151,7 +131,6 @@ export default function SigningRecordPage({ records, error }: SigningRecordPageP
               </CardContent>
             </Card>
           </div>
-        </div>
 
         {/* 签约详情弹窗 */}
         {showDetailDialog && currentRecord && (
@@ -212,67 +191,6 @@ export default function SigningRecordPage({ records, error }: SigningRecordPageP
             </Card>
           </div>
         )}
-
-        {/* 右侧：业务逻辑说明 (40%) */}
-        <div className="w-[40%] h-full border-l">
-          <BusinessLogicPanel
-            sections={[
-              {
-                title: '📋 签约记录的作用',
-                content: (
-                  <div className="text-sm text-slate-900 space-y-2">
-                    <p>• <strong>法律证据</strong>：保留签约时的完整信息（协议快照 + IP + 时间戳）</p>
-                    <p>• <strong>历史追溯</strong>：即使协议模板修改，历史签约记录不变</p>
-                    <p>• <strong>审计合规</strong>：记录操作人，满足监管要求</p>
-                  </div>
-                )
-              },
-              {
-                title: '🔍 查询功能',
-                content: (
-                  <div className="text-sm text-slate-900 space-y-2">
-                    <p>• <strong>时间范围筛选</strong>：快速找到特定时期的签约记录</p>
-                    <p>• <strong>酒店名称搜索</strong>：查看某个商家的签约历史</p>
-                    <p>• <strong>协议版本</strong>：追踪不同版本协议的使用情况</p>
-                  </div>
-                )
-              },
-              {
-                title: '📄 协议内容快照',
-                content: (
-                  <div className="text-sm text-slate-900 space-y-2">
-                    <p><strong>为什么需要快照？</strong></p>
-                    <div className="bg-slate-50 p-3 rounded border-l-4 border-blue-500">
-                      <p className="font-medium">场景示例：</p>
-                      <p>2024年7月商家签约时，技术服务费是 <strong>4%</strong></p>
-                      <p>2025年1月协议升级为 <strong>V2.1</strong>，技术服务费改为 <strong>5%</strong></p>
-                      <p className="mt-2 text-blue-600">✅ 老商家的签约记录快照保留 4%，不受影响</p>
-                      <p className="text-slate-500">❌ 如果没有快照，无法证明当时的协议内容</p>
-                    </div>
-                  </div>
-                )
-              },
-              {
-                title: '⚖️ 法律效力要素',
-                content: (
-                  <div className="text-sm text-slate-900">
-                    <div className="bg-green-50 p-3 rounded border-l-4 border-green-500 space-y-1">
-                      <p>✅ <strong>签约时间</strong>：精确到秒</p>
-                      <p>✅ <strong>签约人</strong>：姓名 + 手机号（实名认证）</p>
-                      <p>✅ <strong>签约IP</strong>：追溯签约地点</p>
-                      <p>✅ <strong>协议快照</strong>：完整保留签约时的协议文本</p>
-                      <p>✅ <strong>平台操作人</strong>：记录平台方审核人员</p>
-                      <p className="mt-2 text-green-700 font-medium">
-                        → 这些要素共同构成具有法律效力的电子签约证据
-                      </p>
-                    </div>
-                  </div>
-                )
-              }
-            ]}
-          />
-        </div>
-      </div>
     </MainLayout>
   )
 }

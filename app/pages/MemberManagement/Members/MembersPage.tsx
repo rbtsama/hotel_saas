@@ -11,7 +11,6 @@ import { Search, UserCheck, Users, ChevronLeft, ChevronRight } from 'lucide-reac
 import { cn } from '~/lib/utils'
 import { useViewMode } from '~/contexts/ViewModeContext'
 import Sidebar, { menuConfig } from '~/pages/PointsSystem/components/Sidebar'
-import LogicPanel, { LogicTable, LogicList, LogicHighlight } from '~/pages/PointsSystem/components/LogicPanel'
 
 interface MembersPageProps {
   result: MemberListResponse | null
@@ -20,7 +19,6 @@ interface MembersPageProps {
 
 export default function MembersPage({ result, error }: MembersPageProps) {
   const navigate = useNavigate()
-  const { isLearningMode } = useViewMode()
   const [phone, setPhone] = useState('')
   const [level, setLevel] = useState('')
   const [isPointsMember, setIsPointsMember] = useState('')
@@ -37,78 +35,6 @@ export default function MembersPage({ result, error }: MembersPageProps) {
     params.set('page', String(page))
     navigate(`?${params.toString()}`)
   }
-
-  // LogicPanel 配置
-  const logicSections = [
-    {
-      title: '业务场景',
-      content: (
-        <div className="space-y-4">
-          <p>会员管理是酒店精细化运营的基础，通过数据分析实现精准营销：</p>
-          <LogicList items={[
-            <><strong>用户画像：</strong>了解会员的消费习惯、偏好房型、入住频次等</>,
-            <><strong>精准营销：</strong>针对不同会员群体推送个性化的优惠和活动</>,
-            <><strong>流失预警：</strong>识别长期未消费的会员，进行召回营销</>,
-            <><strong>价值分类：</strong>区分高价值客户和普通客户，差异化服务</>
-          ]} />
-        </div>
-      )
-    },
-    {
-      title: '会员数据分析',
-      content: (
-        <div className="space-y-4">
-          <h4 className="font-semibold">关键指标说明</h4>
-          <LogicList items={[
-            <><strong>订单数：</strong>会员累计预订的订单次数，反映消费频次</>,
-            <><strong>间夜数：</strong>会员累计入住的总间夜数，反映消费深度</>,
-            <><strong>消费金额：</strong>会员累计消费总额，衡量会员价值</>,
-            <><strong>活跃度：</strong>最近一次消费时间，识别活跃/沉睡会员</>,
-            <><strong>复购周期：</strong>两次消费之间的平均时间间隔</>
-          ]} />
-          <LogicHighlight type="success">
-            <strong>RFM模型：</strong>通过最近消费时间(Recency)、消费频率(Frequency)、消费金额(Monetary)三个维度，对会员进行价值分层。
-          </LogicHighlight>
-        </div>
-      )
-    },
-    {
-      title: '操作说明',
-      content: (
-        <div className="space-y-4">
-          <LogicList items={[
-            <><strong>导入会员：</strong>批量导入会员数据，快速建立会员体系</>,
-            <><strong>清除会员：</strong>清理无效或测试账号，保持数据准确性</>,
-            <><strong>查看详情：</strong>点击"查"按钮查看会员的完整信息和消费记录</>,
-            <><strong>拉黑用户：</strong>对恶意用户进行拉黑处理，限制其使用权限</>,
-            <><strong>等级调整：</strong>根据实际情况手动调整会员等级</>
-          ]} />
-          <LogicHighlight type="warning">
-            <strong>注意：</strong>拉黑操作要慎重，建议先核实情况再执行。
-          </LogicHighlight>
-        </div>
-      )
-    },
-    {
-      title: '字段说明',
-      content: (
-        <LogicTable
-          headers={['字段', '说明', '示例']}
-          rows={[
-            ['注册时间', '会员注册的时间', '01/15/25 10:30:00'],
-            ['昵称', '会员设置的昵称', '旅行达人'],
-            ['姓名', '会员真实姓名', '张三'],
-            ['电话', '会员联系电话', '13812345678'],
-            ['等级', '会员当前等级', 'VIP2'],
-            ['订单数', '累计预订订单次数', '12'],
-            ['间夜数', '累计入住间夜数', '24'],
-            ['消费金额', '累计消费总额（元）', '15680'],
-            ['是否积分会员', '是否开通积分功能', '是/否']
-          ]}
-        />
-      )
-    }
-  ]
 
   if (error) {
     return (
@@ -364,14 +290,9 @@ export default function MembersPage({ result, error }: MembersPageProps) {
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar menuItems={menuConfig} />
-      <div className={`flex-1 overflow-y-auto ${isLearningMode ? '' : ''}`}>
+      <div className="flex-1 overflow-y-auto">
         {mainContent}
       </div>
-      {isLearningMode && (
-        <div className="w-[480px] border-l border-border overflow-hidden">
-          <LogicPanel title="会员管理" sections={logicSections} />
-        </div>
-      )}
     </div>
   )
 }

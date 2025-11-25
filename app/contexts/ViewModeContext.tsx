@@ -1,16 +1,10 @@
 /**
- * 视图模式Context - 管理学习模式/展示模式切换 + 侧边栏收起状态
+ * 视图模式Context - 管理侧边栏收起状态
  */
 
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react'
 
-export type ViewMode = 'learning' | 'presentation'
-
 interface ViewModeContextType {
-  mode: ViewMode
-  toggleMode: () => void
-  isLearningMode: boolean
-  isPresentationMode: boolean
   isSidebarCollapsed: boolean
   toggleSidebar: () => void
   setSidebarCollapsed: (collapsed: boolean) => void
@@ -19,15 +13,6 @@ interface ViewModeContextType {
 const ViewModeContext = createContext<ViewModeContextType | undefined>(undefined)
 
 export function ViewModeProvider({ children }: { children: ReactNode }) {
-  // 从localStorage读取初始模式
-  const [mode, setMode] = useState<ViewMode>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('viewMode')
-      return (saved as ViewMode) || 'learning'
-    }
-    return 'learning'
-  })
-
   // 从localStorage读取侧边栏状态
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
@@ -37,23 +22,12 @@ export function ViewModeProvider({ children }: { children: ReactNode }) {
     return false
   })
 
-  // 保存视图模式到localStorage
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('viewMode', mode)
-    }
-  }, [mode])
-
   // 保存侧边栏状态到localStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('sidebarCollapsed', String(isSidebarCollapsed))
     }
   }, [isSidebarCollapsed])
-
-  const toggleMode = () => {
-    setMode((prev) => (prev === 'learning' ? 'presentation' : 'learning'))
-  }
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed((prev) => !prev)
@@ -64,10 +38,6 @@ export function ViewModeProvider({ children }: { children: ReactNode }) {
   }
 
   const value: ViewModeContextType = {
-    mode,
-    toggleMode,
-    isLearningMode: mode === 'learning',
-    isPresentationMode: mode === 'presentation',
     isSidebarCollapsed,
     toggleSidebar,
     setSidebarCollapsed,

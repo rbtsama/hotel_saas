@@ -6,9 +6,7 @@ import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Search, FileText, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useViewMode } from '~/contexts/ViewModeContext'
 import Sidebar, { menuConfig } from '~/pages/PointsSystem/components/Sidebar'
-import LogicPanel, { LogicTable, LogicList, LogicHighlight } from '~/pages/PointsSystem/components/LogicPanel'
 
 interface UserReviewsPageProps {
   result: UserReviewListResponse | null
@@ -17,7 +15,6 @@ interface UserReviewsPageProps {
 
 export default function UserReviewsPage({ result, error }: UserReviewsPageProps) {
   const navigate = useNavigate()
-  const { isLearningMode } = useViewMode()
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
 
@@ -31,78 +28,6 @@ export default function UserReviewsPage({ result, error }: UserReviewsPageProps)
     params.set('page', String(page))
     navigate(`?${params.toString()}`)
   }
-
-  // LogicPanel 配置
-  const logicSections = [
-    {
-      title: '业务场景',
-      content: (
-        <div className="space-y-4">
-          <p>用户点赞（用户评价）是酒店获取客户反馈的重要渠道，对酒店经营具有重要价值：</p>
-          <LogicList items={[
-            <><strong>口碑营销：</strong>积极的用户评价可以吸引更多新客户预订</>,
-            <><strong>服务改进：</strong>通过评价发现服务中的问题，及时调整和优化</>,
-            <><strong>信任建立：</strong>真实的用户反馈增强潜在客户的预订信心</>,
-            <><strong>竞争优势：</strong>高质量的评价和评分提升酒店在平台上的排名</>
-          ]} />
-        </div>
-      )
-    },
-    {
-      title: '点赞/评价系统',
-      content: (
-        <div className="space-y-4">
-          <h4 className="font-semibold">如何收集用户反馈</h4>
-          <LogicList items={[
-            <><strong>评价触发时机：</strong>用户入住后自动发送评价邀请（通常在退房后1-3天）</>,
-            <><strong>评价内容：</strong>包含评分（星级）和文字评价，可以上传图片</>,
-            <><strong>评价维度：</strong>
-              <ul className="ml-6 mt-2 space-y-1">
-                <li>• 卫生整洁度</li>
-                <li>• 服务态度</li>
-                <li>• 设施设备</li>
-                <li>• 性价比</li>
-                <li>• 位置交通</li>
-              </ul>
-            </>,
-            <><strong>激励机制：</strong>完成评价可获得积分奖励，鼓励用户留下真实反馈</>
-          ]} />
-          <LogicHighlight type="info">
-            <strong>提示：</strong>及时回复用户评价（尤其是负面评价）非常重要，体现酒店对客户意见的重视。
-          </LogicHighlight>
-        </div>
-      )
-    },
-    {
-      title: '操作说明',
-      content: (
-        <div className="space-y-4">
-          <LogicList items={[
-            <><strong>查看详情：</strong>点击"详情"按钮查看完整的评价内容和客户信息</>,
-            <><strong>回复评价：</strong>在详情页面可以对用户评价进行回复</>,
-            <><strong>筛选评价：</strong>可以按留言日期筛选评价记录</>,
-            <><strong>处理差评：</strong>对于差评要及时沟通处理，必要时可以申请隐藏不当评价</>
-          ]} />
-        </div>
-      )
-    },
-    {
-      title: '字段说明',
-      content: (
-        <LogicTable
-          headers={['字段', '说明', '示例']}
-          rows={[
-            ['留言时间', '用户提交评价的时间', '01/15/25 14:30:00'],
-            ['入住人', '预订并入住的客人姓名', '张三'],
-            ['入住人电话', '客人的联系电话', '13812345678'],
-            ['预定房型', '客人预订的房型名称', '豪华大床房'],
-            ['评价内容', '用户的文字评价（在详情页查看）', '酒店位置很好...'],
-            ['评分', '各维度的星级评分（在详情页查看）', '卫生 5星，服务 4星']
-          ]}
-        />
-      )
-    }
-  ]
 
   if (error) {
     return (
@@ -263,14 +188,9 @@ export default function UserReviewsPage({ result, error }: UserReviewsPageProps)
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar menuItems={menuConfig} />
-      <div className={`flex-1 overflow-y-auto ${isLearningMode ? '' : ''}`}>
+      <div className="flex-1 overflow-y-auto">
         {mainContent}
       </div>
-      {isLearningMode && (
-        <div className="w-[480px] border-l border-border overflow-hidden">
-          <LogicPanel title="用户点赞" sections={logicSections} />
-        </div>
-      )}
     </div>
   )
 }

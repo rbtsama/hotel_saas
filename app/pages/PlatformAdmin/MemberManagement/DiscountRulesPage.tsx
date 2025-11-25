@@ -12,8 +12,6 @@ import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '~/components/ui/dialog'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
-import LearningModal from '~/pages/Architecture/ScenarioDesign/components/LearningModal'
-import { useViewMode } from '~/contexts/ViewModeContext'
 import { Edit, Percent } from 'lucide-react'
 
 interface DiscountRulesPageProps {
@@ -21,7 +19,6 @@ interface DiscountRulesPageProps {
 }
 
 export default function DiscountRulesPage({ rules }: DiscountRulesPageProps) {
-  const { isLearningMode } = useViewMode()
   const [editingRule, setEditingRule] = useState<MemberLevelDiscountRule | null>(null)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
   const [formData, setFormData] = useState({
@@ -53,47 +50,6 @@ export default function DiscountRulesPage({ rules }: DiscountRulesPageProps) {
           <div>
             <h1 className="text-2xl font-bold text-slate-900">会员等级折扣规则配置</h1>
           </div>
-          <LearningModal title="会员等级折扣规则 - 学习内容" isLearningMode={isLearningMode}>
-            <div className="space-y-4">
-              <section>
-                <h3 className="text-lg font-semibold mb-2">折扣规则说明</h3>
-                <p className="text-slate-900 mb-3">
-                  平台设定基础折扣，商户可在允许范围内设置更优惠的折扣。这种机制平衡了平台控制力和商户灵活性。
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-slate-900">
-                  <li><strong>平台基础折扣：</strong>该等级的默认折扣力度</li>
-                  <li><strong>商户折扣范围：</strong>商户可设置的最低和最高折扣</li>
-                  <li><strong>商户折扣最高 = 平台基础折扣</strong></li>
-                </ul>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold mb-2">价格计算示例</h3>
-                <div className="p-3 bg-slate-100 rounded-lg space-y-2 text-sm">
-                  <p><strong>条件：</strong></p>
-                  <ul className="list-disc list-inside ml-2 text-slate-900">
-                    <li>VIP3平台基础折扣：9折</li>
-                    <li>商户设置VIP3折扣：88折（在85折-9折范围内）</li>
-                    <li>房型原价：¥500</li>
-                  </ul>
-                  <p className="mt-2"><strong>计算：</strong></p>
-                  <p className="text-slate-900">
-                    最终价格 = ¥500 × 0.88 = <span className="font-semibold text-blue-600">¥440</span>
-                  </p>
-                </div>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold mb-2">配置规则</h3>
-                <ul className="list-disc list-inside space-y-1 text-slate-900">
-                  <li>平台基础折扣必须递减：VIP9 &lt; VIP8 &lt; ... &lt; VIP1</li>
-                  <li>商户折扣最高 = 平台基础折扣</li>
-                  <li>商户折扣最低 ≤ 商户折扣最高</li>
-                  <li>折扣范围：0.5-1.0（例如9折 = 0.9）</li>
-                </ul>
-              </section>
-            </div>
-          </LearningModal>
         </div>
 
         {/* 配置表格 */}

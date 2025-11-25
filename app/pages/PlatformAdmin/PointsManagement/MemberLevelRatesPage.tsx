@@ -12,8 +12,6 @@ import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
-import LearningModal from '~/pages/Architecture/ScenarioDesign/components/LearningModal'
-import { useViewMode } from '~/contexts/ViewModeContext'
 import { Edit } from 'lucide-react'
 
 interface MemberLevelRatesPageProps {
@@ -21,7 +19,6 @@ interface MemberLevelRatesPageProps {
 }
 
 export default function MemberLevelRatesPage({ rates }: MemberLevelRatesPageProps) {
-  const { isLearningMode } = useViewMode()
   const [editingRate, setEditingRate] = useState<MemberLevelPointsRate | null>(null)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
   const [rateValue, setRateValue] = useState(1.0)
@@ -41,55 +38,6 @@ export default function MemberLevelRatesPage({ rates }: MemberLevelRatesPageProp
           <div>
             <h1 className="text-2xl font-bold text-slate-900">会员等级积分倍数配置</h1>
           </div>
-          <LearningModal title="会员等级积分倍数 - 学习内容" isLearningMode={isLearningMode}>
-            <div className="space-y-4">
-              <section>
-                <h3 className="text-lg font-semibold mb-2">什么是积分倍数？</h3>
-                <p className="text-slate-900">
-                  积分倍数决定会员使用积分抵扣现金的实际价值。基础兑换率由"积分基础规则"设定，
-                  不同会员等级享有不同的倍数加成。
-                </p>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold mb-2">计算示例</h3>
-                <div className="p-3 bg-slate-100 rounded-lg space-y-2 text-sm">
-                  <p><strong>前提条件：</strong></p>
-                  <ul className="list-disc list-inside ml-2 text-slate-900">
-                    <li>基础兑换比率：1积分 = 1元</li>
-                    <li>VIP3倍数：1.2倍</li>
-                  </ul>
-                  <p className="mt-2"><strong>计算过程：</strong></p>
-                  <p className="text-slate-900">
-                    VIP3用户使用50积分抵扣 = 50积分 × 1元 × 1.2倍 = <span className="font-semibold text-blue-600">¥60</span>
-                  </p>
-                </div>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold mb-2">配置规则</h3>
-                <ul className="list-disc list-inside space-y-1 text-slate-900">
-                  <li>倍数范围：1.0-3.0倍</li>
-                  <li>必须保持递增：VIP9 &gt; VIP8 &gt; ... &gt; VIP0</li>
-                  <li>修改后立即生效</li>
-                  <li>仅影响新订单，历史订单不变</li>
-                </ul>
-              </section>
-
-              <section>
-                <h3 className="text-lg font-semibold mb-2">业务影响</h3>
-                <p className="text-slate-900 mb-2">
-                  设置合理的倍数梯度可以：
-                </p>
-                <ol className="list-decimal list-inside space-y-1 text-slate-900">
-                  <li>激励用户升级会员等级</li>
-                  <li>提升高等级会员的忠诚度</li>
-                  <li>增加用户消费频次</li>
-                  <li>平衡积分成本和用户价值</li>
-                </ol>
-              </section>
-            </div>
-          </LearningModal>
         </div>
 
         {/* 说明卡片 */}

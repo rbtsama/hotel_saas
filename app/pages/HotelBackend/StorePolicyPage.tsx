@@ -35,9 +35,7 @@ export default function StorePolicyPage({ policy }: StorePolicyPageProps) {
 
   return (
     <MainLayout>
-      <div className="flex h-full">
-        {/* 左侧：实际后台界面 (60%) */}
-        <div className="w-[60%] h-full overflow-y-auto bg-slate-50 p-6">
+      <div className="p-6 bg-slate-50">
         <div className="space-y-6 max-w-5xl">
         {/* 页面标题 */}
         <div>
@@ -622,12 +620,6 @@ export default function StorePolicyPage({ policy }: StorePolicyPageProps) {
             </Button>
           </div>
         </Form>
-        </div>
-        </div>
-
-        {/* 右侧：LogicPanel (40%) */}
-        <div className="w-[40%] h-full border-l">
-          {/* LogicPanel placeholder */}
         </div>
       </div>
     </MainLayout>

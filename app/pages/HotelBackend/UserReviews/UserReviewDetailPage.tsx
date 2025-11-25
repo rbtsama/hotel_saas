@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Button } from '~/components/ui/button'
 import { Textarea } from '~/components/ui/textarea'
 import { Star, ArrowLeft } from 'lucide-react'
-import { useViewMode } from '~/contexts/ViewModeContext'
 import Sidebar, { menuConfig } from '~/pages/PointsSystem/components/Sidebar'
 
 interface UserReviewDetailPageProps {
@@ -13,8 +12,6 @@ interface UserReviewDetailPageProps {
 }
 
 export default function UserReviewDetailPage({ review, error }: UserReviewDetailPageProps) {
-  const { isLearningMode } = useViewMode()
-
   if (error || !review) {
     return (
       <div className="flex h-screen">

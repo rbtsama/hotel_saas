@@ -8,7 +8,6 @@ import { Badge } from '~/components/ui/badge'
 import { Switch } from '~/components/ui/switch'
 import { useViewMode } from '~/contexts/ViewModeContext'
 import Sidebar, { menuConfig } from '~/pages/PointsSystem/components/Sidebar'
-import LogicPanel, { LogicTable, LogicList, LogicHighlight } from '~/pages/PointsSystem/components/LogicPanel'
 import { Upload } from 'lucide-react'
 
 interface MemberLevelsPageProps {
@@ -17,7 +16,6 @@ interface MemberLevelsPageProps {
 }
 
 export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProps) {
-  const { isLearningMode } = useViewMode()
   const [editedLevels, setEditedLevels] = useState<MemberLevel[]>(levels)
   const [confirmStatusChange, setConfirmStatusChange] = useState<{
     levelId: string
@@ -86,84 +84,6 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
       setConfirmStatusChange(null)
     }
   }
-
-  // LogicPanel 配置
-  const logicSections = [
-    {
-      title: '业务场景',
-      content: (
-        <div className="space-y-4">
-          <p>会员等级体系通过阶梯式权益设计，激励用户持续消费并保持活跃：</p>
-          <LogicList items={[
-            <><strong>升级机制：</strong>完成指定次数订单即可升级到下一等级</>,
-            <><strong>保级机制：</strong>有效期内保持最低消费频次，否则降级</>,
-            <><strong>权益递增：</strong>等级越高，折扣力度越大，积分汇率越高</>,
-            <><strong>长期激励：</strong>通过有效期设计，鼓励用户持续活跃</>
-          ]} />
-        </div>
-      )
-    },
-    {
-      title: '升级与保级规则',
-      content: (
-        <div className="space-y-4">
-          <LogicTable
-            headers={['规则', '说明', '示例']}
-            rows={[
-              ['升级间夜', '在当前等级完成X次订单后自动升级', 'VIP1升级间夜3次，完成3次订单升级到VIP2'],
-              ['保级间夜', '有效期内至少完成X次订单才能保持等级', 'VIP2保级间夜2次，有效期内少于2次则降为VIP1'],
-              ['有效期', '达到等级后+X天有效，到期当天23:59:59失效', 'VIP3有效期365天，达到当天不计入，之后365天有效'],
-              ['降级机制', '有效期到期且未达到保级要求则降1级', '未达到保级要求的VIP3会降为VIP2']
-            ]}
-          />
-          <LogicHighlight type="info">
-            <strong>重要：</strong>达到等级的当天不计入有效期，从第二天开始计算。例如1月1日达到VIP1（有效期365天），则在次年1月1日23:59:59过期。
-          </LogicHighlight>
-        </div>
-      )
-    },
-    {
-      title: '折扣与积分规则',
-      content: (
-        <div className="space-y-4">
-          <p>每个等级配置独立的折扣范围和积分倍数：</p>
-          <LogicList items={[
-            <><strong>折扣范围：</strong>平台设定的折扣区间，门店可在此范围内调整</>,
-            <><strong>积分倍数：</strong>消费1元可获得的积分数量，等级越高倍数越高</>,
-            <><strong>差异化激励：</strong>通过折扣和积分的差异化，激励用户升级</>
-          ]} />
-          <LogicTable
-            headers={['等级', '折扣范围', '积分倍数']}
-            rows={[
-              ['VIP0（注册会员）', '无折扣', '1.0'],
-              ['VIP1', '85% ~ 95%', '1.2'],
-              ['VIP3', '75% ~ 88%', '2.0'],
-              ['VIP5', '65% ~ 82%', '3.0'],
-              ['VIP9', '45% ~ 70%', '5.0']
-            ]}
-          />
-        </div>
-      )
-    },
-    {
-      title: '字段说明',
-      content: (
-        <LogicTable
-          headers={['字段', '说明', '验证规则']}
-          rows={[
-            ['等级', 'VIP等级编号，固定0-9', '不可修改'],
-            ['展示名称', '等级显示名称', '文本，可自定义'],
-            ['升级间夜', '达到下一等级需要的订单次数', '正整数，无上限'],
-            ['保级间夜', '有效期内保持等级的最低订单次数', '正整数，无上限'],
-            ['有效期（天）', '等级有效天数，0表示永久', '正整数或0'],
-            ['折扣范围', '可设置的折扣百分比区间', '非负整数，最小值≤最大值'],
-            ['积分倍数', '消费1元获得的积分倍数', '正数，支持2位小数'],
-            ['状态', '等级是否启用', '启用/禁用']
-          ]}
-        />
-      )
-    }
-  ]
 
   if (error) {
     return (
@@ -357,14 +277,9 @@ export default function MemberLevelsPage({ levels, error }: MemberLevelsPageProp
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar menuItems={menuConfig} />
-      <div className={`flex-1 overflow-y-auto ${isLearningMode ? '' : ''}`}>
+      <div className="flex-1 overflow-y-auto">
         {mainContent}
       </div>
-      {isLearningMode && (
-        <div className="w-[480px] border-l border-border overflow-hidden">
-          <LogicPanel title="会员等级设置" sections={logicSections} />
-        </div>
-      )}
 
       {/* 编辑弹窗 */}
       {editingLevel && editFormData && (

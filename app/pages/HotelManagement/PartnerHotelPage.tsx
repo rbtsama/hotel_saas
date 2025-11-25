@@ -57,9 +57,7 @@ export default function PartnerHotelPage({ hotels }: PartnerHotelPageProps) {
 
   return (
     <MainLayout>
-      <div className="flex h-full">
-        <div className="w-[60%] h-full overflow-y-auto bg-background p-6">
-          <div className="space-y-6">
+      <div className="p-6 space-y-6">
             <div>
               <h1 className="text-2xl font-bold">合作酒店</h1>
             </div>
@@ -237,7 +235,6 @@ export default function PartnerHotelPage({ hotels }: PartnerHotelPageProps) {
               </CardContent>
             </Card>
           </div>
-        </div>
 
         {/* 编辑酒店弹窗 */}
         {showEditDialog && currentHotel && (
@@ -277,12 +274,6 @@ export default function PartnerHotelPage({ hotels }: PartnerHotelPageProps) {
             </Card>
           </div>
         )}
-
-        {/* 右侧：业务逻辑说明 (40%) */}
-        <div className="w-[40%] h-full border-l">
-          {/* LogicPanel placeholder */}
-        </div>
-      </div>
     </MainLayout>
   )
 }

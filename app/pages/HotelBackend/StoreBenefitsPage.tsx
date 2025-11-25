@@ -48,10 +48,8 @@ export default function StoreBenefitsPage({ config }: StoreBenefitsPageProps) {
 
   return (
     <MainLayout>
-      <div className="flex h-full">
-        {/* 左侧：实际后台界面 (60%) */}
-        <div className="w-[60%] h-full overflow-y-auto bg-slate-50 p-6">
-          <div className="space-y-6 max-w-5xl">
+      <div className="p-6 bg-slate-50">
+        <div className="space-y-6 max-w-5xl">
             {/* 页面标题 */}
             <div>
               <h1 className="text-2xl font-bold text-slate-900">门店礼赠配置</h1>
@@ -150,7 +148,6 @@ export default function StoreBenefitsPage({ config }: StoreBenefitsPageProps) {
                 )}
               </CardContent>
             </Card>
-          </div>
         </div>
 
         {/* 编辑/新增礼赠弹窗 */}
@@ -295,11 +292,6 @@ export default function StoreBenefitsPage({ config }: StoreBenefitsPageProps) {
             </Card>
           </div>
         )}
-
-        {/* 右侧：LogicPanel (40%) */}
-        <div className="w-[40%] h-full border-l">
-          {/* LogicPanel placeholder */}
-        </div>
       </div>
     </MainLayout>
   )

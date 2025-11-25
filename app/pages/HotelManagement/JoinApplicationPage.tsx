@@ -43,23 +43,6 @@ const OperationLogButton = ({ moduleName }: { moduleName: string }) => (
   </Button>
 )
 
-const BusinessLogicPanel = ({ sections }: { sections: Array<{ title: string; content: React.ReactNode }> }) => (
-  <div className="p-6 space-y-6 overflow-y-auto">
-    <div>
-      <h2 className="text-xl font-bold text-slate-900">业务逻辑说明</h2>
-      <p className="text-sm text-slate-500 mt-1">
-        后台配置如何影响前端用户体验
-      </p>
-    </div>
-    {sections.map((section, index) => (
-      <div key={index}>
-        <h3 className="font-semibold mb-3">{section.title}</h3>
-        {section.content}
-      </div>
-    ))}
-  </div>
-)
-
 export default function JoinApplicationPage({ applications, error }: JoinApplicationPageProps) {
   const [filterStatus, setFilterStatus] = useState<FollowUpStatus | 'all'>('all')
   const [searchKeyword, setSearchKeyword] = useState('')
@@ -106,9 +89,7 @@ export default function JoinApplicationPage({ applications, error }: JoinApplica
 
   return (
     <MainLayout>
-      <div className="flex h-screen">
-        <div className="w-[60%] overflow-y-auto">
-          <div className="p-6 space-y-6">
+      <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-2xl font-bold text-slate-900">加盟申请</h1>
@@ -256,7 +237,6 @@ export default function JoinApplicationPage({ applications, error }: JoinApplica
               </CardContent>
             </Card>
           </div>
-        </div>
 
         {/* 详情弹窗 */}
         {showDetailDialog && currentApp && (
@@ -404,21 +384,6 @@ export default function JoinApplicationPage({ applications, error }: JoinApplica
             </Card>
           </div>
         )}
-
-        {/* 右侧：业务逻辑说明 (40%) */}
-        <div className="w-[40%] h-full border-l">
-          <BusinessLogicPanel
-            sections={[
-              {
-                title: '📱 用户端体验',
-                content: (
-                  <div className="text-sm text-slate-700">BD跟进加盟申请流程</div>
-                )
-              }
-            ]}
-          />
-        </div>
-      </div>
     </MainLayout>
   )
 }

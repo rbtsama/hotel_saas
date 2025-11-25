@@ -191,3 +191,84 @@
 
 ---
 
+## 2025-11-25 14:00:00
+
+### 删除学习模式相关代码
+
+**修改文件：**
+
+#### 核心文件
+- `app/contexts/ViewModeContext.tsx` - 简化为仅保留侧边栏状态管理
+
+#### 删除的组件文件
+- `app/pages/PointsSystem/components/LogicPanel.tsx` - 右侧产品逻辑说明面板组件
+- `app/pages/Architecture/ScenarioDesign/components/LearningModal.tsx` - 学习内容弹窗组件
+
+#### 清理 LearningModal 引用的页面（4个）
+- `app/pages/PlatformAdmin/MemberManagement/DiscountRulesPage.tsx`
+- `app/pages/PlatformAdmin/MemberManagement/UpgradeRulesPage.tsx`
+- `app/pages/PlatformAdmin/MemberManagement/UserMemberManagementPage.tsx`
+- `app/pages/PlatformAdmin/PointsManagement/MemberLevelRatesPage.tsx`
+
+#### 清理 BusinessLogicPanel/右侧面板的页面（8个）
+- `app/pages/HotelManagement/JoinApplicationPage.tsx`
+- `app/pages/HotelManagement/PartnerHotelPage.tsx`
+- `app/pages/HotelManagement/ContractTemplatePage.tsx`
+- `app/pages/HotelManagement/SigningRecordPage.tsx`
+- `app/pages/MemberManagement/MemberLevels/MemberLevelsPage.tsx`
+- `app/pages/MemberManagement/Members/MembersPage.tsx`
+- `app/pages/MemberManagement/Members/MemberDetailPage.tsx`
+- `app/pages/MemberSystem/MemberLevelPage.tsx`
+
+#### 清理 LogicPanel 引用的页面（11个）
+- `app/pages/OrderManagement/RefundManagementPage.tsx`
+- `app/pages/OrderManagement/OrderListPage.tsx`
+- `app/pages/OrderManagement/OrderDetailPage.tsx`
+- `app/pages/HotelBackend/UserReviews/UserReviewsPage.tsx`
+- `app/pages/HotelBackend/UserReviews/UserReviewDetailPage.tsx`
+- `app/pages/HotelBackend/StorePolicyPage.tsx`
+- `app/pages/HotelBackend/StoreBenefitsPage.tsx`
+- `app/pages/HotelBackend/RoomTypeImages/RoomTypeImagesPage.tsx`
+- `app/pages/HotelBackend/RefundManagement/RefundManagementPage.tsx`
+- `app/pages/HotelBackend/RefundManagement/RefundDetailPage.tsx`
+- `app/pages/HotelBackend/OrderList/OrderDetailPage.tsx`
+
+**修改内容：**
+
+#### 1. ViewModeContext 简化
+**原功能：**
+- 学习模式/展示模式切换 (`mode`, `toggleMode`, `isLearningMode`, `isPresentationMode`)
+- 侧边栏收起状态管理 (`isSidebarCollapsed`, `toggleSidebar`)
+
+**新功能：**
+- 仅保留侧边栏收起状态管理
+- 删除所有学习模式相关的状态和方法
+
+#### 2. 删除组件
+- **LogicPanel**: 右侧40%宽度的产品逻辑说明面板，包含 LogicTable、LogicList、LogicCode、LogicHighlight 辅助组件
+- **LearningModal**: 学习按钮弹窗，点击后显示功能说明
+
+#### 3. 页面布局调整
+- 所有使用60%-40%分栏布局的页面，改为100%全宽布局
+- 删除右侧的业务逻辑说明面板
+- 删除 `isLearningMode`、`isPresentationMode` 状态判断逻辑
+
+**功能影响：**
+
+✅ **页面更简洁**：
+- 删除了右侧40%的产品逻辑说明区域
+- 主内容区域现在占据100%宽度，内容展示更充分
+- 不再有学习模式/展示模式的切换按钮
+
+✅ **代码更精简**：
+- 删除了2个组件文件
+- 清理了23个页面中的相关引用
+- ViewModeContext 代码量减少约50%
+
+✅ **用户体验**：
+- 页面加载更快（减少了不必要的组件渲染）
+- 界面更专注于实际业务功能
+- 保留侧边栏收起/展开功能
+
+---
+
