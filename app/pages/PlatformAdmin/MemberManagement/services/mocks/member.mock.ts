@@ -5,6 +5,7 @@
 import type {
   MemberLevelUpgradeRule,
   MemberLevelDiscountRule,
+  TrialMemberConfig,
   UserMemberInfo,
   UserNightRecord,
   MemberLevelAdjustRecord,
@@ -203,44 +204,115 @@ export const mockMemberLevelDiscountRules: MemberLevelDiscountRule[] = [
 ]
 
 /**
+ * 体验会员配置 Mock
+ */
+export const mockTrialMemberConfig: TrialMemberConfig = {
+  id: 'trial-config-1',
+  userGiftTrialDays: 7,
+  merchantGiftTrialDays: 7,
+  merchantMaxGiftLevel: 3,
+  updatedAt: '2025-11-20 10:00:00',
+  updatedBy: '系统管理员',
+}
+
+/**
  * 用户会员信息列表 Mock
  */
 export const mockUserMemberInfos: UserMemberInfo[] = [
+  // 用户1: 只有正式会员VIP3，今年已升级
   {
     userId: '100000',
-    userNickname: '旅行达人',
+    userName: '旅行达人',
     phone: '13812341234',
     currentLevel: 3,
     currentLevelName: 'VIP3',
+    formalLevel: 3,
+    formalValidityDate: '2026-10-15',
+    trialLevel: null,
+    trialValidityDate: null,
     totalNights: 32,
+    yearUpgradeNights: 8,
     maintainNights: 12,
+    upgradedThisYear: true,
     validityDate: '2026-10-15',
     pointsBalance: 150,
     registeredAt: '2024-05-20 14:30:00',
   },
+  // 用户2: 正式VIP2，有体验VIP3（体验等级更高）
   {
     userId: '100001',
-    userNickname: '阳光少年',
+    userName: '阳光少年',
     phone: '13923455678',
-    currentLevel: 2,
-    currentLevelName: 'VIP2',
+    currentLevel: 3,
+    currentLevelName: 'VIP3 (体验)',
+    formalLevel: 2,
+    formalValidityDate: '2026-08-20',
+    trialLevel: 3,
+    trialValidityDate: '2025-12-05',
     totalNights: 18,
+    yearUpgradeNights: 12,
     maintainNights: 6,
+    upgradedThisYear: false,
     validityDate: '2026-08-20',
     pointsBalance: 80,
     registeredAt: '2024-08-15 09:20:00',
   },
+  // 用户3: 正式VIP1，今年未升级
   {
     userId: '100002',
-    userNickname: '微笑的猫咪',
+    userName: '微笑的猫咪',
     phone: '13634569012',
     currentLevel: 1,
     currentLevelName: 'VIP1',
+    formalLevel: 1,
+    formalValidityDate: '2026-01-25',
+    trialLevel: null,
+    trialValidityDate: null,
     totalNights: 7,
+    yearUpgradeNights: 3,
     maintainNights: 2,
+    upgradedThisYear: false,
     validityDate: '2026-01-25',
     pointsBalance: 200,
     registeredAt: '2025-01-10 16:45:00',
+  },
+  // 用户4: 只有体验会员VIP2
+  {
+    userId: '100003',
+    userName: '星空漫步',
+    phone: '13745670123',
+    currentLevel: 2,
+    currentLevelName: 'VIP2 (体验)',
+    formalLevel: 0,
+    formalValidityDate: '2025-12-31',
+    trialLevel: 2,
+    trialValidityDate: '2025-12-01',
+    totalNights: 3,
+    yearUpgradeNights: 3,
+    maintainNights: 0,
+    upgradedThisYear: false,
+    validityDate: '2025-12-01',
+    pointsBalance: 50,
+    registeredAt: '2025-11-15 10:20:00',
+  },
+  // 用户5: 正式VIP4，有体验VIP2（正式等级更高）
+  {
+    userId: '100004',
+    userName: '梦想家',
+    phone: '13856781234',
+    currentLevel: 4,
+    currentLevelName: 'VIP4',
+    formalLevel: 4,
+    formalValidityDate: '2026-06-30',
+    trialLevel: 2,
+    trialValidityDate: '2025-12-10',
+    totalNights: 65,
+    yearUpgradeNights: 15,
+    maintainNights: 28,
+    upgradedThisYear: true,
+    validityDate: '2026-06-30',
+    pointsBalance: 320,
+    registeredAt: '2023-08-10 14:15:00',
   },
 ]
 
@@ -284,7 +356,7 @@ export const mockMemberLevelAdjustRecords: MemberLevelAdjustRecord[] = [
   {
     id: 'adjust-1',
     userId: '100000',
-    userNickname: '旅行达人',
+    userName: '旅行达人',
     fromLevel: 2,
     toLevel: 3,
     adjustType: 'upgrade',
@@ -296,7 +368,7 @@ export const mockMemberLevelAdjustRecords: MemberLevelAdjustRecord[] = [
   {
     id: 'adjust-2',
     userId: '100003',
-    userNickname: '星空漫步',
+    userName: '星空漫步',
     fromLevel: 3,
     toLevel: 2,
     adjustType: 'downgrade',
@@ -308,7 +380,7 @@ export const mockMemberLevelAdjustRecords: MemberLevelAdjustRecord[] = [
   {
     id: 'adjust-3',
     userId: '100004',
-    userNickname: '',
+    userName: '梦想家',
     fromLevel: 0,
     toLevel: 2,
     adjustType: 'manual',

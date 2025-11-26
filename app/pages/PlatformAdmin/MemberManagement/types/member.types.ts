@@ -29,17 +29,46 @@ export interface MemberLevelDiscountRule {
 }
 
 /**
+ * 体验会员配置
+ */
+export interface TrialMemberConfig {
+  id: string
+  userGiftTrialDays: number // 用户赠送体验会员期限（天，可配置）
+  merchantGiftTrialDays: number // 商家赠送体验会员期限（天，可配置）
+  merchantMaxGiftLevel: number // 商家可赠送的最高等级（固定为3）
+  updatedAt: string
+  updatedBy: string
+}
+
+/**
  * 用户会员信息
  */
 export interface UserMemberInfo {
   userId: string
   userName: string
   phone: string
+
+  // 当前展示等级（体验和正式中取高值）
   currentLevel: number
   currentLevelName: string
-  totalNights: number // 累计总间夜数
-  maintainNights: number // 保级间夜计数器（有效期内）
-  validityDate: string // 会员有效期
+
+  // 正式会员
+  formalLevel: number // 正式会员等级
+  formalValidityDate: string // 正式会员有效期
+
+  // 体验会员
+  trialLevel: number | null // 体验会员等级（null=无体验会员）
+  trialValidityDate: string | null // 体验会员有效期
+
+  // 间夜计数器
+  totalNights: number // 累计总间夜（只增不减，用于升级）
+  yearUpgradeNights: number // 当年升级间夜（每年1月1日清零）
+  maintainNights: number // 保级间夜（升级后清零，年末检测后清零）
+
+  // 年度标识
+  upgradedThisYear: boolean // 当年是否已升级（true=无需保级）
+
+  validityDate: string // 会员有效期（正式或体验中较晚的日期）
   pointsBalance: number // 积分余额
   registeredAt: string
 }

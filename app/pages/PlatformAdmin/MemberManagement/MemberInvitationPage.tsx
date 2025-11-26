@@ -128,7 +128,7 @@ export default function MemberInvitationPage({ invitations }: MemberInvitationPa
                       </TableCell>
                       <TableCell className="text-sm text-slate-900 font-medium">{record.inviteeId}</TableCell>
                       <TableCell className="text-sm text-slate-900">{getVipLevelText(record.vipLevel)}</TableCell>
-                      <TableCell className="text-sm text-slate-900">{record.vipAcquiredAt}</TableCell>
+                      <TableCell className="text-sm text-slate-900">{record.invitedAt}</TableCell>
                       <TableCell className="text-sm text-slate-900">{record.userRegisteredAt}</TableCell>
                     </TableRow>
                   ))}

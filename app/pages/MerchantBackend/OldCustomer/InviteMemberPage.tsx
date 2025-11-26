@@ -29,17 +29,17 @@ export default function InviteMemberPage({ records }: InviteMemberPageProps) {
   return (
     <MainLayout>
       <div className="h-screen overflow-y-auto bg-slate-50">
-        <div className="max-w-5xl mx-auto p-6 space-y-6">
+        <div className="max-w-5xl mx-auto p-8 space-y-8">
           {/* 页面标题 */}
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-slate-900">邀请会员</h1>
-            <Button onClick={() => setQrDialogOpen(true)} size="lg">
+            <Button onClick={() => setQrDialogOpen(true)} size="lg" className="h-11 bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm transition-all">
               邀请会员
             </Button>
           </div>
 
           {/* 邀请记录列表 */}
-          <Card>
+          <Card className="rounded-xl border-slate-200 shadow-md hover:shadow-lg transition-all duration-200">
             <CardContent className="p-0">
               <Table>
                 <TableHeader>
@@ -91,7 +91,7 @@ export default function InviteMemberPage({ records }: InviteMemberPageProps) {
                   </div>
 
                   {/* 保存图片按钮 */}
-                  <Button onClick={handleDownloadQR} variant="outline" className="w-full gap-2">
+                  <Button onClick={handleDownloadQR} variant="outline" className="w-full gap-2 h-9 border-slate-300 hover:border-slate-400 hover:bg-slate-50 transition-all">
                     <Download className="w-4 h-4" />
                     保存图片
                   </Button>
