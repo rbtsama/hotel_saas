@@ -9,7 +9,7 @@ import type {
   UserPointsAccount,
   PointsRecord,
 } from '../../types/points.types'
-import { PointsIssueType, PointsUsageType } from '../../types/points.types'
+import { PointsIssueType, PointsUsageType, InviteSource } from '../../types/points.types'
 
 /**
  * 积分基础规则配置 Mock
@@ -18,7 +18,9 @@ export const mockPointsBaseRuleConfig: PointsBaseRuleConfig = {
   id: 'config-1',
   registerRewardPoints: 30,
   inviteRewardPoints: 30,
-  baseExchangeRate: 1.0,
+  baseExchangeRate: 10,
+  maxDeductionPercent: 30,
+  expiryYears: 1,
   updatedAt: '2025-11-20 10:30:00',
   updatedBy: '系统管理员',
 }
@@ -94,7 +96,7 @@ export const mockPointsStatistics: PointsStatistics = {
 export const mockUserPointsAccounts: UserPointsAccount[] = [
   {
     userId: '100000',
-    userNickname: '旅行达人',
+    userName: '旅行达人',
     phone: '13812341234',
     memberLevel: 3,
     memberLevelName: 'VIP3',
@@ -105,7 +107,7 @@ export const mockUserPointsAccounts: UserPointsAccount[] = [
   },
   {
     userId: '100001',
-    userNickname: '阳光少年',
+    userName: '阳光少年',
     phone: '13923455678',
     memberLevel: 2,
     memberLevelName: 'VIP2',
@@ -116,7 +118,7 @@ export const mockUserPointsAccounts: UserPointsAccount[] = [
   },
   {
     userId: '100002',
-    userNickname: '微笑的猫咪',
+    userName: '微笑的猫咪',
     phone: '13634569012',
     memberLevel: 1,
     memberLevelName: 'VIP1',
@@ -127,7 +129,7 @@ export const mockUserPointsAccounts: UserPointsAccount[] = [
   },
   {
     userId: '100003',
-    userNickname: '星空漫步',
+    userName: '星空漫步',
     phone: '13745673456',
     memberLevel: 4,
     memberLevelName: 'VIP4',
@@ -138,7 +140,7 @@ export const mockUserPointsAccounts: UserPointsAccount[] = [
   },
   {
     userId: '100004',
-    userNickname: '',
+    userName: '',
     phone: '13556787890',
     memberLevel: 0,
     memberLevelName: 'VIP0',
@@ -156,18 +158,19 @@ export const mockPointsRecords: PointsRecord[] = [
   {
     id: 'record-1',
     userId: '100000',
-    userNickname: '旅行达人',
+    userName: '旅行达人',
     type: PointsIssueType.ECO_REWARD,
     typeName: '环保奖励',
     amount: 5,
     balance: 150,
     description: '自带拖鞋 - 订单12511221234',
     createdAt: '2025-11-22 14:30:00',
+    expiresAt: '2026-12-31 23:59:59',
   },
   {
     id: 'record-2',
     userId: '100000',
-    userNickname: '旅行达人',
+    userName: '旅行达人',
     type: PointsUsageType.DEDUCT_ROOM_FEE,
     typeName: '抵扣房费',
     amount: -50,
@@ -178,7 +181,7 @@ export const mockPointsRecords: PointsRecord[] = [
   {
     id: 'record-3',
     userId: '100000',
-    userNickname: '旅行达人',
+    userName: '旅行达人',
     type: PointsUsageType.REDEEM_BREAKFAST,
     typeName: '兑换早餐',
     amount: -20,
@@ -189,23 +192,26 @@ export const mockPointsRecords: PointsRecord[] = [
   {
     id: 'record-4',
     userId: '100001',
-    userNickname: '阳光少年',
+    userName: '阳光少年',
     type: PointsIssueType.INVITE,
     typeName: '邀请奖励',
     amount: 30,
     balance: 80,
     description: '好友完成首次入住',
     createdAt: '2025-11-15 16:00:00',
+    expiresAt: '2026-12-31 23:59:59',
   },
   {
     id: 'record-5',
     userId: '100004',
-    userNickname: '',
+    userName: '',
     type: PointsIssueType.REGISTER,
     typeName: '注册奖励',
     amount: 30,
     balance: 30,
     description: '新用户注册',
+    inviteSource: InviteSource.USER,
     createdAt: '2025-11-22 18:30:00',
+    expiresAt: '2026-12-31 23:59:59',
   },
 ]

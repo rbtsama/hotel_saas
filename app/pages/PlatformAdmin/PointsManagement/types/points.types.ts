@@ -7,9 +7,11 @@
  */
 export interface PointsBaseRuleConfig {
   id: string
-  registerRewardPoints: number // 注册奖励积分
-  inviteRewardPoints: number // 邀请奖励积分
-  baseExchangeRate: number // 基础兑换汇率（1积分=X元）
+  registerRewardPoints: number // 注册奖励积分（可配置）
+  inviteRewardPoints: number // 邀请奖励积分（可配置，受邀人首单离店触发）
+  baseExchangeRate: number // 基础兑换汇率（X积分=1元，可配置）
+  maxDeductionPercent: number // 最大抵扣比例（0-100，如30表示30%）
+  expiryYears: number // 积分有效期（次年年末过期，固定为1）
   updatedAt: string
   updatedBy: string
 }
@@ -26,12 +28,20 @@ export interface MemberLevelPointsRate {
 }
 
 /**
+ * 邀请来源类型
+ */
+export enum InviteSource {
+  USER = 'user',           // C端用户邀请
+  MERCHANT = 'merchant',   // 商户邀请
+}
+
+/**
  * 积分发放类型
  */
 export enum PointsIssueType {
   REGISTER = 'register', // 注册奖励
-  INVITE = 'invite', // 邀请奖励
-  ECO_REWARD = 'eco_reward', // 环保奖励
+  INVITE = 'invite', // 邀请奖励（受邀人首单离店触发）
+  ECO_REWARD = 'eco_reward', // 环保奖励（离店后发放）
 }
 
 /**
@@ -91,5 +101,7 @@ export interface PointsRecord {
   amount: number // 正数为增加，负数为减少
   balance: number // 操作后余额
   description: string
+  inviteSource?: InviteSource // 邀请来源（仅注册奖励时有值）
   createdAt: string
+  expiresAt?: string // 过期时间（获得积分时计算，次年年末）
 }

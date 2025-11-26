@@ -38,7 +38,7 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
   return (
     <MainLayout>
       <div className="h-screen overflow-y-auto bg-slate-50">
-        <div className="max-w-5xl mx-auto p-6 space-y-6">
+        <div className="max-w-5xl mx-auto p-8 space-y-8">
           {/* 页面标题 - 使用通用头部组件 */}
           <SettingsPageHeader
             title="平台积分设置"
@@ -51,9 +51,9 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
           />
 
           {/* 积分获取规则 */}
-          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-slate-900">积分获取规则</CardTitle>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-200">
+            <CardHeader className="border-b border-slate-100">
+              <CardTitle className="text-base font-semibold text-slate-900">积分获取规则</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* 注册奖励积分 */}
@@ -99,9 +99,9 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
           </Card>
 
           {/* 积分使用规则 */}
-          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-slate-900">积分使用规则</CardTitle>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-200">
+            <CardHeader className="border-b border-slate-100">
+              <CardTitle className="text-base font-semibold text-slate-900">积分使用规则</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* 基础兑换汇率 */}
@@ -125,6 +125,54 @@ export default function BaseRuleConfigPage({ config: initialConfig }: BaseRuleCo
                     <span className="text-sm text-slate-900">积分 = 1 元</span>
                   </div>
                 </div>
+                <p className="text-xs text-slate-500">示例：10积分=1元，用户使用100积分可抵扣10元</p>
+              </div>
+
+              {/* 最大抵扣比例 */}
+              <div className="space-y-2">
+                <Label htmlFor="maxDeductionPercent" className="text-sm font-medium text-slate-700">最大抵扣比例</Label>
+                <div className="flex items-center gap-4">
+                  <Input
+                    id="maxDeductionPercent"
+                    name="maxDeductionPercent"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={formData.maxDeductionPercent}
+                    onChange={(e) =>
+                      setFormData({ ...formData, maxDeductionPercent: parseInt(e.target.value) || 0 })
+                    }
+                    className={`h-9 w-32 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all ${!isEditMode ? 'bg-slate-50 text-slate-700 cursor-not-allowed' : ''}`}
+                    disabled={!isEditMode}
+                  />
+                  <span className="text-sm text-slate-900">%</span>
+                </div>
+                <p className="text-xs text-slate-500">单笔订单最多可用积分抵扣的比例</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 积分过期规则 */}
+          <Card className="rounded-xl border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-200">
+            <CardHeader className="border-b border-slate-100">
+              <CardTitle className="text-base font-semibold text-slate-900">积分有效期规则</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label className="text-sm font-medium text-slate-700">积分过期时间</Label>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-slate-900">次年</span>
+                  <Input
+                    type="number"
+                    value={formData.expiryYears}
+                    className="h-9 w-20 bg-slate-50 text-slate-700 cursor-not-allowed border-slate-300"
+                    disabled
+                  />
+                  <span className="text-sm text-slate-900">年末（12月31日）统一过期</span>
+                </div>
+                <p className="text-xs text-slate-500">
+                  示例：2025年获得的积分，将在2026年12月31日 23:59:59 过期
+                </p>
               </div>
             </CardContent>
           </Card>
