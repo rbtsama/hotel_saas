@@ -70,29 +70,35 @@ export default function PointsAdjustmentPage({ userInfo, details }: PointsAdjust
   return (
     <MainLayout>
       <div className="h-screen overflow-y-auto bg-slate-50">
-        <div className="max-w-6xl mx-auto p-6 space-y-6">
+        <div className="max-w-6xl mx-auto p-8 space-y-8">
           {/* 页面标题 */}
           <div>
             <h1 className="text-2xl font-bold text-slate-900">积分调整</h1>
           </div>
 
           {/* 用户搜索 */}
-          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-slate-900">用户搜索</CardTitle>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-200">
+            <CardHeader className="border-b border-slate-100">
+              <CardTitle className="text-base font-semibold text-slate-900">用户搜索</CardTitle>
             </CardHeader>
             <CardContent>
               <Form method="get">
                 <div className="flex gap-4">
-                  <div className="flex-1">
+                  <div className="flex-1 space-y-2">
                     <Input
                       id="userId"
                       name="userId"
                       value={searchUserId}
                       onChange={(e) => setSearchUserId(e.target.value)}
-                      placeholder="请输入用户ID，如154655"
+                      placeholder="请输入用户ID"
                       className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                     />
+                    <p className="text-xs text-slate-500">
+                      测试用户ID：<span className="font-mono">100000</span>、
+                      <span className="font-mono">100001</span>、
+                      <span className="font-mono">100002</span>、
+                      <span className="font-mono">154655</span>
+                    </p>
                   </div>
                   <div className="flex items-end">
                     <Button type="submit" className="h-9 bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm">
@@ -108,9 +114,9 @@ export default function PointsAdjustmentPage({ userInfo, details }: PointsAdjust
           {/* 用户积分信息 */}
           {userInfo && (
             <>
-              <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-slate-900">用户积分信息</CardTitle>
+              <Card className="rounded-xl border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-200">
+                <CardHeader className="border-b border-slate-100">
+                  <CardTitle className="text-base font-semibold text-slate-900">用户积分信息</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-4 gap-6">
@@ -156,9 +162,9 @@ export default function PointsAdjustmentPage({ userInfo, details }: PointsAdjust
               </Card>
 
               {/* 积分调整操作 */}
-              <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-slate-900">积分调整操作</CardTitle>
+              <Card className="rounded-xl border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-200">
+                <CardHeader className="border-b border-slate-100">
+                  <CardTitle className="text-base font-semibold text-slate-900">积分调整操作</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-3 gap-4">
@@ -226,9 +232,9 @@ export default function PointsAdjustmentPage({ userInfo, details }: PointsAdjust
               </Card>
 
               {/* 积分明细 */}
-              <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-slate-900">积分明细</CardTitle>
+              <Card className="rounded-xl border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-200">
+                <CardHeader className="border-b border-slate-100">
+                  <CardTitle className="text-base font-semibold text-slate-900">积分明细</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <Table>
