@@ -43,7 +43,8 @@ export default function OrderDetailPage({ order, error }: OrderDetailPageProps) 
 
   return (
     <MainLayout>
-      <div className="p-6 space-y-6">
+      <div className="h-screen overflow-y-auto bg-slate-50">
+        <div className="p-6 space-y-6 max-w-5xl mx-auto">
             {/* 页面标题 */}
             <div className="flex items-center gap-4">
               <BackButton to="/order/list" />
@@ -97,6 +98,7 @@ export default function OrderDetailPage({ order, error }: OrderDetailPageProps) 
                 </div>
               </CardContent>
             </Card>
+        </div>
       </div>
     </MainLayout>
   )
