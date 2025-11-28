@@ -11,8 +11,8 @@ export default function PaymentSuccessPage() {
     <MobileFrame navTitle="支付成功" showTabBar={false}>
       <div className="h-full flex flex-col items-center justify-center p-6">
         <div className="text-center">
-          <div className="w-20 h-20 bg-[#3D7350]/15 rounded-full flex items-center justify-center mx-auto mb-4">
-            <CheckCircle className="w-12 h-12 text-[#3D7350]" />
+          <div className="w-20 h-20 bg-[#5A8A65]/15 rounded-full flex items-center justify-center mx-auto mb-4">
+            <CheckCircle className="w-12 h-12 text-[#5A8A65]" />
           </div>
           <h2 className="text-2xl font-bold text-slate-900 mb-2">支付成功!</h2>
 
@@ -40,13 +40,13 @@ export default function PaymentSuccessPage() {
               </div>
               <div className="flex justify-between pt-2 border-t border-slate-100">
                 <span className="text-slate-900">已支付：</span>
-                <span className="text-xl font-bold text-[#A67B5B]">¥336</span>
+                <span className="text-xl font-bold text-[#C67A28]">¥336</span>
               </div>
             </div>
           </div>
 
           <div className="space-y-3 w-full">
-            <Button className="w-full h-8 px-6 rounded-full bg-[#458559] hover:bg-[#3D7350]">查看订单</Button>
+            <Button className="w-full h-8 px-6 rounded-full bg-[#2C5F8D] hover:bg-[#5A8A65]">查看订单</Button>
             <Button variant="outline" className="w-full h-8 rounded-full">返回首页</Button>
           </div>
         </div>

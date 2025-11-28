@@ -9,10 +9,10 @@ import type { VIPLevelDiscount, MerchantVIPDiscountConfig } from '../../types/vi
  *
  * 业务规则：
  * - platformDiscount: 平台设定的会员折扣（只读，商户不可修改）
- * - weekdayDiscount: 商户设置的平日折扣（必须 <= platformDiscount）
- * - weekendDiscount: 商户设置的周末折扣（必须 <= platformDiscount）
- * - holidayDiscount: 商户设置的节假日折扣（必须 <= platformDiscount）
- * - 默认值：三种折扣 = platformDiscount（无额外优惠）
+ * - mondayDiscount ~ sundayDiscount: 商户设置的每周7天折扣（必须 <= platformDiscount）
+ * - holidayDiscount: 商户设置的节假日折扣（必须 <= platformDiscount，优先级最高）
+ * - 默认值：所有折扣 = platformDiscount（无额外优惠）
+ * - 只启用VIP0-3，其他等级暂不使用
  */
 export const mockVIPLevelDiscounts: VIPLevelDiscount[] = [
   {
@@ -20,8 +20,13 @@ export const mockVIPLevelDiscounts: VIPLevelDiscount[] = [
     level: 0,
     levelName: 'VIP0',
     platformDiscount: 1.0,
-    weekdayDiscount: 1.0,
-    weekendDiscount: 1.0,
+    mondayDiscount: 1.0,
+    tuesdayDiscount: 1.0,
+    wednesdayDiscount: 1.0,
+    thursdayDiscount: 1.0,
+    fridayDiscount: 1.0,
+    saturdayDiscount: 1.0,
+    sundayDiscount: 1.0,
     holidayDiscount: 1.0,
     updatedAt: '2025-11-01 10:00:00',
   },
@@ -30,9 +35,14 @@ export const mockVIPLevelDiscounts: VIPLevelDiscount[] = [
     level: 1,
     levelName: 'VIP1',
     platformDiscount: 0.95,
-    weekdayDiscount: 0.9,  // 平日更优惠5%
-    weekendDiscount: 0.95, // 周末使用平台折扣
-    holidayDiscount: 0.95, // 节假日使用平台折扣
+    mondayDiscount: 0.90,  // 周一更优惠
+    tuesdayDiscount: 0.90,  // 周二更优惠
+    wednesdayDiscount: 0.90, // 周三更优惠
+    thursdayDiscount: 0.90,  // 周四更优惠
+    fridayDiscount: 0.92,    // 周五略优惠
+    saturdayDiscount: 0.95,  // 周六使用平台折扣
+    sundayDiscount: 0.95,    // 周日使用平台折扣
+    holidayDiscount: 0.95,   // 节假日使用平台折扣
     updatedAt: '2025-11-01 10:00:00',
   },
   {
@@ -40,9 +50,14 @@ export const mockVIPLevelDiscounts: VIPLevelDiscount[] = [
     level: 2,
     levelName: 'VIP2',
     platformDiscount: 0.93,
-    weekdayDiscount: 0.88, // 平日更优惠5%
-    weekendDiscount: 0.93, // 周末使用平台折扣
-    holidayDiscount: 0.93, // 节假日使用平台折扣
+    mondayDiscount: 0.88,  // 周一更优惠
+    tuesdayDiscount: 0.88,  // 周二更优惠
+    wednesdayDiscount: 0.88, // 周三更优惠
+    thursdayDiscount: 0.88,  // 周四更优惠
+    fridayDiscount: 0.90,    // 周五略优惠
+    saturdayDiscount: 0.93,  // 周六使用平台折扣
+    sundayDiscount: 0.93,    // 周日使用平台折扣
+    holidayDiscount: 0.93,   // 节假日使用平台折扣
     updatedAt: '2025-11-01 10:00:00',
   },
   {
@@ -50,69 +65,14 @@ export const mockVIPLevelDiscounts: VIPLevelDiscount[] = [
     level: 3,
     levelName: 'VIP3',
     platformDiscount: 0.9,
-    weekdayDiscount: 0.85, // 平日更优惠5%
-    weekendDiscount: 0.9,  // 周末使用平台折扣
-    holidayDiscount: 0.9,  // 节假日使用平台折扣
-    updatedAt: '2025-11-01 10:00:00',
-  },
-  {
-    id: 'vip-discount-4',
-    level: 4,
-    levelName: 'VIP4',
-    platformDiscount: 0.88,
-    weekdayDiscount: 0.82, // 平日更优惠6%
-    weekendDiscount: 0.88, // 周末使用平台折扣
-    holidayDiscount: 0.88, // 节假日使用平台折扣
-    updatedAt: '2025-11-01 10:00:00',
-  },
-  {
-    id: 'vip-discount-5',
-    level: 5,
-    levelName: 'VIP5',
-    platformDiscount: 0.85,
-    weekdayDiscount: 0.8,  // 平日更优惠5%
-    weekendDiscount: 0.85, // 周末使用平台折扣
-    holidayDiscount: 0.85, // 节假日使用平台折扣
-    updatedAt: '2025-11-01 10:00:00',
-  },
-  {
-    id: 'vip-discount-6',
-    level: 6,
-    levelName: 'VIP6',
-    platformDiscount: 0.82,
-    weekdayDiscount: 0.75, // 平日更优惠7%
-    weekendDiscount: 0.82, // 周末使用平台折扣
-    holidayDiscount: 0.82, // 节假日使用平台折扣
-    updatedAt: '2025-11-01 10:00:00',
-  },
-  {
-    id: 'vip-discount-7',
-    level: 7,
-    levelName: 'VIP7',
-    platformDiscount: 0.8,
-    weekdayDiscount: 0.72, // 平日更优惠8%
-    weekendDiscount: 0.8,  // 周末使用平台折扣
-    holidayDiscount: 0.8,  // 节假日使用平台折扣
-    updatedAt: '2025-11-01 10:00:00',
-  },
-  {
-    id: 'vip-discount-8',
-    level: 8,
-    levelName: 'VIP8',
-    platformDiscount: 0.75,
-    weekdayDiscount: 0.68, // 平日更优惠7%
-    weekendDiscount: 0.75, // 周末使用平台折扣
-    holidayDiscount: 0.75, // 节假日使用平台折扣
-    updatedAt: '2025-11-01 10:00:00',
-  },
-  {
-    id: 'vip-discount-9',
-    level: 9,
-    levelName: 'VIP9',
-    platformDiscount: 0.7,
-    weekdayDiscount: 0.65, // 平日更优惠5%
-    weekendDiscount: 0.7,  // 周末使用平台折扣
-    holidayDiscount: 0.7,  // 节假日使用平台折扣
+    mondayDiscount: 0.85,  // 周一更优惠
+    tuesdayDiscount: 0.85,  // 周二更优惠
+    wednesdayDiscount: 0.85, // 周三更优惠
+    thursdayDiscount: 0.85,  // 周四更优惠
+    fridayDiscount: 0.88,    // 周五略优惠
+    saturdayDiscount: 0.90,  // 周六使用平台折扣
+    sundayDiscount: 0.90,    // 周日使用平台折扣
+    holidayDiscount: 0.90,   // 节假日使用平台折扣
     updatedAt: '2025-11-01 10:00:00',
   },
 ]

@@ -11,7 +11,7 @@ export default function InviteFriendPage() {
     <MobileFrame navTitle="邀请好友得积分" showTabBar={true}>
       <div className="p-4 space-y-4">
         {/* 邀请奖励说明 */}
-        <div className="bg-gradient-to-br from-[#A67B5B] to-[#B8936F] rounded-2xl p-6 text-white text-center shadow-lg">
+        <div className="bg-gradient-to-br from-[#C67A28] to-[#B8936F] rounded-2xl p-6 text-white text-center shadow-lg">
           <Gift className="w-16 h-16 mx-auto mb-3 opacity-90" />
           <p className="text-2xl font-bold mb-2">每邀请1位好友</p>
           <p className="text-lg mb-1">完成首次入住</p>
@@ -24,34 +24,34 @@ export default function InviteFriendPage() {
             <h3 className="font-semibold text-slate-900">邀请记录</h3>
             <div className="text-right">
               <p className="text-xs text-slate-500">已邀请好友</p>
-              <p className="text-xl font-bold text-[#458559]">3人</p>
+              <p className="text-xl font-bold text-[#2C5F8D]">3人</p>
             </div>
           </div>
 
           <div className="space-y-3">
-            <div className="flex items-center gap-3 p-3 bg-[#3D7350]/15 rounded-sm border border-[#3D7350]/30">
-              <div className="w-10 h-10 bg-[#3D7350]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                <CheckCircle className="w-5 h-5 text-[#3D7350]" />
+            <div className="flex items-center gap-3 p-3 bg-[#5A8A65]/15 rounded-sm border border-[#5A8A65]/30">
+              <div className="w-10 h-10 bg-[#5A8A65]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <CheckCircle className="w-5 h-5 text-[#5A8A65]" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-slate-900">张三</p>
                 <p className="text-xs text-slate-500">已入住</p>
               </div>
               <div className="text-right">
-                <p className="text-sm font-semibold text-[#3D7350]">+30积分</p>
+                <p className="text-sm font-semibold text-[#5A8A65]">+30积分</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-3 bg-[#3D7350]/15 rounded-sm border border-[#3D7350]/30">
-              <div className="w-10 h-10 bg-[#3D7350]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                <CheckCircle className="w-5 h-5 text-[#3D7350]" />
+            <div className="flex items-center gap-3 p-3 bg-[#5A8A65]/15 rounded-sm border border-[#5A8A65]/30">
+              <div className="w-10 h-10 bg-[#5A8A65]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <CheckCircle className="w-5 h-5 text-[#5A8A65]" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-slate-900">李四</p>
                 <p className="text-xs text-slate-500">已入住</p>
               </div>
               <div className="text-right">
-                <p className="text-sm font-semibold text-[#3D7350]">+30积分</p>
+                <p className="text-sm font-semibold text-[#5A8A65]">+30积分</p>
               </div>
             </div>
 
@@ -71,13 +71,13 @@ export default function InviteFriendPage() {
 
           <div className="mt-4 pt-4 border-t border-slate-200 text-center">
             <p className="text-sm text-slate-900">
-              已获得积分：<span className="font-semibold text-[#A67B5B]">90</span>
+              已获得积分：<span className="font-semibold text-[#C67A28]">90</span>
             </p>
           </div>
         </div>
 
         {/* 邀请按钮 */}
-        <Button className="w-full h-8 px-6 rounded-full bg-[#458559] hover:bg-[#3D7350] text-white gap-2">
+        <Button className="w-full h-8 px-6 rounded-full bg-[#2C5F8D] hover:bg-[#5A8A65] text-white gap-2">
           <UserPlus className="w-5 h-5" />
           邀请好友
         </Button>

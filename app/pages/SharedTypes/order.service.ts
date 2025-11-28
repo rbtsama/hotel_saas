@@ -148,12 +148,12 @@ class OrderService {
 
     if (!order) throw new Error('订单不存在')
     if (order.hotelId !== currentUser.hotelId) throw new Error('无权操作此订单')
-    if (order.status !== OrderStatus.PENDING_CONFIRM) {
+    if (order.status !== OrderStatus.PENDING_PAYMENT) {
       throw new Error('订单状态不允许确认')
     }
 
-    order.status = OrderStatus.CONFIRMED
-    order.confirmedAt = new Date().toISOString()
+    order.status = OrderStatus.PENDING_CHECKIN
+    order.paidAt = new Date().toISOString()
   }
 
   /**
@@ -165,13 +165,12 @@ class OrderService {
 
     if (!order) throw new Error('订单不存在')
     if (order.hotelId !== currentUser.hotelId) throw new Error('无权操作此订单')
-    if (order.status !== OrderStatus.CONFIRMED) {
+    if (order.status !== OrderStatus.PENDING_CHECKIN) {
       throw new Error('订单状态不允许分配房间')
     }
 
     order.roomNumber = roomNumber
-    order.status = OrderStatus.ASSIGNED
-    order.assignedAt = new Date().toISOString()
+    // 分配房间不改变状态，仍为待入住
   }
 
   /**
@@ -183,7 +182,7 @@ class OrderService {
 
     if (!order) throw new Error('订单不存在')
     if (order.hotelId !== currentUser.hotelId) throw new Error('无权操作此订单')
-    if (order.status !== OrderStatus.ASSIGNED && order.status !== OrderStatus.PRE_CHECKIN) {
+    if (order.status !== OrderStatus.PENDING_CHECKIN) {
       throw new Error('订单状态不允许入住')
     }
 
@@ -200,7 +199,7 @@ class OrderService {
 
     if (!order) throw new Error('订单不存在')
     if (order.hotelId !== currentUser.hotelId) throw new Error('无权操作此订单')
-    if (order.status !== OrderStatus.IN_HOUSE && order.status !== OrderStatus.PRE_CHECKOUT) {
+    if (order.status !== OrderStatus.CHECKED_IN) {
       throw new Error('订单状态不允许退房')
     }
 
@@ -240,7 +239,7 @@ class OrderService {
     }
 
     // 已入住或已完成的订单不能取消
-    if ([OrderStatus.CHECKED_IN, OrderStatus.IN_HOUSE, OrderStatus.CHECKED_OUT, OrderStatus.COMPLETED].includes(order.status)) {
+    if ([OrderStatus.CHECKED_IN, OrderStatus.CHECKED_OUT, OrderStatus.COMPLETED].includes(order.status)) {
       throw new Error('订单状态不允许取消')
     }
 
@@ -271,8 +270,8 @@ class OrderService {
 
     return {
       todayOrders: filtered.filter(o => o.createdAt.startsWith(today)).length,
-      pendingConfirm: filtered.filter(o => o.status === OrderStatus.PENDING_CONFIRM).length,
-      inHouse: filtered.filter(o => o.status === OrderStatus.IN_HOUSE).length,
+      pendingConfirm: filtered.filter(o => o.status === OrderStatus.PENDING_CHECKIN).length,
+      inHouse: filtered.filter(o => o.status === OrderStatus.CHECKED_IN).length,
       totalRevenue: filtered
         .filter(o => o.status === OrderStatus.COMPLETED)
         .reduce((sum, o) => sum + o.actualAmount, 0)

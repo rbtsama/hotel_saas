@@ -99,7 +99,7 @@ export default function ValueAddedServicesPage({
   return (
     <MainLayout>
       <div className="h-screen overflow-y-auto bg-slate-50">
-        <div className="max-w-6xl mx-auto p-6 space-y-6">
+        <div className="max-w-6xl mx-auto p-8 space-y-8">
           {/* 页面标题 */}
           <SettingsPageHeader
             title="积分增值服务"
@@ -112,11 +112,11 @@ export default function ValueAddedServicesPage({
           />
 
           {/* 积分奖励卡片 */}
-          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
-            <CardHeader>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-200">
+            <CardHeader className="border-b border-slate-100">
               <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2 text-lg font-semibold text-slate-900">
-                  <Gift className="w-5 h-5 text-green-600" />
+                <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+                  <Gift className="w-5 h-5 text-blue-600" />
                   积分奖励
                 </CardTitle>
                 {isEditMode && (
@@ -202,11 +202,11 @@ export default function ValueAddedServicesPage({
           </Card>
 
           {/* 积分换购卡片 */}
-          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
-            <CardHeader>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-200">
+            <CardHeader className="border-b border-slate-100">
               <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2 text-lg font-semibold text-slate-900">
-                  <ShoppingBag className="w-5 h-5 text-orange-600" />
+                <CardTitle className="flex items-center gap-2 text-base font-semibold text-slate-900">
+                  <ShoppingBag className="w-5 h-5 text-blue-600" />
                   积分换购
                 </CardTitle>
                 {isEditMode && (

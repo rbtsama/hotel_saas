@@ -97,12 +97,12 @@ export default function HotelDetailPage() {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-slate-500">平日特惠：</span>
-                    <span className="text-xl font-bold text-[#A67B5B]">¥{room.specialPrice}</span>
-                    <span className="text-xs text-[#3D7350]">（再85折）</span>
+                    <span className="text-xl font-bold text-[#C67A28]">¥{room.specialPrice}</span>
+                    <span className="text-xs text-[#5A8A65]">（再85折）</span>
                   </div>
                 </div>
 
-                <Button className="w-full h-8 rounded-full bg-[#458559] hover:bg-[#3D7350]" size="sm">
+                <Button className="w-full h-8 rounded-full bg-[#2C5F8D] hover:bg-[#5A8A65]" size="sm">
                   选择
                 </Button>
               </div>

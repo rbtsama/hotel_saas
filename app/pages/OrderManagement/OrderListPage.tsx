@@ -3,6 +3,7 @@
  */
 
 import { useState } from 'react'
+import { Link } from '@remix-run/react'
 import type { Order } from './types/order.types'
 import { OrderStatus } from './types/order.types'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '~/components/ui/card'
@@ -180,7 +181,9 @@ export default function OrderListPage({ orders, error }: OrderListPageProps) {
                           </span>
                         </TableCell>
                         <TableCell className="text-right">
-                          <Button variant="outline" size="sm">查看详情</Button>
+                          <Link to={`/order/${order.orderId}`}>
+                            <Button variant="outline" size="sm">查看详情</Button>
+                          </Link>
                         </TableCell>
                       </TableRow>
                     ))}

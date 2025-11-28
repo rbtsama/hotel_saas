@@ -6,9 +6,14 @@
  * 时段类型
  */
 export enum PeriodType {
-  WEEKDAY = 'weekday', // 平日
-  WEEKEND = 'weekend', // 周末
-  HOLIDAY = 'holiday', // 节假日
+  MONDAY = 'monday',       // 周一
+  TUESDAY = 'tuesday',     // 周二
+  WEDNESDAY = 'wednesday', // 周三
+  THURSDAY = 'thursday',   // 周四
+  FRIDAY = 'friday',       // 周五
+  SATURDAY = 'saturday',   // 周六
+  SUNDAY = 'sunday',       // 周日
+  HOLIDAY = 'holiday',     // 节假日（优先）
 }
 
 /**
@@ -19,9 +24,14 @@ export interface VIPLevelDiscount {
   level: number
   levelName: string
   platformDiscount: number // 平台会员折扣（只读，商户不可修改）
-  weekdayDiscount: number // 平日折扣（可编辑，必须 <= platformDiscount）
-  weekendDiscount: number // 周末折扣（可编辑，必须 <= platformDiscount）
-  holidayDiscount: number // 节假日折扣（可编辑，必须 <= platformDiscount）
+  mondayDiscount: number    // 周一折扣（可编辑，必须 <= platformDiscount）
+  tuesdayDiscount: number   // 周二折扣（可编辑，必须 <= platformDiscount）
+  wednesdayDiscount: number // 周三折扣（可编辑，必须 <= platformDiscount）
+  thursdayDiscount: number  // 周四折扣（可编辑，必须 <= platformDiscount）
+  fridayDiscount: number    // 周五折扣（可编辑，必须 <= platformDiscount）
+  saturdayDiscount: number  // 周六折扣（可编辑，必须 <= platformDiscount）
+  sundayDiscount: number    // 周日折扣（可编辑，必须 <= platformDiscount）
+  holidayDiscount: number   // 节假日折扣（可编辑，必须 <= platformDiscount，优先级最高）
   updatedAt: string
 }
 

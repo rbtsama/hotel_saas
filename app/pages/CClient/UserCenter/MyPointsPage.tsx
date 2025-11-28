@@ -38,7 +38,7 @@ export default function MyPointsPage({
     <MobileFrame navTitle="我的积分" showTabBar={true}>
       <div className="p-4 space-y-4">
         {/* 积分余额卡片 */}
-        <Card className="bg-gradient-to-br from-[#458559] to-[#5A9F6E] text-white overflow-hidden relative rounded-xl shadow-md">
+        <Card className="bg-gradient-to-br from-[#2C5F8D] to-[#5A9F6E] text-white overflow-hidden relative rounded-xl shadow-md">
           <div className="p-6">
             <p className="text-sm opacity-90 mb-2">当前积分</p>
             <p className="text-5xl font-bold mb-4">{currentPoints}</p>
@@ -59,8 +59,8 @@ export default function MyPointsPage({
         <div className="grid grid-cols-2 gap-3">
           <button className="bg-white rounded-xl p-4 text-center border border-gray-200 active:bg-slate-50 transition-colors">
             <div className="flex justify-center mb-2">
-              <div className="w-10 h-10 bg-[#3D7350]/15 rounded-full flex items-center justify-center">
-                <UserPlus className="w-5 h-5 text-[#3D7350]" />
+              <div className="w-10 h-10 bg-[#5A8A65]/15 rounded-full flex items-center justify-center">
+                <UserPlus className="w-5 h-5 text-[#5A8A65]" />
               </div>
             </div>
             <p className="font-medium text-sm text-slate-900">邀请好友</p>
@@ -70,8 +70,8 @@ export default function MyPointsPage({
 
           <button className="bg-white rounded-xl p-4 text-center border border-gray-200 active:bg-slate-50 transition-colors">
             <div className="flex justify-center mb-2">
-              <div className="w-10 h-10 bg-[#4A85B8]/15 rounded-full flex items-center justify-center">
-                <Gift className="w-5 h-5 text-[#4A85B8]" />
+              <div className="w-10 h-10 bg-[#4A8FBF]/15 rounded-full flex items-center justify-center">
+                <Gift className="w-5 h-5 text-[#4A8FBF]" />
               </div>
             </div>
             <p className="font-medium text-sm text-slate-900">环保行动</p>
@@ -94,7 +94,7 @@ export default function MyPointsPage({
                     <p className="text-xs text-slate-500 mt-0.5">{record.description}</p>
                   </div>
                   <div className="text-right">
-                    <p className={`text-sm font-semibold ${record.amount > 0 ? 'text-[#3D7350]' : 'text-red-600'}`}>
+                    <p className={`text-sm font-semibold ${record.amount > 0 ? 'text-[#5A8A65]' : 'text-red-600'}`}>
                       {record.amount > 0 ? '+' : ''}{record.amount}
                     </p>
                   </div>
@@ -107,7 +107,7 @@ export default function MyPointsPage({
             ))}
           </div>
           <div className="p-4 text-center">
-            <button className="text-sm text-[#4A85B8] hover:underline">查看更多</button>
+            <button className="text-sm text-[#4A8FBF] hover:underline">查看更多</button>
           </div>
         </div>
       </div>

@@ -19,41 +19,36 @@ interface SidebarProps {
 
 export default function Sidebar({ menuItems }: SidebarProps) {
   const location = useLocation()
-  const { isSidebarCollapsed, toggleSidebar } = useViewMode()
+  const { isSidebarCollapsed, toggleSidebar, isDraftMenuVisible, toggleDraftMenu } = useViewMode()
   const menuScrollRef = useRef<HTMLDivElement>(null)
   const scrollPositionRef = useRef<number>(0)
 
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
-    // 默认展开所有菜单，提升用户体验
+    // 默认展开所有菜单
     '设计架构': true,
     '产品架构': true,
-    '技术架构': true,
     '设计规范': true,
-    '场景设计': true,
     '平台后台': true,
-    '酒店入驻': true,
-    '酒店管理': true,
     '订单管理': true,
-    '争议处理': true,
     '积分管理 *': true,
-    '会员管理 *': true,
-    '用户管理': true,
+    '会员管理': true,
     '系统管理': true,
     '商户端': true,
+    '入驻平台': true,
     '门店信息': true,
-    '积分服务': true,
-    'VIP折扣': true,
-    '老客服务 *': true,
+    '房务管理': true,
+    '会员服务': true,
+    '系统设置': true,
+    // 草稿菜单（默认展开）
+    '草稿': true,
+    '系统管理': true,
+    '技术架构': true,
+    '场景设计': true,
+    '酒店入驻': true,
     'C端小程序': true,
     '用户中心': true,
     '酒店浏览': true,
-    '订单管理': true,
-    '酒店后台': true,
-    '经营管理': true,
-    '门店配置': true,
-    '房型管理': true,
-    '收益管理': true,
-    '系统设置': true
+    '参考资料': true
   })
 
   // 保存滚动位置 - 实时保存
@@ -204,15 +199,30 @@ export default function Sidebar({ menuItems }: SidebarProps) {
           {/* 菜单区域 */}
           <div ref={menuScrollRef} className="flex-1 overflow-y-auto p-4">
             <nav className="space-y-2">
-              {menuItems.map((item) => renderMenuItem(item, 1))}
+              {menuItems
+                .filter((item) => {
+                  // 过滤草稿菜单：只有在isDraftMenuVisible为true时才显示
+                  if (item.title === '草稿') {
+                    return isDraftMenuVisible
+                  }
+                  return true
+                })
+                .map((item) => renderMenuItem(item, 1))}
             </nav>
           </div>
 
           {/* 底部信息 */}
           <div className="p-4 border-t border-slate-200">
-            <p className="text-xs text-slate-500 text-center">
-              参考：美团、携程、华住会
-            </p>
+            <button
+              onClick={toggleDraftMenu}
+              className={`w-full px-3 py-2 text-sm rounded-md transition-all ${
+                isDraftMenuVisible
+                  ? 'bg-blue-50 text-blue-700 font-medium'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              {isDraftMenuVisible ? '隐藏草稿' : '显示草稿'}
+            </button>
           </div>
         </div>
       )}
@@ -234,22 +244,10 @@ export const menuConfig: MenuItem[] = [
         ]
       },
       {
-        title: '技术架构',
-        children: [
-          { title: '技术设计', path: '/architecture/technical' }
-        ]
-      },
-      {
         title: '设计规范',
         children: [
           { title: '配色系统', path: '/architecture/design/color-system' },
           { title: '配色系统2', path: '/architecture/design/color-system-2' }
-        ]
-      },
-      {
-        title: '场景设计',
-        children: [
-          { title: '核心场景 *', path: '/architecture/scenario' }
         ]
       }
     ]
@@ -259,35 +257,10 @@ export const menuConfig: MenuItem[] = [
     children: [
       // 基石功能：业务核心（按重要性排序）
       {
-        title: '酒店入驻',
-        children: [
-          { title: '加盟申请', path: '/hotel/join-application' },
-          { title: '合作酒店', path: '/hotel/partner-list' },
-          { title: '协议模板', path: '/hotel/contract-template' },
-          { title: '签约记录', path: '/hotel/signing-record' }
-        ]
-      },
-      {
-        title: '酒店管理',
-        children: [
-          { title: '房态总览', path: '/platform-admin/hotel/room-status' },
-          { title: '预订管理', path: '/platform-admin/hotel/reservations' },
-          { title: '入住管理', path: '/platform-admin/hotel/check-in' },
-          { title: '房价管理', path: '/platform-admin/hotel/pricing' },
-          { title: '客房管理', path: '/platform-admin/hotel/rooms' }
-        ]
-      },
-      {
         title: '订单管理',
         children: [
           { title: '订单列表', path: '/order/list' },
-          { title: '退款管理', path: '/order/refund' }
-        ]
-      },
-      {
-        title: '争议处理 *',
-        children: [
-          { title: '退款申请 *', path: '/dispute/refund-requests' }
+          { title: '退款管理', path: '/dispute/refund-requests' }
         ]
       },
       // 用户运营：锦上添花
@@ -300,33 +273,24 @@ export const menuConfig: MenuItem[] = [
         ]
       },
       {
-        title: '会员管理 *',
+        title: '会员管理',
         children: [
           { title: '会员等级设置 *', path: '/member-management/levels' },
-          { title: '会员邀请记录 *', path: '/platform-admin/member-management/invitations' }
+          { title: '会员邀请记录 *', path: '/platform-admin/member-management/invitations' },
+          { title: '会员查询', path: '/platform-admin/user-management/list' }
         ]
       },
-      {
-        title: '用户管理',
-        children: [
-          { title: '用户列表', path: '/platform-admin/user-management/list' },
-        ]
-      },
-      // 系统配置
-      {
-        title: '系统管理',
-        children: [
-          { title: '账号列表', path: '/account/list' },
-          { title: '用户列表', path: '/user/list' },
-          { title: '协议配置', path: '/system/agreements' },
-          { title: '标签配置', path: '/system/tags' }
-        ]
-      }
     ]
   },
   {
     title: '商户端',
     children: [
+      {
+        title: '入驻平台',
+        children: [
+          { title: '入驻申请', path: '/merchant-backend/join-application/apply' }
+        ]
+      },
       {
         title: '门店信息',
         children: [
@@ -340,60 +304,6 @@ export const menuConfig: MenuItem[] = [
         ]
       },
       {
-        title: '积分服务',
-        children: [
-          { title: '服务配置 *', path: '/merchant-backend/points-service/config' }
-        ]
-      },
-      {
-        title: 'VIP折扣',
-        children: [
-          { title: '折扣配置 *', path: '/merchant-backend/vip-discount/config' }
-        ]
-      },
-      {
-        title: '老客服务 *',
-        children: [
-          { title: '代客下单 *', path: '/merchant-backend/agent-order/create' },
-          { title: '邀请会员 *', path: '/merchant-backend/old-customer/invite-member' }
-        ]
-      }
-    ]
-  },
-  {
-    title: 'C端小程序',
-    children: [
-      {
-        title: '用户中心',
-        children: [
-          { title: '我的积分 *', path: '/c-client/user-center/my-points' },
-          { title: '会员中心 *', path: '/c-client/user-center/member-center' },
-          { title: '邀请好友 *', path: '/c-client/user-center/invite-friend' }
-        ]
-      },
-      {
-        title: '酒店浏览',
-        children: [
-          { title: '酒店列表 *', path: '/c-client/hotel/list' },
-          { title: '酒店详情 *', path: '/c-client/hotel/detail' },
-          { title: '订单确认 *', path: '/c-client/hotel/order-confirm' }
-        ]
-      },
-      {
-        title: '订单管理',
-        children: [
-          { title: '支付成功 *', path: '/c-client/order/payment-success' },
-          { title: '订单列表 *', path: '/c-client/order/list' },
-          { title: '订单详情 *', path: '/c-client/order/detail' }
-        ]
-      }
-    ]
-  },
-  {
-    title: '酒店后台',
-    children: [
-      // 日常运营：订单和收益
-      {
         title: '订单管理',
         children: [
           { title: '订单列表', path: '/hotel-backend/order-list' },
@@ -403,40 +313,98 @@ export const menuConfig: MenuItem[] = [
         ]
       },
       {
-        title: '收益管理',
+        title: '房务管理',
         children: [
           { title: '房价日历', path: '/hotel-backend/room-price-calendar' },
-          { title: '库存日历', path: '/hotel-backend/inventory-calendar' }
-        ]
-      },
-      // 产品配置：初始化
-      {
-        title: '门店配置',
-        children: [
-          { title: '基本信息', path: '/hotel-backend/store/basic-info' },
-          { title: '门店设施', path: '/hotel-backend/store/facilities' },
-          { title: '门店图片', path: '/hotel-backend/store/images' },
-          { title: '周边信息', path: '/hotel-backend/store/surrounding' },
-          { title: '酒店政策', path: '/hotel-backend/store/policy' },
-          { title: '早餐政策', path: '/hotel-backend/store/breakfast' },
-          { title: '加床政策', path: '/hotel-backend/store/extra-bed' },
-          { title: '非房产品', path: '/hotel-backend/non-room-products' }
-        ]
-      },
-      {
-        title: '房型管理',
-        children: [
+          { title: '库存日历', path: '/hotel-backend/inventory-calendar' },
           { title: '房型列表', path: '/hotel-backend/room-type-list' },
           { title: '房型图片', path: '/hotel-backend/room-type-images' },
-          { title: '房间管理', path: '/hotel-backend/rooms' }
+          { title: '房间管理', path: '/hotel-backend/rooms' },
+          { title: 'PMS对接', path: '/hotel-backend/pms-integration' }
         ]
       },
-      // 系统配置
+      {
+        title: '会员服务',
+        children: [
+          { title: '积分服务配置 *', path: '/merchant-backend/points-service/config' },
+          { title: 'VIP折扣配置 *', path: '/merchant-backend/vip-discount/config' },
+          { title: '代客下单 *', path: '/merchant-backend/agent-order/create' },
+          { title: '邀请会员 *', path: '/merchant-backend/old-customer/invite-member' }
+        ]
+      }
+    ]
+  },
+  {
+    title: '草稿',
+    children: [
+      {
+        title: '系统管理',
+        children: [
+          { title: '账号列表', path: '/account/list' },
+          { title: '协议配置', path: '/system/agreements' },
+          { title: '标签配置', path: '/system/tags' }
+        ]
+      },
       {
         title: '系统设置',
         children: [
-          { title: 'PMS对接', path: '/hotel-backend/pms-integration' },
           { title: '员工账号', path: '/hotel-backend/staff' }
+        ]
+      },
+      {
+        title: '技术架构',
+        children: [
+          { title: '技术设计', path: '/architecture/technical' }
+        ]
+      },
+      {
+        title: '场景设计',
+        children: [
+          { title: '核心场景 *', path: '/architecture/scenario' }
+        ]
+      },
+      {
+        title: '酒店入驻',
+        children: [
+          { title: '加盟申请', path: '/hotel/join-application' },
+          { title: '合作酒店', path: '/hotel/partner-list' },
+          { title: '协议模板', path: '/hotel/contract-template' },
+          { title: '签约记录', path: '/hotel/signing-record' }
+        ]
+      },
+      {
+        title: 'C端小程序',
+        children: [
+          {
+            title: '用户中心',
+            children: [
+              { title: '我的积分 *', path: '/c-client/user-center/my-points' },
+              { title: '会员中心 *', path: '/c-client/user-center/member-center' },
+              { title: '邀请好友 *', path: '/c-client/user-center/invite-friend' }
+            ]
+          },
+          {
+            title: '酒店浏览',
+            children: [
+              { title: '酒店列表 *', path: '/c-client/hotel/list' },
+              { title: '酒店详情 *', path: '/c-client/hotel/detail' },
+              { title: '订单确认 *', path: '/c-client/hotel/order-confirm' }
+            ]
+          },
+          {
+            title: '订单管理',
+            children: [
+              { title: '支付成功 *', path: '/c-client/order/payment-success' },
+              { title: '订单列表 *', path: '/c-client/order/list' },
+              { title: '订单详情 *', path: '/c-client/order/detail' }
+            ]
+          }
+        ]
+      },
+      {
+        title: '参考资料',
+        children: [
+          { title: '美团、携程、华住会', path: '#' }
         ]
       }
     ]

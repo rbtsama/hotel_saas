@@ -7,7 +7,7 @@ import { OrderStatus, PaymentMethod } from './types/order.types'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Label } from '~/components/ui/label'
 import MainLayout from '../PointsSystem/components/MainLayout'
-import OperationLogButton from '../PointsSystem/components/OperationLogButton'
+import BackButton from '../SharedComponents/BackButton'
 
 interface OrderDetailPageProps {
   order: Order
@@ -45,12 +45,12 @@ export default function OrderDetailPage({ order, error }: OrderDetailPageProps) 
     <MainLayout>
       <div className="p-6 space-y-6">
             {/* 页面标题 */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <BackButton to="/order/list" />
               <div>
                 <h1 className="text-2xl font-bold">订单详情</h1>
                 <p className="text-sm text-slate-500 mt-1">订单号: {order.orderId}</p>
               </div>
-              <OperationLogButton moduleName="订单详情" />
             </div>
 
             <Card>

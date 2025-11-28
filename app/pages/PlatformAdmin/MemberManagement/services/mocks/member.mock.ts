@@ -10,6 +10,7 @@ import type {
   UserNightRecord,
   MemberLevelAdjustRecord,
 } from '../../types/member.types'
+import { Gender } from '../../types/member.types'
 
 /**
  * 会员等级升级规则 Mock
@@ -199,10 +200,13 @@ export const mockTrialMemberConfig: TrialMemberConfig = {
  * 用户会员信息列表 Mock
  */
 export const mockUserMemberInfos: UserMemberInfo[] = [
-  // 用户1: 只有正式会员VIP3，今年已升级
+  // 用户1: 只有正式会员VIP3，今年已升级，已填写完整信息
   {
     userId: '100000',
-    userName: '旅行达人',
+    nickname: '旅行达人',
+    realName: '张明',
+    gender: Gender.MALE,
+    region: { province: '浙江省', city: '杭州市' },
     phone: '13812341234',
     currentLevel: 3,
     currentLevelName: 'VIP3',
@@ -218,10 +222,13 @@ export const mockUserMemberInfos: UserMemberInfo[] = [
     pointsBalance: 150,
     registeredAt: '2024-05-20 14:30:00',
   },
-  // 用户2: 正式VIP2，有体验VIP3（体验等级更高）
+  // 用户2: 正式VIP2，有体验VIP3（体验等级更高），只填写了性别
   {
     userId: '100001',
-    userName: '阳光少年',
+    nickname: '阳光少年',
+    realName: null,
+    gender: Gender.MALE,
+    region: null,
     phone: '13923455678',
     currentLevel: 3,
     currentLevelName: 'VIP3 (体验)',
@@ -237,10 +244,13 @@ export const mockUserMemberInfos: UserMemberInfo[] = [
     pointsBalance: 80,
     registeredAt: '2024-08-15 09:20:00',
   },
-  // 用户3: 正式VIP1，今年未升级
+  // 用户3: 正式VIP1，今年未升级，未填写任何可选信息
   {
     userId: '100002',
-    userName: '微笑的猫咪',
+    nickname: '微笑的猫咪',
+    realName: null,
+    gender: null,
+    region: null,
     phone: '13634569012',
     currentLevel: 1,
     currentLevelName: 'VIP1',
@@ -256,10 +266,13 @@ export const mockUserMemberInfos: UserMemberInfo[] = [
     pointsBalance: 200,
     registeredAt: '2025-01-10 16:45:00',
   },
-  // 用户4: 只有体验会员VIP2
+  // 用户4: 只有体验会员VIP2，已填写姓名和地区
   {
     userId: '100003',
-    userName: '星空漫步',
+    nickname: '星空漫步',
+    realName: '王芳',
+    gender: Gender.FEMALE,
+    region: { province: '上海市', city: '上海市' },
     phone: '13745670123',
     currentLevel: 2,
     currentLevelName: 'VIP2 (体验)',
@@ -275,10 +288,13 @@ export const mockUserMemberInfos: UserMemberInfo[] = [
     pointsBalance: 50,
     registeredAt: '2025-11-15 10:20:00',
   },
-  // 用户5: 正式VIP4，有体验VIP2（正式等级更高）
+  // 用户5: 正式VIP4，有体验VIP2（正式等级更高），已填写完整信息
   {
     userId: '100004',
-    userName: '梦想家',
+    nickname: '梦想家',
+    realName: '李强',
+    gender: Gender.MALE,
+    region: { province: '广东省', city: '深圳市' },
     phone: '13856781234',
     currentLevel: 4,
     currentLevelName: 'VIP4',

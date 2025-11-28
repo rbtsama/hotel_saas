@@ -31,7 +31,7 @@ export default function MemberCenterPage({
     <MobileFrame navTitle="会员中心" showTabBar={true}>
       <div className="p-4 space-y-4">
         {/* 当前等级卡片 */}
-        <div className="bg-gradient-to-br from-[#A67B5B] to-[#B8936F] rounded-2xl p-6 text-white relative overflow-hidden shadow-lg">
+        <div className="bg-gradient-to-br from-[#C67A28] to-[#B8936F] rounded-2xl p-6 text-white relative overflow-hidden shadow-lg">
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
@@ -55,7 +55,7 @@ export default function MemberCenterPage({
         <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold text-slate-900">升级进度</h3>
-            <Badge variant="outline" className="text-[#4A85B8] border-[#4A85B8] rounded-sm">
+            <Badge variant="outline" className="text-[#4A8FBF] border-[#4A8FBF] rounded-sm">
               VIP{upgradeTarget.level}
             </Badge>
           </div>
@@ -64,7 +64,7 @@ export default function MemberCenterPage({
           </p>
           <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-[#458559] to-[#5A9F6E] transition-all"
+              className="h-full bg-gradient-to-r from-[#2C5F8D] to-[#5A9F6E] transition-all"
               style={{ width: `${upgradePercent}%` }}
             />
           </div>
@@ -84,7 +84,7 @@ export default function MemberCenterPage({
           </p>
           <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-[#3D7350] to-[#4A8F65] transition-all"
+              className="h-full bg-gradient-to-r from-[#5A8A65] to-[#4A8F65] transition-all"
               style={{ width: `${maintainPercent}%` }}
             />
           </div>
@@ -98,8 +98,8 @@ export default function MemberCenterPage({
           <h3 className="font-semibold text-slate-900 mb-3">会员权益</h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-[#4A85B8]/15 rounded-lg flex items-center justify-center">
-                <Star className="w-4 h-4 text-[#4A85B8]" />
+              <div className="w-8 h-8 bg-[#4A8FBF]/15 rounded-lg flex items-center justify-center">
+                <Star className="w-4 h-4 text-[#4A8FBF]" />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-medium text-slate-900">88折专享折扣</p>
@@ -107,8 +107,8 @@ export default function MemberCenterPage({
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-[#A67B5B]/15 rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-4 h-4 text-[#A67B5B]" />
+              <div className="w-8 h-8 bg-[#C67A28]/15 rounded-lg flex items-center justify-center">
+                <TrendingUp className="w-4 h-4 text-[#C67A28]" />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-medium text-slate-900">积分价值1.2倍</p>
@@ -116,8 +116,8 @@ export default function MemberCenterPage({
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-[#3D7350]/15 rounded-lg flex items-center justify-center">
-                <Gift className="w-4 h-4 text-[#3D7350]" />
+              <div className="w-8 h-8 bg-[#5A8A65]/15 rounded-lg flex items-center justify-center">
+                <Gift className="w-4 h-4 text-[#5A8A65]" />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-medium text-slate-900">平日额外折扣</p>
@@ -125,8 +125,8 @@ export default function MemberCenterPage({
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-[#A67B5B]/15 rounded-lg flex items-center justify-center">
-                <Headphones className="w-4 h-4 text-[#A67B5B]" />
+              <div className="w-8 h-8 bg-[#C67A28]/15 rounded-lg flex items-center justify-center">
+                <Headphones className="w-4 h-4 text-[#C67A28]" />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-medium text-slate-900">优先客服</p>

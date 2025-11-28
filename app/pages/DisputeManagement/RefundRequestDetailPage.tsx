@@ -3,7 +3,6 @@
  */
 
 import { useState } from 'react'
-import { Link } from '@remix-run/react'
 import type { RefundRequest } from './types/dispute.types'
 import { RefundStatus, RefundChannel } from './types/dispute.types'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
@@ -12,8 +11,9 @@ import { Input } from '~/components/ui/input'
 import { Textarea } from '~/components/ui/textarea'
 import { Badge } from '~/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
-import { ArrowLeft, User, Store, ImageIcon } from 'lucide-react'
+import { User, Store, ImageIcon } from 'lucide-react'
 import MainLayout from '../PointsSystem/components/MainLayout'
+import BackButton from '../SharedComponents/BackButton'
 
 interface RefundRequestDetailPageProps {
   request: RefundRequest
@@ -38,6 +38,19 @@ export default function RefundRequestDetailPage({ request }: RefundRequestDetail
   const [arbitrationRemark, setArbitrationRemark] = useState(request.arbitrationRemark || '')
   const [selectedAction, setSelectedAction] = useState<string>('')
 
+  // 仲裁委员信息（10个委员）
+  const [arbitrators, setArbitrators] = useState<Array<{ name: string; vote: string }>>(() =>
+    Array.from({ length: 10 }, (_, i) => ({ name: '', vote: '' }))
+  )
+
+  const updateArbitrator = (index: number, field: 'name' | 'vote', value: string) => {
+    setArbitrators(prev => {
+      const updated = [...prev]
+      updated[index] = { ...updated[index], [field]: value }
+      return updated
+    })
+  }
+
   // 判断是否可以操作（仲裁中状态且商家拒绝后）
   const canOperate = request.status === RefundStatus.ARBITRATING && request.merchantApproved === false
   // 判断是否已完成（已退款或已驳回）
@@ -55,13 +68,7 @@ export default function RefundRequestDetailPage({ request }: RefundRequestDetail
         <div className="max-w-4xl mx-auto p-8 space-y-6">
           {/* 页面标题 */}
           <div className="flex items-center gap-4">
-            <Link
-              to="/dispute/refund-requests"
-              className="inline-flex items-center gap-1 px-3 py-2 text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              返回列表
-            </Link>
+            <BackButton to="/dispute/refund-requests" />
             <div>
               <h1 className="text-2xl font-bold text-slate-900">退款申请详情</h1>
             </div>
@@ -237,10 +244,6 @@ export default function RefundRequestDetailPage({ request }: RefundRequestDetail
                 {/* 仲裁中状态：可编辑 */}
                 {canOperate && (
                   <>
-                    <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-900">
-                      商家已拒绝退款申请，当前进入仲裁流程。请根据仲裁小法庭的投票结果进行处理。
-                    </div>
-
                     <div>
                       <label className="text-sm font-medium text-slate-700 mb-1.5 block">仲裁结果</label>
                       <Select value={arbitrationResult} onValueChange={setArbitrationResult}>
@@ -252,6 +255,52 @@ export default function RefundRequestDetailPage({ request }: RefundRequestDetail
                           <SelectItem value="rejected">仲裁驳回（支持商家）</SelectItem>
                         </SelectContent>
                       </Select>
+                    </div>
+
+                    {/* 仲裁委员投票 */}
+                    <div>
+                      <label className="text-sm font-medium text-slate-700 mb-3 block">仲裁小法庭投票记录（10位委员）</label>
+                      <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+                        {arbitrators.map((arbitrator, index) => (
+                          <div key={index} className="flex items-center gap-2">
+                            <span className="text-sm text-slate-600 w-12">委员{index + 1}</span>
+                            <Input
+                              placeholder="姓名"
+                              value={arbitrator.name}
+                              onChange={(e) => updateArbitrator(index, 'name', e.target.value)}
+                              className="h-9 border-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 w-28"
+                            />
+                            <div className="flex gap-1">
+                              <Button
+                                type="button"
+                                variant={arbitrator.vote === 'support' ? 'default' : 'outline'}
+                                size="sm"
+                                onClick={() => updateArbitrator(index, 'vote', 'support')}
+                                className={`h-8 px-3 text-xs ${
+                                  arbitrator.vote === 'support'
+                                    ? 'bg-green-600 hover:bg-green-700 text-white'
+                                    : 'border-slate-300 text-slate-600 hover:bg-slate-50'
+                                }`}
+                              >
+                                支持
+                              </Button>
+                              <Button
+                                type="button"
+                                variant={arbitrator.vote === 'reject' ? 'default' : 'outline'}
+                                size="sm"
+                                onClick={() => updateArbitrator(index, 'vote', 'reject')}
+                                className={`h-8 px-3 text-xs ${
+                                  arbitrator.vote === 'reject'
+                                    ? 'bg-red-600 hover:bg-red-700 text-white'
+                                    : 'border-slate-300 text-slate-600 hover:bg-slate-50'
+                                }`}
+                              >
+                                驳回
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
                     <div>

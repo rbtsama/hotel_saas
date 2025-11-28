@@ -25,10 +25,10 @@ export default function PointsServiceConfigPage({ config }: PointsServiceConfigP
           </div>
 
           {/* 积分奖励服务 */}
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Gift className="w-5 h-5 text-slate-900" />
+          <Card className="mb-6 rounded-xl border-slate-200 shadow-md hover:shadow-lg transition-all duration-200">
+            <CardHeader className="border-b border-slate-100">
+              <CardTitle className="flex items-center gap-2 text-base font-semibold">
+                <Gift className="w-5 h-5 text-blue-600" />
                 积分奖励
               </CardTitle>
             </CardHeader>
@@ -76,10 +76,10 @@ export default function PointsServiceConfigPage({ config }: PointsServiceConfigP
           </Card>
 
           {/* 积分换购服务 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5 text-slate-900" />
+          <Card className="rounded-xl border-slate-200 shadow-md hover:shadow-lg transition-all duration-200">
+            <CardHeader className="border-b border-slate-100">
+              <CardTitle className="flex items-center gap-2 text-base font-semibold">
+                <ShoppingBag className="w-5 h-5 text-blue-600" />
                 积分换购
               </CardTitle>
             </CardHeader>

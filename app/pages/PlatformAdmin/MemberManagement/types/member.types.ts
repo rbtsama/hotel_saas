@@ -3,6 +3,30 @@
  */
 
 /**
+ * 性别枚举
+ */
+export enum Gender {
+  MALE = 'male',   // 男
+  FEMALE = 'female' // 女
+}
+
+/**
+ * 性别显示名称映射
+ */
+export const GenderLabels: Record<Gender, string> = {
+  [Gender.MALE]: '男',
+  [Gender.FEMALE]: '女'
+}
+
+/**
+ * 地区信息（省市维度）
+ */
+export interface Region {
+  province: string // 省份
+  city: string     // 城市
+}
+
+/**
  * 会员等级升级规则
  */
 export interface MemberLevelUpgradeRule {
@@ -56,11 +80,22 @@ export interface TrialMemberConfig {
 }
 
 /**
- * 用户会员信息
+ * 会员基本信息
+ *
+ * 注意：
+ * - 昵称（nickname）：必填，可修改
+ * - 姓名（realName）：选填，填写后不可改为空
+ * - 性别（gender）：选填，填写后不可改为空
+ * - 地区（region）：选填，填写后不可改为空
  */
 export interface UserMemberInfo {
   userId: string
-  userName: string
+
+  // 基本信息
+  nickname: string // 昵称（必填，可修改）
+  realName: string | null // 真实姓名（选填，填写后不可改为空）
+  gender: Gender | null // 性别（选填，填写后不可改为空）
+  region: Region | null // 地区（选填，填写后不可改为空）
   phone: string
 
   // 当前展示等级（体验和正式中取高值）

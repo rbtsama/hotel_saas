@@ -11,7 +11,7 @@ export default function OrderDetailPage() {
       <div className="p-4 space-y-4">
         {/* 订单状态 */}
         <div className="bg-white rounded-xl p-4 border border-gray-200 text-center shadow-sm">
-          <div className="w-16 h-16 bg-[#4A85B8]/15 rounded-full flex items-center justify-center mx-auto mb-3">
+          <div className="w-16 h-16 bg-[#4A8FBF]/15 rounded-full flex items-center justify-center mx-auto mb-3">
             <span className="text-2xl">🏨</span>
           </div>
           <p className="text-lg font-semibold text-slate-900 mb-1">待入住</p>
@@ -61,7 +61,7 @@ export default function OrderDetailPage() {
               <span className="text-slate-900">房费：</span>
               <span className="text-slate-900">¥396</span>
             </div>
-            <div className="flex justify-between text-[#3D7350]">
+            <div className="flex justify-between text-[#5A8A65]">
               <span>积分抵扣：</span>
               <span>-¥60（50积分×1.2）</span>
             </div>
@@ -71,7 +71,7 @@ export default function OrderDetailPage() {
             </div>
             <div className="flex justify-between pt-2 border-t border-slate-100">
               <span className="font-medium text-slate-900">应付金额：</span>
-              <span className="text-xl font-bold text-[#A67B5B]">¥336</span>
+              <span className="text-xl font-bold text-[#C67A28]">¥336</span>
             </div>
           </div>
         </div>

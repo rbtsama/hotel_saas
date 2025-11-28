@@ -179,7 +179,7 @@ export default function OrderConfirmPage() {
               <span className="text-slate-900">¥{roomFee}</span>
             </div>
             {pointsDeduct > 0 && (
-              <div className="flex justify-between text-[#3D7350]">
+              <div className="flex justify-between text-[#5A8A65]">
                 <span>积分抵扣：</span>
                 <span>-¥{deductAmount}</span>
               </div>
@@ -195,14 +195,14 @@ export default function OrderConfirmPage() {
           <div className="border-t border-slate-200 mt-3 pt-3">
             <div className="flex items-baseline justify-between">
               <span className="text-slate-900">应付金额：</span>
-              <span className="text-3xl font-bold text-[#A67B5B]">¥{finalAmount.toFixed(0)}</span>
+              <span className="text-3xl font-bold text-[#C67A28]">¥{finalAmount.toFixed(0)}</span>
             </div>
           </div>
         </div>
 
         {/* 确认支付按钮 */}
         <div className="px-4 pb-4">
-          <Button className="w-full h-8 px-6 rounded-full bg-[#458559] hover:bg-[#3D7350] text-base">
+          <Button className="w-full h-8 px-6 rounded-full bg-[#2C5F8D] hover:bg-[#5A8A65] text-base">
             确认支付
           </Button>
         </div>

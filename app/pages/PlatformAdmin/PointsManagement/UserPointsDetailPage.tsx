@@ -55,7 +55,7 @@ export default function UserPointsDetailPage({
         {/* 基本信息和会员信息 */}
         <div className="grid grid-cols-2 gap-6 mb-6">
           {/* 基本信息 */}
-          <Card className="rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+          <Card className="rounded-xl border-slate-200 shadow-md hover:shadow-lg transition-all duration-200">
             <CardHeader>
               <CardTitle className="text-slate-900">基本信息</CardTitle>
             </CardHeader>
@@ -76,7 +76,7 @@ export default function UserPointsDetailPage({
           </Card>
 
           {/* 会员信息 */}
-          <Card className="rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+          <Card className="rounded-xl border-slate-200 shadow-md hover:shadow-lg transition-all duration-200">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="text-slate-900">会员信息</CardTitle>
@@ -105,14 +105,14 @@ export default function UserPointsDetailPage({
         </div>
 
         {/* 积分信息 */}
-        <Card className="mb-6 rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+        <Card className="mb-6 rounded-xl border-slate-200 shadow-md hover:shadow-lg transition-all duration-200">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-slate-900">积分信息</CardTitle>
                 <CardDescription className="text-slate-900">当前积分余额和积分价值</CardDescription>
               </div>
-              <Button onClick={() => setAdjustDialogOpen(true)} className="h-9 gap-2 bg-blue-600 hover:bg-blue-700">
+              <Button onClick={() => setAdjustDialogOpen(true)} className="h-9 gap-2 bg-blue-600 hover:bg-blue-700 font-medium shadow-sm transition-all">
                 <Edit2 className="w-4 h-4" />
                 手动调整积分
               </Button>
@@ -142,7 +142,7 @@ export default function UserPointsDetailPage({
         </Card>
 
         {/* 间夜记录 */}
-        <Card className="mb-6 rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+        <Card className="mb-6 rounded-xl border-slate-200 shadow-md hover:shadow-lg transition-all duration-200">
           <CardHeader>
             <CardTitle className="text-slate-900">间夜记录</CardTitle>
             <CardDescription className="text-slate-900">用户的历史入住记录</CardDescription>
@@ -178,7 +178,7 @@ export default function UserPointsDetailPage({
         </Card>
 
         {/* 积分明细 */}
-        <Card className="rounded-xl border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+        <Card className="rounded-xl border-slate-200 shadow-md hover:shadow-lg transition-all duration-200">
           <CardHeader>
             <CardTitle className="text-slate-900">积分明细</CardTitle>
             <CardDescription className="text-slate-900">用户的积分获取和使用记录</CardDescription>
@@ -304,10 +304,10 @@ export default function UserPointsDetailPage({
                 </div>
               </div>
               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={() => setAdjustDialogOpen(false)} className="h-9">
+                <Button type="button" variant="outline" onClick={() => setAdjustDialogOpen(false)} className="h-9 border-slate-300 hover:border-slate-400 hover:bg-slate-50 transition-all">
                   取消
                 </Button>
-                <Button type="submit" disabled={!adjustReason || adjustAmount <= 0} className="h-9 bg-blue-600 hover:bg-blue-700">
+                <Button type="submit" disabled={!adjustReason || adjustAmount <= 0} className="h-9 bg-blue-600 hover:bg-blue-700 font-medium shadow-sm transition-all">
                   确定
                 </Button>
               </div>

@@ -51,7 +51,7 @@ export default defineConfig({
 
           // Order Management Routes
           route("/order/list", "routes/order/list.tsx")
-          route("/order/detail", "routes/order/detail.tsx")
+          route("/order/:orderId", "routes/order/$orderId.tsx")
           route("/order/refund", "routes/order/refund.tsx")
 
           // Marketing Management Routes
@@ -130,6 +130,7 @@ export default defineConfig({
           route("/hotel-backend/business/settlements", "routes/hotel-backend/business.settlements.tsx")
 
           // Merchant Backend - New Modules
+          route("/merchant-backend/join-application/apply", "routes/merchant-backend/join-application/apply.tsx")
           route("/merchant-backend/points-service/config", "routes/merchant-backend/points-service/config.tsx")
           route("/merchant-backend/vip-discount/config", "routes/merchant-backend/vip-discount/config.tsx")
           route("/merchant-backend/agent-order/create", "routes/merchant-backend/agent-order/create.tsx")
