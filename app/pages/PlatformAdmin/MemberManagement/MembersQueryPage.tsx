@@ -18,7 +18,6 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table'
-import { Badge } from '~/components/ui/badge'
 import {
   Select,
   SelectContent,
@@ -44,6 +43,7 @@ interface MembersQueryPageProps {
   filters: {
     accountStatus: string
     memberLevel: string
+    merchantName?: string
   }
   isExporting: boolean
 }
@@ -60,27 +60,22 @@ export default function MembersQueryPage({
   const [selectedMemberLevel, setSelectedMemberLevel] = useState(
     filters.memberLevel || 'all'
   )
+  const [merchantNameSearch, setMerchantNameSearch] = useState(
+    filters.merchantName || ''
+  )
 
-  // 获取账号状态徽章样式
-  const getStatusBadgeClass = (status: string) => {
+  // 获取账号状态文字颜色
+  const getStatusTextClass = (status: string) => {
     switch (status) {
       case 'pre_register':
-        return 'border-blue-300 text-blue-700 bg-blue-50'
+        return 'text-blue-600'
       case 'registered':
-        return 'border-green-300 text-green-700 bg-green-50'
+        return 'text-green-600'
       case 'disabled':
-        return 'border-red-300 text-red-700 bg-red-50'
+        return 'text-red-600'
       default:
-        return 'border-slate-300 text-slate-600 bg-white'
+        return 'text-slate-600'
     }
-  }
-
-  // 获取会员等级徽章样式
-  const getLevelBadgeClass = (level: number) => {
-    if (level >= 7) return 'border-purple-300 text-purple-700 bg-purple-50'
-    if (level >= 5) return 'border-amber-300 text-amber-700 bg-amber-50'
-    if (level >= 3) return 'border-blue-300 text-blue-700 bg-blue-50'
-    return 'border-slate-300 text-slate-600 bg-slate-50'
   }
 
   // 生成分页链接
@@ -99,7 +94,7 @@ export default function MembersQueryPage({
     if (startPage > 1) {
       items.push(
         <PaginationItem key="1">
-          <PaginationLink href={`?page=1&accountStatus=${selectedAccountStatus}&memberLevel=${selectedMemberLevel}`}>
+          <PaginationLink href={`?page=1&accountStatus=${selectedAccountStatus}&memberLevel=${selectedMemberLevel}${merchantNameSearch ? `&merchantName=${encodeURIComponent(merchantNameSearch)}` : ''}`}>
             1
           </PaginationLink>
         </PaginationItem>
@@ -117,7 +112,7 @@ export default function MembersQueryPage({
       items.push(
         <PaginationItem key={i}>
           <PaginationLink
-            href={`?page=${i}&accountStatus=${selectedAccountStatus}&memberLevel=${selectedMemberLevel}`}
+            href={`?page=${i}&accountStatus=${selectedAccountStatus}&memberLevel=${selectedMemberLevel}${merchantNameSearch ? `&merchantName=${encodeURIComponent(merchantNameSearch)}` : ''}`}
             isActive={i === currentPage}
           >
             {i}
@@ -136,7 +131,7 @@ export default function MembersQueryPage({
       }
       items.push(
         <PaginationItem key={totalPages}>
-          <PaginationLink href={`?page=${totalPages}&accountStatus=${selectedAccountStatus}&memberLevel=${selectedMemberLevel}`}>
+          <PaginationLink href={`?page=${totalPages}&accountStatus=${selectedAccountStatus}&memberLevel=${selectedMemberLevel}${merchantNameSearch ? `&merchantName=${encodeURIComponent(merchantNameSearch)}` : ''}`}>
             {totalPages}
           </PaginationLink>
         </PaginationItem>
@@ -167,7 +162,22 @@ export default function MembersQueryPage({
             </CardHeader>
             <CardContent className="pt-6">
               <Form method="get" className="space-y-4">
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-4 gap-4">
+                  {/* 关联商户搜索 */}
+                  <div>
+                    <Label htmlFor="merchantName" className="text-sm font-medium text-slate-700">
+                      关联商户
+                    </Label>
+                    <Input
+                      id="merchantName"
+                      name="merchantName"
+                      value={merchantNameSearch}
+                      onChange={(e) => setMerchantNameSearch(e.target.value)}
+                      placeholder="搜索商户名称"
+                      className="h-9 mt-1.5 border-slate-300"
+                    />
+                  </div>
+
                   {/* 账号状态筛选 */}
                   <div>
                     <Label htmlFor="accountStatus" className="text-sm font-medium text-slate-700">
@@ -246,6 +256,7 @@ export default function MembersQueryPage({
                   <input type="hidden" name="action" value="export" />
                   <input type="hidden" name="accountStatus" value={selectedAccountStatus} />
                   <input type="hidden" name="memberLevel" value={selectedMemberLevel} />
+                  <input type="hidden" name="merchantName" value={merchantNameSearch} />
                   <Button
                     type="submit"
                     variant="outline"
@@ -283,16 +294,10 @@ export default function MembersQueryPage({
                         className="hover:bg-slate-50 transition-colors border-slate-200"
                       >
                         <TableCell className="font-medium text-slate-900">{record.phone}</TableCell>
-                        <TableCell>
-                          <Badge className={getStatusBadgeClass(record.accountStatus)}>
-                            {AccountStatusLabels[record.accountStatus as keyof typeof AccountStatusLabels]}
-                          </Badge>
+                        <TableCell className={`font-medium ${getStatusTextClass(record.accountStatus)}`}>
+                          {AccountStatusLabels[record.accountStatus as keyof typeof AccountStatusLabels]}
                         </TableCell>
-                        <TableCell>
-                          <Badge className={getLevelBadgeClass(record.currentLevel)}>
-                            VIP{record.currentLevel}
-                          </Badge>
-                        </TableCell>
+                        <TableCell className="text-slate-900">VIP{record.currentLevel}</TableCell>
                         <TableCell className="text-slate-900">VIP{record.formalLevel}</TableCell>
                         <TableCell className="text-slate-900">{record.formalExpiryDate}</TableCell>
                         <TableCell className="text-slate-900">
@@ -326,7 +331,7 @@ export default function MembersQueryPage({
                         <PaginationPrevious
                           href={
                             currentPage > 1
-                              ? `?page=${currentPage - 1}&accountStatus=${selectedAccountStatus}&memberLevel=${selectedMemberLevel}`
+                              ? `?page=${currentPage - 1}&accountStatus=${selectedAccountStatus}&memberLevel=${selectedMemberLevel}${merchantNameSearch ? `&merchantName=${encodeURIComponent(merchantNameSearch)}` : ''}`
                               : '#'
                           }
                           className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
@@ -339,7 +344,7 @@ export default function MembersQueryPage({
                         <PaginationNext
                           href={
                             currentPage < paginatedResult.totalPages
-                              ? `?page=${currentPage + 1}&accountStatus=${selectedAccountStatus}&memberLevel=${selectedMemberLevel}`
+                              ? `?page=${currentPage + 1}&accountStatus=${selectedAccountStatus}&memberLevel=${selectedMemberLevel}${merchantNameSearch ? `&merchantName=${encodeURIComponent(merchantNameSearch)}` : ''}`
                               : '#'
                           }
                           className={

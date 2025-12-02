@@ -39,6 +39,14 @@ class MemberQueryService {
       filtered = filtered.filter((item) => item.currentLevel === filter.memberLevel)
     }
 
+    // 按关联商户筛选（模糊搜索）
+    if (filter.merchantName) {
+      filtered = filtered.filter(
+        (item) =>
+          item.relatedMerchant.toLowerCase().includes(filter.merchantName!.toLowerCase())
+      )
+    }
+
     // 按更新时间倒序排列
     filtered.sort((a, b) => {
       const timeA = new Date(a.updatedAt.replace(/\//g, '-')).getTime()
@@ -78,6 +86,14 @@ class MemberQueryService {
 
     if (filter?.memberLevel !== undefined && filter.memberLevel !== 'all') {
       filtered = filtered.filter((item) => item.currentLevel === filter.memberLevel)
+    }
+
+    // 按关联商户筛选（模糊搜索）
+    if (filter?.merchantName) {
+      filtered = filtered.filter(
+        (item) =>
+          item.relatedMerchant.toLowerCase().includes(filter.merchantName!.toLowerCase())
+      )
     }
 
     // 按更新时间倒序

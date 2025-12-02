@@ -13,6 +13,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const page = parseInt(url.searchParams.get('page') || '1', 10)
   const accountStatus = url.searchParams.get('accountStatus') || 'all'
   const memberLevel = url.searchParams.get('memberLevel') || 'all'
+  const merchantName = url.searchParams.get('merchantName') || undefined
 
   try {
     // 构建筛选参数
@@ -20,6 +21,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       accountStatus: accountStatus === 'all' ? 'all' : (accountStatus as any),
       memberLevel:
         memberLevel === 'all' ? 'all' : parseInt(memberLevel, 10),
+      merchantName,
     }
 
     // 获取分页数据
@@ -35,6 +37,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       filters: {
         accountStatus,
         memberLevel,
+        merchantName,
       },
       isExporting: false,
     })
@@ -53,6 +56,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         filters: {
           accountStatus: 'all',
           memberLevel: 'all',
+          merchantName: undefined,
         },
         isExporting: false,
         error: '加载数据失败',
@@ -74,12 +78,14 @@ export async function action({ request }: ActionFunctionArgs) {
     if (action === 'export') {
       const accountStatus = formData.get('accountStatus') as string
       const memberLevel = formData.get('memberLevel') as string
+      const merchantName = formData.get('merchantName') as string | undefined
 
       // 构建筛选参数
       const filter: MemberQueryFilterParams = {
         accountStatus: accountStatus === 'all' ? 'all' : (accountStatus as any),
         memberLevel:
           memberLevel === 'all' ? 'all' : parseInt(memberLevel, 10),
+        merchantName: merchantName || undefined,
       }
 
       // 生成导出数据

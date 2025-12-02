@@ -47,6 +47,7 @@ export interface MemberQueryRecord {
 export interface MemberQueryFilterParams {
   accountStatus?: AccountStatus | 'all'
   memberLevel?: number | 'all'
+  merchantName?: string // 关联商户搜索
 }
 
 /**
