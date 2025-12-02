@@ -8,19 +8,9 @@ import CouponListPage from '~/pages/PlatformAdmin/CouponManagement/CouponListPag
 import CouponService from '~/pages/PlatformAdmin/CouponManagement/services/coupon.service'
 import type { Coupon } from '~/pages/PlatformAdmin/CouponManagement/types/coupon.types'
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  const url = new URL(request.url)
-  const search = url.searchParams.get('search') || undefined
-  const type = url.searchParams.get('type') || 'all'
-  const status = url.searchParams.get('status') || 'all'
-
+export async function loader() {
   try {
-    const coupons = await CouponService.getCoupons({
-      search,
-      type: type as any,
-      status: status as any,
-    })
-
+    const coupons = await CouponService.getCoupons()
     return json({ coupons, error: null })
   } catch (error) {
     console.error('Failed to load coupons:', error)

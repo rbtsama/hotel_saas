@@ -43,9 +43,7 @@ export default function SceneDistributionPage({ scenes, enabledCoupons, error }:
   }
 
   const handleEditClick = (scene: SceneDistribution) => {
-    // 启用状态不可编辑
-    if (scene.status === 'enabled') return
-
+    // 编辑功能独立，不受启用状态限制
     setEditingScene(scene)
     setSelectedCouponId(scene.couponId || '')
     setSmsNotify(scene.smsNotify)
@@ -60,9 +58,9 @@ export default function SceneDistributionPage({ scenes, enabledCoupons, error }:
   }
 
   // 获取优惠券显示文本
-  const getCouponDisplayText = (couponId: string | null, remark: string | null) => {
+  const getCouponDisplayText = (couponId: string | null, couponName: string | null) => {
     if (!couponId) return '未配置'
-    return `${couponId}（${remark || '无备注'}）`
+    return `${couponId}（${couponName || '未命名'}）`
   }
 
   return (
@@ -70,7 +68,7 @@ export default function SceneDistributionPage({ scenes, enabledCoupons, error }:
       <div className="p-6">
         <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-slate-900">场景发放配置</CardTitle>
+          <CardTitle className="text-lg font-semibold text-slate-900">自动发放</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="border border-slate-200 rounded-lg overflow-hidden">
@@ -90,7 +88,7 @@ export default function SceneDistributionPage({ scenes, enabledCoupons, error }:
                     <TableCell className="text-slate-900 font-medium">{scene.sceneName}</TableCell>
                     <TableCell className="text-slate-700">{scene.triggerDescription}</TableCell>
                     <TableCell className="text-slate-700">
-                      {getCouponDisplayText(scene.couponId, scene.couponRemark)}
+                      {getCouponDisplayText(scene.couponId, scene.couponName)}
                     </TableCell>
                     <TableCell className="text-center">
                       <span className={scene.smsNotify ? "text-green-700" : "text-slate-600"}>
@@ -99,29 +97,16 @@ export default function SceneDistributionPage({ scenes, enabledCoupons, error }:
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center justify-center gap-2">
-                        {/* 编辑按钮 - 仅停用状态可编辑 */}
-                        {scene.status === 'disabled' ? (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-7 px-2 border-slate-300"
-                            onClick={() => handleEditClick(scene)}
-                          >
-                            <Edit className="w-3 h-3 mr-1" />
-                            编辑
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            disabled
-                            className="h-7 px-2 opacity-50 cursor-not-allowed"
-                            title="启用后不可修改"
-                          >
-                            <Edit className="w-3 h-3 mr-1" />
-                            编辑
-                          </Button>
-                        )}
+                        {/* 编辑按钮 - 始终可用 */}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-7 px-2 border-slate-300"
+                          onClick={() => handleEditClick(scene)}
+                        >
+                          <Edit className="w-3 h-3 mr-1" />
+                          编辑
+                        </Button>
 
                         {/* 启用/停用按钮 */}
                         <Form method="post">
@@ -191,7 +176,7 @@ export default function SceneDistributionPage({ scenes, enabledCoupons, error }:
                   <SelectContent>
                     {enabledCoupons.map((coupon) => (
                       <SelectItem key={coupon.id} value={coupon.id}>
-                        {coupon.id}（{coupon.remark || '无备注'}）
+                        {coupon.id}（{coupon.name}）
                       </SelectItem>
                     ))}
                   </SelectContent>

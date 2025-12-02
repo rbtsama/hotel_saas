@@ -23,30 +23,15 @@ class CouponService {
   private vipLevels = [...mockVipLevels]
 
   /**
-   * 获取优惠券列表
+   * 获取优惠券列表（按创建时间倒序）
    */
-  async getCoupons(params?: CouponFilterParams): Promise<Coupon[]> {
+  async getCoupons(): Promise<Coupon[]> {
     await new Promise((resolve) => setTimeout(resolve, 300))
 
-    let filtered = [...this.coupons]
-
-    // 名称搜索
-    if (params?.search) {
-      const searchLower = params.search.toLowerCase()
-      filtered = filtered.filter((c) => c.name.toLowerCase().includes(searchLower) || c.id.toLowerCase().includes(searchLower))
-    }
-
-    // 类型筛选
-    if (params?.type && params.type !== 'all') {
-      filtered = filtered.filter((c) => c.type === params.type)
-    }
-
-    // 状态筛选
-    if (params?.status && params.status !== 'all') {
-      filtered = filtered.filter((c) => c.status === params.status)
-    }
-
-    return filtered
+    // 按创建时间倒序排列
+    return [...this.coupons].sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    })
   }
 
   /**
@@ -178,6 +163,7 @@ class CouponService {
     if (!coupon) throw new Error('优惠券不存在')
 
     this.sceneDistributions[index].couponId = data.couponId
+    this.sceneDistributions[index].couponName = coupon.name
     this.sceneDistributions[index].couponRemark = coupon.remark || null
     this.sceneDistributions[index].smsNotify = data.smsNotify
 

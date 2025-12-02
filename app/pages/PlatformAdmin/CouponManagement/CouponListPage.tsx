@@ -3,16 +3,14 @@
  */
 
 import { useState } from 'react'
-import { Form, useNavigation } from '@remix-run/react'
+import { Form } from '@remix-run/react'
 import type { Coupon } from './types/coupon.types'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { Input } from '~/components/ui/input'
 import { Button } from '~/components/ui/button'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Badge } from '~/components/ui/badge'
 import { Switch } from '~/components/ui/switch'
-import { Plus, Search, Edit, Trash2 } from 'lucide-react'
+import { Plus, Edit, Trash2 } from 'lucide-react'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 import CouponDialog from './components/CouponDialog'
 
@@ -54,9 +52,6 @@ function getValidDaysText(days: number): string {
 }
 
 export default function CouponListPage({ coupons, error }: CouponListPageProps) {
-  const navigation = useNavigation()
-  const isLoading = navigation.state === 'loading' || navigation.state === 'submitting'
-
   // Dialog弹窗状态
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
@@ -97,49 +92,6 @@ export default function CouponListPage({ coupons, error }: CouponListPageProps) 
         mode="edit"
         coupon={editingCoupon}
       />
-
-      {/* 筛选器 */}
-      <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
-        <CardContent className="pt-6">
-          <Form method="get" className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Input
-                name="search"
-                placeholder="搜索优惠券名称或ID"
-                className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-              />
-
-              <Select name="type" defaultValue="all">
-                <SelectTrigger className="h-9 border-slate-300">
-                  <SelectValue placeholder="优惠券类型" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">全部类型</SelectItem>
-                  <SelectItem value="full_reduction">满减券</SelectItem>
-                  <SelectItem value="discount">折扣券</SelectItem>
-                  <SelectItem value="instant_reduction">立减券</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select name="status" defaultValue="all">
-                <SelectTrigger className="h-9 border-slate-300">
-                  <SelectValue placeholder="状态" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">全部状态</SelectItem>
-                  <SelectItem value="enabled">启用</SelectItem>
-                  <SelectItem value="disabled">停用</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Button type="submit" disabled={isLoading} className="h-9 bg-blue-600 hover:bg-blue-700">
-                <Search className="w-4 h-4 mr-2" />
-                {isLoading ? '搜索中...' : '搜索'}
-              </Button>
-            </div>
-          </Form>
-        </CardContent>
-      </Card>
 
       {/* 优惠券列表 */}
       <Card className="rounded-xl border-slate-200 bg-white shadow-sm">

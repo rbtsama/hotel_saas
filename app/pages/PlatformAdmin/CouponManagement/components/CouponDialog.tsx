@@ -122,16 +122,16 @@ export default function CouponDialog({ open, onOpenChange, coupon, mode }: Coupo
                   setMaxDiscount('')
                 }}
                 className={`
-                  cursor-pointer p-3 rounded-lg border-2 transition-all
+                  cursor-pointer p-3 rounded-lg border-2 transition-all text-center
                   ${type === 'full_reduction'
-                    ? 'border-orange-500 bg-orange-50'
-                    : 'border-orange-200 bg-orange-50/30 hover:border-orange-300'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-slate-200 bg-white hover:border-slate-300'
                   }
                 `}
               >
-                <div className="text-center">
-                  <div className="text-orange-700 font-semibold mb-1">满减券</div>
-                  <div className="text-xs text-orange-600">满X元减Y元</div>
+                <div className={type === 'full_reduction' ? 'text-blue-700' : 'text-slate-700'}>
+                  <div className="font-semibold mb-1">满减券</div>
+                  <div className="text-xs text-slate-500">满X元减Y元</div>
                 </div>
               </div>
 
@@ -146,16 +146,16 @@ export default function CouponDialog({ open, onOpenChange, coupon, mode }: Coupo
                   setMaxDiscount('')
                 }}
                 className={`
-                  cursor-pointer p-3 rounded-lg border-2 transition-all
+                  cursor-pointer p-3 rounded-lg border-2 transition-all text-center
                   ${type === 'discount'
-                    ? 'border-green-500 bg-green-50'
-                    : 'border-green-200 bg-green-50/30 hover:border-green-300'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-slate-200 bg-white hover:border-slate-300'
                   }
                 `}
               >
-                <div className="text-center">
-                  <div className="text-green-700 font-semibold mb-1">折扣券</div>
-                  <div className="text-xs text-green-600">打X折，最高Y元</div>
+                <div className={type === 'discount' ? 'text-blue-700' : 'text-slate-700'}>
+                  <div className="font-semibold mb-1">折扣券</div>
+                  <div className="text-xs text-slate-500">打X折，最高Y元</div>
                 </div>
               </div>
 
@@ -170,16 +170,16 @@ export default function CouponDialog({ open, onOpenChange, coupon, mode }: Coupo
                   setMaxDiscount('')
                 }}
                 className={`
-                  cursor-pointer p-3 rounded-lg border-2 transition-all
+                  cursor-pointer p-3 rounded-lg border-2 transition-all text-center
                   ${type === 'instant_reduction'
                     ? 'border-blue-500 bg-blue-50'
-                    : 'border-blue-200 bg-blue-50/30 hover:border-blue-300'
+                    : 'border-slate-200 bg-white hover:border-slate-300'
                   }
                 `}
               >
-                <div className="text-center">
-                  <div className="text-blue-700 font-semibold mb-1">立减券</div>
-                  <div className="text-xs text-blue-600">直接减Y元</div>
+                <div className={type === 'instant_reduction' ? 'text-blue-700' : 'text-slate-700'}>
+                  <div className="font-semibold mb-1">立减券</div>
+                  <div className="text-xs text-slate-500">直接减Y元</div>
                 </div>
               </div>
             </div>
@@ -226,20 +226,26 @@ export default function CouponDialog({ open, onOpenChange, coupon, mode }: Coupo
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="discount" className="text-sm font-medium text-slate-700">
-                  折扣率(几折) <span className="text-red-500">*</span>
+                  折扣率% <span className="text-red-500">*</span>
                 </Label>
-                <Input
-                  id="discount"
-                  name="discount"
-                  type="number"
-                  value={discount}
-                  onChange={(e) => setDiscount(e.target.value)}
-                  placeholder="输入1-99"
-                  min={1}
-                  max={99}
-                  required
-                  className="h-9"
-                />
+                <div className="relative">
+                  <Input
+                    id="discount"
+                    name="discount"
+                    type="number"
+                    value={discount}
+                    onChange={(e) => setDiscount(e.target.value)}
+                    placeholder="如：85"
+                    min={1}
+                    max={99}
+                    required
+                    className="h-9 pr-8"
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500">
+                    %
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500">输入折扣百分比，如85表示85%折扣</p>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="maxDiscount" className="text-sm font-medium text-slate-700">

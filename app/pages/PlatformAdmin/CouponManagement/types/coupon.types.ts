@@ -71,6 +71,8 @@ export interface SceneDistribution {
   triggerDescription: string
   // 关联优惠券ID
   couponId: string | null
+  // 关联优惠券名称（用于显示）
+  couponName: string | null
   // 关联优惠券备注（用于显示）
   couponRemark: string | null
   // 短信通知开关
