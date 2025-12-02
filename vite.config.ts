@@ -81,7 +81,6 @@ export default defineConfig({
           route("/platform-admin/coupon-management/edit/:id", "routes/platform-admin/coupon-management/edit.$id.tsx")
           route("/platform-admin/coupon-management/toggle/:id", "routes/platform-admin/coupon-management/toggle.$id.tsx")
           route("/platform-admin/coupon-management/delete/:id", "routes/platform-admin/coupon-management/delete.$id.tsx")
-          route("/platform-admin/coupon-management/distribution", "routes/platform-admin/coupon-management/distribution.tsx")
           route("/platform-admin/coupon-management/scene-distribution", "routes/platform-admin/coupon-management/scene-distribution.tsx")
           route("/platform-admin/coupon-management/scene-toggle/:id", "routes/platform-admin/coupon-management/scene-toggle.$id.tsx")
           route("/platform-admin/coupon-management/manual-distribution", "routes/platform-admin/coupon-management/manual-distribution.tsx")
