@@ -102,7 +102,7 @@ class CouponService {
     this.coupons.unshift(newCoupon)
 
     // 记录操作日志
-    this.logOperation('create', newCoupon.name)
+    this.logOperation('create', newCoupon)
 
     return newCoupon
   }
@@ -116,11 +116,14 @@ class CouponService {
     const index = this.coupons.findIndex((c) => c.id === id)
     if (index === -1) return null
 
+    // 保存旧数据用于对比
+    const oldCoupon = { ...this.coupons[index] }
+
     // 允许所有状态的优惠券编辑
     this.coupons[index] = { ...this.coupons[index], ...data }
 
     // 记录操作日志
-    this.logOperation('edit', this.coupons[index].name)
+    this.logOperation('edit', this.coupons[index], oldCoupon)
 
     return this.coupons[index]
   }
@@ -318,13 +321,56 @@ class CouponService {
   }
 
   /**
-   * 记录操作
+   * 记录操作日志
    */
-  private logOperation(type: CouponOperationType, couponName: string) {
+  private logOperation(type: CouponOperationType, coupon: Coupon, oldCoupon?: Coupon) {
+    let operationContent = ''
+
+    if (type === 'create') {
+      operationContent = '创建优惠券'
+    } else {
+      // 编辑操作：对比字段变更
+      const changes: string[] = []
+
+      if (oldCoupon) {
+        // 对比所有字段
+        if (oldCoupon.name !== coupon.name) {
+          changes.push(`优惠券名称：${oldCoupon.name} → ${coupon.name}`)
+        }
+        if (oldCoupon.remark !== coupon.remark) {
+          changes.push(`备注说明：${oldCoupon.remark || '无'} → ${coupon.remark || '无'}`)
+        }
+        if (oldCoupon.threshold !== coupon.threshold) {
+          changes.push(`使用门槛：${oldCoupon.threshold}元 → ${coupon.threshold}元`)
+        }
+        if (oldCoupon.amount !== coupon.amount) {
+          changes.push(`减免金额：${oldCoupon.amount}元 → ${coupon.amount}元`)
+        }
+        if (oldCoupon.discount !== coupon.discount) {
+          changes.push(`折扣率：${oldCoupon.discount}% → ${coupon.discount}%`)
+        }
+        if (oldCoupon.maxDiscount !== coupon.maxDiscount) {
+          changes.push(`最高优惠金额：${oldCoupon.maxDiscount}元 → ${coupon.maxDiscount}元`)
+        }
+        if (oldCoupon.platformRatio !== coupon.platformRatio) {
+          changes.push(`平台承担比例：${oldCoupon.platformRatio}% → ${coupon.platformRatio}%`)
+        }
+        if (oldCoupon.validDays !== coupon.validDays) {
+          changes.push(`有效天数：${oldCoupon.validDays === 0 ? '永久' : oldCoupon.validDays + '天'} → ${coupon.validDays === 0 ? '永久' : coupon.validDays + '天'}`)
+        }
+        if (oldCoupon.smsNotify !== coupon.smsNotify) {
+          changes.push(`短信通知：${oldCoupon.smsNotify ? '是' : '否'} → ${coupon.smsNotify ? '是' : '否'}`)
+        }
+      }
+
+      operationContent = changes.join('\n') || '无变更'
+    }
+
     const newLog: CouponOperationLog = {
       id: `LOG${String(this.operationLogs.length + 1).padStart(3, '0')}`,
+      couponId: coupon.id,
       operationType: type,
-      operationContent: `${type === 'create' ? '创建' : '编辑'}优惠券：${couponName}`,
+      operationContent,
       operatedAt: new Date().toLocaleString('zh-CN', {
         year: 'numeric',
         month: '2-digit',
@@ -336,6 +382,7 @@ class CouponService {
       }).replace(/\//g, '/').replace(',', ''),
       operatedBy: 'admin001', // 模拟当前登录用户
     }
+
     this.operationLogs.unshift(newLog)
   }
 }

@@ -141,8 +141,9 @@ export type CouponOperationType = 'create' | 'edit'
  */
 export interface CouponOperationLog {
   id: string
-  operationType: CouponOperationType
-  operationContent: string  // 如："创建优惠券：新用户专享满300减50"
+  couponId: string  // 优惠券ID，如："cp1003"
+  operationType: CouponOperationType  // 操作类型：创建/编辑
+  operationContent: string  // 详细内容，如："备注说明：新人专享 修改为 VIP专享"
   operatedAt: string
   operatedBy: string
 }
