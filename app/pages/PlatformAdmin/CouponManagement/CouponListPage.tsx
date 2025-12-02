@@ -3,8 +3,8 @@
  */
 
 import { useState } from 'react'
-import { Form, Link, useNavigation } from '@remix-run/react'
-import type { Coupon, CouponType } from './types/coupon.types'
+import { Form, useNavigation } from '@remix-run/react'
+import type { Coupon } from './types/coupon.types'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Button } from '~/components/ui/button'
@@ -12,12 +12,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Badge } from '~/components/ui/badge'
 import { Switch } from '~/components/ui/switch'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '~/components/ui/dialog'
-import { Label } from '~/components/ui/label'
-import { Textarea } from '~/components/ui/textarea'
-import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group'
 import { Plus, Search, Edit, Trash2 } from 'lucide-react'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
+import CouponDialog from './components/CouponDialog'
 
 interface CouponListPageProps {
   coupons: Coupon[]
@@ -62,20 +59,14 @@ export default function CouponListPage({ coupons, error }: CouponListPageProps) 
 
   // Dialog弹窗状态
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+  const [editingCoupon, setEditingCoupon] = useState<Coupon | null>(null)
 
-  // 表单状态
-  const [name, setName] = useState('')
-  const [type, setType] = useState<CouponType>('full_reduction')
-  const [threshold, setThreshold] = useState('')
-  const [amount, setAmount] = useState('')
-  const [discount, setDiscount] = useState('')
-  const [maxDiscount, setMaxDiscount] = useState('')
-  const [platformRatio, setPlatformRatio] = useState('50')
-  const [validDays, setValidDays] = useState('30')
-  const [remark, setRemark] = useState('')
-
-  // 计算商户承担比例
-  const merchantRatio = 100 - Number(platformRatio || 0)
+  // 打开编辑Dialog
+  const handleEdit = (coupon: Coupon) => {
+    setEditingCoupon(coupon)
+    setIsEditDialogOpen(true)
+  }
 
   if (error) {
     return (
@@ -92,6 +83,21 @@ export default function CouponListPage({ coupons, error }: CouponListPageProps) 
   return (
     <MainLayout>
       <div className="p-6 space-y-6">
+      {/* 创建优惠券Dialog */}
+      <CouponDialog
+        open={isCreateDialogOpen}
+        onOpenChange={setIsCreateDialogOpen}
+        mode="create"
+      />
+
+      {/* 编辑优惠券Dialog */}
+      <CouponDialog
+        open={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        mode="edit"
+        coupon={editingCoupon}
+      />
+
       {/* 筛选器 */}
       <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
         <CardContent className="pt-6">
@@ -139,254 +145,13 @@ export default function CouponListPage({ coupons, error }: CouponListPageProps) 
       <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg font-semibold text-slate-900">优惠券列表</CardTitle>
-          <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="h-9 bg-blue-600 hover:bg-blue-700">
-                <Plus className="w-4 h-4 mr-2" />
-                创建优惠券
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle className="text-lg font-semibold text-slate-900">创建优惠券</DialogTitle>
-              </DialogHeader>
-
-              <Form method="post" action="/platform-admin/coupon-management/create" className="space-y-6">
-                {/* 优惠券名称 */}
-                <div className="space-y-2">
-                  <Label htmlFor="name" className="text-sm font-medium text-slate-700">
-                    优惠券名称 <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="请输入优惠券名称（最多50字符）"
-                    maxLength={50}
-                    required
-                    className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                  />
-                </div>
-
-                {/* 优惠券类型 */}
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-slate-700">
-                    优惠券类型 <span className="text-red-500">*</span>
-                  </Label>
-                  <RadioGroup
-                    name="type"
-                    value={type}
-                    onValueChange={(value) => {
-                      setType(value as CouponType)
-                      // 切换类型时清空相关字段
-                      setThreshold('')
-                      setAmount('')
-                      setDiscount('')
-                      setMaxDiscount('')
-                    }}
-                    className="flex gap-4"
-                  >
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="full_reduction" id="type-full" />
-                      <Label htmlFor="type-full" className="font-normal cursor-pointer">
-                        满减券 <span className="text-slate-500 text-xs">(满X元减Y元)</span>
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="discount" id="type-discount" />
-                      <Label htmlFor="type-discount" className="font-normal cursor-pointer">
-                        折扣券 <span className="text-slate-500 text-xs">(打Z折)</span>
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="instant_reduction" id="type-instant" />
-                      <Label htmlFor="type-instant" className="font-normal cursor-pointer">
-                        立减券 <span className="text-slate-500 text-xs">(直接减Y元)</span>
-                      </Label>
-                    </div>
-                  </RadioGroup>
-                </div>
-
-                {/* 满减券字段 */}
-                {type === 'full_reduction' && (
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="threshold" className="text-sm font-medium text-slate-700">
-                        使用门槛(元) <span className="text-red-500">*</span>
-                      </Label>
-                      <Input
-                        id="threshold"
-                        name="threshold"
-                        type="number"
-                        value={threshold}
-                        onChange={(e) => setThreshold(e.target.value)}
-                        placeholder="如：300"
-                        required
-                        className="h-9"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="amount" className="text-sm font-medium text-slate-700">
-                        减免金额(元) <span className="text-red-500">*</span>
-                      </Label>
-                      <Input
-                        id="amount"
-                        name="amount"
-                        type="number"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        placeholder="如：50"
-                        required
-                        className="h-9"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* 折扣券字段 */}
-                {type === 'discount' && (
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="discount" className="text-sm font-medium text-slate-700">
-                        折扣率(几折) <span className="text-red-500">*</span>
-                      </Label>
-                      <Input
-                        id="discount"
-                        name="discount"
-                        type="number"
-                        value={discount}
-                        onChange={(e) => setDiscount(e.target.value)}
-                        placeholder="输入1-99"
-                        min={1}
-                        max={99}
-                        required
-                        className="h-9"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="maxDiscount" className="text-sm font-medium text-slate-700">
-                        最高优惠金额(元) <span className="text-red-500">*</span>
-                      </Label>
-                      <Input
-                        id="maxDiscount"
-                        name="maxDiscount"
-                        type="number"
-                        value={maxDiscount}
-                        onChange={(e) => setMaxDiscount(e.target.value)}
-                        placeholder="如：100"
-                        min={0}
-                        required
-                        className="h-9"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* 立减券字段 */}
-                {type === 'instant_reduction' && (
-                  <div className="space-y-2">
-                    <Label htmlFor="amount" className="text-sm font-medium text-slate-700">
-                      减免金额(元) <span className="text-red-500">*</span>
-                    </Label>
-                    <Input
-                      id="amount"
-                      name="amount"
-                      type="number"
-                      value={amount}
-                      onChange={(e) => setAmount(e.target.value)}
-                      placeholder="如：30"
-                      required
-                      className="h-9"
-                    />
-                  </div>
-                )}
-
-                {/* 费用承担 */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="platformRatio" className="text-sm font-medium text-slate-700">
-                      平台承担比例(%) <span className="text-red-500">*</span>
-                    </Label>
-                    <Input
-                      id="platformRatio"
-                      name="platformRatio"
-                      type="number"
-                      value={platformRatio}
-                      onChange={(e) => {
-                        const value = Math.min(100, Math.max(0, Number(e.target.value)))
-                        setPlatformRatio(value.toString())
-                      }}
-                      min={0}
-                      max={100}
-                      required
-                      className="h-9"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="text-sm font-medium text-slate-700">商户承担比例(%)</Label>
-                    <Input
-                      value={merchantRatio}
-                      disabled
-                      className="h-9 bg-slate-50 text-slate-700 cursor-not-allowed border-slate-300"
-                    />
-                  </div>
-                </div>
-
-                {/* 有效天数 */}
-                <div className="space-y-2">
-                  <Label htmlFor="validDays" className="text-sm font-medium text-slate-700">
-                    有效天数 <span className="text-red-500">*</span>
-                  </Label>
-                  <Input
-                    id="validDays"
-                    name="validDays"
-                    type="number"
-                    value={validDays}
-                    onChange={(e) => setValidDays(e.target.value)}
-                    placeholder="0表示永久，其他表示发放后N天23:59过期"
-                    min={0}
-                    required
-                    className="h-9"
-                  />
-                  <p className="text-xs text-slate-500">0表示永久有效，其他数字表示发放后N天23:59过期</p>
-                </div>
-
-                {/* 备注说明 */}
-                <div className="space-y-2">
-                  <Label htmlFor="remark" className="text-sm font-medium text-slate-700">备注说明</Label>
-                  <Textarea
-                    id="remark"
-                    name="remark"
-                    value={remark}
-                    onChange={(e) => setRemark(e.target.value)}
-                    placeholder="仅后台可见，最多200字符"
-                    maxLength={200}
-                    rows={3}
-                    className="resize-none border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-                  />
-                </div>
-
-                {/* 按钮组 */}
-                <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setIsCreateDialogOpen(false)}
-                    className="h-9 border-slate-300"
-                  >
-                    取消
-                  </Button>
-                  <Button
-                    type="submit"
-                    className="h-9 bg-blue-600 hover:bg-blue-700"
-                  >
-                    创建
-                  </Button>
-                </div>
-              </Form>
-            </DialogContent>
-          </Dialog>
+          <Button
+            onClick={() => setIsCreateDialogOpen(true)}
+            className="h-9 bg-blue-600 hover:bg-blue-700"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            创建优惠券
+          </Button>
         </CardHeader>
         <CardContent>
           <div className="border border-slate-200 rounded-lg overflow-hidden">
@@ -453,11 +218,14 @@ export default function CouponListPage({ coupons, error }: CouponListPageProps) 
                       <TableCell>
                         <div className="flex items-center justify-center gap-2">
                           {/* 编辑按钮 - 始终可点击 */}
-                          <Link to={`/platform-admin/coupon-management/edit/${coupon.id}`}>
-                            <Button variant="outline" size="sm" className="h-7 px-2 border-slate-300">
-                              <Edit className="w-3 h-3" />
-                            </Button>
-                          </Link>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 px-2 border-slate-300"
+                            onClick={() => handleEdit(coupon)}
+                          >
+                            <Edit className="w-3 h-3" />
+                          </Button>
 
                           {/* 删除按钮 - 始终可点击，删除前检查是否有发放记录 */}
                           <Form

@@ -1,33 +1,6 @@
-import { json, redirect, type LoaderFunctionArgs, type ActionFunctionArgs } from "@remix-run/node"
-import { useLoaderData, useActionData } from "@remix-run/react"
-import CouponFormPage from "~/pages/PlatformAdmin/CouponManagement/CouponFormPage"
+import { json, redirect, type ActionFunctionArgs } from "@remix-run/node"
 import CouponService from "~/pages/PlatformAdmin/CouponManagement/services/coupon.service"
-import type { Coupon, CouponType } from "~/pages/PlatformAdmin/CouponManagement/types/coupon.types"
-
-export async function loader({ params }: LoaderFunctionArgs) {
-  const { id } = params
-
-  if (!id) {
-    throw new Response("Not Found", { status: 404 })
-  }
-
-  try {
-    const coupon = await CouponService.getCouponById(id)
-
-    if (!coupon) {
-      throw new Response("Not Found", { status: 404 })
-    }
-
-    // 不再检查启用状态，允许所有状态的优惠券编辑
-
-    return json({ coupon, error: null })
-  } catch (error) {
-    if (error instanceof Response && error.status === 302) {
-      throw error
-    }
-    return json({ coupon: null, error: "加载优惠券失败" }, { status: 500 })
-  }
-}
+import type { CouponType } from "~/pages/PlatformAdmin/CouponManagement/types/coupon.types"
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { id } = params
@@ -119,26 +92,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   try {
     await CouponService.updateCoupon(id, couponData)
-    return redirect("/platform-admin/coupon-management")
+    return redirect("/platform-admin/coupon-management/list")
   } catch (error) {
     if (error instanceof Error) {
       return json({ errors: { general: error.message } }, { status: 400 })
     }
     return json({ errors: { general: "保存失败，请稍后重试" } }, { status: 500 })
   }
-}
-
-export default function EditCouponRoute() {
-  const { coupon } = useLoaderData<typeof loader>()
-  const actionData = useActionData<typeof action>()
-
-  if (!coupon) {
-    return (
-      <div className="p-6">
-        <div className="text-red-600">优惠券不存在</div>
-      </div>
-    )
-  }
-
-  return <CouponFormPage coupon={coupon as Coupon} errors={actionData?.errors} />
 }
