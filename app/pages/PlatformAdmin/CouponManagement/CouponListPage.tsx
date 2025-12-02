@@ -217,7 +217,7 @@ export default function CouponListPage({ coupons, total, page, pageSize, totalPa
           {/* 分页组件 */}
           {totalPages > 1 && (
             <div className="flex items-center justify-between px-4 py-4 border-t border-slate-200">
-              <div className="text-sm text-slate-600">
+              <div className="text-sm text-slate-600 whitespace-nowrap">
                 共 {total} 条
               </div>
               <Pagination>
