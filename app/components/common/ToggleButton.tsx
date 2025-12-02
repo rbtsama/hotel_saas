@@ -30,7 +30,7 @@ export function ToggleButton({
 
   return (
     <Button
-      type="button"
+      type="submit"
       variant="outline"
       size={size}
       onClick={onToggle}
