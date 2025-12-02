@@ -39,17 +39,7 @@ export default function Sidebar({ menuItems }: SidebarProps) {
     '门店信息': true,
     '房务管理': true,
     '会员服务': true,
-    '系统设置': true,
-    // 草稿菜单（默认展开）
-    '草稿': true,
-    '系统管理': true,
-    '技术架构': true,
-    '场景设计': true,
-    '酒店入驻': true,
-    'C端小程序': true,
-    '用户中心': true,
-    '酒店浏览': true,
-    '参考资料': true
+    '系统设置': true
   })
 
   // 保存滚动位置 - 实时保存
@@ -336,81 +326,6 @@ export const menuConfig: MenuItem[] = [
           { title: 'VIP折扣配置 *', path: '/merchant-backend/vip-discount/config' },
           { title: '代客下单 *', path: '/merchant-backend/agent-order/create' },
           { title: '邀请会员 *', path: '/merchant-backend/old-customer/invite-member' }
-        ]
-      }
-    ]
-  },
-  {
-    title: '草稿',
-    children: [
-      {
-        title: '系统管理',
-        children: [
-          { title: '账号列表', path: '/account/list' },
-          { title: '协议配置', path: '/system/agreements' },
-          { title: '标签配置', path: '/system/tags' }
-        ]
-      },
-      {
-        title: '系统设置',
-        children: [
-          { title: '员工账号', path: '/hotel-backend/staff' }
-        ]
-      },
-      {
-        title: '技术架构',
-        children: [
-          { title: '技术设计', path: '/architecture/technical' }
-        ]
-      },
-      {
-        title: '场景设计',
-        children: [
-          { title: '核心场景 *', path: '/architecture/scenario' }
-        ]
-      },
-      {
-        title: '酒店入驻',
-        children: [
-          { title: '加盟申请', path: '/hotel/join-application' },
-          { title: '合作酒店', path: '/hotel/partner-list' },
-          { title: '协议模板', path: '/hotel/contract-template' },
-          { title: '签约记录', path: '/hotel/signing-record' }
-        ]
-      },
-      {
-        title: 'C端小程序',
-        children: [
-          {
-            title: '用户中心',
-            children: [
-              { title: '我的积分 *', path: '/c-client/user-center/my-points' },
-              { title: '会员中心 *', path: '/c-client/user-center/member-center' },
-              { title: '邀请好友 *', path: '/c-client/user-center/invite-friend' }
-            ]
-          },
-          {
-            title: '酒店浏览',
-            children: [
-              { title: '酒店列表 *', path: '/c-client/hotel/list' },
-              { title: '酒店详情 *', path: '/c-client/hotel/detail' },
-              { title: '订单确认 *', path: '/c-client/hotel/order-confirm' }
-            ]
-          },
-          {
-            title: '订单管理',
-            children: [
-              { title: '支付成功 *', path: '/c-client/order/payment-success' },
-              { title: '订单列表 *', path: '/c-client/order/list' },
-              { title: '订单详情 *', path: '/c-client/order/detail' }
-            ]
-          }
-        ]
-      },
-      {
-        title: '参考资料',
-        children: [
-          { title: '美团、携程、华住会', path: '#' }
         ]
       }
     ]
