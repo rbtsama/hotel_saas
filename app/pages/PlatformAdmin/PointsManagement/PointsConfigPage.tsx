@@ -229,141 +229,148 @@ export default function PointsConfigPage({
             )}
           </CardHeader>
           <CardContent>
-            {isEditingBaseRule ? (
-              <Form method="post" action="/platform-admin/points-management/config" className="space-y-6" id="base-rule-form">
-                <input type="hidden" name="action" value="update-base-rule" />
+            <Form method="post" action="/platform-admin/points-management/config" className="space-y-6" id="base-rule-form">
+              <input type="hidden" name="action" value="update-base-rule" />
 
-                {/* 注册奖励、邀请人奖励 */}
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-slate-900">注册奖励（积分数）</label>
-                    <Input
-                      type="number"
-                      name="registerReward"
-                      value={baseRuleForm.registerReward}
-                      onChange={(e) => setBaseRuleForm({ ...baseRuleForm, registerReward: parseInt(e.target.value) || 0 })}
-                      className="h-9"
-                      min="0"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-slate-900">邀请人奖励（积分数）</label>
-                    <Input
-                      type="number"
-                      name="inviterReward"
-                      value={baseRuleForm.inviterReward}
-                      onChange={(e) => setBaseRuleForm({ ...baseRuleForm, inviterReward: parseInt(e.target.value) || 0 })}
-                      className="h-9"
-                      min="0"
-                    />
-                  </div>
-                </div>
-
-                {/* VIP入住返还倍数 */}
+              {/* 第一行：注册奖励、邀请人奖励 */}
+              <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-slate-900">入住返还倍数（VIP0-9）</label>
-                  <div className="grid grid-cols-5 gap-3">
-                    {['vip0', 'vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6', 'vip7', 'vip8', 'vip9'].map((key, idx) => (
-                      <div key={key} className="space-y-1">
-                        <label className="text-xs text-slate-600">VIP{idx}</label>
-                        <Input
-                          type="number"
-                          name={key}
-                          value={baseRuleForm[key as keyof typeof baseRuleForm]}
-                          onChange={(e) => setBaseRuleForm({ ...baseRuleForm, [key]: parseFloat(e.target.value) || 1.0 })}
-                          className="h-8 text-xs"
-                          step="0.1"
-                          min="1"
-                        />
-                      </div>
-                    ))}
-                  </div>
+                  <label className="text-sm font-medium text-slate-600">注册奖励</label>
+                  {isEditingBaseRule ? (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        type="number"
+                        name="registerReward"
+                        value={baseRuleForm.registerReward}
+                        onChange={(e) => setBaseRuleForm({ ...baseRuleForm, registerReward: parseInt(e.target.value) || 0 })}
+                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                        min="0"
+                      />
+                      <span className="text-sm text-slate-600 whitespace-nowrap">积分</span>
+                    </div>
+                  ) : (
+                    <div className="h-9 flex items-center">
+                      <span className="font-semibold text-slate-900">{baseRule.registerReward} 积分</span>
+                    </div>
+                  )}
                 </div>
 
-                {/* 积分兑换汇率、最大抵扣比例、有效期 */}
-                <div className="grid grid-cols-3 gap-6">
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-slate-900">积分兑换汇率</label>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-600">邀请人奖励</label>
+                  {isEditingBaseRule ? (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        type="number"
+                        name="inviterReward"
+                        value={baseRuleForm.inviterReward}
+                        onChange={(e) => setBaseRuleForm({ ...baseRuleForm, inviterReward: parseInt(e.target.value) || 0 })}
+                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                        min="0"
+                      />
+                      <span className="text-sm text-slate-600 whitespace-nowrap">积分</span>
+                    </div>
+                  ) : (
+                    <div className="h-9 flex items-center">
+                      <span className="font-semibold text-slate-900">{baseRule.inviterReward} 积分</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* 第二行：积分兑换汇率、最大抵扣比例、积分有效期 */}
+              <div className="grid grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-600">积分兑换汇率</label>
+                  {isEditingBaseRule ? (
                     <div className="flex items-center gap-2">
                       <Input
                         type="number"
                         name="exchangeRate"
                         value={baseRuleForm.exchangeRate}
                         onChange={(e) => setBaseRuleForm({ ...baseRuleForm, exchangeRate: parseInt(e.target.value) || 0 })}
-                        className="h-9"
+                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                         min="1"
                       />
-                      <span className="text-sm text-slate-600">积分 = 1元</span>
+                      <span className="text-sm text-slate-600 whitespace-nowrap">积分=1元</span>
                     </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-slate-900">最大抵扣比例</label>
+                  ) : (
+                    <div className="h-9 flex items-center">
+                      <span className="font-semibold text-slate-900">{baseRule.exchangeRate} 积分 = 1元</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-600">最大抵扣比例</label>
+                  {isEditingBaseRule ? (
                     <div className="flex items-center gap-2">
                       <Input
                         type="number"
                         name="maxDeductionRatio"
                         value={baseRuleForm.maxDeductionRatio}
                         onChange={(e) => setBaseRuleForm({ ...baseRuleForm, maxDeductionRatio: parseInt(e.target.value) || 0 })}
-                        className="h-9"
+                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                         min="0"
                         max="100"
                       />
                       <span className="text-sm text-slate-600">%</span>
                     </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-slate-900">积分有效期</label>
+                  ) : (
+                    <div className="h-9 flex items-center">
+                      <span className="font-semibold text-slate-900">{baseRule.maxDeductionRatio}%</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-600">积分有效期</label>
+                  {isEditingBaseRule ? (
                     <div className="flex items-center gap-2">
                       <Input
                         type="number"
                         name="validityMonths"
                         value={baseRuleForm.validityMonths}
                         onChange={(e) => setBaseRuleForm({ ...baseRuleForm, validityMonths: parseInt(e.target.value) || 0 })}
-                        className="h-9"
+                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                         min="1"
                       />
                       <span className="text-sm text-slate-600">月</span>
                     </div>
-                  </div>
-                </div>
-              </Form>
-            ) : (
-              <div className="space-y-3 text-sm">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <span className="text-slate-600">注册奖励：</span>
-                    <span className="font-semibold text-slate-900 ml-2">{baseRule.registerReward} 积分</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-600">邀请人奖励：</span>
-                    <span className="font-semibold text-slate-900 ml-2">{baseRule.inviterReward} 积分</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-600">积分兑换汇率：</span>
-                    <span className="font-semibold text-slate-900 ml-2">{baseRule.exchangeRate} 积分 = 1 元</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-600">最大抵扣比例：</span>
-                    <span className="font-semibold text-slate-900 ml-2">{baseRule.maxDeductionRatio}%</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-600">积分有效期：</span>
-                    <span className="font-semibold text-slate-900 ml-2">{baseRule.validityMonths} 个月</span>
-                  </div>
-                </div>
-                <div className="pt-2 border-t border-slate-200">
-                  <span className="text-slate-600">入住返还倍数：</span>
-                  <div className="grid grid-cols-10 gap-2 mt-2">
-                    {['VIP0', 'VIP1', 'VIP2', 'VIP3', 'VIP4', 'VIP5', 'VIP6', 'VIP7', 'VIP8', 'VIP9'].map((vip) => (
-                      <div key={vip} className="text-center">
-                        <div className="text-xs text-slate-600">{vip}</div>
-                        <div className="font-semibold text-slate-900">{baseRule.vipMultipliers[vip]?.toFixed(1)}</div>
-                      </div>
-                    ))}
-                  </div>
+                  ) : (
+                    <div className="h-9 flex items-center">
+                      <span className="font-semibold text-slate-900">{baseRule.validityMonths} 个月</span>
+                    </div>
+                  )}
                 </div>
               </div>
-            )}
+
+              {/* 第三行：入住返还倍数 */}
+              <div className="space-y-3 pt-3 border-t border-slate-200">
+                <label className="text-sm font-medium text-slate-600">入住返还倍数</label>
+                <div className="grid grid-cols-10 gap-3">
+                  {['vip0', 'vip1', 'vip2', 'vip3', 'vip4', 'vip5', 'vip6', 'vip7', 'vip8', 'vip9'].map((key, idx) => (
+                    <div key={key} className="space-y-1.5">
+                      <div className="text-xs text-slate-600 text-center">VIP{idx}</div>
+                      {isEditingBaseRule ? (
+                        <Input
+                          type="number"
+                          name={key}
+                          value={baseRuleForm[key as keyof typeof baseRuleForm]}
+                          onChange={(e) => setBaseRuleForm({ ...baseRuleForm, [key]: parseFloat(e.target.value) || 1.0 })}
+                          className="h-8 text-xs text-center border-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20"
+                          step="0.1"
+                          min="1"
+                        />
+                      ) : (
+                        <div className="h-8 flex items-center justify-center">
+                          <span className="font-semibold text-slate-900">{baseRule.vipMultipliers[`VIP${idx}`]?.toFixed(1)}</span>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Form>
           </CardContent>
         </Card>
 
