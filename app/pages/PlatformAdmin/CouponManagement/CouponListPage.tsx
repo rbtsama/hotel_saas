@@ -10,7 +10,7 @@ import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Badge } from '~/components/ui/badge'
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '~/components/ui/pagination'
-import { Plus, Edit, Power, PowerOff, History } from 'lucide-react'
+import { Plus, Edit, History } from 'lucide-react'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 import CouponDialog from './components/CouponDialog'
 
@@ -192,17 +192,7 @@ export default function CouponListPage({ coupons, total, page, pageSize, totalPa
                                   : 'border-green-300 text-green-700 hover:bg-green-50'
                               }`}
                             >
-                              {coupon.status === 'enabled' ? (
-                                <>
-                                  <PowerOff className="w-3 h-3 mr-1" />
-                                  停用
-                                </>
-                              ) : (
-                                <>
-                                  <Power className="w-3 h-3 mr-1" />
-                                  启用
-                                </>
-                              )}
+                              {coupon.status === 'enabled' ? '停用' : '启用'}
                             </Button>
                           </Form>
                         </div>
