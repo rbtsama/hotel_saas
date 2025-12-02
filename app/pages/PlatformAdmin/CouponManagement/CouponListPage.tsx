@@ -9,8 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Button } from '~/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
 import { Badge } from '~/components/ui/badge'
-import { Switch } from '~/components/ui/switch'
-import { Plus, Edit, Trash2 } from 'lucide-react'
+import { Plus, Edit, Power, PowerOff } from 'lucide-react'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 import CouponDialog from './components/CouponDialog'
 
@@ -117,7 +116,6 @@ export default function CouponListPage({ coupons, error }: CouponListPageProps) 
                   <TableHead className="text-slate-600 font-semibold">有效期</TableHead>
                   <TableHead className="text-slate-600 font-semibold">费用承担</TableHead>
                   <TableHead className="text-slate-600 font-semibold text-center">短信通知</TableHead>
-                  <TableHead className="text-slate-600 font-semibold text-center">状态</TableHead>
                   <TableHead className="text-slate-600 font-semibold">创建时间</TableHead>
                   <TableHead className="text-slate-600 font-semibold">创建人</TableHead>
                   <TableHead className="text-slate-600 font-semibold text-center">操作</TableHead>
@@ -126,7 +124,7 @@ export default function CouponListPage({ coupons, error }: CouponListPageProps) 
               <TableBody>
                 {coupons.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={11} className="text-center text-slate-500 py-8">
+                    <TableCell colSpan={10} className="text-center text-slate-500 py-8">
                       暂无数据
                     </TableCell>
                   </TableRow>
@@ -154,43 +152,44 @@ export default function CouponListPage({ coupons, error }: CouponListPageProps) 
                           {coupon.smsNotify ? '是' : '否'}
                         </span>
                       </TableCell>
-                      <TableCell className="text-center">
-                        <Form method="post" action={`/platform-admin/coupon-management/toggle/${coupon.id}`}>
-                          <Switch
-                            checked={coupon.status === 'enabled'}
-                            onCheckedChange={(checked) => {
-                              const form = document.querySelector(`form[action="/platform-admin/coupon-management/toggle/${coupon.id}"]`) as HTMLFormElement
-                              if (form) form.requestSubmit()
-                            }}
-                          />
-                        </Form>
-                      </TableCell>
                       <TableCell className="text-slate-600 text-sm">{coupon.createdAt}</TableCell>
                       <TableCell className="text-slate-600 text-sm">{coupon.createdBy}</TableCell>
                       <TableCell>
                         <div className="flex items-center justify-center gap-2">
-                          {/* 编辑按钮 - 始终可点击 */}
+                          {/* 编辑按钮 */}
                           <Button
                             variant="outline"
                             size="sm"
-                            className="h-7 px-2 border-slate-300"
+                            className="h-7 px-3 border-slate-300"
                             onClick={() => handleEdit(coupon)}
                           >
-                            <Edit className="w-3 h-3" />
+                            <Edit className="w-3 h-3 mr-1" />
+                            编辑
                           </Button>
 
-                          {/* 删除按钮 - 始终可点击，删除前检查是否有发放记录 */}
-                          <Form
-                            method="post"
-                            action={`/platform-admin/coupon-management/delete/${coupon.id}`}
-                            onSubmit={(e) => {
-                              if (!confirm('确定要删除该优惠券吗？删除后不可恢复。')) {
-                                e.preventDefault()
-                              }
-                            }}
-                          >
-                            <Button variant="outline" size="sm" className="h-7 px-2 border-red-300 text-red-700 hover:bg-red-50">
-                              <Trash2 className="w-3 h-3" />
+                          {/* 启用/停用按钮 */}
+                          <Form method="post" action={`/platform-admin/coupon-management/toggle/${coupon.id}`}>
+                            <Button
+                              type="submit"
+                              variant="outline"
+                              size="sm"
+                              className={`h-7 px-3 ${
+                                coupon.status === 'enabled'
+                                  ? 'border-orange-300 text-orange-700 hover:bg-orange-50'
+                                  : 'border-green-300 text-green-700 hover:bg-green-50'
+                              }`}
+                            >
+                              {coupon.status === 'enabled' ? (
+                                <>
+                                  <PowerOff className="w-3 h-3 mr-1" />
+                                  停用
+                                </>
+                              ) : (
+                                <>
+                                  <Power className="w-3 h-3 mr-1" />
+                                  启用
+                                </>
+                              )}
                             </Button>
                           </Form>
                         </div>
