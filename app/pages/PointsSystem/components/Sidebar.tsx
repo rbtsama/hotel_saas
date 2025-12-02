@@ -42,7 +42,6 @@ export default function Sidebar({ menuItems }: SidebarProps) {
     '系统设置': true,
     // 草稿菜单（默认展开）
     '草稿': true,
-    '积分管理（旧）': true,
     '系统管理': true,
     '技术架构': true,
     '场景设计': true,
@@ -343,14 +342,6 @@ export const menuConfig: MenuItem[] = [
   {
     title: '草稿',
     children: [
-      {
-        title: '积分管理（旧）',
-        children: [
-          { title: '积分规则配置', path: '/platform-admin/points-management/base-rule' },
-          { title: '积分调整', path: '/platform-admin/points-management/adjustment' },
-          { title: '积分增值服务', path: '/platform-admin/points-management/value-added' }
-        ]
-      },
       {
         title: '系统管理',
         children: [
