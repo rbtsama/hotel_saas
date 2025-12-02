@@ -3,7 +3,7 @@
  */
 
 import { useState } from 'react'
-import { Form, useNavigation } from '@remix-run/react'
+import { Form, Link, useNavigation } from '@remix-run/react'
 import type { Coupon, VipLevel, SceneDistribution } from './types/coupon.types'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Textarea } from '~/components/ui/textarea'
@@ -22,7 +22,7 @@ import {
   DialogFooter,
   DialogDescription,
 } from '~/components/ui/dialog'
-import { Send, Edit } from 'lucide-react'
+import { Send, Edit, FileText } from 'lucide-react'
 import MainLayout from '~/pages/PointsSystem/components/MainLayout'
 
 interface CouponDistributionPageProps {
@@ -146,8 +146,14 @@ export default function CouponDistributionPage({
       <div className="p-6 space-y-6">
         {/* 手动发放优惠券 */}
         <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-lg font-semibold text-slate-900">手动发放优惠券</CardTitle>
+            <Link to="/platform-admin/coupon-management/records">
+              <Button variant="outline" className="h-9">
+                <FileText className="w-4 h-4 mr-2" />
+                优惠券记录
+              </Button>
+            </Link>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="phone" className="w-full">

@@ -95,8 +95,10 @@ export interface CouponRecord {
   distributionType: DistributionType
   // 用户手机号（单个手机号展示手机号，多个手机号展示"多手机号"）
   userPhone: string
-  // VIP等级
-  vipLevel: string
+  // VIP等级数组（按VIP发放时）
+  vipLevels?: string[]
+  // 手机号数组（按手机号批量发放时）
+  phones?: string[]
   // 操作时间
   operatedAt: string
   // 操作人（账号名）

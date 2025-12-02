@@ -130,9 +130,9 @@ export default function CouponDistributionRoute() {
 
   return (
     <CouponDistributionPage
-      enabledCoupons={data.enabledCoupons || []}
-      vipLevels={data.vipLevels || []}
-      scenes={data.scenes || []}
+      enabledCoupons={(data.enabledCoupons || []) as any}
+      vipLevels={(data.vipLevels || []) as any}
+      scenes={(data.scenes || []) as any}
       error={data.error}
     />
   )

@@ -239,18 +239,30 @@ class CouponService {
       hour12: false,
     }).replace(/\//g, '/').replace(',', '')
 
-    params.phones.forEach((phone) => {
+    // 单条记录 - 如果只有一个手机号，直接显示手机号
+    if (params.phones.length === 1) {
       this.couponRecords.unshift({
         couponId: params.couponId,
         couponType: coupon.type,
         couponName: coupon.name,
         distributionType: 'manual_phone',
-        userPhone: phone,
-        vipLevel: 'VIP1', // 模拟数据
+        userPhone: params.phones[0],
         operatedAt: now,
         operatedBy: 'admin001',
       })
-    })
+    } else {
+      // 多个手机号 - 创建一条记录，userPhone显示"多手机号"，phones数组保存所有手机号
+      this.couponRecords.unshift({
+        couponId: params.couponId,
+        couponType: coupon.type,
+        couponName: coupon.name,
+        distributionType: 'manual_phone',
+        userPhone: '多手机号',
+        phones: params.phones,
+        operatedAt: now,
+        operatedBy: 'admin001',
+      })
+    }
 
     return true
   }
@@ -272,7 +284,7 @@ class CouponService {
     const coupon = this.coupons.find((c) => c.id === params.couponId)
     if (!coupon) throw new Error('优惠券不存在')
 
-    // 创建发放记录（一条记录代表一个VIP等级的批量发放）
+    // 创建发放记录（一条记录代表多个VIP等级的批量发放）
     const now = new Date().toLocaleString('zh-CN', {
       year: 'numeric',
       month: '2-digit',
@@ -283,31 +295,43 @@ class CouponService {
       hour12: false,
     }).replace(/\//g, '/').replace(',', '')
 
-    params.vipLevelIds.forEach((vipLevelId) => {
-      this.couponRecords.unshift({
-        couponId: params.couponId,
-        couponType: coupon.type,
-        couponName: coupon.name,
-        distributionType: 'manual_vip',
-        userPhone: '多手机号',
-        vipLevel: vipLevelId,
-        operatedAt: now,
-        operatedBy: 'admin001',
-      })
+    this.couponRecords.unshift({
+      couponId: params.couponId,
+      couponType: coupon.type,
+      couponName: coupon.name,
+      distributionType: 'manual_vip',
+      userPhone: '多手机号',
+      vipLevels: params.vipLevelIds,
+      operatedAt: now,
+      operatedBy: 'admin001',
     })
 
     return true
   }
 
   /**
-   * 获取优惠券记录列表
+   * 获取优惠券记录列表（支持分页）
    */
-  async getCouponRecords(): Promise<CouponRecord[]> {
+  async getCouponRecords(params?: PaginationParams): Promise<PaginatedResult<CouponRecord>> {
     await new Promise((resolve) => setTimeout(resolve, 300))
+
     // 按操作时间倒序排列
-    return [...this.couponRecords].sort((a, b) => {
+    const sorted = [...this.couponRecords].sort((a, b) => {
       return new Date(b.operatedAt).getTime() - new Date(a.operatedAt).getTime()
     })
+
+    const page = params?.page || 1
+    const pageSize = params?.pageSize || 10
+    const start = (page - 1) * pageSize
+    const end = start + pageSize
+
+    return {
+      data: sorted.slice(start, end),
+      total: sorted.length,
+      page,
+      pageSize,
+      totalPages: Math.ceil(sorted.length / pageSize),
+    }
   }
 
   /**
