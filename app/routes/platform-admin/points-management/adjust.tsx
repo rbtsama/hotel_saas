@@ -149,7 +149,7 @@ export async function action({ request }: ActionFunctionArgs) {
  * 路由组件
  */
 export default function PointsAdjustRoute() {
-  const { userAccount, changeLogs, total, pageNum, error } = useLoaderData<typeof loader>()
+  const { userAccount, changeLogs, total, pageNum, phoneNumber, error } = useLoaderData<typeof loader>()
 
   return (
     <PointsAdjustPage
@@ -157,6 +157,7 @@ export default function PointsAdjustRoute() {
       changeLogs={changeLogs as any}
       total={total}
       pageNum={pageNum}
+      phoneNumber={phoneNumber}
       error={error}
     />
   )
