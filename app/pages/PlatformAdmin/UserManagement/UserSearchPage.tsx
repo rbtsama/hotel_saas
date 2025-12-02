@@ -56,7 +56,7 @@ export default function UserSearchPage({ userDetail, searchQuery }: UserSearchPa
   return (
     <MainLayout>
       <div className="h-screen overflow-y-auto bg-slate-50">
-        <div className="max-w-6xl mx-auto p-8 space-y-8">
+        <div className="p-6 space-y-6">
           {/* 页面标题 */}
           <div>
             <h1 className="text-2xl font-bold text-slate-900">用户管理</h1>
