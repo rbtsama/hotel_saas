@@ -156,97 +156,81 @@ export default function CouponIssuePage({
             <CardTitle className="text-lg font-semibold text-slate-900">手动发放优惠券</CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
-            <form onSubmit={handleManualSubmit} className="space-y-6">
-              {/* 第一行：发放策略 + 优惠券选择 */}
-              <div className="grid grid-cols-[240px_1fr] gap-6 items-start">
-                {/* 发放策略 */}
-                <div className="space-y-2.5">
-                  <Label className="text-sm font-medium text-slate-900">发放策略 *</Label>
+            <form onSubmit={handleManualSubmit} className="space-y-5">
+              {/* 第一行：派发优惠券、发放策略、短信通知 */}
+              <div className="flex items-center gap-4">
+                <div className="flex-1">
+                  <Label htmlFor="couponId" className="text-sm font-medium text-slate-700 mb-2 block">派发优惠券 *</Label>
+                  <Select value={couponId} onValueChange={setCouponId} required>
+                    <SelectTrigger className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
+                      <SelectValue placeholder="选择优惠券" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {enabledCoupons.map((coupon) => (
+                        <SelectItem key={coupon.id} value={coupon.id}>
+                          {coupon.id}（{coupon.remark || coupon.name}）
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="w-[240px]">
+                  <Label className="text-sm font-medium text-slate-700 mb-2 block">发放策略 *</Label>
                   <RadioGroup value={distributionType} onValueChange={(value) => setDistributionType(value as DistributionType)}>
-                    <div className="space-y-3">
+                    <div className="flex items-center gap-4">
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="phone" id="strategy-phone" />
-                        <Label htmlFor="strategy-phone" className="text-sm cursor-pointer flex items-center gap-1.5">
-                          <Phone className="w-4 h-4 text-blue-600" />
-                          按手机号发放
+                        <Label htmlFor="strategy-phone" className="text-sm cursor-pointer">
+                          按手机号
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="vip" id="strategy-vip" />
-                        <Label htmlFor="strategy-vip" className="text-sm cursor-pointer flex items-center gap-1.5">
-                          <Users className="w-4 h-4 text-purple-600" />
-                          按VIP等级发放
+                        <Label htmlFor="strategy-vip" className="text-sm cursor-pointer">
+                          按VIP等级
                         </Label>
                       </div>
                     </div>
                   </RadioGroup>
                 </div>
 
-                {/* 优惠券选择 + 短信通知 */}
-                <div className="space-y-3">
-                  <div className="space-y-2">
-                    <Label htmlFor="couponId" className="text-sm font-medium text-slate-900">派发优惠券 *</Label>
-                    <Select value={couponId} onValueChange={setCouponId} required>
-                      <SelectTrigger className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
-                        <SelectValue placeholder="选择优惠券" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {enabledCoupons.map((coupon) => (
-                          <SelectItem key={coupon.id} value={coupon.id}>
-                            {coupon.id}（{coupon.remark || coupon.name}）
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-                    <Label htmlFor="smsNotify" className="text-sm font-medium text-slate-700">短信通知</Label>
-                    <div className="flex items-center gap-2">
-                      <Switch id="smsNotify" checked={smsNotify} onCheckedChange={setSmsNotify} />
-                      <span className="text-sm text-slate-600 min-w-[40px]">{smsNotify ? '开启' : '关闭'}</span>
-                    </div>
+                <div className="w-[140px]">
+                  <Label htmlFor="smsNotify" className="text-sm font-medium text-slate-700 mb-2 block">短信通知</Label>
+                  <div className="flex items-center gap-2 h-9">
+                    <Switch id="smsNotify" checked={smsNotify} onCheckedChange={setSmsNotify} />
+                    <span className="text-sm text-slate-600">{smsNotify ? '开启' : '关闭'}</span>
                   </div>
                 </div>
               </div>
 
               {/* 第二行：目标用户区域 */}
-              <div className="min-h-[200px]">
+              <div className="min-h-[240px]">
                 {/* 手机号输入 */}
                 {distributionType === 'phone' && (
-                  <div className="space-y-2 bg-gradient-to-br from-blue-50/50 to-blue-50/30 p-5 rounded-xl border border-blue-200/60 shadow-sm">
-                    <Label htmlFor="phoneText" className="text-sm font-medium text-blue-900 flex items-center gap-1.5">
-                      <Phone className="w-4 h-4" />
-                      手机号列表 *
-                    </Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="phoneText" className="text-sm font-medium text-slate-700">手机号列表 *</Label>
                     <Textarea
                       id="phoneText"
                       value={phoneText}
                       onChange={(e) => setPhoneText(e.target.value)}
                       placeholder="请输入手机号，一行一个&#10;例如：&#10;13800138000&#10;13900139000"
-                      rows={5}
-                      className="border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 font-mono text-sm bg-white resize-none"
+                      rows={8}
+                      className="border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 font-mono text-sm resize-none"
                     />
-                    <div className="flex items-center gap-2">
-                      <div className="flex-1 h-px bg-blue-200"></div>
-                      <p className="text-xs text-blue-700">每行一个手机号，支持批量输入</p>
-                      <div className="flex-1 h-px bg-blue-200"></div>
-                    </div>
+                    <p className="text-xs text-slate-500">每行一个手机号，支持批量输入</p>
                   </div>
                 )}
 
                 {/* VIP等级选择 */}
                 {distributionType === 'vip' && (
-                  <div className="space-y-3 bg-gradient-to-br from-purple-50/50 to-purple-50/30 p-5 rounded-xl border border-purple-200/60 shadow-sm">
-                    <Label className="text-sm font-medium text-purple-900 flex items-center gap-1.5">
-                      <Users className="w-4 h-4" />
-                      选择VIP等级 *
-                    </Label>
-                    <div className="grid grid-cols-4 gap-3">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium text-slate-700">选择VIP等级 *</Label>
+                    <div className="grid grid-cols-5 gap-3">
                       {vipLevels.map((level) => (
                         <div
                           key={level.id}
-                          className="flex items-center space-x-2 p-2.5 bg-white rounded-lg border border-purple-200 hover:border-purple-400 hover:bg-purple-50 transition-all cursor-pointer"
+                          className="flex items-center space-x-2 p-2.5 bg-white rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all cursor-pointer"
                         >
                           <Checkbox
                             id={`vip-${level.id}`}
@@ -259,11 +243,7 @@ export default function CouponIssuePage({
                         </div>
                       ))}
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex-1 h-px bg-purple-200"></div>
-                      <p className="text-xs text-purple-700">可多选，将发放给所选等级的所有用户</p>
-                      <div className="flex-1 h-px bg-purple-200"></div>
-                    </div>
+                    <p className="text-xs text-slate-500">可多选，将发放给所选等级的所有用户</p>
                   </div>
                 )}
               </div>
