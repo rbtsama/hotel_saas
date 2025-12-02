@@ -230,7 +230,8 @@ export default function PointsAdjustPage({
           </Card>
         )}
 
-        {/* 积分变动历史 */}
+        {/* 积分变动历史 - 只在搜索后显示 */}
+        {userAccount && (
         <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-slate-900">积分变动历史</CardTitle>
@@ -393,6 +394,7 @@ export default function PointsAdjustPage({
             )}
           </CardContent>
         </Card>
+        )}
       </div>
     </MainLayout>
   )
