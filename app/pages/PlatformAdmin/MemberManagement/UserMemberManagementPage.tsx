@@ -39,38 +39,26 @@ export default function UserMemberManagementPage({
     <MainLayout>
       <div className="h-screen overflow-y-auto bg-slate-50">
         <div className="max-w-7xl mx-auto p-6">
-        {/* 页面头部 */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900">用户会员等级管理</h1>
-          </div>
-        </div>
-
         {/* 搜索筛选 */}
-        <Card className="mb-6 rounded-xl border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-200">
-          <CardHeader className="border-b border-slate-100">
-            <CardTitle className="text-base font-semibold text-slate-900">搜索筛选</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-end gap-4">
-              <div className="flex-1 space-y-2">
-                <Label htmlFor="searchPhone">手机号</Label>
+        <Card className="mb-6 rounded-xl border-slate-200 bg-white shadow-sm">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <div className="w-[200px]">
                 <Input
                   id="searchPhone"
-                  placeholder="输入手机号搜索"
+                  placeholder="输入手机号"
                   value={searchPhone}
                   onChange={(e) => setSearchPhone(e.target.value)}
                   className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                 />
               </div>
-              <div className="w-48 space-y-2">
-                <Label>会员等级</Label>
+              <div className="w-[160px]">
                 <Select value={filterLevel} onValueChange={setFilterLevel}>
-                  <SelectTrigger className="h-9">
+                  <SelectTrigger className="h-9 border-slate-300">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">全部</SelectItem>
+                    <SelectItem value="all">全部等级</SelectItem>
                     <SelectItem value="0">VIP0</SelectItem>
                     <SelectItem value="1">VIP1</SelectItem>
                     <SelectItem value="2">VIP2</SelectItem>
@@ -84,24 +72,28 @@ export default function UserMemberManagementPage({
                   </SelectContent>
                 </Select>
               </div>
-              <Button className="h-9 gap-2 bg-blue-600 hover:bg-blue-700 font-medium shadow-sm transition-all">
-                <Search className="w-4 h-4" />
+              <div className="w-[200px]">
+                <Input
+                  id="searchMerchant"
+                  placeholder="输入关联商户"
+                  className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                />
+              </div>
+              <Button className="h-9 bg-blue-600 hover:bg-blue-700 font-medium shadow-sm">
+                <Search className="w-4 h-4 mr-2" />
                 搜索
               </Button>
-              <Button variant="outline" className="h-9 border-slate-300 hover:border-slate-400 hover:bg-slate-50 transition-all">重置</Button>
+              <Button variant="outline" className="h-9 border-slate-300">
+                重置
+              </Button>
             </div>
           </CardContent>
         </Card>
 
         {/* 用户列表 */}
-        <Card className="rounded-xl border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-200">
+        <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
           <CardHeader className="border-b border-slate-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="text-base font-semibold text-slate-900">用户列表</CardTitle>
-                <CardDescription className="text-slate-600">共 {total} 位用户</CardDescription>
-              </div>
-            </div>
+            <CardTitle className="text-lg font-semibold text-slate-900">用户列表 (共{total}位)</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
