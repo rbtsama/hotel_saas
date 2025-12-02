@@ -12,18 +12,18 @@ import CouponService from '~/pages/PlatformAdmin/CouponManagement/services/coupo
  */
 export async function loader({ request }: LoaderFunctionArgs) {
   try {
-    const [enabledCoupons, vipLevels, scenes, records] = await Promise.all([
+    const [enabledCoupons, vipLevels, scenes, recordsResult] = await Promise.all([
       CouponService.getEnabledCoupons(),
       CouponService.getVipLevels(),
       CouponService.getSceneDistributions(),
-      CouponService.getDistributionRecords({ pageNum: 1, pageSize: 30 }),
+      CouponService.getCouponRecords({ page: 1, pageSize: 30 }),
     ])
 
     return json({
       enabledCoupons,
       vipLevels,
       scenes,
-      records: records.items,
+      records: recordsResult.data,
       error: null,
     })
   } catch (error) {
