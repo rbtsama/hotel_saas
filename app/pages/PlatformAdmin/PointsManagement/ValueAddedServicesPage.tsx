@@ -81,6 +81,7 @@ export default function ValueAddedServicesPage({
   const handleAddExchange = () => {
     const newExchange: PointsExchangeItem = {
       id: `exchange-${Date.now()}`,
+      序号: exchanges.length + 1,
       serviceName: '新服务',
       serviceDescription: '',
       pointsCost: 0,

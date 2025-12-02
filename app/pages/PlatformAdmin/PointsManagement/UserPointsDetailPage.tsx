@@ -45,7 +45,7 @@ export default function UserPointsDetailPage({
             </Button>
             <div>
               <h1 className="text-2xl font-bold text-slate-900">
-                用户详情 - {userInfo.userName}
+                用户详情 - {userInfo.nickname}
               </h1>
               <p className="text-slate-900 mt-1">查看和管理用户的会员信息、积分明细</p>
             </div>
@@ -66,7 +66,7 @@ export default function UserPointsDetailPage({
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-900">姓名：</span>
-                <span className="font-medium">{userInfo.userName}</span>
+                <span className="font-medium">{userInfo.realName || userInfo.nickname}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-900">注册时间：</span>
@@ -226,7 +226,7 @@ export default function UserPointsDetailPage({
             <DialogHeader>
               <DialogTitle>手动调整积分</DialogTitle>
               <DialogDescription>
-                为用户 {userInfo.userName} 手动调整积分余额
+                为用户 {userInfo.nickname} 手动调整积分余额
               </DialogDescription>
             </DialogHeader>
             <Form method="post" onSubmit={() => setAdjustDialogOpen(false)}>

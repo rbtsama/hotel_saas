@@ -8,7 +8,7 @@ import type { UserPointsInfo, PointsDetailRecord } from '../../types/pointsAdjus
 export const mockUserPointsInfo: Record<string, UserPointsInfo> = {
   '100000': {
     userId: '100000',
-    userNickname: '旅行达人',
+    userName: '旅行达人',
     phone: '13812348888',
     memberLevel: 'VIP3',
     currentPoints: 2580,
@@ -18,7 +18,7 @@ export const mockUserPointsInfo: Record<string, UserPointsInfo> = {
   },
   '100001': {
     userId: '100001',
-    userNickname: '阳光少年',
+    userName: '阳光少年',
     phone: '13923456666',
     memberLevel: 'VIP1',
     currentPoints: 450,
@@ -28,7 +28,7 @@ export const mockUserPointsInfo: Record<string, UserPointsInfo> = {
   },
   '100002': {
     userId: '100002',
-    userNickname: '微笑的猫咪',
+    userName: '微笑的猫咪',
     phone: '13634569999',
     memberLevel: 'VIP5',
     currentPoints: 8900,
@@ -38,7 +38,7 @@ export const mockUserPointsInfo: Record<string, UserPointsInfo> = {
   },
   '154655': {
     userId: '154655',
-    userNickname: '测试用户',
+    userName: '测试用户',
     phone: '13800138000',
     memberLevel: 'VIP2',
     currentPoints: 6850,
