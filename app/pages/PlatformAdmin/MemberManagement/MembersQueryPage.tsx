@@ -143,53 +143,31 @@ export default function MembersQueryPage({
 
   return (
     <MainLayout>
-      <div className="h-screen overflow-y-auto bg-slate-50">
-        <div className="max-w-7xl mx-auto p-8 space-y-8">
-          {/* 页面标题 */}
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900">会员查询</h1>
-            <p className="text-sm text-slate-600 mt-1">
-              展示所有会员数据，支持查看预注册、正式注册的账户
-            </p>
-          </div>
-
+      <div className="p-6 space-y-6">
           {/* 搜索和筛选 */}
-          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-200">
-            <CardHeader className="border-b border-slate-100">
-              <CardTitle className="text-base font-semibold text-slate-900">
-                搜索筛选
-              </CardTitle>
-            </CardHeader>
+          <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
             <CardContent className="pt-6">
-              <Form method="get" className="space-y-4">
-                <div className="grid grid-cols-4 gap-4">
-                  {/* 关联商户搜索 */}
-                  <div>
-                    <Label htmlFor="merchantName" className="text-sm font-medium text-slate-700">
-                      关联商户
-                    </Label>
+              <Form method="get">
+                <div className="flex items-center gap-3">
+                  <div className="w-[200px]">
                     <Input
                       id="merchantName"
                       name="merchantName"
                       value={merchantNameSearch}
                       onChange={(e) => setMerchantNameSearch(e.target.value)}
-                      placeholder="搜索商户名称"
-                      className="h-9 mt-1.5 border-slate-300"
+                      placeholder="输入关联商户"
+                      className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     />
                   </div>
 
-                  {/* 账号状态筛选 */}
-                  <div>
-                    <Label htmlFor="accountStatus" className="text-sm font-medium text-slate-700">
-                      账号状态
-                    </Label>
+                  <div className="w-[160px]">
                     <Select
                       name="accountStatus"
                       value={selectedAccountStatus}
                       onValueChange={setSelectedAccountStatus}
                     >
-                      <SelectTrigger className="h-9 mt-1.5 border-slate-300">
-                        <SelectValue placeholder="全部状态" />
+                      <SelectTrigger className="h-9 border-slate-300">
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">全部状态</SelectItem>
@@ -200,18 +178,14 @@ export default function MembersQueryPage({
                     </Select>
                   </div>
 
-                  {/* 会员等级筛选 */}
-                  <div>
-                    <Label htmlFor="memberLevel" className="text-sm font-medium text-slate-700">
-                      会员等级
-                    </Label>
+                  <div className="w-[160px]">
                     <Select
                       name="memberLevel"
                       value={selectedMemberLevel}
                       onValueChange={setSelectedMemberLevel}
                     >
-                      <SelectTrigger className="h-9 mt-1.5 border-slate-300">
-                        <SelectValue placeholder="全部等级" />
+                      <SelectTrigger className="h-9 border-slate-300">
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">全部等级</SelectItem>
@@ -224,33 +198,38 @@ export default function MembersQueryPage({
                     </Select>
                   </div>
 
-                  {/* 操作按钮 */}
-                  <div className="flex items-end gap-2">
-                    <Button
-                      type="submit"
-                      className="h-9 bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm flex-1"
-                    >
-                      <Search className="h-4 w-4 mr-2" />
-                      搜索
-                    </Button>
-                  </div>
+                  <Button
+                    type="submit"
+                    className="h-9 bg-blue-600 hover:bg-blue-700 font-medium shadow-sm"
+                  >
+                    <Search className="h-4 w-4 mr-2" />
+                    搜索
+                  </Button>
+
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="h-9 border-slate-300"
+                    onClick={() => {
+                      setSelectedAccountStatus('all')
+                      setSelectedMemberLevel('all')
+                      setMerchantNameSearch('')
+                    }}
+                  >
+                    重置
+                  </Button>
                 </div>
               </Form>
             </CardContent>
           </Card>
 
           {/* 会员列表 */}
-          <Card className="rounded-xl border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-200">
+          <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
             <CardHeader className="border-b border-slate-100">
               <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-base font-semibold text-slate-900">
-                    会员列表
-                    <span className="ml-2 text-sm font-normal text-slate-600">
-                      共 {paginatedResult.total} 位会员
-                    </span>
-                  </CardTitle>
-                </div>
+                <CardTitle className="text-lg font-semibold text-slate-900">
+                  会员列表 (共{paginatedResult.total}位)
+                </CardTitle>
                 {/* 导出按钮 */}
                 <Form method="post" action="">
                   <input type="hidden" name="action" value="export" />
