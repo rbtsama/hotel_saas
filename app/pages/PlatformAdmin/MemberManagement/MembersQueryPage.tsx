@@ -301,7 +301,7 @@ export default function MembersQueryPage({
               {/* 统计和分页 */}
               {paginatedResult.totalPages > 1 && (
                 <div className="mt-6 flex items-center justify-between">
-                  <div className="text-sm text-slate-600">共 {paginatedResult.total} 条</div>
+                  <div className="text-sm text-slate-600 whitespace-nowrap">共 {paginatedResult.total} 条</div>
                   <Pagination>
                     <PaginationContent>
                       <PaginationItem>

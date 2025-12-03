@@ -140,10 +140,10 @@ export default function CouponIssuePage({
 
   const getSceneTypeName = (type: string) => {
     const map: Record<string, string> = {
-      register: '注册送券',
-      first_order: '首单送券',
-      birthday: '生日送券',
-      share: '分享送券',
+      register: '注册发放',
+      first_order: '首单发放',
+      checkout: '离店发放',
+      birthday: '生日发放',
     }
     return map[type] || type
   }
@@ -154,109 +154,107 @@ export default function CouponIssuePage({
         {/* 1. 手动发放 */}
         <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
           <CardHeader className="border-b border-slate-100">
-            <CardTitle className="text-lg font-semibold text-slate-900">手动发放</CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg font-semibold text-slate-900">手动发放</CardTitle>
+              <Link to="/platform-admin/coupon-management/issue-records">
+                <Button variant="outline" className="h-9 border-slate-300">
+                  发放记录
+                </Button>
+              </Link>
+            </div>
           </CardHeader>
           <CardContent className="pt-6">
-            <form onSubmit={handleManualSubmit}>
-              <RadioGroup value={distributionType} onValueChange={(value) => setDistributionType(value as DistributionType)}>
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-slate-200 bg-slate-50">
-                      <TableHead className="text-slate-900 font-semibold w-[140px]">方式</TableHead>
-                      <TableHead className="text-slate-900 font-semibold">说明/输入</TableHead>
-                      <TableHead className="text-slate-900 font-semibold w-[300px]">选择派发优惠券</TableHead>
-                      <TableHead className="text-slate-900 font-semibold w-[100px] text-center">短信通知</TableHead>
-                      <TableHead className="text-slate-900 font-semibold w-[100px] text-center">操作</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {/* 按手机号发放 */}
-                    <TableRow className="border-slate-200">
-                      <TableCell className="font-medium text-slate-900">
-                        <div className="flex items-center gap-2">
-                          <RadioGroupItem value="phone" id="method-phone" />
-                          <Label htmlFor="method-phone" className="cursor-pointer text-sm">按手机号发放</Label>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        {distributionType === 'phone' ? (
-                          <Textarea
-                            value={phoneText}
-                            onChange={(e) => setPhoneText(e.target.value)}
-                            placeholder="一行一个手机号&#10;13800138000&#10;13900139000"
-                            rows={4}
-                            className="border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 font-mono text-sm resize-none"
-                          />
-                        ) : (
-                          <div className="text-sm text-slate-500 py-3">一行一个手机号</div>
-                        )}
-                      </TableCell>
-                      <TableCell rowSpan={2} className="align-middle">
-                        <Select value={couponId} onValueChange={setCouponId}>
-                          <SelectTrigger className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
-                            <SelectValue placeholder="选择优惠券" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {enabledCoupons.map((coupon) => (
-                              <SelectItem key={coupon.id} value={coupon.id}>
-                                {coupon.id}（{coupon.remark || coupon.name}）
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                      <TableCell rowSpan={2} className="text-center align-middle">
-                        <div className="flex flex-col items-center gap-1">
-                          <Switch checked={smsNotify} onCheckedChange={setSmsNotify} />
-                          <span className="text-xs text-slate-600">{smsNotify ? '是' : '否'}</span>
-                        </div>
-                      </TableCell>
-                      <TableCell rowSpan={2} className="text-center align-middle">
-                        <Button
-                          type="submit"
-                          className="h-9 bg-blue-600 hover:bg-blue-700"
-                          disabled={!isManualFormValid()}
-                        >
-                          开始派发
-                        </Button>
-                      </TableCell>
-                    </TableRow>
+            <form onSubmit={handleManualSubmit} className="space-y-6">
+              {/* 发放策略选择 */}
+              <div className="flex items-center gap-6 p-4 bg-slate-50 rounded-lg">
+                <Label className="text-sm font-medium text-slate-700">发放方式:</Label>
+                <RadioGroup value={distributionType} onValueChange={(value) => setDistributionType(value as DistributionType)} className="flex items-center gap-6">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="phone" id="method-phone" />
+                    <Label htmlFor="method-phone" className="cursor-pointer text-sm">按手机号</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="vip" id="method-vip" />
+                    <Label htmlFor="method-vip" className="cursor-pointer text-sm">按VIP等级</Label>
+                  </div>
+                </RadioGroup>
+              </div>
 
-                    {/* 按VIP等级发放 */}
-                    <TableRow className="border-slate-200">
-                      <TableCell className="font-medium text-slate-900">
-                        <div className="flex items-center gap-2">
-                          <RadioGroupItem value="vip" id="method-vip" />
-                          <Label htmlFor="method-vip" className="cursor-pointer text-sm">按VIP等级发放</Label>
+              {/* 发放配置 */}
+              <div className="grid grid-cols-[300px_1fr] gap-6">
+                {/* 左侧：目标用户 */}
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium text-slate-700">
+                    {distributionType === 'phone' ? '手机号列表 *' : 'VIP等级 *'}
+                  </Label>
+
+                  {distributionType === 'phone' ? (
+                    <Textarea
+                      value={phoneText}
+                      onChange={(e) => setPhoneText(e.target.value)}
+                      placeholder="一行一个手机号&#10;13800138000&#10;13900139000"
+                      rows={12}
+                      className="border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 font-mono text-sm resize-none"
+                    />
+                  ) : (
+                    <div className="grid grid-cols-2 gap-2">
+                      {vipLevels.map((level) => (
+                        <div
+                          key={level.id}
+                          className="flex items-center space-x-2 p-2.5 bg-white rounded border border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all cursor-pointer"
+                        >
+                          <Checkbox
+                            id={`vip-${level.id}`}
+                            checked={selectedVipLevels.includes(level.id)}
+                            onCheckedChange={() => handleVipLevelToggle(level.id)}
+                          />
+                          <Label htmlFor={`vip-${level.id}`} className="text-sm cursor-pointer font-medium">
+                            {level.name}
+                          </Label>
                         </div>
-                      </TableCell>
-                      <TableCell>
-                        {distributionType === 'vip' ? (
-                          <div className="grid grid-cols-5 gap-2">
-                            {vipLevels.map((level) => (
-                              <div
-                                key={level.id}
-                                className="flex items-center space-x-1.5 p-2 bg-white rounded border border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all cursor-pointer"
-                              >
-                                <Checkbox
-                                  id={`vip-${level.id}`}
-                                  checked={selectedVipLevels.includes(level.id)}
-                                  onCheckedChange={() => handleVipLevelToggle(level.id)}
-                                />
-                                <Label htmlFor={`vip-${level.id}`} className="text-xs cursor-pointer font-medium">
-                                  {level.name}
-                                </Label>
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <div className="text-sm text-slate-500 py-3">选择VIP等级</div>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </RadioGroup>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* 右侧：优惠券和发送设置 */}
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="couponId" className="text-sm font-medium text-slate-700">派发优惠券 *</Label>
+                    <Select value={couponId} onValueChange={setCouponId}>
+                      <SelectTrigger className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
+                        <SelectValue placeholder="选择优惠券" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {enabledCoupons.map((coupon) => (
+                          <SelectItem key={coupon.id} value={coupon.id}>
+                            {coupon.id}（{coupon.remark || coupon.name}）
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                    <Label className="text-sm font-medium text-slate-700">短信通知</Label>
+                    <div className="flex items-center gap-2">
+                      <Switch checked={smsNotify} onCheckedChange={setSmsNotify} />
+                      <span className="text-sm text-slate-600">{smsNotify ? '是' : '否'}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end pt-2">
+                    <Button
+                      type="submit"
+                      className="h-9 px-6 bg-blue-600 hover:bg-blue-700"
+                      disabled={!isManualFormValid()}
+                    >
+                      <Send className="w-4 h-4 mr-2" />
+                      开始派发
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </form>
           </CardContent>
         </Card>
@@ -282,10 +280,10 @@ export default function CouponIssuePage({
                   <TableRow key={scene.id} className="hover:bg-slate-50 transition-colors border-slate-200">
                     <TableCell className="font-medium text-slate-900">{getSceneTypeName(scene.sceneType)}</TableCell>
                     <TableCell className="text-sm text-slate-600">
-                      {scene.sceneType === 'register' && '新用户完成注册时'}
-                      {scene.sceneType === 'first_order' && '用户首次下单时'}
+                      {scene.sceneType === 'register' && '用户注册成功时'}
+                      {scene.sceneType === 'first_order' && '用户首单完成时'}
+                      {scene.sceneType === 'checkout' && '订单离店时'}
                       {scene.sceneType === 'birthday' && '用户生日当天'}
-                      {scene.sceneType === 'share' && '用户分享后'}
                     </TableCell>
                     <TableCell className="text-slate-900">
                       {scene.couponId ? getCouponDisplayText(scene.couponId) : (
@@ -327,43 +325,6 @@ export default function CouponIssuePage({
           </CardContent>
         </Card>
 
-        {/* 3. 操作记录 */}
-        <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
-          <CardHeader className="border-b border-slate-100">
-            <CardTitle className="text-lg font-semibold text-slate-900">操作记录 (近30条)</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <Table>
-              <TableHeader>
-                <TableRow className="border-slate-200 bg-slate-50">
-                  <TableHead className="text-slate-900 font-semibold">优惠券</TableHead>
-                  <TableHead className="text-slate-900 font-semibold">发放方式</TableHead>
-                  <TableHead className="text-slate-900 font-semibold">目标用户</TableHead>
-                  <TableHead className="text-slate-900 font-semibold">发放时间</TableHead>
-                  <TableHead className="text-slate-900 font-semibold">操作人</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {records.slice(0, 30).map((record) => (
-                  <TableRow key={record.id} className="hover:bg-slate-50 transition-colors border-slate-200">
-                    <TableCell className="text-slate-900">{getCouponDisplayText(record.couponId)}</TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className="border-slate-300">
-                        {record.distributionType === 'manual_phone' ? '手机号' :
-                         record.distributionType === 'manual_vip' ? 'VIP等级' : '场景发放'}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-slate-900 text-sm max-w-[200px] truncate">
-                      {record.targetUsers}
-                    </TableCell>
-                    <TableCell className="text-slate-600 text-sm">{record.createdAt}</TableCell>
-                    <TableCell className="text-slate-600 text-sm">{record.createdBy}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
 
         {/* 手动发放确认弹窗 */}
         <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
