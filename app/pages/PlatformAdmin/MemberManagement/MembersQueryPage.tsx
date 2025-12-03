@@ -255,8 +255,7 @@ export default function MembersQueryPage({
                       <TableHead className="text-slate-900 font-semibold">会员等级</TableHead>
                       <TableHead className="text-slate-900 font-semibold">正式会员等级</TableHead>
                       <TableHead className="text-slate-900 font-semibold">有效期至</TableHead>
-                      <TableHead className="text-slate-900 font-semibold">获得方式</TableHead>
-                      <TableHead className="text-slate-900 font-semibold">关联商户</TableHead>
+                      <TableHead className="text-slate-900 font-semibold">导入商户</TableHead>
                       <TableHead className="text-slate-900 font-semibold">赠送会员等级</TableHead>
                       <TableHead className="text-slate-900 font-semibold">赠送有效期</TableHead>
                       <TableHead className="text-slate-900 font-semibold">赠送人</TableHead>
@@ -273,14 +272,11 @@ export default function MembersQueryPage({
                         <TableCell className={`font-medium ${getStatusTextClass(record.accountStatus)}`}>
                           {AccountStatusLabels[record.accountStatus as keyof typeof AccountStatusLabels]}
                         </TableCell>
-                        <TableCell className="text-slate-900">VIP{record.currentLevel}</TableCell>
-                        <TableCell className="text-slate-900">VIP{record.formalLevel}</TableCell>
+                        <TableCell className="text-orange-600 font-bold">VIP{record.currentLevel}</TableCell>
+                        <TableCell className="text-orange-600 font-bold">VIP{record.formalLevel}</TableCell>
                         <TableCell className="text-slate-900">{record.formalExpiryDate}</TableCell>
-                        <TableCell className="text-slate-900">
-                          {ObtainMethodLabels[record.obtainMethod as keyof typeof ObtainMethodLabels]}
-                        </TableCell>
-                        <TableCell className="text-slate-900">{record.relatedMerchant}</TableCell>
-                        <TableCell className="text-slate-900">
+                        <TableCell className="text-slate-900">{record.relatedMerchant || '-'}</TableCell>
+                        <TableCell className="text-orange-600 font-bold">
                           {record.giftLevel === 0 ? '-' : `VIP${record.giftLevel}`}
                         </TableCell>
                         <TableCell className="text-slate-900">{record.giftExpiryDate}</TableCell>
