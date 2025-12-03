@@ -39,7 +39,7 @@ export default function UserMemberManagementPage({
     <MainLayout>
       <div className="p-6 space-y-6">
         {/* 搜索筛选 */}
-        <Card className="mb-6 rounded-xl border-slate-200 bg-white shadow-sm">
+        <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
               <div className="w-[200px]">
