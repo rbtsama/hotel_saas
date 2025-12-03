@@ -233,7 +233,7 @@ export default function CouponIssuePage({
                 <Checkbox
                   id="smsNotify"
                   checked={smsNotify}
-                  onCheckedChange={setSmsNotify}
+                  onCheckedChange={(checked) => setSmsNotify(checked === true)}
                 />
                 <Label htmlFor="smsNotify" className="text-sm cursor-pointer">短信通知</Label>
               </div>
@@ -392,7 +392,7 @@ export default function CouponIssuePage({
         <Dialog open={sceneDialogOpen} onOpenChange={setSceneDialogOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>配置{editingScene && getSceneTypeName(editingScene.sceneType)}</DialogTitle>
+              <DialogTitle>配置{editingScene && getSceneName(editingScene.scene)}</DialogTitle>
             </DialogHeader>
 
             <Form method="post" className="space-y-4">

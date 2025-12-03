@@ -64,7 +64,7 @@ export interface CouponFilterParams {
 export interface SceneDistribution {
   id: string
   // 场景类型
-  scene: 'registration' | 'checkout'
+  scene: 'registration' | 'checkout' | 'first_order' | 'birthday'
   // 场景名称
   sceneName: string
   // 触发时机描述
