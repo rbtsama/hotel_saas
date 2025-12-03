@@ -144,43 +144,19 @@ export default function PointsAdjustPage({
         {/* 用户信息卡片 */}
         {userAccount && (
           <Card className="rounded-xl border-slate-200 bg-white shadow-sm">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-slate-900">用户积分信息</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div>
-                  <span className="text-sm text-slate-600">用户名</span>
-                  <div className="text-lg font-semibold text-slate-900 mt-1">{userAccount.userName}</div>
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-8">
+                  <div>
+                    <span className="text-sm text-slate-600">手机号</span>
+                    <div className="text-lg font-semibold text-slate-900 mt-1">{userAccount.phoneNumber}</div>
+                  </div>
+                  <div>
+                    <span className="text-sm text-slate-600">VIP等级</span>
+                    <div className="text-lg font-semibold text-orange-600 mt-1">VIP{userAccount.vipLevel}</div>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-sm text-slate-600">手机号</span>
-                  <div className="text-lg font-semibold text-slate-900 mt-1">{userAccount.phoneNumber}</div>
-                </div>
-                <div>
-                  <span className="text-sm text-slate-600">VIP等级</span>
-                  <div className="text-lg font-semibold text-slate-900 mt-1">VIP{userAccount.vipLevel}</div>
-                </div>
-                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <span className="text-sm text-slate-600">总积分</span>
-                  <div className="text-2xl font-bold text-blue-700 mt-1">{userAccount.totalPoints}</div>
-                </div>
-                <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-                  <span className="text-sm text-slate-600">可用积分</span>
-                  <div className="text-2xl font-bold text-green-700 mt-1">{userAccount.availablePoints}</div>
-                </div>
-                <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
-                  <span className="text-sm text-slate-600">冻结积分</span>
-                  <div className="text-2xl font-bold text-orange-700 mt-1">{userAccount.frozenPoints}</div>
-                </div>
-                <div className="p-4 bg-red-50 rounded-lg border border-red-200">
-                  <span className="text-sm text-slate-600">过期积分</span>
-                  <div className="text-2xl font-bold text-red-700 mt-1">{userAccount.expiredPoints}</div>
-                </div>
-              </div>
 
-              {/* 操作按钮 */}
-              <div className="flex gap-3 mt-6 pt-6 border-t border-slate-200">
                 <Dialog open={isAdjustDialogOpen} onOpenChange={setIsAdjustDialogOpen}>
                   <DialogTrigger asChild>
                     <Button className="h-9 bg-blue-600 hover:bg-blue-700">
@@ -236,15 +212,6 @@ export default function PointsAdjustPage({
                     </div>
                   </DialogContent>
                 </Dialog>
-
-                <Button
-                  variant="outline"
-                  className="h-9 border-slate-300"
-                  onClick={() => navigate('/platform-admin/points-management/operation-logs')}
-                >
-                  <History className="w-4 h-4 mr-2" />
-                  操作记录
-                </Button>
               </div>
             </CardContent>
           </Card>
