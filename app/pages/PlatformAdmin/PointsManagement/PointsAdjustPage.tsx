@@ -155,6 +155,10 @@ export default function PointsAdjustPage({
                     <span className="text-sm text-slate-600">VIP等级</span>
                     <div className="text-lg font-semibold text-orange-600 mt-1">VIP{userAccount.vipLevel}</div>
                   </div>
+                  <div>
+                    <span className="text-sm text-slate-600">当前积分</span>
+                    <div className="text-lg font-semibold text-green-600 mt-1">{userAccount.availablePoints}</div>
+                  </div>
                 </div>
 
                 <Dialog open={isAdjustDialogOpen} onOpenChange={setIsAdjustDialogOpen}>
