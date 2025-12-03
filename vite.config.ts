@@ -82,6 +82,8 @@ export default defineConfig({
           route("/platform-admin/coupon-management/toggle/:id", "routes/platform-admin/coupon-management/toggle.$id.tsx")
           route("/platform-admin/coupon-management/delete/:id", "routes/platform-admin/coupon-management/delete.$id.tsx")
           route("/platform-admin/coupon-management/issue", "routes/platform-admin/coupon-management/issue.tsx")
+          route("/platform-admin/coupon-management/operation-logs", "routes/platform-admin/coupon-management/operation-logs.tsx")
+          route("/platform-admin/coupon-management/issue-records", "routes/platform-admin/coupon-management/issue-records.tsx")
 
           // System Settings Routes
           route("/system/agreements", "routes/system/agreements.tsx")
