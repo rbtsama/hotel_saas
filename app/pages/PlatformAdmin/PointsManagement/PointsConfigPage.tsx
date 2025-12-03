@@ -243,7 +243,7 @@ export default function PointsConfigPage({
                         name="registerReward"
                         value={baseRuleForm.registerReward}
                         onChange={(e) => setBaseRuleForm({ ...baseRuleForm, registerReward: parseInt(e.target.value) || 0 })}
-                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                        className="h-9 flex-1 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                         min="0"
                       />
                       <span className="text-xs text-slate-600 whitespace-nowrap">积分</span>
@@ -264,7 +264,7 @@ export default function PointsConfigPage({
                         name="inviterReward"
                         value={baseRuleForm.inviterReward}
                         onChange={(e) => setBaseRuleForm({ ...baseRuleForm, inviterReward: parseInt(e.target.value) || 0 })}
-                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                        className="h-9 flex-1 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                         min="0"
                       />
                       <span className="text-xs text-slate-600 whitespace-nowrap">积分</span>
@@ -285,7 +285,7 @@ export default function PointsConfigPage({
                         name="exchangeRate"
                         value={baseRuleForm.exchangeRate}
                         onChange={(e) => setBaseRuleForm({ ...baseRuleForm, exchangeRate: parseInt(e.target.value) || 0 })}
-                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                        className="h-9 flex-1 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                         min="1"
                       />
                       <span className="text-xs text-slate-600 whitespace-nowrap">积分=1元</span>
@@ -306,7 +306,7 @@ export default function PointsConfigPage({
                         name="maxDeductionRatio"
                         value={baseRuleForm.maxDeductionRatio}
                         onChange={(e) => setBaseRuleForm({ ...baseRuleForm, maxDeductionRatio: parseInt(e.target.value) || 0 })}
-                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                        className="h-9 flex-1 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                         min="0"
                         max="100"
                       />
@@ -328,7 +328,7 @@ export default function PointsConfigPage({
                         name="validityMonths"
                         value={baseRuleForm.validityMonths}
                         onChange={(e) => setBaseRuleForm({ ...baseRuleForm, validityMonths: parseInt(e.target.value) || 0 })}
-                        className="h-9 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                        className="h-9 flex-1 border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                         min="1"
                       />
                       <span className="text-xs text-slate-600">月</span>
@@ -406,7 +406,7 @@ export default function PointsConfigPage({
                       <TableRow key={item.id} className="hover:bg-slate-50 transition-colors">
                         <TableCell className="text-slate-900">{item.序号}</TableCell>
                         <TableCell className="text-slate-900 font-medium">{item.serviceName}</TableCell>
-                        <TableCell className="text-slate-900 font-semibold">{item.pointsReward}</TableCell>
+                        <TableCell className="text-green-600 font-semibold">+{item.pointsReward}</TableCell>
                         <TableCell>
                           <div className="flex items-center justify-center gap-2">
                             <Button
@@ -503,7 +503,7 @@ export default function PointsConfigPage({
                       <TableRow key={item.id} className="hover:bg-slate-50 transition-colors">
                         <TableCell className="text-slate-900">{item.序号}</TableCell>
                         <TableCell className="text-slate-900 font-medium">{item.serviceName}</TableCell>
-                        <TableCell className="text-slate-900 font-semibold">{item.pointsCost}</TableCell>
+                        <TableCell className="text-red-600 font-semibold">-{Math.abs(item.pointsCost)}</TableCell>
                         <TableCell>
                           <div className="flex items-center justify-center gap-2">
                             <Button

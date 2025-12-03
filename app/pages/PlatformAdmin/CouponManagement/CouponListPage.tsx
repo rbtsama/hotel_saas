@@ -103,8 +103,8 @@ export default function CouponListPage({ coupons, total, page, pageSize, totalPa
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg font-semibold text-slate-900">优惠券列表</CardTitle>
           <div className="flex items-center gap-2">
-            <Link to="/platform-admin/coupon-management/operation-logs">
-              <Button variant="outline" className="h-9">
+            <Link to="/platform-admin/coupon-management/issue#records">
+              <Button variant="outline" className="h-9 border-slate-300">
                 <History className="w-4 h-4 mr-2" />
                 操作记录
               </Button>
