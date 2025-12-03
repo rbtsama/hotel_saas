@@ -273,10 +273,10 @@ export default function MembersQueryPage({
                           {AccountStatusLabels[record.accountStatus as keyof typeof AccountStatusLabels]}
                         </TableCell>
                         <TableCell className="text-orange-600 font-bold">VIP{record.currentLevel}</TableCell>
-                        <TableCell className="text-orange-600 font-bold">VIP{record.formalLevel}</TableCell>
+                        <TableCell className="text-slate-900">VIP{record.formalLevel}</TableCell>
                         <TableCell className="text-slate-900">{record.formalExpiryDate}</TableCell>
                         <TableCell className="text-slate-900">{record.relatedMerchant || '-'}</TableCell>
-                        <TableCell className="text-orange-600 font-bold">
+                        <TableCell className="text-slate-900">
                           {record.giftLevel === 0 ? '-' : `VIP${record.giftLevel}`}
                         </TableCell>
                         <TableCell className="text-slate-900">{record.giftExpiryDate}</TableCell>
