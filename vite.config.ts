@@ -19,16 +19,10 @@ export default defineConfig({
           route("/architecture/product/overview", "routes/architecture/product/overview.tsx")
           route("/architecture/design/color-system", "routes/architecture/design/color-system.tsx")
           route("/architecture/design/color-system-2", "routes/architecture/design/color-system-2.tsx")
-          route("/architecture/technical", "routes/architecture/technical/_index.tsx")
-          route("/architecture/scenario", "routes/architecture/scenario/_index.tsx")
-          route("/architecture/scenario/:id", "routes/architecture/scenario/$id.tsx")
 
           // Points System Routes
           route("/points-system/rule-config", "routes/points-system/rule-config.tsx")
           route("/points-system/user-account", "routes/points-system/user-account.tsx")
-
-          // Account Management Routes
-          route("/account/list", "routes/account/list.tsx")
 
           // Hotel Management Routes
           route("/hotel/join-application", "routes/hotel/join-application.tsx")
@@ -40,8 +34,6 @@ export default defineConfig({
 
           // Order Management Routes
           route("/order/list", "routes/order/list.tsx")
-          route("/order/:orderId", "routes/order/$orderId.tsx")
-          route("/order/refund", "routes/order/refund.tsx")
 
           // Marketing Management Routes
           route("/marketing/ads", "routes/marketing/ads.tsx")
@@ -89,12 +81,6 @@ export default defineConfig({
           route("/system/agreements", "routes/system/agreements.tsx")
           route("/system/tags", "routes/system/tags.tsx")
 
-          // User Management Routes
-          route("/user/list", "routes/user/list.tsx")
-          route("/user/detail/:userId", "routes/user/detail.$userId.tsx")
-
-          // Wechat Miniprogram Routes
-          route("/wechat-miniprogram", "routes/wechat-miniprogram/_index.tsx")
           route("/hotel-backend/dashboard", "routes/hotel-backend/dashboard.tsx")
 
           // Hotel Backend Routes
