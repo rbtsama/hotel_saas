@@ -1,28 +1,3 @@
-@import '~ant-design-vue/dist/antd.less';
-
-// 四季自然配色系统
-@primary-color: #2C5F8D;        // 冬·深蓝
-@success-color: #5A8A65;        // 森林绿
-@error-color: #B94D3D;          // 砖瓦红
-@warning-color: #C67A28;        // 秋·深橙
-@info-color: #4A8FBF;           // 夏·湖蓝
-
-// 中性色
-@text-color: #2A2A2A;
-@text-color-secondary: #6B6B6B;
-@border-color-base: #E5E5E5;
-@background-color-base: #F8F6F3;
-
-// 圆角
-@border-radius-base: 8px;
-
-// 阴影
-@box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.08);
-
-// 字体
-@font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
-@font-size-base: 14px;
-
 // 全局样式
 * {
   box-sizing: border-box;
@@ -31,11 +6,20 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: @font-family;
+  font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 #app {
   min-height: 100vh;
+}
+
+// 自定义颜色类
+.text-primary {
+  color: #2C5F8D;
+}
+
+.bg-primary {
+  background-color: #2C5F8D;
 }
