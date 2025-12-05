@@ -1,20 +1,62 @@
 <template>
   <sidebar>
     <div class="page-container">
-      <a-card title="政策相关" :bordered="false">
-        <a-alert message="页面开发中" type="info" show-icon />
-      </a-card>
+      <PolicyInfoContent
+        :data="policyData"
+        @save="handleSave"
+      />
     </div>
   </sidebar>
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, ref, onMounted } from '@vue/composition-api'
 import Sidebar from '@/components/Layout/Sidebar.vue'
+import PolicyInfoContent from './components/PolicyInfoContent.vue'
+import StoreInfoService from './services/storeInfo.service'
 
 export default defineComponent({
   name: 'PolicyPage',
-  components: { Sidebar }
+  components: {
+    Sidebar,
+    PolicyInfoContent
+  },
+  setup() {
+    const policyData = ref(null)
+    const loading = ref(false)
+
+    const loadData = async () => {
+      loading.value = true
+      try {
+        const data = await StoreInfoService.getPolicyInfo()
+        policyData.value = data
+      } catch (error) {
+        console.error('加载政策信息失败:', error)
+      } finally {
+        loading.value = false
+      }
+    }
+
+    const handleSave = async (data) => {
+      try {
+        await StoreInfoService.updatePolicyInfo(data)
+        await loadData()
+      } catch (error) {
+        console.error('保存失败:', error)
+        throw error
+      }
+    }
+
+    onMounted(() => {
+      loadData()
+    })
+
+    return {
+      policyData,
+      loading,
+      handleSave
+    }
+  }
 })
 </script>
 
