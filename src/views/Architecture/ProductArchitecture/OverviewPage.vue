@@ -146,15 +146,12 @@
 import { defineComponent } from '@vue/composition-api'
 import Sidebar from '@/components/Layout/Sidebar.vue'
 import { menuConfig } from '@/components/Layout/menuConfig'
-import { ShoppingCartOutlined, ArrowRightOutlined } from '@ant-design/icons-vue'
 import SystemArchitecture from './components/SystemArchitecture.vue'
 
 export default defineComponent({
   name: 'OverviewPage',
   components: {
     Sidebar,
-    ShoppingCartOutlined,
-    ArrowRightOutlined,
     SystemArchitecture,
   },
   setup() {

@@ -126,11 +126,9 @@
 
 <script>
 import { defineComponent, computed } from '@vue/composition-api'
-import { ShopOutlined, ArrowRightOutlined } from '@ant-design/icons-vue'
 
 export default defineComponent({
   name: 'SystemArchitecture',
-  components: { ShopOutlined, ArrowRightOutlined },
   setup() {
     const platformArchitecture = {
       name: '平台后台',
