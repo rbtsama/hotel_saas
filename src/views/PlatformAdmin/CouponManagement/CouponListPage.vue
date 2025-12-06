@@ -112,14 +112,12 @@
 <script>
 import { defineComponent, ref, reactive, onMounted } from '@vue/composition-api'
 import Sidebar from '@/components/Layout/Sidebar.vue'
-import CouponDialog from './components/CouponDialog.vue'
 import CouponService from './services/coupon.service'
 
 export default defineComponent({
   name: 'CouponListPage',
   components: {
-    Sidebar,
-    CouponDialog
+    Sidebar
   },
   setup(props, { root }) {
     const loading = ref(false)

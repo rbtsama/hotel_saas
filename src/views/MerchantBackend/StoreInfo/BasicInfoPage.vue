@@ -206,11 +206,11 @@ import { defineComponent, ref, reactive } from '@vue/composition-api'
 import { Modal, message } from 'ant-design-vue'
 import { UploadOutlined, PictureOutlined, VideoCameraOutlined, CloseOutlined } from '@ant-design/icons-vue'
 import Sidebar from '@/components/Layout/Sidebar.vue'
-import EditableSection from '@/components/MerchantBackend/StoreInfo/EditableSection.vue'
-import FormField from '@/components/MerchantBackend/StoreInfo/FormField.vue'
-import DisplayValue from '@/components/MerchantBackend/StoreInfo/DisplayValue.vue'
-import { RECOMMEND_TAGS } from '@/types/MerchantBackend/storeInfo.types'
-import StoreInfoService from '@/services/MerchantBackend/storeInfo.service'
+import EditableSection from './components/EditableSection.vue'
+import FormField from './components/FormField.vue'
+import DisplayValue from './components/DisplayValue.vue'
+import { RECOMMEND_TAGS } from './types/storeInfo.types'
+import StoreInfoService from './services/storeInfo.service'
 
 export default defineComponent({
   name: 'BasicInfoPage',
