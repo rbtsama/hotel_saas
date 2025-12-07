@@ -103,11 +103,17 @@
               <span class="font-mono text-sm text-slate-900">{{ orderNumber }}</span>
             </template>
 
-            <!-- 入住日期(X晚) -->
+            <!-- 入离日期（带icon标签） -->
             <template slot="checkInDates" slot-scope="text, record">
-              <div class="text-slate-900">
-                <div class="text-sm">{{ record.checkInDate }}</div>
-                <div class="text-xs text-slate-500">({{ record.nights }}晚)</div>
+              <div class="text-sm space-y-1">
+                <div class="flex items-center gap-1">
+                  <span class="date-icon-in">入</span>
+                  <span class="text-slate-900">{{ record.checkInDate }}</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="date-icon-out">离</span>
+                  <span class="text-slate-900">{{ record.checkOutDate }}</span>
+                </div>
               </div>
             </template>
 
@@ -123,19 +129,22 @@
               </a-tag>
             </template>
 
-            <!-- 退款记录 -->
+            <!-- 退款记录（客人撤诉灰/退款申请橙/支持退款绿/拒绝退款红） -->
             <template slot="refundRecord" slot-scope="text, record">
               <div v-if="record.refundRecords && record.refundRecords.length > 0">
-                <a-tag class="bg-red-50 text-red-700 border-red-300">
+                <a-tag :class="getRefundStatusClass(record.refundRecords[0].status)">
                   {{ record.refundRecords[0].status }}
                 </a-tag>
               </div>
               <span v-else class="text-slate-400 text-sm">-</span>
             </template>
 
-            <!-- 下单时间 -->
+            <!-- 下单时间（日期和时间分两行） -->
             <template slot="createdAt" slot-scope="createdAt">
-              <span class="text-sm text-slate-900">{{ createdAt }}</span>
+              <div class="text-sm text-slate-900">
+                <div>{{ createdAt.split(' ')[0] }}</div>
+                <div class="text-xs text-slate-500">{{ createdAt.split(' ')[1] }}</div>
+              </div>
             </template>
 
             <!-- 操作（按PRD简化） -->
@@ -281,6 +290,18 @@ export default defineComponent({
       return colorMap[color] || 'bg-gray-100 text-gray-700 border-gray-300'
     }
 
+    // 退款记录状态颜色
+    const getRefundStatusClass = (status: string) => {
+      const statusMap: Record<string, string> = {
+        '客人撤诉': 'bg-slate-100 text-slate-600 border-slate-300',        // 灰色
+        '退款申请': 'bg-orange-100 text-orange-700 border-orange-300',     // 橙色
+        '平台支持退款': 'bg-green-100 text-green-700 border-green-300',   // 绿色
+        '门店退款': 'bg-green-100 text-green-700 border-green-300',       // 绿色
+        '平台拒绝退款': 'bg-red-100 text-red-700 border-red-300'          // 红色
+      }
+      return statusMap[status] || 'bg-gray-100 text-gray-700 border-gray-300'
+    }
+
     // ========== 生命周期 ==========
     onMounted(() => {
       fetchOrders()
@@ -307,7 +328,8 @@ export default defineComponent({
       handleReset,
       handleTableChange,
       handleViewDetail,
-      getStatusTagClass
+      getStatusTagClass,
+      getRefundStatusClass
     }
   }
 })
@@ -328,6 +350,21 @@ export default defineComponent({
 
 .space-y-1 > * + * {
   margin-top: 4px;
+}
+
+// 入离日期icon标签样式
+.date-icon-in,
+.date-icon-out {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  background-color: #3b82f6;
+  border-radius: 3px;
 }
 
 .rounded-xl {
@@ -495,6 +532,32 @@ export default defineComponent({
 }
 .border-red-300 {
   border-color: #fca5a5;
+}
+
+// 退款记录颜色
+.bg-green-100 {
+  background-color: #dcfce7;
+}
+.text-green-700 {
+  color: #15803d;
+}
+.border-green-300 {
+  border-color: #86efac;
+}
+
+.bg-slate-100 {
+  background-color: #f1f5f9;
+}
+.text-slate-600 {
+  color: #475569;
+}
+
+.text-slate-500 {
+  color: #64748b;
+}
+
+.text-slate-400 {
+  color: #94a3b8;
 }
 
 .mt-4 {
