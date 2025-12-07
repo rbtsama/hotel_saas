@@ -84,22 +84,7 @@ export const menuConfig = [
         title: '订单管理',
         key: 'hotel-order-management',
         children: [
-          { title: '订单列表', path: '/hotel-backend/order-list', key: 'hotel-order-list' },
-          { title: '订单日历', path: '/hotel-backend/order-calendar', key: 'order-calendar' },
-          { title: '客诉退款', path: '/hotel-backend/refund-management', key: 'hotel-refund' },
-          { title: '用户评价', path: '/hotel-backend/user-reviews', key: 'user-reviews' }
-        ]
-      },
-      {
-        title: '房务管理',
-        key: 'room-management',
-        children: [
-          { title: '房价日历', path: '/hotel-backend/room-price-calendar', key: 'room-price' },
-          { title: '库存日历', path: '/hotel-backend/inventory-calendar', key: 'inventory' },
-          { title: '房型列表', path: '/hotel-backend/room-type-list', key: 'room-type-list' },
-          { title: '房型图片', path: '/hotel-backend/room-type-images', key: 'room-type-images' },
-          { title: '房间管理', path: '/hotel-backend/rooms', key: 'rooms' },
-          { title: 'PMS对接', path: '/hotel-backend/pms-integration', key: 'pms' }
+          { title: '订单列表', path: '/hotel-backend/order-list', key: 'hotel-order-list' }
         ]
       },
       {

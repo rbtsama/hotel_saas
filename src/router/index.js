@@ -133,62 +133,6 @@ const routes = [
     component: () => import('@/views/MerchantBackend/OrderManagement/OrderListPage.vue'),
     meta: { title: '订单列表' }
   },
-  {
-    path: '/hotel-backend/order-calendar',
-    name: 'OrderCalendar',
-    component: () => import('@/views/MerchantBackend/OrderManagement/OrderCalendarPage.vue'),
-    meta: { title: '订单日历' }
-  },
-  {
-    path: '/hotel-backend/refund-management',
-    name: 'HotelRefund',
-    component: () => import('@/views/MerchantBackend/OrderManagement/RefundManagementPage.vue'),
-    meta: { title: '客诉退款' }
-  },
-  {
-    path: '/hotel-backend/user-reviews',
-    name: 'UserReviews',
-    component: () => import('@/views/MerchantBackend/OrderManagement/UserReviewsPage.vue'),
-    meta: { title: '用户评价' }
-  },
-
-  // 商户端 - 房务管理
-  {
-    path: '/hotel-backend/room-price-calendar',
-    name: 'RoomPriceCalendar',
-    component: () => import('@/views/MerchantBackend/RoomManagement/RoomPriceCalendarPage.vue'),
-    meta: { title: '房价日历' }
-  },
-  {
-    path: '/hotel-backend/inventory-calendar',
-    name: 'InventoryCalendar',
-    component: () => import('@/views/MerchantBackend/RoomManagement/InventoryCalendarPage.vue'),
-    meta: { title: '库存日历' }
-  },
-  {
-    path: '/hotel-backend/room-type-list',
-    name: 'RoomTypeList',
-    component: () => import('@/views/MerchantBackend/RoomManagement/RoomTypeListPage.vue'),
-    meta: { title: '房型列表' }
-  },
-  {
-    path: '/hotel-backend/room-type-images',
-    name: 'RoomTypeImages',
-    component: () => import('@/views/MerchantBackend/RoomManagement/RoomTypeImagesPage.vue'),
-    meta: { title: '房型图片' }
-  },
-  {
-    path: '/hotel-backend/rooms',
-    name: 'Rooms',
-    component: () => import('@/views/MerchantBackend/RoomManagement/RoomsPage.vue'),
-    meta: { title: '房间管理' }
-  },
-  {
-    path: '/hotel-backend/pms-integration',
-    name: 'PMSIntegration',
-    component: () => import('@/views/MerchantBackend/RoomManagement/PMSIntegrationPage.vue'),
-    meta: { title: 'PMS对接' }
-  },
 
   // 商户端 - 会员服务
   {
