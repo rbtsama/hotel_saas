@@ -11,9 +11,9 @@
       <!-- 筛选表单 - 按PRD优化 -->
       <a-card class="rounded-xl border-slate-200 bg-white shadow-sm">
         <!-- 第一行：订单状态、下单时间、入住时间 -->
-        <div class="grid grid-cols-12 gap-4">
+        <div class="flex gap-4 items-end">
           <!-- 订单状态 -->
-          <div class="space-y-2 col-span-2">
+          <div class="space-y-2" style="width: 160px">
             <label class="text-sm text-slate-600">订单状态</label>
             <a-select
               v-model="filters.orderStatus"
@@ -30,24 +30,28 @@
           </div>
 
           <!-- 下单时间 -->
-          <div class="space-y-2 col-span-5">
+          <div class="space-y-2 flex-1">
             <label class="text-sm text-slate-600">下单时间</label>
             <a-range-picker
               v-model="filters.orderCreatedRange"
               format="YYYY-MM-DD"
+              value-format="YYYY-MM-DD"
               class="w-full"
               style="height: 36px"
+              placeholder="['开始日期', '结束日期']"
             />
           </div>
 
           <!-- 入住时间 -->
-          <div class="space-y-2 col-span-5">
+          <div class="space-y-2 flex-1">
             <label class="text-sm text-slate-600">入住时间</label>
             <a-range-picker
               v-model="filters.checkInRange"
               format="YYYY-MM-DD"
+              value-format="YYYY-MM-DD"
               class="w-full"
               style="height: 36px"
+              placeholder="['开始日期', '结束日期']"
             />
           </div>
         </div>
@@ -214,8 +218,8 @@ export default defineComponent({
     // 筛选条件（按PRD优化 - 3个独立搜索）
     const filters = reactive({
       orderStatus: 'all',
-      orderCreatedRange: undefined as [Dayjs, Dayjs] | undefined,
-      checkInRange: undefined as [Dayjs, Dayjs] | undefined,
+      orderCreatedRange: [] as any,
+      checkInRange: [] as any,
       hotelName: '',
       orderNumber: '',
       guestPhone: ''
@@ -254,10 +258,10 @@ export default defineComponent({
       try {
         const params: OrderFilterParams = {
           orderStatus: filters.orderStatus === 'all' ? undefined : filters.orderStatus,
-          orderCreatedStart: filters.orderCreatedRange?.[0] ? dayjs(filters.orderCreatedRange[0]).format('YYYY-MM-DD') : undefined,
-          orderCreatedEnd: filters.orderCreatedRange?.[1] ? dayjs(filters.orderCreatedRange[1]).format('YYYY-MM-DD') : undefined,
-          checkInStart: filters.checkInRange?.[0] ? dayjs(filters.checkInRange[0]).format('YYYY-MM-DD') : undefined,
-          checkInEnd: filters.checkInRange?.[1] ? dayjs(filters.checkInRange[1]).format('YYYY-MM-DD') : undefined,
+          orderCreatedStart: filters.orderCreatedRange && filters.orderCreatedRange.length > 0 ? filters.orderCreatedRange[0] : undefined,
+          orderCreatedEnd: filters.orderCreatedRange && filters.orderCreatedRange.length > 1 ? filters.orderCreatedRange[1] : undefined,
+          checkInStart: filters.checkInRange && filters.checkInRange.length > 0 ? filters.checkInRange[0] : undefined,
+          checkInEnd: filters.checkInRange && filters.checkInRange.length > 1 ? filters.checkInRange[1] : undefined,
           hotelName: filters.hotelName || undefined,
           // 订单号和手机号合并为searchKeyword传给service
           searchKeyword: filters.orderNumber || filters.guestPhone || undefined,
@@ -283,8 +287,8 @@ export default defineComponent({
 
     const handleReset = () => {
       filters.orderStatus = 'all'
-      filters.orderCreatedRange = undefined
-      filters.checkInRange = undefined
+      filters.orderCreatedRange = []
+      filters.checkInRange = []
       filters.hotelName = ''
       filters.orderNumber = ''
       filters.guestPhone = ''
