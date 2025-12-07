@@ -35,7 +35,6 @@
             <a-range-picker
               v-model="filters.orderCreatedRange"
               format="YYYY-MM-DD"
-              value-format="YYYY-MM-DD"
               class="w-full"
               style="height: 36px"
               :placeholder="['开始日期', '结束日期']"
@@ -48,7 +47,6 @@
             <a-range-picker
               v-model="filters.checkInRange"
               format="YYYY-MM-DD"
-              value-format="YYYY-MM-DD"
               class="w-full"
               style="height: 36px"
               :placeholder="['开始日期', '结束日期']"
@@ -195,7 +193,7 @@ import OrderDetailDialog from './components/OrderDetailDialog.vue'
 import OrderService from './services/order.service'
 import type { Order, OrderFilterParams } from './types/order.types'
 import { OrderStatus, ORDER_STATUS_LABELS, ORDER_STATUS_COLORS } from './types/order.types'
-import dayjs, { Dayjs } from 'dayjs'
+import moment from 'moment'
 
 export default defineComponent({
   name: 'OrderListPage',
@@ -215,8 +213,8 @@ export default defineComponent({
     // 筛选条件（按PRD优化 - 3个独立搜索）
     const filters = reactive({
       orderStatus: 'all',
-      orderCreatedRange: [] as any,
-      checkInRange: [] as any,
+      orderCreatedRange: null as any,
+      checkInRange: null as any,
       hotelName: '',
       orderNumber: '',
       guestPhone: ''
@@ -255,10 +253,10 @@ export default defineComponent({
       try {
         const params: OrderFilterParams = {
           orderStatus: filters.orderStatus === 'all' ? undefined : filters.orderStatus,
-          orderCreatedStart: filters.orderCreatedRange && filters.orderCreatedRange.length > 0 ? filters.orderCreatedRange[0] : undefined,
-          orderCreatedEnd: filters.orderCreatedRange && filters.orderCreatedRange.length > 1 ? filters.orderCreatedRange[1] : undefined,
-          checkInStart: filters.checkInRange && filters.checkInRange.length > 0 ? filters.checkInRange[0] : undefined,
-          checkInEnd: filters.checkInRange && filters.checkInRange.length > 1 ? filters.checkInRange[1] : undefined,
+          orderCreatedStart: filters.orderCreatedRange?.[0] ? moment(filters.orderCreatedRange[0]).format('YYYY-MM-DD') : undefined,
+          orderCreatedEnd: filters.orderCreatedRange?.[1] ? moment(filters.orderCreatedRange[1]).format('YYYY-MM-DD') : undefined,
+          checkInStart: filters.checkInRange?.[0] ? moment(filters.checkInRange[0]).format('YYYY-MM-DD') : undefined,
+          checkInEnd: filters.checkInRange?.[1] ? moment(filters.checkInRange[1]).format('YYYY-MM-DD') : undefined,
           hotelName: filters.hotelName || undefined,
           // 订单号和手机号合并为searchKeyword传给service
           searchKeyword: filters.orderNumber || filters.guestPhone || undefined,
@@ -284,8 +282,8 @@ export default defineComponent({
 
     const handleReset = () => {
       filters.orderStatus = 'all'
-      filters.orderCreatedRange = []
-      filters.checkInRange = []
+      filters.orderCreatedRange = null
+      filters.checkInRange = null
       filters.hotelName = ''
       filters.orderNumber = ''
       filters.guestPhone = ''
