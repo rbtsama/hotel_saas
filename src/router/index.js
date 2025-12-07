@@ -59,6 +59,18 @@ const routes = [
     component: () => import('@/views/PlatformAdmin/CouponManagement/CouponIssuePage.vue'),
     meta: { title: '优惠券发放' }
   },
+  {
+    path: '/platform-admin/coupon-management/issue-records',
+    name: 'CouponIssueRecords',
+    component: () => import('@/views/PlatformAdmin/CouponManagement/CouponIssueRecordsPage.vue'),
+    meta: { title: '发放记录' }
+  },
+  {
+    path: '/platform-admin/coupon-management/operation-logs',
+    name: 'CouponOperationLogs',
+    component: () => import('@/views/PlatformAdmin/CouponManagement/CouponOperationLogsPage.vue'),
+    meta: { title: '操作记录' }
+  },
 
   // 平台后台 - 积分管理
   {
