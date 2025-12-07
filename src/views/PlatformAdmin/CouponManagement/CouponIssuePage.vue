@@ -583,16 +583,23 @@ export default defineComponent({
   font-weight: 600 !important;
   background-color: #3b82f6 !important;
   border-color: #3b82f6 !important;
+  color: #ffffff !important;
 
   &:hover:not(:disabled) {
     background-color: #2563eb !important;
     border-color: #2563eb !important;
+    color: #ffffff !important;
   }
 
   &:disabled {
     background-color: #cbd5e1 !important;
     border-color: #cbd5e1 !important;
     color: #94a3b8 !important;
+  }
+
+  :deep(.anticon) {
+    margin-right: 6px;
+    font-size: 16px;
   }
 }
 
