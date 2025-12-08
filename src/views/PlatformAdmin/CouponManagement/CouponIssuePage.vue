@@ -15,7 +15,8 @@
           ref="manualFormRef"
           :model="manualForm"
           :label-col="{ span: 3 }"
-          :wrapper-col="{ span="21 }"}
+          :wrapper-col="{ span: 21 }"
+          class="issue-form"
         >
           <!-- 发放方式 -->
           <a-form-model-item label="发放方式">
@@ -29,12 +30,8 @@
           <a-form-model-item v-if="manualForm.distributionType === 'phone'" label="手机号">
             <a-textarea
               v-model="manualForm.phoneText"
-              placeholder="请输入要派发优惠券的手机号，一行一个
-例如：
-13800138000
-13900139000
-13700137000"
-              :rows="8"
+              placeholder="请输入手机号，一行一个&#10;例如：&#10;13800138000&#10;13900139000"
+              :rows="6"
               class="phone-textarea"
             />
             <div class="field-hint">每行输入一个手机号</div>
@@ -61,6 +58,7 @@
             <a-select
               v-model="manualForm.couponId"
               placeholder="请选择要派发的优惠券"
+              style="width: 100%"
             >
               <a-select-option
                 v-for="coupon in enabledCoupons"
@@ -74,8 +72,9 @@
 
           <!-- 短信通知 -->
           <a-form-model-item label="短信通知">
-            <a-switch v-model="manualForm.smsNotify" checked-children="开" un-checked-children="关" />
-            <span class="field-hint">发送短信通知用户</span>
+            <a-checkbox v-model="manualForm.smsNotify">
+              发送短信通知
+            </a-checkbox>
           </a-form-model-item>
 
           <!-- 提交按钮 -->
@@ -84,6 +83,7 @@
               type="primary"
               :disabled="!isManualFormValid"
               @click="handleManualSubmit"
+              size="large"
               class="issue-button"
             >
               <a-icon type="rocket" theme="filled" />
@@ -124,14 +124,14 @@
 
           <!-- 短信通知 -->
           <template slot="smsNotify" slot-scope="smsNotify">
-            <a-tag :color="smsNotify ? 'success' : 'default'">
+            <a-tag :class="smsNotify ? 'tag-green' : 'tag-gray'">
               {{ smsNotify ? '是' : '否' }}
             </a-tag>
           </template>
 
           <!-- 状态 -->
           <template slot="status" slot-scope="status">
-            <a-tag :color="status === 'enabled' ? 'success' : 'default'">
+            <a-tag :class="status === 'enabled' ? 'tag-green' : 'tag-gray'">
               {{ status === 'enabled' ? '已启用' : '已停用' }}
             </a-tag>
           </template>
@@ -213,7 +213,9 @@
             </a-select>
           </a-form-model-item>
           <a-form-model-item label="短信通知">
-            <a-switch v-model="sceneForm.smsNotify" checked-children="开" un-checked-children="关" />
+            <a-checkbox v-model="sceneForm.smsNotify">
+              发送短信通知
+            </a-checkbox>
           </a-form-model-item>
         </a-form-model>
       </a-modal>
@@ -243,7 +245,7 @@ export default defineComponent({
       phoneText: '',
       selectedVipLevels: [],
       couponId: undefined,
-      smsNotify: true
+      smsNotify: false
     })
 
     // 确认弹窗
@@ -253,7 +255,7 @@ export default defineComponent({
       phones: [],
       vipLevels: [],
       couponId: '',
-      smsNotify: true
+      smsNotify: false
     })
 
     // 场景编辑弹窗
@@ -261,7 +263,7 @@ export default defineComponent({
     const editingScene = ref(null)
     const sceneForm = reactive({
       couponId: '',
-      smsNotify: true
+      smsNotify: false
     })
 
     // 场景表格列定义
@@ -390,7 +392,7 @@ export default defineComponent({
         manualForm.phoneText = ''
         manualForm.selectedVipLevels = []
         manualForm.couponId = undefined
-        manualForm.smsNotify = true
+        manualForm.smsNotify = false
       } catch (error) {
         root.$message.error(error.message || '发放失败')
       }
@@ -545,7 +547,7 @@ export default defineComponent({
   }
 
   :deep(.ant-card-body) {
-    padding: 24px;
+    padding: 20px 24px;
   }
 }
 
@@ -566,6 +568,19 @@ export default defineComponent({
   font-size: @font-size-lg;
   font-weight: @font-weight-semibold;
   color: @text-primary;
+}
+
+// 表单样式
+.issue-form {
+  :deep(.ant-form-item) {
+    margin-bottom: 16px;
+  }
+
+  :deep(.ant-form-item-label > label) {
+    font-size: @font-size-base;
+    color: @text-primary;
+    font-weight: @font-weight-medium;
+  }
 }
 
 // 字段提示
@@ -596,11 +611,11 @@ export default defineComponent({
 .vip-checkbox-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 
 .vip-checkbox-item {
-  padding: 10px 12px;
+  padding: 8px 10px;
   background: @bg-secondary;
   border-radius: @border-radius-base;
   border: 1px solid @border-primary;
@@ -612,7 +627,7 @@ export default defineComponent({
   }
 
   :deep(.ant-checkbox-wrapper) {
-    font-size: @font-size-base;
+    font-size: @font-size-sm;
     color: @text-primary;
   }
 }
@@ -621,9 +636,22 @@ export default defineComponent({
 .issue-button {
   height: 40px;
   padding: 0 32px;
-  font-size: @font-size-lg;
+  font-size: @font-size-base;
   font-weight: @font-weight-semibold;
   border-radius: @border-radius-base;
+  background: @brand-primary;
+  border-color: @brand-primary;
+
+  &:hover:not(:disabled) {
+    background: @brand-primary-hover;
+    border-color: @brand-primary-hover;
+  }
+
+  &:disabled {
+    background: #cbd5e1;
+    border-color: #cbd5e1;
+    color: #94a3b8;
+  }
 
   :deep(.anticon) {
     margin-right: 6px;
@@ -680,6 +708,29 @@ export default defineComponent({
   font-size: @font-size-sm;
 }
 
+// 标签样式
+.tag-green {
+  color: #15803d;
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.tag-gray {
+  color: #64748b;
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+:deep(.ant-tag) {
+  margin: 0;
+  padding: 2px 8px;
+  font-size: @font-size-xs;
+  font-weight: @font-weight-medium;
+  line-height: 20px;
+  border-radius: @border-radius-sm;
+  border-width: 1px;
+}
+
 // 操作按钮
 .action-btns {
   display: flex;
@@ -697,7 +748,7 @@ export default defineComponent({
 .confirm-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .confirm-item {
@@ -705,13 +756,19 @@ export default defineComponent({
   justify-content: space-between;
   align-items: flex-start;
   gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid @bg-tertiary;
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .confirm-label {
   flex-shrink: 0;
   color: @text-secondary;
   font-size: @font-size-base;
-  width: 100px;
+  width: 90px;
 }
 
 .confirm-value {
