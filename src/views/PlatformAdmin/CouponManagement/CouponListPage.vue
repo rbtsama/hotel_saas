@@ -87,7 +87,7 @@
 
           <!-- 状态 -->
           <template slot="status" slot-scope="status">
-            <a-tag :color="status === 'enabled' ? 'success' : 'default'">
+            <a-tag :class="status === 'enabled' ? 'tag-green' : 'tag-gray'">
               {{ status === 'enabled' ? '已启用' : '已停用' }}
             </a-tag>
           </template>
@@ -532,6 +532,12 @@ export default defineComponent({
   color: #1d4ed8;
   background: #eff6ff;
   border-color: #bfdbfe;
+}
+
+.tag-gray {
+  color: #64748b;
+  background: #f8fafc;
+  border-color: #cbd5e1;
 }
 
 :deep(.ant-tag) {
