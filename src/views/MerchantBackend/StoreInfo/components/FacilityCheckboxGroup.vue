@@ -27,21 +27,33 @@
   </div>
 </template>
 
-<script setup lang="ts">
-interface Props {
-  isEditing: boolean
-  selected: string[]
-  options: string[]
-  gridCols?: string
-}
+<script lang="ts">
+import { defineComponent, PropType } from '@vue/composition-api'
 
-withDefaults(defineProps<Props>(), {
-  gridCols: 'grid-cols-3',
+export default defineComponent({
+  name: 'FacilityCheckboxGroup',
+
+  props: {
+    isEditing: {
+      type: Boolean,
+      required: true
+    },
+    selected: {
+      type: Array as PropType<string[]>,
+      required: true
+    },
+    options: {
+      type: Array as PropType<string[]>,
+      required: true
+    },
+    gridCols: {
+      type: String,
+      default: 'grid-cols-3'
+    }
+  },
+
+  emits: ['toggle']
 })
-
-defineEmits<{
-  toggle: [value: string]
-}>()
 </script>
 
 <style scoped lang="less">
