@@ -20,13 +20,12 @@
 
       <!-- 菜单 -->
       <a-menu
-        :selected-keys="selectedKeys"
-        :open-keys="openKeys"
+        v-model:selectedKeys="selectedKeys"
+        v-model:openKeys="openKeys"
         mode="inline"
         theme="dark"
         class="custom-menu"
         @openChange="onOpenChange"
-        @select="onSelect"
       >
         <template v-for="item in menuItems">
           <a-sub-menu v-if="item.children" :key="item.key">
@@ -40,7 +39,7 @@
                 <a-menu-item
                   v-for="leaf in child.children"
                   :key="leaf.key"
-                  @click="handleMenuClick(leaf.path)"
+                  @click="handleMenuClick(leaf.path, leaf.key)"
                 >
                   {{ leaf.title }}
                 </a-menu-item>
@@ -48,7 +47,7 @@
               <a-menu-item
                 v-else
                 :key="child.key"
-                @click="handleMenuClick(child.path)"
+                @click="handleMenuClick(child.path, child.key)"
               >
                 {{ child.title }}
               </a-menu-item>
@@ -73,7 +72,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed, watch, onMounted } from '@vue/composition-api'
+import { defineComponent, ref, watch, onMounted } from '@vue/composition-api'
 import { menuConfig } from './menuConfig'
 
 const STORAGE_KEYS = {
@@ -85,87 +84,115 @@ export default defineComponent({
   name: 'Sidebar',
   setup(props, { root }) {
     const collapsed = ref(false)
+    const selectedKeys = ref([])
     const openKeys = ref([])
 
-    // 初始化时从 localStorage 读取状态
-    onMounted(() => {
-      const savedCollapsed = localStorage.getItem(STORAGE_KEYS.COLLAPSED)
-      const savedOpenKeys = localStorage.getItem(STORAGE_KEYS.OPEN_KEYS)
+    // 从路径查找菜单key和父级keys
+    const findMenuKeyByPath = (path, items = menuConfig, parents = []) => {
+      for (const item of items) {
+        if (item.path === path) {
+          return {
+            key: item.key,
+            parents: parents
+          }
+        }
+        if (item.children) {
+          const result = findMenuKeyByPath(path, item.children, [...parents, item.key])
+          if (result) return result
+        }
+      }
+      return null
+    }
 
+    // 初始化菜单状态
+    const initMenuState = () => {
+      // 1. 恢复折叠状态
+      const savedCollapsed = localStorage.getItem(STORAGE_KEYS.COLLAPSED)
       if (savedCollapsed !== null) {
         collapsed.value = savedCollapsed === 'true'
       }
 
+      // 2. 默认展开所有一级菜单
+      const allFirstLevelKeys = menuConfig.map(item => item.key)
+
+      // 3. 恢复保存的展开状态（如果有）
+      const savedOpenKeys = localStorage.getItem(STORAGE_KEYS.OPEN_KEYS)
       if (savedOpenKeys) {
-        openKeys.value = JSON.parse(savedOpenKeys)
-      } else {
-        // 默认展开所有一级菜单
-        openKeys.value = menuConfig.map(item => item.key)
-      }
-    })
-
-    // 计算当前选中的菜单项
-    const selectedKeys = computed(() => {
-      const path = root.$route.path
-      // 从菜单配置中找到匹配的key，并同时记录父级key
-      const findKey = (items, parents = []) => {
-        for (const item of items) {
-          if (item.path === path) {
-            // 找到匹配项时，自动展开所有父级菜单
-            const newOpenKeys = [...new Set([...openKeys.value, ...parents])]
-            if (JSON.stringify(newOpenKeys) !== JSON.stringify(openKeys.value)) {
-              openKeys.value = newOpenKeys
-              localStorage.setItem(STORAGE_KEYS.OPEN_KEYS, JSON.stringify(newOpenKeys))
-            }
-            return [item.key]
-          }
-          if (item.children) {
-            const childKey = findKey(item.children, [...parents, item.key])
-            if (childKey) return childKey
-          }
+        try {
+          const parsed = JSON.parse(savedOpenKeys)
+          // 合并默认展开和保存的展开状态
+          openKeys.value = [...new Set([...allFirstLevelKeys, ...parsed])]
+        } catch (e) {
+          openKeys.value = allFirstLevelKeys
         }
-        return []
+      } else {
+        openKeys.value = allFirstLevelKeys
       }
-      return findKey(menuConfig)
-    })
 
-    // 监听路由变化
-    watch(() => root.$route.path, () => {
-      // 路由变化时会自动更新 selectedKeys，进而更新 openKeys
-    })
+      // 4. 根据当前路由设置选中状态
+      updateSelectedKeys(root.$route.path)
+    }
 
-    // 监听折叠状态变化，保存到 localStorage
+    // 更新选中的菜单项
+    const updateSelectedKeys = (path) => {
+      const result = findMenuKeyByPath(path)
+      if (result) {
+        selectedKeys.value = [result.key]
+
+        // 确保父级菜单都是展开的
+        const allParents = [...new Set([...openKeys.value, ...result.parents])]
+        if (JSON.stringify(allParents) !== JSON.stringify(openKeys.value)) {
+          openKeys.value = allParents
+          localStorage.setItem(STORAGE_KEYS.OPEN_KEYS, JSON.stringify(allParents))
+        }
+      }
+    }
+
+    // 监听路由变化，立即更新选中状态
+    watch(() => root.$route.path, (newPath) => {
+      updateSelectedKeys(newPath)
+    }, { immediate: false })
+
+    // 监听折叠状态变化
     watch(collapsed, (newVal) => {
       localStorage.setItem(STORAGE_KEYS.COLLAPSED, String(newVal))
     })
 
+    // 菜单展开/收起事件
     const onOpenChange = (keys) => {
       openKeys.value = keys
-      // 保存展开状态到 localStorage
       localStorage.setItem(STORAGE_KEYS.OPEN_KEYS, JSON.stringify(keys))
     }
 
-    const onSelect = ({ key }) => {
-      // 菜单选中时保持展开状态
-    }
-
+    // 折叠切换
     const toggleCollapsed = () => {
       collapsed.value = !collapsed.value
     }
 
-    const handleMenuClick = (path) => {
-      if (path && root.$route.path !== path) {
+    // 菜单点击事件
+    const handleMenuClick = (path, key) => {
+      if (!path) return
+
+      // 立即更新选中状态，避免闪烁
+      selectedKeys.value = [key]
+
+      // 跳转路由
+      if (root.$route.path !== path) {
         root.$router.push(path)
       }
     }
 
+    // 组件挂载时初始化
+    onMounted(() => {
+      initMenuState()
+    })
+
     return {
       collapsed,
-      openKeys,
       selectedKeys,
+      openKeys,
       menuItems: menuConfig,
       onOpenChange,
-      onSelect,
       toggleCollapsed,
       handleMenuClick
     }
@@ -225,6 +252,7 @@ export default defineComponent({
     margin: 4px 8px;
     border-radius: 6px;
     width: calc(100% - 16px);
+    transition: background 0.2s ease, color 0.2s ease;
 
     &:hover {
       background: rgba(255, 255, 255, 0.08);
@@ -238,6 +266,10 @@ export default defineComponent({
 
     &::after {
       display: none;
+    }
+
+    &:hover {
+      background: #2563eb !important;
     }
   }
 
