@@ -80,7 +80,7 @@
 
           <!-- 账号状态 -->
           <template slot="accountStatus" slot-scope="text">
-            <a-tag :color="getStatusColor(text)">
+            <a-tag :class="getStatusClass(text)">
               {{ getStatusLabel(text) }}
             </a-tag>
           </template>
@@ -370,17 +370,13 @@ export default defineComponent({
     getStatusLabel(status: string): string {
       return AccountStatusLabels[status as keyof typeof AccountStatusLabels] || status
     },
-    getStatusColor(status: string): string {
-      switch (status) {
-        case 'pre_register':
-          return 'processing'
-        case 'registered':
-          return 'success'
-        case 'disabled':
-          return 'error'
-        default:
-          return 'default'
+    getStatusClass(status: string): string {
+      const classMap: Record<string, string> = {
+        'pre_register': 'tag-blue',
+        'registered': 'tag-green',
+        'disabled': 'tag-red'
       }
+      return classMap[status] || 'tag-gray'
     },
     getObtainMethodLabel(method: string): string {
       return ObtainMethodLabels[method as keyof typeof ObtainMethodLabels] || method
@@ -562,7 +558,7 @@ export default defineComponent({
   }
 }
 
-// 获得方式标签
+// 标签样式
 .tag-blue {
   color: #1d4ed8;
   background: #eff6ff;
@@ -585,5 +581,17 @@ export default defineComponent({
   color: #c2410c;
   background: #fff7ed;
   border-color: #fed7aa;
+}
+
+.tag-red {
+  color: #b91c1c;
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.tag-gray {
+  color: #64748b;
+  background: #f8fafc;
+  border-color: #cbd5e1;
 }
 </style>
