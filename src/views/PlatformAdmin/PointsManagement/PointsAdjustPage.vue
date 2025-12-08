@@ -346,8 +346,7 @@ export default defineComponent({
     }
 
     const goToOperationLogs = () => {
-      // Vue Router 导航将在后续实现
-      console.log('跳转到操作记录页面')
+      root.$message.info('操作记录功能待开发')
     }
 
     // ========== 样式辅助 ==========
