@@ -182,7 +182,7 @@ export default defineComponent({
     Sidebar
   },
 
-  setup() {
+  setup(props, { root }) {
     // ========== 状态管理 ==========
     const loading = ref(false)
     const adjusting = ref(false)
