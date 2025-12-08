@@ -85,13 +85,6 @@
             </div>
           </template>
 
-          <!-- 状态 -->
-          <template slot="status" slot-scope="status">
-            <a-tag :class="status === 'enabled' ? 'tag-green' : 'tag-gray'">
-              {{ status === 'enabled' ? '已启用' : '已停用' }}
-            </a-tag>
-          </template>
-
           <!-- 创建时间 -->
           <template slot="createdAt" slot-scope="createdAt">
             <div class="datetime-cell">
@@ -195,13 +188,6 @@ export default defineComponent({
         key: 'ratio',
         width: 100,
         scopedSlots: { customRender: 'ratio' }
-      },
-      {
-        title: '状态',
-        dataIndex: 'status',
-        key: 'status',
-        width: 80,
-        scopedSlots: { customRender: 'status' }
       },
       {
         title: '创建时间',
