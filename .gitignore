@@ -1,18 +1,7 @@
-node_modules
-
-/.cache
-/build
-/.vercel
-.env
-
-# Remix
-/.cache
-/build
-/public/build
-.env
-
-# misc
+dist/
+build/
+*.local
 .DS_Store
-*.log
-.DS_Store
-nul
+node_modules/
+.vscode/
+.idea/
