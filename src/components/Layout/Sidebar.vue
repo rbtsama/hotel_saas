@@ -87,6 +87,7 @@ export default defineComponent({
     const collapsed = ref(false)
     const selectedKeys = ref([])
     const openKeys = ref([])
+    const isNavigating = ref(false) // 添加标志位，防止导航时触发 openKeys 更新
 
     // 获取所有一级和二级菜单的keys（默认全部展开）
     const getAllMenuKeys = () => {
@@ -148,27 +149,35 @@ export default defineComponent({
       }
 
       // 4. 根据当前路由设置选中状态
-      updateSelectedKeys(root.$route.path)
+      updateSelectedKeys(root.$route.path, false)
     }
 
     // 更新选中的菜单项
-    const updateSelectedKeys = (path) => {
+    const updateSelectedKeys = (path, shouldUpdateOpenKeys = true) => {
       const result = findMenuKeyByPath(path)
       if (result) {
         selectedKeys.value = [result.key]
 
-        // 确保父级菜单都是展开的
-        const allParents = [...new Set([...openKeys.value, ...result.parents])]
-        if (JSON.stringify(allParents) !== JSON.stringify(openKeys.value)) {
-          openKeys.value = allParents
-          localStorage.setItem(STORAGE_KEYS.OPEN_KEYS, JSON.stringify(allParents))
+        // 只在需要时才更新 openKeys（避免点击导航时的抖动）
+        if (shouldUpdateOpenKeys && !isNavigating.value) {
+          // 确保父级菜单都是展开的
+          const allParents = [...new Set([...openKeys.value, ...result.parents])]
+          if (JSON.stringify(allParents.sort()) !== JSON.stringify(openKeys.value.sort())) {
+            openKeys.value = allParents
+            localStorage.setItem(STORAGE_KEYS.OPEN_KEYS, JSON.stringify(allParents))
+          }
         }
       }
     }
 
     // 监听路由变化
     watch(() => root.$route.path, (newPath) => {
-      updateSelectedKeys(newPath)
+      // 如果是主动导航，不更新 openKeys，只更新 selectedKeys
+      updateSelectedKeys(newPath, !isNavigating.value)
+      // 重置导航标志
+      if (isNavigating.value) {
+        isNavigating.value = false
+      }
     }, { immediate: false })
 
     // 监听折叠状态变化
@@ -191,12 +200,18 @@ export default defineComponent({
     const handleMenuClick = (path, key) => {
       if (!path) return
 
+      // 设置导航标志，防止路由变化时更新 openKeys
+      isNavigating.value = true
+
       // 立即更新选中状态，避免闪烁
       selectedKeys.value = [key]
 
       // 跳转路由
       if (root.$route.path !== path) {
         root.$router.push(path)
+      } else {
+        // 如果路由相同，重置标志
+        isNavigating.value = false
       }
     }
 
