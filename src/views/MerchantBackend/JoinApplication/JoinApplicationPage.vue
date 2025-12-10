@@ -10,13 +10,9 @@
               v-for="step in steps"
               :key="step.key"
               @click="activeTab = step.key"
-              :class="['tab-item', {
-                active: activeTab === step.key,
-                completed: isStepCompleted(step.key)
-              }]"
+              :class="['tab-item', { active: activeTab === step.key }]"
             >
               <span class="tab-title">{{ step.title }}</span>
-              <span v-if="step.progress !== '-'" class="tab-badge">{{ step.progress }}</span>
             </div>
           </div>
 
@@ -32,11 +28,11 @@
               </span>
             </div>
 
-            <a-button v-if="activeTab !== 'tab0'" @click="handleSaveDraft">
+            <a-button v-if="activeTab !== 'tab0'" @click="handleSaveDraft" size="large" class="action-btn">
               <a-icon type="save" />
               保存草稿
             </a-button>
-            <a-button type="primary" @click="handleNextTab">
+            <a-button type="primary" @click="handleNextTab" size="large" class="action-btn primary-btn">
               <template v-if="activeTab === 'tab5'">
                 <a-icon type="check" />
                 提交审核
@@ -267,10 +263,6 @@ export default defineComponent({
     .tab-title {
       color: @brand-primary;
     }
-
-    .tab-badge {
-      border-color: @brand-primary;
-    }
   }
 
   &.active {
@@ -284,22 +276,6 @@ export default defineComponent({
       color: @brand-primary;
       font-weight: @font-weight-semibold;
     }
-
-    .tab-badge {
-      background: @brand-primary;
-      color: @bg-primary;
-      border-color: @brand-primary;
-      font-weight: @font-weight-semibold;
-    }
-  }
-
-  &.completed:not(.active) {
-    .tab-badge {
-      background: @success-color;
-      color: @bg-primary;
-      border-color: @success-color;
-      font-weight: @font-weight-semibold;
-    }
   }
 }
 
@@ -310,25 +286,38 @@ export default defineComponent({
   transition: all 0.2s ease;
 }
 
-.tab-badge {
-  font-size: @font-size-xs;
-  padding: 2px 8px;
-  border-radius: @border-radius-sm;
-  background: @bg-secondary;
-  color: @text-secondary;
-  font-weight: @font-weight-normal;
-  border: 1px solid @border-primary;
-  transition: all 0.2s ease;
-  min-width: 32px;
-  text-align: center;
-  line-height: 1.3;
-}
-
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   flex-shrink: 0;
+}
+
+.action-btn {
+  height: 40px;
+  padding: 0 24px;
+  font-size: @font-size-base;
+  font-weight: @font-weight-medium;
+  border-radius: @border-radius-base;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.primary-btn {
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  }
 }
 
 .tab-content-wrapper {
