@@ -3,10 +3,13 @@
     <div class="store-deployment-page">
       <!-- 准备清单页面 -->
       <div v-if="showChecklist" class="checklist-container">
-        <div class="page-header">
-          <h1 class="page-title">门店部署申请</h1>
-          <p class="page-desc">在开始填写之前，请先准备以下材料，以便快速完成申请</p>
-        </div>
+        <!-- 温馨提示 -->
+        <a-alert
+          message="表单会自动保存，您可以随时退出，稍后继续填写。建议您先准备好所有材料，以便一次性完成填写。"
+          type="info"
+          show-icon
+          class="tip-alert"
+        />
 
         <a-card :bordered="false" class="checklist-card">
           <template slot="title">
@@ -62,14 +65,6 @@
             </template>
           </a-table>
         </a-card>
-
-        <a-alert
-          message="温馨提示"
-          description="表单会自动保存，您可以随时退出，稍后继续填写。建议您先准备好所有材料，以便一次性完成填写。"
-          type="info"
-          show-icon
-          class="tip-alert"
-        />
 
         <div class="action-bar">
           <a-button size="large" @click="handleLater" class="action-btn">
@@ -301,42 +296,24 @@ export default defineComponent({
 }
 
 .checklist-container {
-  padding: 24px;
+  padding: 20px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-.page-header {
-  margin-bottom: 32px;
-  text-align: center;
-
-  .page-title {
-    font-size: @font-size-2xl;
-    font-weight: @font-weight-semibold;
-    color: @text-primary;
-    margin: 0 0 12px 0;
-  }
-
-  .page-desc {
-    font-size: @font-size-base;
-    color: @text-secondary;
-    margin: 0;
-  }
-}
-
 .checklist-card {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   border-radius: @border-radius-lg;
   border: 1px solid @border-primary;
   box-shadow: @shadow-sm;
 
   :deep(.ant-card-head) {
     border-bottom: 1px solid @border-primary;
-    padding: 16px 24px;
+    padding: 10px 20px;
   }
 
   :deep(.ant-card-body) {
-    padding: 24px;
+    padding: 16px 20px;
   }
 }
 
@@ -396,16 +373,10 @@ export default defineComponent({
 }
 
 .tip-alert {
-  margin-bottom: 32px;
+  margin-bottom: 16px;
   border-radius: @border-radius-base;
 
   :deep(.ant-alert-message) {
-    font-size: @font-size-base;
-    font-weight: @font-weight-medium;
-    color: @text-primary;
-  }
-
-  :deep(.ant-alert-description) {
     font-size: @font-size-sm;
     color: @text-secondary;
     line-height: 1.6;
