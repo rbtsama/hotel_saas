@@ -306,8 +306,12 @@ export default defineComponent({
 
   :deep(.ant-card-head) {
     border-bottom: 1px solid @border-primary;
-    padding: 8px 20px;
+    padding: 6px 20px;
     min-height: auto;
+  }
+
+  :deep(.ant-card-head-title) {
+    padding: 0;
   }
 
   :deep(.ant-card-body) {
@@ -373,11 +377,17 @@ export default defineComponent({
 .tip-alert {
   margin-bottom: 16px;
   border-radius: @border-radius-base;
+  padding: 16px 20px;
 
   :deep(.ant-alert-message) {
-    font-size: @font-size-sm;
-    color: @text-secondary;
-    line-height: 1.6;
+    font-size: @font-size-base;
+    color: @text-primary;
+    line-height: 1.8;
+    font-weight: @font-weight-medium;
+  }
+
+  :deep(.ant-alert-icon) {
+    font-size: 18px;
   }
 }
 
