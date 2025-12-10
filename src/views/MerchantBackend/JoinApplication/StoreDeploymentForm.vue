@@ -28,9 +28,16 @@
       @update="handleFormUpdate"
     />
 
-    <!-- Tab 5: 房型配置 -->
-    <Tab5RoomTypeList
+    <!-- Tab 5: 支付结算 -->
+    <Tab6PaymentSettlement
       v-if="activeTab === 'tab5'"
+      :form-data="formData"
+      @update="handleFormUpdate"
+    />
+
+    <!-- Tab 6: 房型配置 -->
+    <Tab5RoomTypeList
+      v-if="activeTab === 'tab6'"
       :form-data="formData"
       @update="handleFormUpdate"
     />
@@ -46,6 +53,7 @@ import Tab2FacilitiesSurrounding from './components/Tab2FacilitiesSurrounding.vu
 import Tab3OperationPolicy from './components/Tab3OperationPolicy.vue'
 import Tab4StoreDisplay from './components/Tab4StoreDisplay.vue'
 import Tab5RoomTypeList from './components/Tab5RoomTypeList.vue'
+import Tab6PaymentSettlement from './components/Tab6PaymentSettlement.vue'
 
 export default defineComponent({
   name: 'StoreDeploymentForm',
@@ -54,7 +62,8 @@ export default defineComponent({
     Tab2FacilitiesSurrounding,
     Tab3OperationPolicy,
     Tab4StoreDisplay,
-    Tab5RoomTypeList
+    Tab5RoomTypeList,
+    Tab6PaymentSettlement
   },
   props: {
     activeTab: {
@@ -115,7 +124,8 @@ export default defineComponent({
         tab2: calculateTab2Progress(),
         tab3: calculateTab3Progress(),
         tab4: calculateTab4Progress(),
-        tab5: calculateTab5Progress()
+        tab5: calculateTab5Progress(),
+        tab6: calculateTab6Progress()
       }
       emit('progress-update', progress)
     }
@@ -156,8 +166,16 @@ export default defineComponent({
       return `${completed}/${total}`
     }
 
-    // Tab5进度计算
+    // Tab5进度计算（支付结算）
     const calculateTab5Progress = () => {
+      let completed = 0
+      const total = 20
+      // 简化计算，实际应该检查所有字段
+      return `${completed}/${total}`
+    }
+
+    // Tab6进度计算（房型设置）
+    const calculateTab6Progress = () => {
       const total = 1
       const hasRooms = formData.roomTypes?.length > 0
       const roomCountMatch = formData.roomTypes?.reduce((sum, r) => sum + (r.roomCount || 0), 0) === formData.storeBasicInfo?.roomCount

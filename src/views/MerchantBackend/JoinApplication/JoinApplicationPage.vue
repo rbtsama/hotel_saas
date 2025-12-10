@@ -37,7 +37,7 @@
                 开始填写
                 <a-icon type="right" />
               </template>
-              <template v-else-if="activeTab === 'tab5'">
+              <template v-else-if="activeTab === 'tab6'">
                 <a-icon type="check" />
                 提交审核
               </template>
@@ -100,7 +100,8 @@ export default defineComponent({
       tab2: '0/8',
       tab3: '0/12',
       tab4: '0/6',
-      tab5: '0/1'
+      tab5: '0/20',
+      tab6: '0/1'
     })
 
     // Steps配置
@@ -110,7 +111,8 @@ export default defineComponent({
       { key: 'tab2', title: '设施周边', progress: tabProgress.tab2 },
       { key: 'tab3', title: '运营政策', progress: tabProgress.tab3 },
       { key: 'tab4', title: '门店展示', progress: tabProgress.tab4 },
-      { key: 'tab5', title: '房型设置', progress: tabProgress.tab5 }
+      { key: 'tab5', title: '支付结算', progress: tabProgress.tab5 },
+      { key: 'tab6', title: '房型设置', progress: tabProgress.tab6 }
     ])
 
     // 判断步骤是否完成
@@ -125,7 +127,7 @@ export default defineComponent({
 
     // Tab切换
     const handlePrevTab = () => {
-      const tabs = ['tab0', 'tab1', 'tab2', 'tab3', 'tab4', 'tab5']
+      const tabs = ['tab0', 'tab1', 'tab2', 'tab3', 'tab4', 'tab5', 'tab6']
       const currentIndex = tabs.indexOf(activeTab.value)
       if (currentIndex > 0) {
         activeTab.value = tabs[currentIndex - 1]
@@ -133,7 +135,7 @@ export default defineComponent({
     }
 
     const handleNextTab = () => {
-      const tabs = ['tab0', 'tab1', 'tab2', 'tab3', 'tab4', 'tab5']
+      const tabs = ['tab0', 'tab1', 'tab2', 'tab3', 'tab4', 'tab5', 'tab6']
       const currentIndex = tabs.indexOf(activeTab.value)
       if (currentIndex < tabs.length - 1) {
         activeTab.value = tabs[currentIndex + 1]
