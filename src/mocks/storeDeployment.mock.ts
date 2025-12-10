@@ -265,6 +265,39 @@ export const mockCompleteData: StoreDeploymentForm = {
       latestNews: 'https://example.com/images/news.jpg'
     }
   },
+  paymentSettlement: {
+    entityType: EntityType.COMPANY,
+    companyInfo: {
+      registerAccount: '13575481983',
+      companyName: '杭州原乡芦茨酒店管理有限公司',
+      creditCode: '91330108MAEN56Q88T',
+      licenseValidityType: LicenseValidityType.PERMANENT,
+      legalPersonName: '张三',
+      legalPersonIdCard: '330106199001011234',
+      legalPersonAddress: '浙江省杭州市西湖区',
+      legalPersonIdValidityType: LicenseValidityType.DATE,
+      legalPersonIdValidityDate: '2030-12-31',
+      storeRegion: '浙江省杭州市桐庐县',
+      storeDetailAddress: '富春江镇芦茨村芦茨湾',
+      accountName: '杭州原乡芦茨酒店管理有限公司',
+      bankAccountNumber: '1234567890123456789',
+      openingBank: '中国工商银行',
+      openingLocation: '杭州市',
+      openingBankFullName: '中国工商银行股份有限公司杭州西湖支行',
+      openingProof: 'https://example.com/opening_proof.jpg',
+      merchantName: '原乡芦茨',
+      merchantShortName: '原乡芦茨',
+      contactName: '李四',
+      contactIdCard: '330106199002022345',
+      contactPhone: '13800138000',
+      contactEmail: 'contact@example.com',
+      businessLicensePhoto: 'https://example.com/license.jpg',
+      legalPersonIdPhoto: 'https://example.com/id_card.jpg',
+      storeDoorPhoto: 'https://example.com/door.jpg',
+      storeFrontDeskPhoto: 'https://example.com/front_desk.jpg',
+      storeInteriorPhoto: 'https://example.com/interior.jpg'
+    }
+  },
   roomTypes: [
     {
       id: 'room_001',
@@ -477,6 +510,40 @@ export const mockEmptyFormData: StoreDeploymentForm = {
       homePageImages: []
     },
     videos: {}
+  },
+  paymentSettlement: {
+    entityType: EntityType.COMPANY,
+    companyInfo: {
+      registerAccount: '',
+      companyName: '',
+      creditCode: '',
+      licenseValidityType: LicenseValidityType.DATE,
+      licenseValidityDate: '',
+      legalPersonName: '',
+      legalPersonIdCard: '',
+      legalPersonAddress: '',
+      legalPersonIdValidityType: LicenseValidityType.DATE,
+      legalPersonIdValidityDate: '',
+      storeRegion: '',
+      storeDetailAddress: '',
+      accountName: '',
+      bankAccountNumber: '',
+      openingBank: '',
+      openingLocation: '',
+      openingBankFullName: '',
+      openingProof: '',
+      merchantName: '',
+      merchantShortName: '',
+      contactName: '',
+      contactIdCard: '',
+      contactPhone: '',
+      contactEmail: '',
+      businessLicensePhoto: '',
+      legalPersonIdPhoto: '',
+      storeDoorPhoto: '',
+      storeFrontDeskPhoto: '',
+      storeInteriorPhoto: ''
+    }
   },
   roomTypes: []
 }
