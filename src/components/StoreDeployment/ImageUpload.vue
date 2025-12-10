@@ -165,7 +165,13 @@ export default defineComponent({
       (newValue) => {
         if (props.multiple) {
           images.value = (Array.isArray(newValue) ? newValue : [])
-            .map(url => ({ url, uploading: false }))
+            .map(item => {
+              // 如果已经是对象格式，直接使用；否则转换为对象
+              if (typeof item === 'string') {
+                return { url: item, uploading: false }
+              }
+              return item
+            })
         } else {
           images.value = newValue ? [{ url: newValue, uploading: false }] : []
         }
