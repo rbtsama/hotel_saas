@@ -147,8 +147,9 @@ export default defineComponent({
       }
     ]
 
-    // 图片/视频清单数据
+    // 图片/视频清单数据（必填在前，选填在后）
     const imageRequirements = [
+      // 必填项
       {
         name: '门店logo',
         required: true,
@@ -174,7 +175,7 @@ export default defineComponent({
         name: '旅游交通图',
         required: true,
         spec: '不限比例，清晰可见',
-        description: '标注了门店位置、周边景点、交通站点的地图',
+        description: '标注门店位置、周边景点、交通站点的地图',
         exampleImage: '/examples/旅游交通图.jpg'
       },
       {
@@ -183,24 +184,25 @@ export default defineComponent({
         spec: '比例3:2，每个房型最多10张',
         description: '展示房间内景照片（床、卫浴、窗景等角度）'
       },
+      // 选填项
       {
         name: '门店视频',
         required: false,
         spec: '比例16:9，大小<100MB，格式mp4/mov/avi',
-        description: '门店介绍视频（选填）'
+        description: '门店介绍视频'
       },
       {
         name: '视频封面',
         required: false,
         spec: '比例16:9',
-        description: '视频播放前的封面图（选填）',
+        description: '视频播放前的封面图',
         exampleImage: '/examples/视频封面.jpg'
       },
       {
         name: '最新情报图',
         required: false,
         spec: '竖版长图，宽度建议750px',
-        description: '展示一张排版好的活动海报或介绍长图（选填）',
+        description: '展示一张排版好的活动海报或介绍长图',
         exampleImage: '/examples/最新情报.jpg'
       }
     ]
@@ -381,11 +383,15 @@ export default defineComponent({
 .example-btn {
   flex-shrink: 0;
   padding: 0 8px;
-  font-size: @font-size-xs;
+  font-size: @font-size-sm;
   color: @brand-primary;
 
   &:hover {
     color: @brand-primary-hover;
+  }
+
+  :deep(.anticon) {
+    font-size: @font-size-sm;
   }
 }
 
