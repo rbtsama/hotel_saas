@@ -15,7 +15,7 @@
           <a-input
             v-model="localData.accountInfo.mainAccount"
             placeholder="13575481983"
-            maxlength="11"
+            :maxLength="11"
             @change="handleChange"
           >
             <a-icon slot="prefix" type="phone" />
@@ -38,7 +38,7 @@
           <a-input
             v-model="localData.accountInfo.bookingWechat"
             placeholder="13575481983"
-            maxlength="50"
+            :maxLength="50"
             @change="handleChange"
           >
             <a-icon slot="prefix" type="wechat" />
@@ -50,7 +50,7 @@
           <a-input
             v-model="localData.accountInfo.pmsSystem"
             placeholder="订单来了"
-            maxlength="50"
+            :maxLength="50"
             @change="handleChange"
           />
           <div class="field-hint">如使用PMS系统，请填写系统名称</div>
@@ -63,7 +63,7 @@
           <a-input
             v-model="localData.accountInfo.pmsStoreCode"
             placeholder="69808093"
-            maxlength="50"
+            :maxLength="50"
             @change="handleChange"
           />
           <div class="field-hint">PMS系统中的门店编号</div>
@@ -86,7 +86,7 @@
           <a-input
             v-model="localData.storeBasicInfo.storeName"
             placeholder="原乡芦茨"
-            maxlength="50"
+            :maxLength="50"
             @change="handleChange"
           />
           <div class="field-hint">门店对外展示的名称</div>
@@ -96,7 +96,7 @@
           <a-input
             v-model="localData.storeBasicInfo.storeAddress"
             placeholder="XX省XX市XX区XX街道XX号"
-            maxlength="200"
+            :maxLength="200"
             @change="handleChange"
           />
           <div class="field-hint">门店完整地址</div>
@@ -118,7 +118,7 @@
           <a-input
             v-model="localData.storeBasicInfo.openingYear"
             placeholder="2016年 或 2016"
-            maxlength="20"
+            :maxLength="20"
             @change="handleChange"
           />
           <div class="field-hint">门店开业年份</div>
@@ -128,7 +128,7 @@
           <a-input
             v-model="localData.storeBasicInfo.slogan"
             placeholder="闭门深山，无计好眠。"
-            maxlength="50"
+            :maxLength="50"
             @change="handleChange"
           />
           <div class="field-hint">一句话介绍门店特色</div>

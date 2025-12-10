@@ -33,7 +33,11 @@
               保存草稿
             </a-button>
             <a-button type="primary" @click="handleNextTab" size="large" class="action-btn primary-btn">
-              <template v-if="activeTab === 'tab5'">
+              <template v-if="activeTab === 'tab0'">
+                开始填写
+                <a-icon type="right" />
+              </template>
+              <template v-else-if="activeTab === 'tab5'">
                 <a-icon type="check" />
                 提交审核
               </template>
