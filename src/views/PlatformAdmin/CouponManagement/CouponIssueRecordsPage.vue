@@ -20,31 +20,50 @@
           :pagination="pagination"
           :scroll="{ x: 1200 }"
           @change="handleTableChange"
-          rowKey="id"
+          rowKey="couponId"
           class="custom-table"
         >
-          <!-- 优惠券 -->
-          <template slot="couponId" slot-scope="couponId">
-            <span class="coupon-text">{{ couponId }}</span>
+          <!-- 优惠券名称 -->
+          <template slot="couponName" slot-scope="text">
+            <span class="coupon-text">{{ text }}</span>
+          </template>
+
+          <!-- 优惠券类型 -->
+          <template slot="couponType" slot-scope="type">
+            <a-tag :class="getCouponTypeClass(type)">
+              {{ getCouponTypeName(type) }}
+            </a-tag>
           </template>
 
           <!-- 发放方式 -->
-          <template slot="distributionType" slot-scope="text">
-            <a-tag>{{ getDistributionTypeName(text) }}</a-tag>
+          <template slot="distributionType" slot-scope="type">
+            <a-tag class="tag-blue">{{ getDistributionTypeName(type) }}</a-tag>
           </template>
 
           <!-- 目标用户 -->
-          <template slot="targetUsers" slot-scope="text">
-            <div class="target-users" :title="text">{{ text }}</div>
-          </template>
-
-          <!-- 发放数量 -->
-          <template slot="count" slot-scope="count">
-            <span class="count-text">{{ count }}</span>
+          <template slot="userPhone" slot-scope="text, record">
+            <div class="target-users">
+              <template v-if="text === '多手机号'">
+                <a-tooltip placement="topLeft">
+                  <template slot="title">
+                    <div v-if="record.phones">
+                      <div v-for="phone in record.phones" :key="phone">{{ phone }}</div>
+                    </div>
+                    <div v-else-if="record.vipLevels">
+                      VIP等级: {{ record.vipLevels.join(', ') }}
+                    </div>
+                  </template>
+                  <span style="cursor: help;">{{ text }} <a-icon type="info-circle" /></span>
+                </a-tooltip>
+              </template>
+              <template v-else>
+                {{ text }}
+              </template>
+            </div>
           </template>
 
           <!-- 发放时间 -->
-          <template slot="createdAt" slot-scope="datetime">
+          <template slot="operatedAt" slot-scope="datetime">
             <div class="datetime-cell">
               <div class="date">{{ formatDate(datetime) }}</div>
               <div class="time">{{ formatTime(datetime) }}</div>
@@ -52,8 +71,8 @@
           </template>
 
           <!-- 操作人 -->
-          <template slot="createdBy" slot-scope="createdBy">
-            <span class="creator-text">{{ createdBy }}</span>
+          <template slot="operatedBy" slot-scope="text">
+            <span class="creator-text">{{ text }}</span>
           </template>
         </a-table>
       </a-card>
@@ -87,10 +106,17 @@ export default defineComponent({
       columns: [
         {
           title: '优惠券',
-          dataIndex: 'couponId',
-          key: 'couponId',
-          width: 180,
-          scopedSlots: { customRender: 'couponId' }
+          dataIndex: 'couponName',
+          key: 'couponName',
+          width: 200,
+          scopedSlots: { customRender: 'couponName' }
+        },
+        {
+          title: '优惠券类型',
+          dataIndex: 'couponType',
+          key: 'couponType',
+          width: 100,
+          scopedSlots: { customRender: 'couponType' }
         },
         {
           title: '发放方式',
@@ -101,30 +127,24 @@ export default defineComponent({
         },
         {
           title: '目标用户',
-          dataIndex: 'targetUsers',
-          key: 'targetUsers',
-          scopedSlots: { customRender: 'targetUsers' }
-        },
-        {
-          title: '发放数量',
-          dataIndex: 'count',
-          key: 'count',
-          width: 100,
-          scopedSlots: { customRender: 'count' }
+          dataIndex: 'userPhone',
+          key: 'userPhone',
+          width: 150,
+          scopedSlots: { customRender: 'userPhone' }
         },
         {
           title: '发放时间',
-          dataIndex: 'createdAt',
-          key: 'createdAt',
+          dataIndex: 'operatedAt',
+          key: 'operatedAt',
           width: 120,
-          scopedSlots: { customRender: 'createdAt' }
+          scopedSlots: { customRender: 'operatedAt' }
         },
         {
           title: '操作人',
-          dataIndex: 'createdBy',
-          key: 'createdBy',
+          dataIndex: 'operatedBy',
+          key: 'operatedBy',
           width: 120,
-          scopedSlots: { customRender: 'createdBy' }
+          scopedSlots: { customRender: 'operatedBy' }
         }
       ]
     }
@@ -138,7 +158,7 @@ export default defineComponent({
     async loadData() {
       this.isLoading = true
       try {
-        const result = await CouponService.getIssueRecords({
+        const result = await CouponService.getCouponRecords({
           page: this.pagination.current,
           pageSize: this.pagination.pageSize
         })
@@ -164,11 +184,30 @@ export default defineComponent({
 
     getDistributionTypeName(type: string): string {
       const map: Record<string, string> = {
-        manual_phone: '手机号',
-        manual_vip: 'VIP等级',
-        auto: '自动发放'
+        manual_phone: '手机号发放',
+        manual_vip: 'VIP等级发放',
+        registration: '注册发放',
+        checkout: '离店发放'
       }
       return map[type] || type
+    },
+
+    getCouponTypeName(type: string): string {
+      const map: Record<string, string> = {
+        full_reduction: '满减券',
+        discount: '折扣券',
+        instant_reduction: '立减券'
+      }
+      return map[type] || type
+    },
+
+    getCouponTypeClass(type: string): string {
+      const map: Record<string, string> = {
+        full_reduction: 'tag-orange',
+        discount: 'tag-green',
+        instant_reduction: 'tag-blue'
+      }
+      return map[type] || ''
     },
 
     formatDate(datetime: string): string {
@@ -301,5 +340,34 @@ export default defineComponent({
     line-height: 1.5;
     margin-top: 2px;
   }
+}
+
+// 标签样式
+.tag-orange {
+  color: #c2410c;
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
+
+.tag-green {
+  color: #15803d;
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.tag-blue {
+  color: #1d4ed8;
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+:deep(.ant-tag) {
+  margin: 0;
+  padding: 2px 8px;
+  font-size: @font-size-xs;
+  font-weight: @font-weight-medium;
+  line-height: 20px;
+  border-radius: @border-radius-sm;
+  border-width: 1px;
 }
 </style>
