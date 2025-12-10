@@ -10,7 +10,7 @@
       <div class="facility-category">
         <div class="category-header">
           <span class="category-title">交通服务</span>
-          <a-tag color="red" size="small">必填，至少选1项</a-tag>
+          <a-tag color="red" size="small">必填</a-tag>
         </div>
         <a-checkbox-group v-model="localData.storeFacilities.transportation" @change="handleChange" class="checkbox-grid">
           <a-checkbox v-for="item in TRANSPORTATION_FACILITIES" :key="item" :value="item">
@@ -25,7 +25,7 @@
       <div class="facility-category">
         <div class="category-header">
           <span class="category-title">清洁服务</span>
-          <a-tag color="red" size="small">必填，至少选1项</a-tag>
+          <a-tag color="red" size="small">必填</a-tag>
         </div>
         <a-checkbox-group v-model="localData.storeFacilities.cleaning" @change="handleChange" class="checkbox-grid">
           <a-checkbox v-for="item in CLEANING_FACILITIES" :key="item" :value="item">
@@ -40,7 +40,7 @@
       <div class="facility-category">
         <div class="category-header">
           <span class="category-title">安全安保</span>
-          <a-tag color="red" size="small">必填，至少选1项</a-tag>
+          <a-tag color="red" size="small">必填</a-tag>
         </div>
         <a-checkbox-group v-model="localData.storeFacilities.security" @change="handleChange" class="checkbox-grid">
           <a-checkbox v-for="item in SECURITY_FACILITIES" :key="item" :value="item">
@@ -55,7 +55,7 @@
       <div class="facility-category">
         <div class="category-header">
           <span class="category-title">公共区域</span>
-          <a-tag color="red" size="small">必填，至少选1项</a-tag>
+          <a-tag color="red" size="small">必填</a-tag>
         </div>
         <a-checkbox-group v-model="localData.storeFacilities.publicArea" @change="handleChange" class="checkbox-grid">
           <a-checkbox v-for="item in PUBLIC_AREA_FACILITIES" :key="item" :value="item">
@@ -70,7 +70,7 @@
       <div class="facility-category">
         <div class="category-header">
           <span class="category-title">前台服务</span>
-          <a-tag color="red" size="small">必填，至少选1项</a-tag>
+          <a-tag color="red" size="small">必填</a-tag>
         </div>
         <a-checkbox-group v-model="localData.storeFacilities.frontDesk" @change="handleChange" class="checkbox-grid">
           <a-checkbox v-for="item in FRONT_DESK_FACILITIES" :key="item" :value="item">
@@ -628,6 +628,8 @@ export default defineComponent({
     border-radius: @border-radius-base;
     background: @bg-primary;
     transition: all 0.2s;
+    display: flex;
+    align-items: center;
 
     &:hover {
       border-color: @brand-primary;
@@ -637,6 +639,10 @@ export default defineComponent({
     &.ant-checkbox-wrapper-checked {
       border-color: @brand-primary;
       background: rgba(59, 130, 246, 0.08);
+    }
+
+    .ant-checkbox {
+      top: 0;
     }
   }
 }

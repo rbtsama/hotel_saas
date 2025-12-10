@@ -355,6 +355,8 @@ export default defineComponent({
     border-radius: @border-radius-base;
     background: @bg-primary;
     transition: all 0.2s;
+    display: flex;
+    align-items: center;
 
     &:hover {
       border-color: @brand-primary;
@@ -364,6 +366,10 @@ export default defineComponent({
     &.ant-checkbox-wrapper-checked {
       border-color: @brand-primary;
       background: rgba(59, 130, 246, 0.08);
+    }
+
+    .ant-checkbox {
+      top: 0;
     }
   }
 }
