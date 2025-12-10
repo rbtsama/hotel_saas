@@ -212,7 +212,7 @@
         <div class="facility-category">
           <div class="category-header">
             <span class="category-title">客房设施</span>
-            <a-tag color="red" size="small">必填 ★，至少选1项</a-tag>
+            <a-tag color="red" size="small">必填，至少选1项</a-tag>
           </div>
           <a-checkbox-group v-model="localData.facilities.roomFacilities" class="checkbox-grid">
             <a-checkbox v-for="item in ROOM_FACILITIES" :key="item" :value="item">
@@ -227,7 +227,7 @@
         <div class="facility-category">
           <div class="category-header">
             <span class="category-title">客房布局和家具</span>
-            <a-tag color="red" size="small">必填 ★，至少选1项</a-tag>
+            <a-tag color="red" size="small">必填，至少选1项</a-tag>
           </div>
           <a-checkbox-group v-model="localData.facilities.roomLayout" class="checkbox-grid">
             <a-checkbox v-for="item in ROOM_LAYOUT_FURNITURE" :key="item" :value="item">
@@ -242,7 +242,7 @@
         <div class="facility-category">
           <div class="category-header">
             <span class="category-title">卫浴设施</span>
-            <a-tag color="red" size="small">必填 ★，至少选1项</a-tag>
+            <a-tag color="red" size="small">必填，至少选1项</a-tag>
           </div>
           <a-checkbox-group v-model="localData.facilities.bathroom" class="checkbox-grid">
             <a-checkbox v-for="item in BATHROOM_FACILITIES" :key="item" :value="item">
@@ -257,7 +257,7 @@
         <div class="facility-category">
           <div class="category-header">
             <span class="category-title">洗浴用品</span>
-            <a-tag color="red" size="small">必填 ★，至少选1项</a-tag>
+            <a-tag color="red" size="small">必填，至少选1项</a-tag>
           </div>
           <a-checkbox-group v-model="localData.facilities.toiletries" class="checkbox-grid">
             <a-checkbox v-for="item in TOILETRIES" :key="item" :value="item">

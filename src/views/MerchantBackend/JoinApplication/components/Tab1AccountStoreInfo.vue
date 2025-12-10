@@ -17,10 +17,12 @@
             placeholder="13575481983"
             :maxLength="11"
             @change="handleChange"
+            @blur="validatePhone('mainAccount')"
           >
             <a-icon slot="prefix" type="phone" />
           </a-input>
-          <div class="field-hint">系统最高权限者，用于登录</div>
+          <div v-if="phoneErrors.mainAccount" class="error-hint">{{ phoneErrors.mainAccount }}</div>
+          <div v-else class="field-hint">系统最高权限者，用于登录</div>
         </a-form-model-item>
 
         <a-form-model-item label="预订电话" required>
@@ -28,10 +30,12 @@
             v-model="localData.accountInfo.bookingPhone"
             placeholder="13575481983"
             @change="handleChange"
+            @blur="validatePhone('bookingPhone')"
           >
             <a-icon slot="prefix" type="phone" />
           </a-input>
-          <div class="field-hint">客人预订时的联系电话</div>
+          <div v-if="phoneErrors.bookingPhone" class="error-hint">{{ phoneErrors.bookingPhone }}</div>
+          <div v-else class="field-hint">客人预订时的联系电话</div>
         </a-form-model-item>
 
         <a-form-model-item label="预订微信">
@@ -117,7 +121,7 @@
         <a-form-model-item label="开业时间" required>
           <a-input
             v-model="localData.storeBasicInfo.openingYear"
-            placeholder="2016年 或 2016"
+            placeholder="2016"
             :maxLength="20"
             @change="handleChange"
           />
@@ -185,10 +189,30 @@ export default defineComponent({
       storeBasicInfo: { ...props.formData.storeBasicInfo }
     })
 
+    // 手机号校验错误
+    const phoneErrors = reactive({
+      mainAccount: '',
+      bookingPhone: ''
+    })
+
     // 门店介绍字数统计
     const descriptionLength = computed(() => {
       return localData.storeBasicInfo.storeDescription?.length || 0
     })
+
+    // 手机号校验
+    const validatePhone = (field) => {
+      const value = localData.accountInfo[field]
+      if (!value) {
+        phoneErrors[field] = ''
+        return
+      }
+      if (!/^1[3-9]\d{9}$/.test(value)) {
+        phoneErrors[field] = '请输入正确的11位手机号'
+      } else {
+        phoneErrors[field] = ''
+      }
+    }
 
     // 监听props变化
     watch(
@@ -210,7 +234,9 @@ export default defineComponent({
 
     return {
       localData,
+      phoneErrors,
       descriptionLength,
+      validatePhone,
       handleChange
     }
   }
@@ -250,6 +276,13 @@ export default defineComponent({
 .field-hint {
   font-size: @font-size-xs;
   color: @text-secondary;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.error-hint {
+  font-size: @font-size-xs;
+  color: @error-color;
   margin-top: 4px;
   line-height: 1.4;
 }

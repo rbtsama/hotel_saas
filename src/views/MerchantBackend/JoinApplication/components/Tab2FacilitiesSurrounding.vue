@@ -10,7 +10,7 @@
       <div class="facility-category">
         <div class="category-header">
           <span class="category-title">交通服务</span>
-          <a-tag color="red" size="small">必填 ★，至少选1项</a-tag>
+          <a-tag color="red" size="small">必填，至少选1项</a-tag>
         </div>
         <a-checkbox-group v-model="localData.storeFacilities.transportation" @change="handleChange" class="checkbox-grid">
           <a-checkbox v-for="item in TRANSPORTATION_FACILITIES" :key="item" :value="item">
@@ -25,7 +25,7 @@
       <div class="facility-category">
         <div class="category-header">
           <span class="category-title">清洁服务</span>
-          <a-tag color="red" size="small">必填 ★，至少选1项</a-tag>
+          <a-tag color="red" size="small">必填，至少选1项</a-tag>
         </div>
         <a-checkbox-group v-model="localData.storeFacilities.cleaning" @change="handleChange" class="checkbox-grid">
           <a-checkbox v-for="item in CLEANING_FACILITIES" :key="item" :value="item">
@@ -40,10 +40,40 @@
       <div class="facility-category">
         <div class="category-header">
           <span class="category-title">安全安保</span>
-          <a-tag color="red" size="small">必填 ★，至少选1项</a-tag>
+          <a-tag color="red" size="small">必填，至少选1项</a-tag>
         </div>
         <a-checkbox-group v-model="localData.storeFacilities.security" @change="handleChange" class="checkbox-grid">
           <a-checkbox v-for="item in SECURITY_FACILITIES" :key="item" :value="item">
+            {{ item }}
+          </a-checkbox>
+        </a-checkbox-group>
+      </div>
+
+      <a-divider />
+
+      <!-- 公共区域 -->
+      <div class="facility-category">
+        <div class="category-header">
+          <span class="category-title">公共区域</span>
+          <a-tag color="red" size="small">必填，至少选1项</a-tag>
+        </div>
+        <a-checkbox-group v-model="localData.storeFacilities.publicArea" @change="handleChange" class="checkbox-grid">
+          <a-checkbox v-for="item in PUBLIC_AREA_FACILITIES" :key="item" :value="item">
+            {{ item }}
+          </a-checkbox>
+        </a-checkbox-group>
+      </div>
+
+      <a-divider />
+
+      <!-- 前台服务 -->
+      <div class="facility-category">
+        <div class="category-header">
+          <span class="category-title">前台服务</span>
+          <a-tag color="red" size="small">必填，至少选1项</a-tag>
+        </div>
+        <a-checkbox-group v-model="localData.storeFacilities.frontDesk" @change="handleChange" class="checkbox-grid">
+          <a-checkbox v-for="item in FRONT_DESK_FACILITIES" :key="item" :value="item">
             {{ item }}
           </a-checkbox>
         </a-checkbox-group>
@@ -59,36 +89,6 @@
         </div>
         <a-checkbox-group v-model="localData.storeFacilities.entertainment" @change="handleChange" class="checkbox-grid">
           <a-checkbox v-for="item in ENTERTAINMENT_FACILITIES" :key="item" :value="item">
-            {{ item }}
-          </a-checkbox>
-        </a-checkbox-group>
-      </div>
-
-      <a-divider />
-
-      <!-- 公共区域 -->
-      <div class="facility-category">
-        <div class="category-header">
-          <span class="category-title">公共区域</span>
-          <a-tag color="red" size="small">必填 ★，至少选1项</a-tag>
-        </div>
-        <a-checkbox-group v-model="localData.storeFacilities.publicArea" @change="handleChange" class="checkbox-grid">
-          <a-checkbox v-for="item in PUBLIC_AREA_FACILITIES" :key="item" :value="item">
-            {{ item }}
-          </a-checkbox>
-        </a-checkbox-group>
-      </div>
-
-      <a-divider />
-
-      <!-- 前台服务 -->
-      <div class="facility-category">
-        <div class="category-header">
-          <span class="category-title">前台服务</span>
-          <a-tag color="red" size="small">必填 ★，至少选1项</a-tag>
-        </div>
-        <a-checkbox-group v-model="localData.storeFacilities.frontDesk" @change="handleChange" class="checkbox-grid">
-          <a-checkbox v-for="item in FRONT_DESK_FACILITIES" :key="item" :value="item">
             {{ item }}
           </a-checkbox>
         </a-checkbox-group>

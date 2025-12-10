@@ -44,7 +44,7 @@
       <div class="image-upload-section">
         <div class="upload-label">
           <span class="label-text">门店logo</span>
-          <a-tag color="red" size="small">必填 ★</a-tag>
+          <a-tag color="red" size="small">必填</a-tag>
         </div>
         <p class="upload-hint">门店标志，用于列表展示和分享，建议比例1:1，建议尺寸500×500px以上</p>
         <image-upload
@@ -62,7 +62,7 @@
       <div class="image-upload-section">
         <div class="upload-label">
           <span class="label-text">列表页封面</span>
-          <a-tag color="red" size="small">必填 ★</a-tag>
+          <a-tag color="red" size="small">必填</a-tag>
         </div>
         <p class="upload-hint">平台首页门店列表的封面图，建议比例4:3，宽度>1000px</p>
         <image-upload
@@ -96,7 +96,7 @@
       <div class="image-upload-section">
         <div class="upload-label">
           <span class="label-text">旅游交通图</span>
-          <a-tag color="red" size="small">必填 ★</a-tag>
+          <a-tag color="red" size="small">必填</a-tag>
         </div>
         <p class="upload-hint">标注门店位置及周边交通、景点的地图，不限比例，清晰可见即可</p>
         <image-upload
@@ -113,7 +113,7 @@
       <div class="image-upload-section">
         <div class="upload-label">
           <span class="label-text">门店主页首图</span>
-          <a-tag color="red" size="small">必填 ★</a-tag>
+          <a-tag color="red" size="small">必填</a-tag>
         </div>
         <p class="upload-hint">门店详情页顶部轮播图，展示门店外观、公区等，建议比例2:3，最多5张，最少1张</p>
         <image-upload
