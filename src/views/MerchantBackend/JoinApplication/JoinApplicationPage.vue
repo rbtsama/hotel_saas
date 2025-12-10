@@ -1,59 +1,43 @@
 <template>
   <sidebar>
     <div class="store-deployment-page">
-      <!-- 吸顶进度条导航 -->
+      <!-- 吸顶Tab导航 -->
       <div class="sticky-tabs-container" :class="{ sticky: isSticky }">
         <div class="tabs-header">
-          <div class="steps-container">
+          <!-- Tab列表 -->
+          <div class="tabs-list">
             <div
-              v-for="(step, index) in steps"
+              v-for="step in steps"
               :key="step.key"
               @click="activeTab = step.key"
-              :class="['step-item', {
+              :class="['tab-item', {
                 active: activeTab === step.key,
                 completed: isStepCompleted(step.key)
               }]"
             >
-              <div class="step-node">
-                <span v-if="isStepCompleted(step.key)" class="step-icon">
-                  <a-icon type="check" />
-                </span>
-                <span v-else class="step-number">{{ index + 1 }}</span>
-              </div>
-              <div class="step-content">
-                <div class="step-title">{{ step.title }}</div>
-                <div v-if="step.progress !== '-'" class="step-progress">{{ step.progress }}</div>
-              </div>
-              <div v-if="index < steps.length - 1" class="step-line"></div>
+              <span class="tab-title">{{ step.title }}</span>
+              <span v-if="step.progress !== '-'" class="tab-badge">{{ step.progress }}</span>
             </div>
           </div>
 
+          <!-- 右侧操作按钮 -->
           <div class="header-actions">
             <!-- 自动保存状态 -->
             <div v-if="activeTab !== 'tab0'" class="save-status">
               <a-icon v-if="autoSaveStatus === 'saving'" type="loading" />
               <a-icon v-else-if="autoSaveStatus === 'saved'" type="check-circle" theme="filled" class="success-icon" />
-              <a-icon v-else-if="autoSaveStatus === 'error'" type="close-circle" theme="filled" class="error-icon" />
               <span class="status-text">
                 <template v-if="autoSaveStatus === 'saving'">保存中</template>
                 <template v-else-if="autoSaveStatus === 'saved'">{{ lastSaveTime }}</template>
-                <template v-else-if="autoSaveStatus === 'error'">失败</template>
               </span>
             </div>
 
-            <a-button v-if="activeTab !== 'tab0'" @click="handleSaveDraft">
-              <a-icon type="save" />
+            <a-button v-if="activeTab !== 'tab0'" @click="handleSaveDraft" size="small">
               保存草稿
             </a-button>
-            <a-button
-              type="primary"
-              @click="handleNextTab"
-            >
+            <a-button type="primary" @click="handleNextTab" size="small">
               <template v-if="activeTab === 'tab5'">提交审核</template>
-              <template v-else>
-                下一步
-                <a-icon type="right" />
-              </template>
+              <template v-else>下一步</template>
             </a-button>
           </div>
         </div>
@@ -233,131 +217,84 @@ export default defineComponent({
 .tabs-header {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 16px 20px;
+  padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 16px;
 }
 
-.steps-container {
+.tabs-list {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   flex: 1;
-  display: flex;
-  align-items: center;
 }
 
-.step-item {
-  position: relative;
-  display: flex;
-  align-items: center;
+.tab-item {
+  padding: 6px 14px;
+  border-radius: @border-radius-base;
+  background: transparent;
   cursor: pointer;
-  flex: 1;
-
-  &:last-child {
-    flex: 0;
-  }
-
-  &:hover .step-node {
-    border-color: @brand-primary;
-  }
-
-  &:hover .step-title {
-    color: @brand-primary;
-  }
-
-  &.active .step-node {
-    border-color: @brand-primary;
-    background: @brand-primary;
-    color: @bg-primary;
-    font-weight: @font-weight-semibold;
-  }
-
-  &.active .step-title {
-    color: @brand-primary;
-    font-weight: @font-weight-semibold;
-  }
-
-  &.active .step-progress {
-    color: @brand-primary;
-    font-weight: @font-weight-medium;
-  }
-
-  &.completed .step-node {
-    border-color: @success-color;
-    background: @success-color;
-    color: @bg-primary;
-  }
-
-  &.completed .step-title {
-    color: @success-color;
-  }
-}
-
-.step-node {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 2px solid @border-primary;
-  background: @bg-primary;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: @font-size-sm;
-  color: @text-secondary;
-  font-weight: @font-weight-medium;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-  z-index: 1;
+  gap: 6px;
+  border: 1px solid transparent;
+
+  &:hover {
+    background: rgba(59, 130, 246, 0.05);
+    border-color: @brand-primary;
+  }
+
+  &.active {
+    background: @brand-primary;
+    border-color: @brand-primary;
+
+    .tab-title {
+      color: @bg-primary;
+      font-weight: @font-weight-medium;
+    }
+
+    .tab-badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: @bg-primary;
+    }
+  }
+
+  &.completed:not(.active) {
+    .tab-title {
+      color: @success-color;
+    }
+
+    .tab-badge {
+      background: rgba(16, 185, 129, 0.1);
+      color: @success-color;
+    }
+  }
 }
 
-.step-icon {
-  font-size: 16px;
-}
-
-.step-number {
-  font-size: @font-size-sm;
-}
-
-.step-content {
-  margin-left: 12px;
-  margin-right: 12px;
-  flex-shrink: 0;
-}
-
-.step-title {
+.tab-title {
   font-size: @font-size-sm;
   color: @text-primary;
-  line-height: 1.4;
+  white-space: nowrap;
   transition: all 0.2s ease;
 }
 
-.step-progress {
+.tab-badge {
   font-size: @font-size-xs;
-  color: @text-tertiary;
-  margin-top: 2px;
+  padding: 1px 5px;
+  border-radius: @border-radius-sm;
+  background: @bg-secondary;
+  color: @text-secondary;
+  font-weight: @font-weight-normal;
   transition: all 0.2s ease;
-}
-
-.step-line {
-  flex: 1;
-  height: 2px;
-  background: @border-primary;
-  margin: 0 8px;
-  transition: all 0.2s ease;
-
-  .step-item.completed & {
-    background: @success-color;
-  }
-
-  .step-item.active & {
-    background: linear-gradient(to right, @brand-primary 0%, @border-primary 100%);
-  }
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   flex-shrink: 0;
 }
 
