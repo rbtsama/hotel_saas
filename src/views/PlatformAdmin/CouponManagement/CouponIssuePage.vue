@@ -30,7 +30,7 @@
           <a-form-model-item v-if="manualForm.distributionType === 'phone'" label="手机号">
             <a-textarea
               v-model="manualForm.phoneText"
-              placeholder="请输入手机号，一行一个&#10;例如：&#10;13800138000&#10;13900139000"
+              :placeholder="phonePlaceholder"
               :rows="6"
               class="phone-textarea"
             />
@@ -240,6 +240,12 @@ export default defineComponent({
     const enabledCoupons = ref([])
     const vipLevels = ref([])
     const scenes = ref([])
+
+    // 手机号输入框提示文本（支持换行）
+    const phonePlaceholder = `请输入手机号，一行一个
+例如：
+13800138000
+18800139000`
 
     // 手动发放表单
     const manualForm = reactive({
@@ -495,6 +501,7 @@ export default defineComponent({
 
     return {
       manualFormRef,
+      phonePlaceholder,
       enabledCoupons,
       vipLevels,
       scenes,
