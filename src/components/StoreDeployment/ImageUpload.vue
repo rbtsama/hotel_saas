@@ -138,7 +138,7 @@ export default defineComponent({
     // 已有图片列表（v-model）
     value: {
       type: [String, Array],
-      default: () => []
+      default: undefined
     }
   },
   setup(props, { emit, root }) {
