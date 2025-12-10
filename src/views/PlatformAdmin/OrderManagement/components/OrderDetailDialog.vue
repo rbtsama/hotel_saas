@@ -9,34 +9,32 @@
     <div v-if="order" class="detail-container">
       <!-- 模块1: 基础信息 -->
       <a-card class="detail-card" :bordered="false">
-        <h3 class="card-title">基础信息</h3>
+        <div class="category-title">基础信息</div>
         <div class="info-grid">
           <div class="info-item">
-            <span class="info-label">下单时间</span>
-            <div class="datetime-value">
-              <div class="date">{{ formatDate(order.createdAt) }}</div>
-              <div class="time">{{ formatTime(order.createdAt) }}</div>
+            <div class="field-label">下单时间</div>
+            <div class="field-value-multi">
+              <div class="value-primary">{{ formatDate(order.createdAt) }}</div>
+              <div class="value-secondary">{{ formatTime(order.createdAt) }}</div>
             </div>
           </div>
           <div class="info-item">
-            <span class="info-label">订单号</span>
-            <span class="info-value">{{ order.orderNumber }}</span>
+            <div class="field-label">订单号</div>
+            <div class="field-value">{{ order.orderNumber }}</div>
           </div>
           <div class="info-item">
-            <span class="info-label">订单状态</span>
-            <a-tag :color="getStatusColor(order.status)">
-              {{ ORDER_STATUS_LABELS[order.status] }}
-            </a-tag>
+            <div class="field-label">订单状态</div>
+            <div class="field-value">{{ ORDER_STATUS_LABELS[order.status] }}</div>
           </div>
           <div v-if="order.paymentId" class="info-item">
-            <span class="info-label">支付单号</span>
-            <span class="info-value">{{ order.paymentId }}</span>
+            <div class="field-label">支付单号</div>
+            <div class="field-value">{{ order.paymentId }}</div>
           </div>
           <div v-if="order.paidAt" class="info-item">
-            <span class="info-label">支付时间</span>
-            <div class="datetime-value">
-              <div class="date">{{ formatDate(order.paidAt) }}</div>
-              <div class="time">{{ formatTime(order.paidAt) }}</div>
+            <div class="field-label">支付时间</div>
+            <div class="field-value-multi">
+              <div class="value-primary">{{ formatDate(order.paidAt) }}</div>
+              <div class="value-secondary">{{ formatTime(order.paidAt) }}</div>
             </div>
           </div>
         </div>
@@ -44,66 +42,66 @@
 
       <!-- 模块2: 入住信息 -->
       <a-card class="detail-card" :bordered="false">
-        <h3 class="card-title">入住信息</h3>
+        <div class="category-title">入住信息</div>
         <div class="info-grid">
           <div class="info-item">
-            <span class="info-label">酒店名称</span>
-            <span class="info-value">{{ order.hotelName }}</span>
+            <div class="field-label">酒店名称</div>
+            <div class="field-value">{{ order.hotelName }}</div>
           </div>
           <div class="info-item">
-            <span class="info-label">房型名称</span>
-            <span class="info-value">{{ order.roomType }}</span>
+            <div class="field-label">房型名称</div>
+            <div class="field-value">{{ order.roomType }}</div>
           </div>
           <div class="info-item full-width">
-            <span class="info-label">入住日期</span>
-            <span class="info-value">{{ order.checkInDate }} - {{ order.checkOutDate }}（共 {{ order.nights }} 晚）</span>
+            <div class="field-label">入住日期</div>
+            <div class="field-value">{{ order.checkInDate }} - {{ order.checkOutDate }}（共 {{ order.nights }} 晚）</div>
           </div>
           <div class="info-item">
-            <span class="info-label">预订间数</span>
-            <span class="info-value">{{ order.roomCount }} 间</span>
+            <div class="field-label">预订间数</div>
+            <div class="field-value">{{ order.roomCount }} 间</div>
           </div>
           <div class="info-item">
-            <span class="info-label">入住人数</span>
-            <span class="info-value">{{ order.guestCount }} 人</span>
+            <div class="field-label">入住人数</div>
+            <div class="field-value">{{ order.guestCount }} 人</div>
           </div>
           <div class="info-item">
-            <span class="info-label">联系人</span>
-            <span class="info-value">{{ order.guestName }}</span>
+            <div class="field-label">联系人</div>
+            <div class="field-value">{{ order.guestName }}</div>
           </div>
           <div class="info-item">
-            <span class="info-label">联系电话</span>
-            <span class="info-value">{{ order.guestPhone }}</span>
+            <div class="field-label">联系电话</div>
+            <div class="field-value">{{ order.guestPhone }}</div>
           </div>
           <div v-if="order.roomNumber" class="info-item">
-            <span class="info-label">房间号</span>
-            <span class="info-value">{{ order.roomNumber }}</span>
+            <div class="field-label">房间号</div>
+            <div class="field-value">{{ order.roomNumber }}</div>
           </div>
         </div>
       </a-card>
 
       <!-- 模块3: 支付明细 -->
       <a-card class="detail-card" :bordered="false">
-        <h3 class="card-title">支付明细</h3>
+        <div class="category-title">支付明细</div>
         <div class="payment-detail">
           <div class="payment-row">
-            <span class="payment-label">房费小计（{{ order.nights }} 晚 × ¥{{ roomPricePerNight }}）</span>
-            <span class="payment-value">¥{{ order.roomPrice }}</span>
+            <div class="field-label">房费小计（{{ order.nights }} 晚 × ¥{{ roomPricePerNight }}）</div>
+            <div class="field-value">¥{{ order.roomPrice }}</div>
           </div>
           <div v-if="order.couponDiscount > 0" class="payment-row">
-            <span class="payment-label">优惠券优惠</span>
-            <span class="payment-value discount">-¥{{ order.couponDiscount }}</span>
+            <div class="field-label">优惠券优惠</div>
+            <div class="field-value value-discount">-¥{{ order.couponDiscount }}</div>
           </div>
           <div v-if="order.pointsDiscount > 0" class="payment-row">
-            <span class="payment-label">积分抵扣</span>
-            <span class="payment-value discount">-¥{{ order.pointsDiscount }}</span>
+            <div class="field-label">积分抵扣</div>
+            <div class="field-value value-discount">-¥{{ order.pointsDiscount }}</div>
           </div>
           <div v-if="order.memberDiscount > 0" class="payment-row">
-            <span class="payment-label">会员折扣</span>
-            <span class="payment-value discount">-¥{{ order.memberDiscount }}</span>
+            <div class="field-label">会员折扣</div>
+            <div class="field-value value-discount">-¥{{ order.memberDiscount }}</div>
           </div>
           <div class="payment-row total-row">
-            <span class="payment-label-total">实付金额</span>
-            <span class="payment-value-total">¥{{ order.actualAmount }}</span>
+            <div class="field-label">实付金额</div>
+            <div class="field-value value-total">¥{{ order.actualAmount }}</div>
           </div>
         </div>
       </a-card>
@@ -114,28 +112,28 @@
         class="detail-card"
         :bordered="false"
       >
-        <h3 class="card-title">积分服务</h3>
+        <div class="category-title">积分服务</div>
 
         <!-- 积分奖励 -->
         <div v-if="order.pointsServices.rewards.length > 0" class="points-section">
-          <h4 class="section-subtitle">积分奖励</h4>
-          <ul class="points-list">
-            <li v-for="(item, idx) in order.pointsServices.rewards" :key="`reward-${idx}`">
-              <span class="points-name">{{ item.name }}</span>
-              <span class="points-value-green">(+{{ item.points }}积分)</span>
-            </li>
-          </ul>
+          <div class="field-label">积分奖励</div>
+          <div class="points-list">
+            <div v-for="(item, idx) in order.pointsServices.rewards" :key="`reward-${idx}`" class="points-item">
+              <div class="field-value">{{ item.name }}</div>
+              <div class="field-value value-reward">+{{ item.points }}积分</div>
+            </div>
+          </div>
         </div>
 
         <!-- 积分换购 -->
         <div v-if="order.pointsServices.exchanges.length > 0" class="points-section">
-          <h4 class="section-subtitle">积分换购</h4>
-          <ul class="points-list">
-            <li v-for="(item, idx) in order.pointsServices.exchanges" :key="`exchange-${idx}`">
-              <span class="points-name">{{ item.name }}</span>
-              <span class="points-value-red">(-{{ item.points }}积分)</span>
-            </li>
-          </ul>
+          <div class="field-label">积分换购</div>
+          <div class="points-list">
+            <div v-for="(item, idx) in order.pointsServices.exchanges" :key="`exchange-${idx}`" class="points-item">
+              <div class="field-value">{{ item.name }}</div>
+              <div class="field-value value-exchange">-{{ item.points }}积分</div>
+            </div>
+          </div>
         </div>
       </a-card>
 
@@ -145,36 +143,29 @@
         class="detail-card"
         :bordered="false"
       >
-        <h3 class="card-title">退款记录</h3>
-        <a-table
-          :columns="refundColumns"
-          :data-source="order.refundRecords"
-          :pagination="false"
-          size="small"
-          :row-key="(record, index) => `refund-${index}`"
-          class="refund-table"
-        >
-          <!-- 退款状态 -->
-          <template slot="status" slot-scope="status">
-            <a-tag :color="getRefundStatusColor(status)">
-              {{ status }}
-            </a-tag>
-          </template>
-
-          <!-- 退款金额 -->
-          <template slot="amount" slot-scope="amount, record">
-            <span v-if="record.status === '客人撤诉' || record.status === '客人发起申诉'" class="empty-amount">-</span>
-            <span v-else class="refund-amount">¥{{ amount }}</span>
-          </template>
-
-          <!-- 处理时间 -->
-          <template slot="time" slot-scope="time">
-            <div class="datetime-value">
-              <div class="date">{{ formatDate(time) }}</div>
-              <div class="time">{{ formatTime(time) }}</div>
+        <div class="category-title">退款记录</div>
+        <div class="refund-records">
+          <div v-for="(record, index) in order.refundRecords" :key="index" class="refund-record-item">
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="field-label">退款状态</div>
+                <div class="field-value">{{ record.status }}</div>
+              </div>
+              <div class="info-item">
+                <div class="field-label">退款金额</div>
+                <div v-if="record.status === '客人撤诉' || record.status === '客人发起申诉'" class="field-value value-muted">-</div>
+                <div v-else class="field-value value-refund">¥{{ record.amount }}</div>
+              </div>
+              <div class="info-item">
+                <div class="field-label">处理时间</div>
+                <div class="field-value-multi">
+                  <div class="value-primary">{{ formatDate(record.time) }}</div>
+                  <div class="value-secondary">{{ formatTime(record.time) }}</div>
+                </div>
+              </div>
             </div>
-          </template>
-        </a-table>
+          </div>
+        </div>
       </a-card>
 
       <!-- 模块6: 商家备注（条件显示） -->
@@ -183,8 +174,8 @@
         class="detail-card"
         :bordered="false"
       >
-        <h3 class="card-title">商家备注</h3>
-        <div class="merchant-note">
+        <div class="category-title">商家备注</div>
+        <div class="field-value">
           {{ order.merchantNote }}
         </div>
       </a-card>
@@ -308,11 +299,11 @@ export default defineComponent({
   }
 }
 
-// 卡片标题
-.card-title {
-  font-size: @font-size-lg;
-  font-weight: @font-weight-semibold;
-  color: @text-primary;
+// ========== 层级1: 分类标题 ==========
+.category-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.9);
   margin-bottom: 16px;
   padding-bottom: 12px;
   border-bottom: 1px solid @border-primary;
@@ -335,33 +326,34 @@ export default defineComponent({
   }
 }
 
-// 标签和值
-.info-label {
-  font-size: @font-size-sm;
-  color: @text-secondary;
+// ========== 层级2: 字段标签 ==========
+.field-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: #666666;
 }
 
-.info-value {
-  font-family: @font-family;
-  font-size: @font-size-base;
-  color: @text-primary;
-  font-weight: @font-weight-medium;
+// ========== 层级3: 数据值 ==========
+.field-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.9);
+  line-height: 1.5;
 }
 
-// 日期时间值
-.datetime-value {
-  .date {
-    display: block;
-    color: @text-primary;
-    font-size: @font-size-base;
-    font-weight: @font-weight-medium;
+// 多行数据值（日期时间）
+.field-value-multi {
+  .value-primary {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.9);
     line-height: 1.5;
   }
 
-  .time {
-    display: block;
-    color: @text-secondary;
-    font-size: @font-size-sm;
+  .value-secondary {
+    font-size: 13px;
+    font-weight: 400;
+    color: #666666;
     line-height: 1.5;
     margin-top: 2px;
   }
@@ -386,24 +378,6 @@ export default defineComponent({
   }
 }
 
-.payment-label,
-.payment-value {
-  font-size: @font-size-base;
-}
-
-.payment-label {
-  color: @text-secondary;
-}
-
-.payment-value {
-  color: @text-primary;
-  font-weight: @font-weight-medium;
-
-  &.discount {
-    color: @success-color;
-  }
-}
-
 // 总计行
 .total-row {
   margin-top: 8px;
@@ -412,94 +386,68 @@ export default defineComponent({
   border-bottom: none !important;
 }
 
-.payment-label-total {
-  font-size: @font-size-xl;
-  font-weight: @font-weight-semibold;
-  color: @text-primary;
+// 数据值颜色变体
+.value-discount {
+  color: #10b981 !important; // 绿色 - 优惠
 }
 
-.payment-value-total {
-  font-size: 20px;
-  font-weight: @font-weight-bold;
-  color: @brand-primary;
+.value-total {
+  color: #3b82f6 !important; // 蓝色 - 总金额
+}
+
+.value-reward {
+  color: #10b981 !important; // 绿色 - 积分奖励
+}
+
+.value-exchange {
+  color: #ef4444 !important; // 红色 - 积分换购
+}
+
+.value-refund {
+  color: #ef4444 !important; // 红色 - 退款
+}
+
+.value-muted {
+  color: #b1b1b1 !important; // 灰色 - 无数据
 }
 
 // 积分服务样式
 .points-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
   &:not(:last-child) {
     margin-bottom: 16px;
   }
 }
 
-.section-subtitle {
-  font-size: @font-size-base;
-  font-weight: @font-weight-semibold;
-  color: @text-secondary;
-  margin-bottom: 10px;
-}
-
 .points-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.points-list li {
+.points-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  font-size: @font-size-base;
 }
 
-.points-name {
-  color: @text-primary;
+// 退款记录样式
+.refund-records {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.points-value-green {
-  color: @success-color;
-  font-weight: @font-weight-medium;
-  margin-left: 8px;
-}
-
-.points-value-red {
-  color: @error-color;
-  font-weight: @font-weight-medium;
-  margin-left: 8px;
-}
-
-// 退款记录表格
-.refund-table {
-  :deep(.ant-table-thead > tr > th) {
-    background: @bg-secondary;
-    color: @text-primary;
-    font-weight: @font-weight-semibold;
-    font-size: @font-size-base;
-  }
-
-  :deep(.ant-table-tbody > tr > td) {
-    color: @text-primary;
-  }
-}
-
-.refund-amount {
-  color: @error-color;
-  font-weight: @font-weight-semibold;
-  font-size: @font-size-base;
-}
-
-.empty-amount {
-  color: @text-tertiary;
-}
-
-// 商家备注样式
-.merchant-note {
-  font-size: @font-size-base;
-  color: @text-primary;
-  line-height: 1.6;
+.refund-record-item {
   padding: 12px;
   background: @bg-secondary;
   border-radius: @border-radius-base;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
 }
 </style>
