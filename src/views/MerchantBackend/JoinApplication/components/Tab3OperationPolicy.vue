@@ -6,145 +6,105 @@
         <span class="section-title">基本政策</span>
       </template>
 
-      <a-form-model
-        :model="localData"
-        :label-col="{ span: 6 }"
-        :wrapper-col="{ span: 14 }"
-      >
-        <a-form-model-item label="当天最晚预订时间" required>
-          <a-time-picker
-            v-model="latestBookingTimeValue"
-            format="HH:mm"
-            placeholder="22:00"
-            style="width: 100%"
-            @change="handleLatestBookingTimeChange"
-          />
-          <div class="field-hint">客人当天预订的最晚时间</div>
-        </a-form-model-item>
-
-        <a-form-model-item label="开始办理入住时间" required>
-          <a-time-picker
-            v-model="checkInTimeValue"
-            format="HH:mm"
-            placeholder="15:00"
-            style="width: 100%"
-            @change="handleCheckInTimeChange"
-          />
-          <div class="field-hint">客人可以办理入住的最早时间</div>
-        </a-form-model-item>
-
-        <a-form-model-item label="最晚退房时间" required>
-          <a-time-picker
-            v-model="checkOutTimeValue"
-            format="HH:mm"
-            placeholder="12:00"
-            style="width: 100%"
-            @change="handleCheckOutTimeChange"
-          />
-          <div class="field-hint">客人必须完成退房的时间</div>
-        </a-form-model-item>
-
-        <a-form-model-item label="重要通知">
-          <a-textarea
-            v-model="localData.importantNotice"
-            placeholder="示例：泳池维护中，12月30日前暂不可使用。"
-            :rows="3"
-            :maxLength="500"
-            @change="handleChange"
-          />
-          <div class="char-count">{{ (localData.importantNotice || '').length }}/500</div>
-        </a-form-model-item>
-
-        <a-form-model-item label="取消政策" required>
-          <a-textarea
-            v-model="localData.cancellationPolicy"
-            placeholder="示例：入住前10天可以免费取消，入住前3天取消将收取全额房费的30%作为损失补偿费用，之后不可取消，不可取消订单将扣除全部房费。"
-            :rows="5"
-            :maxLength="500"
-            @change="handleChange"
-          />
-          <div class="char-count" :class="{ warning: (localData.cancellationPolicy || '').length < 50 }">
-            {{ (localData.cancellationPolicy || '').length }}/500
-            <span v-if="(localData.cancellationPolicy || '').length < 50" class="hint-text">（至少50字）</span>
+      <a-row :gutter="24">
+        <a-col :span="8">
+          <div class="form-item">
+            <label class="form-label">当天最晚预订时间 <span class="required">*</span></label>
+            <a-input v-model="formValues.latestBookingTime" placeholder="22:00" />
           </div>
-        </a-form-model-item>
-      </a-form-model>
+        </a-col>
+        <a-col :span="8">
+          <div class="form-item">
+            <label class="form-label">开始办理入住时间 <span class="required">*</span></label>
+            <a-input v-model="formValues.checkInTime" placeholder="15:00" />
+          </div>
+        </a-col>
+        <a-col :span="8">
+          <div class="form-item">
+            <label class="form-label">最晚退房时间 <span class="required">*</span></label>
+            <a-input v-model="formValues.checkOutTime" placeholder="12:00" />
+          </div>
+        </a-col>
+      </a-row>
+
+      <div class="form-item">
+        <label class="form-label">重要通知</label>
+        <a-textarea
+          v-model="formValues.importantNotice"
+          placeholder="临时性重要通知，如设施维护等。示例：泳池维护中，12月30日前暂不可使用。"
+          :rows="3"
+          :maxLength="500"
+        />
+      </div>
+
+      <div class="form-item">
+        <label class="form-label">取消政策 <span class="required">*</span></label>
+        <a-textarea
+          v-model="formValues.cancellationPolicy"
+          placeholder="示例：入住前10天可以免费取消，入住前3天取消将收取全额房费的30%作为损失补偿费用，之后不可取消。"
+          :rows="5"
+          :maxLength="500"
+        />
+      </div>
     </a-card>
 
-    <!-- 入住年龄与儿童政策 -->
+    <!-- 入住政策 -->
     <a-card :bordered="false" class="form-section-card">
       <template slot="title">
-        <span class="section-title">入住年龄与儿童政策</span>
+        <span class="section-title">入住政策</span>
       </template>
 
-      <a-form-model
-        :model="localData"
-        :label-col="{ span: 6 }"
-        :wrapper-col="{ span: 14 }"
-      >
-        <a-form-model-item label="最小入住年龄" required>
-          <a-select v-model="localData.checkInAge.minAge" @change="handleChange">
-            <a-select-option v-for="opt in MIN_CHECK_IN_AGE_OPTIONS" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </a-select-option>
-          </a-select>
-        </a-form-model-item>
+      <div class="form-item">
+        <label class="form-label">最小入住年龄 <span class="required">*</span></label>
+        <a-select v-model="formValues.minCheckInAge" placeholder="请选择">
+          <a-select-option value="unlimited">不限制</a-select-option>
+          <a-select-option value="16+">16岁以上</a-select-option>
+          <a-select-option value="18+">18岁以上</a-select-option>
+          <a-select-option value="21+">21岁以上</a-select-option>
+        </a-select>
+      </div>
 
-        <a-form-model-item label="是否接待儿童" required>
-          <a-radio-group v-model="localData.childPolicy.acceptChildren" @change="handleChange">
-            <a-radio :value="ChildPolicy.NOT_ACCEPT">不接待儿童</a-radio>
-            <a-radio :value="ChildPolicy.ACCEPT">接待儿童</a-radio>
-          </a-radio-group>
-        </a-form-model-item>
+      <div class="form-item">
+        <label class="form-label">是否接待儿童 <span class="required">*</span></label>
+        <a-radio-group v-model="formValues.acceptChildren">
+          <a-radio value="no">不接待儿童</a-radio>
+          <a-radio value="yes">接待儿童</a-radio>
+        </a-radio-group>
+      </div>
 
-        <a-form-model-item
-          v-if="localData.childPolicy.acceptChildren === ChildPolicy.ACCEPT"
-          label="最小年龄要求"
-          required
-        >
-          <a-select v-model="localData.childPolicy.minAge" @change="handleChange">
-            <a-select-option v-for="opt in CHILD_MIN_AGE_OPTIONS" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </a-select-option>
-          </a-select>
-        </a-form-model-item>
-      </a-form-model>
-    </a-card>
+      <div v-if="formValues.acceptChildren === 'yes'" class="form-item">
+        <label class="form-label">最小年龄要求 <span class="required">*</span></label>
+        <a-select v-model="formValues.childMinAge" placeholder="请选择">
+          <a-select-option value="unlimited">不限制</a-select-option>
+          <a-select-option value="1+">1岁以上</a-select-option>
+          <a-select-option value="3+">3岁以上</a-select-option>
+          <a-select-option value="6+">6岁以上</a-select-option>
+          <a-select-option value="12+">12岁以上</a-select-option>
+        </a-select>
+      </div>
 
-    <!-- 押金与支付 -->
-    <a-card :bordered="false" class="form-section-card">
-      <template slot="title">
-        <span class="section-title">押金与支付方式</span>
-      </template>
+      <div class="form-item">
+        <label class="form-label">押金政策 <span class="required">*</span></label>
+        <a-textarea
+          v-model="formValues.depositPolicy"
+          placeholder="示例：固定收取1000元；可用支付方式：支持现金、信用卡和第三方支付平台；退还押金方式：退房当日原支付方式退还；或者填写：不收取押金"
+          :rows="5"
+          :maxLength="500"
+        />
+      </div>
 
-      <a-form-model
-        :model="localData"
-        :label-col="{ span: 6 }"
-        :wrapper-col="{ span: 14 }"
-      >
-        <a-form-model-item label="押金政策" required>
-          <a-textarea
-            v-model="localData.depositPolicy"
-            placeholder="示例：固定收取1000元；可用支付方式：支持现金、信用卡和第三方支付平台；退还押金方式：退房当日原支付方式退还；或者填写：不收取押金"
-            :rows="5"
-            :maxLength="500"
-            @change="handleChange"
-          />
-          <div class="char-count" :class="{ warning: (localData.depositPolicy || '').length < 20 }">
-            {{ (localData.depositPolicy || '').length }}/500
-            <span v-if="(localData.depositPolicy || '').length < 20" class="hint-text">（至少20字）</span>
-          </div>
-        </a-form-model-item>
-
-        <a-form-model-item label="前台可用支付方式" required>
-          <a-checkbox-group v-model="localData.paymentMethods" @change="handleChange" class="payment-methods">
-            <a-checkbox v-for="opt in PAYMENT_METHOD_OPTIONS" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </a-checkbox>
-          </a-checkbox-group>
-          <div class="field-hint">请勾选前台支持的支付方式</div>
-        </a-form-model-item>
-      </a-form-model>
+      <div class="form-item">
+        <label class="form-label">前台可用支付方式 <span class="required">*</span></label>
+        <a-checkbox-group v-model="formValues.paymentMethods" class="payment-grid">
+          <a-checkbox value="unionpay">银联</a-checkbox>
+          <a-checkbox value="visa">VISA</a-checkbox>
+          <a-checkbox value="mastercard">Mastercard</a-checkbox>
+          <a-checkbox value="wechat">微信</a-checkbox>
+          <a-checkbox value="alipay">支付宝</a-checkbox>
+          <a-checkbox value="apple_pay">Apple Pay</a-checkbox>
+          <a-checkbox value="cash">现金</a-checkbox>
+        </a-checkbox-group>
+      </div>
     </a-card>
 
     <!-- 早餐政策 -->
@@ -153,156 +113,112 @@
         <span class="section-title">早餐政策</span>
       </template>
 
-      <a-form-model
-        :model="localData.breakfastPolicy"
-        :label-col="{ span: 6 }"
-        :wrapper-col="{ span: 14 }"
-      >
-        <a-form-model-item label="是否提供早餐" required>
-          <a-radio-group v-model="localData.breakfastPolicy.provided" @change="handleChange">
-            <a-radio :value="BreakfastPolicy.NOT_PROVIDED">不提供早餐</a-radio>
-            <a-radio :value="BreakfastPolicy.PROVIDED">提供早餐</a-radio>
-          </a-radio-group>
-        </a-form-model-item>
+      <div class="form-item">
+        <label class="form-label">是否提供早餐 <span class="required">*</span></label>
+        <a-radio-group v-model="formValues.providesBreakfast">
+          <a-radio value="no">不提供早餐</a-radio>
+          <a-radio value="yes">提供早餐</a-radio>
+        </a-radio-group>
+      </div>
 
-        <template v-if="localData.breakfastPolicy.provided === BreakfastPolicy.PROVIDED">
-          <a-form-model-item label="早餐类型" required>
-            <a-select v-model="localData.breakfastPolicy.breakfastType" @change="handleChange">
-              <a-select-option v-for="opt in BREAKFAST_TYPE_OPTIONS" :key="opt.value" :value="opt.value">
-                {{ opt.label }}
-              </a-select-option>
-            </a-select>
-          </a-form-model-item>
+      <template v-if="formValues.providesBreakfast === 'yes'">
+        <a-row :gutter="24">
+          <a-col :span="8">
+            <div class="form-item">
+              <label class="form-label">早餐类型 <span class="required">*</span></label>
+              <a-select v-model="formValues.breakfastType" placeholder="请选择">
+                <a-select-option value="chinese">中式</a-select-option>
+                <a-select-option value="western">西式</a-select-option>
+                <a-select-option value="mixed">中西式</a-select-option>
+              </a-select>
+            </div>
+          </a-col>
+          <a-col :span="8">
+            <div class="form-item">
+              <label class="form-label">供应形式 <span class="required">*</span></label>
+              <a-select v-model="formValues.servingStyle" placeholder="请选择">
+                <a-select-option value="set_meal">固定套餐</a-select-option>
+                <a-select-option value="buffet">自助餐</a-select-option>
+                <a-select-option value="a_la_carte">单点</a-select-option>
+              </a-select>
+            </div>
+          </a-col>
+          <a-col :span="8">
+            <div class="form-item">
+              <label class="form-label">加早费用（元/份） <span class="required">*</span></label>
+              <a-input-number v-model="formValues.breakfastFee" :min="0" placeholder="58" style="width: 100%" />
+            </div>
+          </a-col>
+        </a-row>
 
-          <a-form-model-item label="供应形式" required>
-            <a-select v-model="localData.breakfastPolicy.servingStyle" @change="handleChange">
-              <a-select-option v-for="opt in SERVING_STYLE_OPTIONS" :key="opt.value" :value="opt.value">
-                {{ opt.label }}
-              </a-select-option>
-            </a-select>
-          </a-form-model-item>
-
-          <a-form-model-item label="供应时间" required>
-            <a-row :gutter="12">
-              <a-col :span="12">
-                <a-time-picker
-                  v-model="breakfastStartTimeValue"
-                  format="HH:mm"
-                  placeholder="07:30"
-                  style="width: 100%"
-                  @change="handleBreakfastStartTimeChange"
-                />
-              </a-col>
-              <a-col :span="12">
-                <a-time-picker
-                  v-model="breakfastEndTimeValue"
-                  format="HH:mm"
-                  placeholder="10:00"
-                  style="width: 100%"
-                  @change="handleBreakfastEndTimeChange"
-                />
-              </a-col>
-            </a-row>
-          </a-form-model-item>
-
-          <a-form-model-item label="加早费用（元/份）" required>
-            <a-input-number
-              v-model="localData.breakfastPolicy.extraFee"
-              :min="0"
-              :precision="2"
-              placeholder="58"
-              style="width: 100%"
-              @change="handleChange"
-            />
-          </a-form-model-item>
-        </template>
-      </a-form-model>
+        <a-row :gutter="24">
+          <a-col :span="12">
+            <div class="form-item">
+              <label class="form-label">开始时间 <span class="required">*</span></label>
+              <a-input v-model="formValues.breakfastStartTime" placeholder="07:30" />
+            </div>
+          </a-col>
+          <a-col :span="12">
+            <div class="form-item">
+              <label class="form-label">结束时间 <span class="required">*</span></label>
+              <a-input v-model="formValues.breakfastEndTime" placeholder="10:00" />
+            </div>
+          </a-col>
+        </a-row>
+      </template>
     </a-card>
 
-    <!-- 儿童早餐政策 -->
+    <!-- 儿童早餐 -->
     <a-card :bordered="false" class="form-section-card">
       <template slot="title">
-        <span class="section-title">儿童早餐政策</span>
+        <span class="section-title">儿童早餐</span>
       </template>
 
-      <a-form-model
-        :model="localData.childBreakfast"
-        :label-col="{ span: 6 }"
-        :wrapper-col="{ span: 14 }"
-      >
-        <a-form-model-item label="判断标准" required>
-          <a-radio-group v-model="localData.childBreakfast.criteria" @change="handleChange">
-            <a-radio :value="ChildCriteria.AGE">按年龄</a-radio>
-            <a-radio :value="ChildCriteria.HEIGHT">按身高</a-radio>
-          </a-radio-group>
-        </a-form-model-item>
+      <div class="form-item">
+        <label class="form-label">判断标准 <span class="required">*</span></label>
+        <a-radio-group v-model="formValues.childCriteria">
+          <a-radio value="age">按年龄</a-radio>
+          <a-radio value="height">按身高</a-radio>
+        </a-radio-group>
+      </div>
 
-        <a-form-model-item
-          v-if="localData.childBreakfast.criteria === ChildCriteria.AGE"
-          label="年龄标准"
-          required
-        >
-          <a-select v-model="localData.childBreakfast.ageStandard" @change="handleChange">
-            <a-select-option v-for="opt in CHILD_AGE_STANDARD_OPTIONS" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </a-select-option>
-          </a-select>
-        </a-form-model-item>
+      <div v-if="formValues.childCriteria === 'age'" class="form-item">
+        <label class="form-label">年龄标准 <span class="required">*</span></label>
+        <a-select v-model="formValues.childAgeStandard" placeholder="请选择">
+          <a-select-option value="under_6">6岁以下</a-select-option>
+          <a-select-option value="under_12">12岁以下</a-select-option>
+          <a-select-option value="under_16">16岁以下</a-select-option>
+          <a-select-option value="under_18">18岁以下</a-select-option>
+        </a-select>
+      </div>
 
-        <a-form-model-item
-          v-if="localData.childBreakfast.criteria === ChildCriteria.HEIGHT"
-          label="身高标准"
-          required
-        >
-          <a-select v-model="localData.childBreakfast.heightStandard" @change="handleChange">
-            <a-select-option v-for="opt in CHILD_HEIGHT_STANDARD_OPTIONS" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </a-select-option>
-          </a-select>
-        </a-form-model-item>
+      <div v-if="formValues.childCriteria === 'height'" class="form-item">
+        <label class="form-label">身高标准 <span class="required">*</span></label>
+        <a-select v-model="formValues.childHeightStandard" placeholder="请选择">
+          <a-select-option value="under_1.2">1.2米以下</a-select-option>
+          <a-select-option value="under_1.4">1.4米以下</a-select-option>
+          <a-select-option value="under_1.5">1.5米以下</a-select-option>
+        </a-select>
+      </div>
 
-        <a-form-model-item label="收费方式" required>
-          <a-radio-group v-model="localData.childBreakfast.chargeType" @change="handleChange">
-            <a-radio :value="ChargeType.FREE">免费</a-radio>
-            <a-radio :value="ChargeType.CHARGED">收费</a-radio>
-          </a-radio-group>
-        </a-form-model-item>
+      <div class="form-item">
+        <label class="form-label">收费方式 <span class="required">*</span></label>
+        <a-radio-group v-model="formValues.childChargeType">
+          <a-radio value="free">免费</a-radio>
+          <a-radio value="charged">收费</a-radio>
+        </a-radio-group>
+      </div>
 
-        <a-form-model-item
-          v-if="localData.childBreakfast.chargeType === ChargeType.CHARGED"
-          label="收费金额（元/人）"
-          required
-        >
-          <a-input-number
-            v-model="localData.childBreakfast.fee"
-            :min="0"
-            :precision="2"
-            placeholder="30"
-            style="width: 100%"
-            @change="handleChange"
-          />
-        </a-form-model-item>
-      </a-form-model>
+      <div v-if="formValues.childChargeType === 'charged'" class="form-item">
+        <label class="form-label">收费金额（元/人） <span class="required">*</span></label>
+        <a-input-number v-model="formValues.childBreakfastFee" :min="0" placeholder="30" style="width: 100%" />
+      </div>
     </a-card>
   </div>
 </template>
 
 <script>
-import { defineComponent, reactive, ref, watch } from '@vue/composition-api'
-import moment from 'moment'
-import {
-  ChildPolicy,
-  BreakfastPolicy,
-  ChildCriteria,
-  ChargeType,
-  MIN_CHECK_IN_AGE_OPTIONS,
-  CHILD_MIN_AGE_OPTIONS,
-  PAYMENT_METHOD_OPTIONS,
-  BREAKFAST_TYPE_OPTIONS,
-  SERVING_STYLE_OPTIONS,
-  CHILD_AGE_STANDARD_OPTIONS,
-  CHILD_HEIGHT_STANDARD_OPTIONS
-} from '@/types/storeDeployment'
+import { defineComponent, reactive, watch } from '@vue/composition-api'
 
 export default defineComponent({
   name: 'Tab3OperationPolicy',
@@ -313,125 +229,105 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    // 本地数据（使用安全的默认值）
-    const localData = reactive({
+    // 扁平化的表单数据，避免复杂嵌套
+    const formValues = reactive({
       latestBookingTime: '22:00',
       checkInTime: '15:00',
       checkOutTime: '12:00',
       importantNotice: '',
       cancellationPolicy: '',
-      checkInAge: {
-        minAge: 'unlimited',
-        maxAge: '不限制'
-      },
-      childPolicy: {
-        acceptChildren: ChildPolicy.ACCEPT,
-        minAge: 'unlimited'
-      },
+      minCheckInAge: 'unlimited',
+      acceptChildren: 'yes',
+      childMinAge: 'unlimited',
       depositPolicy: '',
       paymentMethods: [],
-      breakfastPolicy: {
-        provided: BreakfastPolicy.NOT_PROVIDED,
-        breakfastType: '',
-        servingStyle: '',
-        startTime: '',
-        endTime: '',
-        extraFee: 0
-      },
-      childBreakfast: {
-        criteria: ChildCriteria.AGE,
-        ageStandard: '',
-        heightStandard: '',
-        chargeType: ChargeType.FREE,
-        fee: 0
-      },
-      ...props.formData.operationPolicy
+      providesBreakfast: 'no',
+      breakfastType: '',
+      servingStyle: '',
+      breakfastStartTime: '',
+      breakfastEndTime: '',
+      breakfastFee: 0,
+      childCriteria: 'age',
+      childAgeStandard: '',
+      childHeightStandard: '',
+      childChargeType: 'free',
+      childBreakfastFee: 0
     })
 
-    // 时间选择器的值（使用可选链安全访问）
-    const latestBookingTimeValue = ref(localData.latestBookingTime ? moment(localData.latestBookingTime, 'HH:mm') : null)
-    const checkInTimeValue = ref(localData.checkInTime ? moment(localData.checkInTime, 'HH:mm') : null)
-    const checkOutTimeValue = ref(localData.checkOutTime ? moment(localData.checkOutTime, 'HH:mm') : null)
-    const breakfastStartTimeValue = ref(localData.breakfastPolicy?.startTime ? moment(localData.breakfastPolicy.startTime, 'HH:mm') : null)
-    const breakfastEndTimeValue = ref(localData.breakfastPolicy?.endTime ? moment(localData.breakfastPolicy.endTime, 'HH:mm') : null)
+    // 初始化数据
+    const initFormValues = (data) => {
+      if (!data) return
 
-    // 监听props变化（添加安全检查）
+      formValues.latestBookingTime = data.latestBookingTime || '22:00'
+      formValues.checkInTime = data.checkInTime || '15:00'
+      formValues.checkOutTime = data.checkOutTime || '12:00'
+      formValues.importantNotice = data.importantNotice || ''
+      formValues.cancellationPolicy = data.cancellationPolicy || ''
+      formValues.minCheckInAge = data.checkInAge?.minAge || 'unlimited'
+      formValues.acceptChildren = data.childPolicy?.acceptChildren === 'not_accept' ? 'no' : 'yes'
+      formValues.childMinAge = data.childPolicy?.minAge || 'unlimited'
+      formValues.depositPolicy = data.depositPolicy || ''
+      formValues.paymentMethods = data.paymentMethods || []
+      formValues.providesBreakfast = data.breakfastPolicy?.provided === 'provided' ? 'yes' : 'no'
+      formValues.breakfastType = data.breakfastPolicy?.breakfastType || ''
+      formValues.servingStyle = data.breakfastPolicy?.servingStyle || ''
+      formValues.breakfastStartTime = data.breakfastPolicy?.startTime || ''
+      formValues.breakfastEndTime = data.breakfastPolicy?.endTime || ''
+      formValues.breakfastFee = data.breakfastPolicy?.extraFee || 0
+      formValues.childCriteria = data.childBreakfast?.criteria || 'age'
+      formValues.childAgeStandard = data.childBreakfast?.ageStandard || ''
+      formValues.childHeightStandard = data.childBreakfast?.heightStandard || ''
+      formValues.childChargeType = data.childBreakfast?.chargeType || 'free'
+      formValues.childBreakfastFee = data.childBreakfast?.fee || 0
+    }
+
+    // 初始化
+    initFormValues(props.formData.operationPolicy)
+
+    // 监听变化并触发更新
     watch(
-      () => props.formData.operationPolicy,
-      (newData) => {
-        if (!newData) return
-
-        Object.assign(localData, newData)
-        latestBookingTimeValue.value = newData.latestBookingTime ? moment(newData.latestBookingTime, 'HH:mm') : null
-        checkInTimeValue.value = newData.checkInTime ? moment(newData.checkInTime, 'HH:mm') : null
-        checkOutTimeValue.value = newData.checkOutTime ? moment(newData.checkOutTime, 'HH:mm') : null
-
-        // 安全访问嵌套属性
-        if (newData.breakfastPolicy) {
-          breakfastStartTimeValue.value = newData.breakfastPolicy.startTime ? moment(newData.breakfastPolicy.startTime, 'HH:mm') : null
-          breakfastEndTimeValue.value = newData.breakfastPolicy.endTime ? moment(newData.breakfastPolicy.endTime, 'HH:mm') : null
-        }
+      formValues,
+      () => {
+        emit('update', {
+          operationPolicy: {
+            latestBookingTime: formValues.latestBookingTime,
+            checkInTime: formValues.checkInTime,
+            checkOutTime: formValues.checkOutTime,
+            importantNotice: formValues.importantNotice,
+            cancellationPolicy: formValues.cancellationPolicy,
+            checkInAge: {
+              minAge: formValues.minCheckInAge,
+              maxAge: '不限制'
+            },
+            childPolicy: {
+              acceptChildren: formValues.acceptChildren === 'yes' ? 'accept' : 'not_accept',
+              minAge: formValues.childMinAge
+            },
+            depositPolicy: formValues.depositPolicy,
+            paymentMethods: formValues.paymentMethods,
+            breakfastPolicy: {
+              provided: formValues.providesBreakfast === 'yes' ? 'provided' : 'not_provided',
+              breakfastType: formValues.breakfastType,
+              servingStyle: formValues.servingStyle,
+              startTime: formValues.breakfastStartTime,
+              endTime: formValues.breakfastEndTime,
+              extraFee: formValues.breakfastFee
+            },
+            childBreakfast: {
+              criteria: formValues.childCriteria,
+              ageStandard: formValues.childAgeStandard,
+              heightStandard: formValues.childHeightStandard,
+              chargeType: formValues.childChargeType,
+              fee: formValues.childBreakfastFee
+            }
+          }
+        })
       },
       { deep: true }
     )
 
-    // 时间变更处理
-    const handleLatestBookingTimeChange = (time) => {
-      localData.latestBookingTime = time ? time.format('HH:mm') : ''
-      handleChange()
-    }
-
-    const handleCheckInTimeChange = (time) => {
-      localData.checkInTime = time ? time.format('HH:mm') : ''
-      handleChange()
-    }
-
-    const handleCheckOutTimeChange = (time) => {
-      localData.checkOutTime = time ? time.format('HH:mm') : ''
-      handleChange()
-    }
-
-    const handleBreakfastStartTimeChange = (time) => {
-      localData.breakfastPolicy.startTime = time ? time.format('HH:mm') : ''
-      handleChange()
-    }
-
-    const handleBreakfastEndTimeChange = (time) => {
-      localData.breakfastPolicy.endTime = time ? time.format('HH:mm') : ''
-      handleChange()
-    }
-
-    // 处理数据变化
-    const handleChange = () => {
-      emit('update', {
-        operationPolicy: localData
-      })
-    }
-
     return {
-      localData,
-      latestBookingTimeValue,
-      checkInTimeValue,
-      checkOutTimeValue,
-      breakfastStartTimeValue,
-      breakfastEndTimeValue,
-      ChildPolicy,
-      BreakfastPolicy,
-      ChildCriteria,
-      ChargeType,
-      MIN_CHECK_IN_AGE_OPTIONS,
-      CHILD_MIN_AGE_OPTIONS,
-      PAYMENT_METHOD_OPTIONS,
-      BREAKFAST_TYPE_OPTIONS,
-      SERVING_STYLE_OPTIONS,
-      CHILD_AGE_STANDARD_OPTIONS,
-      CHILD_HEIGHT_STANDARD_OPTIONS,
-      handleLatestBookingTimeChange,
-      handleCheckInTimeChange,
-      handleCheckOutTimeChange,
-      handleBreakfastStartTimeChange,
-      handleBreakfastEndTimeChange,
-      handleChange
+      formValues
     }
   }
 })
@@ -467,60 +363,37 @@ export default defineComponent({
   color: @text-primary;
 }
 
-.field-hint {
-  font-size: @font-size-xs;
-  color: @text-secondary;
-  margin-top: 4px;
-  line-height: 1.4;
-}
+.form-item {
+  margin-bottom: 24px;
 
-.char-count {
-  text-align: right;
-  font-size: @font-size-xs;
-  color: @text-secondary;
-  margin-top: 8px;
-
-  &.warning {
-    color: @warning-color;
-  }
-
-  .hint-text {
-    color: @warning-color;
-    margin-left: 8px;
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 
-.payment-methods {
+.form-label {
+  display: block;
+  font-size: @font-size-sm;
+  font-weight: @font-weight-medium;
+  color: @text-primary;
+  margin-bottom: 8px;
+
+  .required {
+    color: @error-color;
+    margin-left: 2px;
+  }
+}
+
+.payment-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-
-  :deep(.ant-checkbox-wrapper) {
-    margin: 0;
-  }
-}
-
-:deep(.ant-form-item) {
-  margin-bottom: 24px;
-}
-
-:deep(.ant-form-item-label) {
-  font-weight: @font-weight-medium;
-  color: @text-primary;
-
-  & > label::after {
-    content: '';
-  }
 }
 
 :deep(.ant-input),
 :deep(.ant-input-number),
 :deep(.ant-select),
-:deep(.ant-time-picker) {
+:deep(.ant-textarea) {
   border-radius: @border-radius-base;
-
-  .ant-input {
-    border-radius: @border-radius-base;
-  }
 }
 </style>
