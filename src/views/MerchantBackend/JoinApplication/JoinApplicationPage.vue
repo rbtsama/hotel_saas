@@ -188,7 +188,7 @@ export default defineComponent({
       {
         name: '门店视频',
         required: false,
-        spec: '比例16:9，大小<100MB，格式mp4/mov/avi',
+        spec: '比例16:9，大小<100MB',
         description: '门店介绍视频'
       },
       {
