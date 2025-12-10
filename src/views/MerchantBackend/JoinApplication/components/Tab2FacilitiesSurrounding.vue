@@ -195,17 +195,14 @@
       <div class="surrounding-category">
         <div class="category-header">
           <span class="category-title">交通</span>
-          <a-tag color="red" size="small">必填，至少添加1条</a-tag>
+          <a-tag color="red" size="small">必填</a-tag>
+          <span class="category-hint">（必须选择1条作为标志信息）</span>
           <a-button type="dashed" size="small" @click="addSurroundingItem('transportation')" class="add-btn">
             <a-icon type="plus" />添加交通信息
           </a-button>
         </div>
 
-        <div v-if="localData.surroundingInfo.transportation.length === 0" class="empty-hint">
-          暂无交通信息，请点击上方按钮添加
-        </div>
-
-        <div v-else class="surrounding-list">
+        <div class="surrounding-list">
           <div
             v-for="(item, index) in localData.surroundingInfo.transportation"
             :key="item.id"
@@ -240,16 +237,20 @@
                 </a-input-number>
               </a-col>
               <a-col :span="5">
-                <a-checkbox
-                  v-model="item.featured"
-                  :disabled="!item.featured && featuredCount >= 2"
-                  @change="handleChange"
+                <a-radio
+                  :checked="item.featured"
+                  @change="handleFeaturedChange('transportation', index)"
                 >
-                  重点展示
-                </a-checkbox>
+                  标志信息
+                </a-radio>
               </a-col>
               <a-col :span="3">
-                <a-button type="link" danger @click="removeSurroundingItem('transportation', index)">
+                <a-button
+                  v-if="index !== 0"
+                  type="link"
+                  danger
+                  @click="removeSurroundingItem('transportation', index)"
+                >
                   <a-icon type="delete" />删除
                 </a-button>
               </a-col>
@@ -264,17 +265,14 @@
       <div class="surrounding-category">
         <div class="category-header">
           <span class="category-title">景点</span>
-          <a-tag color="red" size="small">必填，至少添加1条</a-tag>
+          <a-tag color="red" size="small">必填</a-tag>
+          <span class="category-hint">（必须选择1条作为标志信息）</span>
           <a-button type="dashed" size="small" @click="addSurroundingItem('attractions')" class="add-btn">
             <a-icon type="plus" />添加景点信息
           </a-button>
         </div>
 
-        <div v-if="localData.surroundingInfo.attractions.length === 0" class="empty-hint">
-          暂无景点信息，请点击上方按钮添加
-        </div>
-
-        <div v-else class="surrounding-list">
+        <div class="surrounding-list">
           <div
             v-for="(item, index) in localData.surroundingInfo.attractions"
             :key="item.id"
@@ -309,16 +307,20 @@
                 </a-input-number>
               </a-col>
               <a-col :span="5">
-                <a-checkbox
-                  v-model="item.featured"
-                  :disabled="!item.featured && featuredCount >= 2"
-                  @change="handleChange"
+                <a-radio
+                  :checked="item.featured"
+                  @change="handleFeaturedChange('attractions', index)"
                 >
-                  重点展示
-                </a-checkbox>
+                  标志信息
+                </a-radio>
               </a-col>
               <a-col :span="3">
-                <a-button type="link" danger @click="removeSurroundingItem('attractions', index)">
+                <a-button
+                  v-if="index !== 0"
+                  type="link"
+                  danger
+                  @click="removeSurroundingItem('attractions', index)"
+                >
                   <a-icon type="delete" />删除
                 </a-button>
               </a-col>
@@ -333,14 +335,14 @@
       <div class="surrounding-category">
         <div class="category-header">
           <span class="category-title">逛吃</span>
-          <a-tag color="red" size="small">必填，至少添加1条</a-tag>
+          <a-tag color="blue" size="small">选填</a-tag>
           <a-button type="dashed" size="small" @click="addSurroundingItem('food')" class="add-btn">
             <a-icon type="plus" />添加逛吃信息
           </a-button>
         </div>
 
         <div v-if="localData.surroundingInfo.food.length === 0" class="empty-hint">
-          暂无逛吃信息，请点击上方按钮添加
+          可选项，如需添加请点击上方按钮
         </div>
 
         <div v-else class="surrounding-list">
@@ -377,16 +379,7 @@
                   <template slot="addonAfter">分钟</template>
                 </a-input-number>
               </a-col>
-              <a-col :span="5">
-                <a-checkbox
-                  v-model="item.featured"
-                  :disabled="!item.featured && featuredCount >= 2"
-                  @change="handleChange"
-                >
-                  重点展示
-                </a-checkbox>
-              </a-col>
-              <a-col :span="3">
+              <a-col :span="8">
                 <a-button type="link" danger @click="removeSurroundingItem('food', index)">
                   <a-icon type="delete" />删除
                 </a-button>
@@ -425,32 +418,41 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
+    // 初始化周边信息数据（如果为空则添加默认项）
+    const initSurroundingInfo = (data) => {
+      const transportation = data.transportation?.length > 0
+        ? [...data.transportation]
+        : [{
+            id: `trans_${Date.now()}`,
+            locationName: '',
+            distance: 0,
+            drivingTime: 0,
+            featured: true  // 默认勾选标志信息
+          }]
+
+      const attractions = data.attractions?.length > 0
+        ? [...data.attractions]
+        : [{
+            id: `attr_${Date.now()}`,
+            locationName: '',
+            distance: 0,
+            drivingTime: 0,
+            featured: true  // 默认勾选标志信息
+          }]
+
+      const food = data.food?.length > 0
+        ? [...data.food]
+        : []  // 默认不添加
+
+      return { transportation, attractions, food }
+    }
+
     // 本地数据
     const localData = reactive({
       storeFacilities: { ...props.formData.storeFacilities },
-      surroundingInfo: {
-        transportation: [...props.formData.surroundingInfo.transportation],
-        attractions: [...props.formData.surroundingInfo.attractions],
-        food: [...props.formData.surroundingInfo.food]
-      }
+      surroundingInfo: initSurroundingInfo(props.formData.surroundingInfo)
     })
 
-    // 已选设施总数
-    const totalSelectedCount = computed(() => {
-      return Object.values(localData.storeFacilities).reduce(
-        (sum, arr) => sum + arr.length,
-        0
-      )
-    })
-
-    // 重点展示数量
-    const featuredCount = computed(() => {
-      let count = 0
-      count += localData.surroundingInfo.transportation.filter(item => item.featured).length
-      count += localData.surroundingInfo.attractions.filter(item => item.featured).length
-      count += localData.surroundingInfo.food.filter(item => item.featured).length
-      return count
-    })
 
     // 监听props变化
     watch(
@@ -473,15 +475,28 @@ export default defineComponent({
         locationName: '',
         distance: 0,
         drivingTime: 0,
-        featured: false
+        featured: false  // 新添加的默认不选中标志信息
       }
       localData.surroundingInfo[category].push(newItem)
       handleChange()
     }
 
-    // 删除周边信息
+    // 删除周边信息（第一条不可删除）
     const removeSurroundingItem = (category, index) => {
+      if (index === 0 && (category === 'transportation' || category === 'attractions')) {
+        // 交通和景点的第一条不可删除
+        return
+      }
       localData.surroundingInfo[category].splice(index, 1)
+      handleChange()
+    }
+
+    // 标志信息选择（单选逻辑）
+    const handleFeaturedChange = (category, index) => {
+      // 取消其他项的标志信息，只保留当前选中的
+      localData.surroundingInfo[category].forEach((item, i) => {
+        item.featured = (i === index)
+      })
       handleChange()
     }
 
@@ -495,8 +510,6 @@ export default defineComponent({
 
     return {
       localData,
-      totalSelectedCount,
-      featuredCount,
       TRANSPORTATION_FACILITIES,
       CLEANING_FACILITIES,
       SECURITY_FACILITIES,
@@ -511,6 +524,7 @@ export default defineComponent({
       ACCESSIBILITY_FACILITIES,
       addSurroundingItem,
       removeSurroundingItem,
+      handleFeaturedChange,
       handleChange
     }
   }
@@ -580,6 +594,12 @@ export default defineComponent({
   font-size: @font-size-base;
   font-weight: @font-weight-medium;
   color: @text-primary;
+}
+
+.category-hint {
+  font-size: @font-size-xs;
+  color: @text-secondary;
+  margin-left: 4px;
 }
 
 .checkbox-grid {
