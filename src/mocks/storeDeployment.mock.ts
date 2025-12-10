@@ -71,11 +71,19 @@ export const mockDraftData: StoreDeploymentForm = {
     depositPolicy: '',
     paymentMethods: [],
     breakfastPolicy: {
-      provided: BreakfastPolicy.NOT_PROVIDED
+      provided: BreakfastPolicy.NOT_PROVIDED,
+      breakfastType: '',
+      servingStyle: '',
+      startTime: '',
+      endTime: '',
+      extraFee: 0
     },
     childBreakfast: {
       criteria: ChildCriteria.AGE,
-      chargeType: ChargeType.FREE
+      ageStandard: '',
+      heightStandard: '',
+      chargeType: ChargeType.FREE,
+      fee: 0
     }
   },
   storeDisplay: {
@@ -494,11 +502,19 @@ export const mockEmptyFormData: StoreDeploymentForm = {
     depositPolicy: '',
     paymentMethods: [],
     breakfastPolicy: {
-      provided: BreakfastPolicy.NOT_PROVIDED
+      provided: BreakfastPolicy.NOT_PROVIDED,
+      breakfastType: '',
+      servingStyle: '',
+      startTime: '',
+      endTime: '',
+      extraFee: 0
     },
     childBreakfast: {
       criteria: ChildCriteria.AGE,
-      chargeType: ChargeType.FREE
+      ageStandard: '',
+      heightStandard: '',
+      chargeType: ChargeType.FREE,
+      fee: 0
     }
   },
   storeDisplay: {
