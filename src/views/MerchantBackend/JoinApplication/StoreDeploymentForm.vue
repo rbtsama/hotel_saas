@@ -1,31 +1,5 @@
 <template>
   <div class="deployment-form-page">
-    <!-- 自动保存状态提示 -->
-    <div class="save-status-bar">
-      <div class="status-content">
-        <a-icon v-if="autoSaveStatus === 'saving'" type="loading" />
-        <a-icon v-else-if="autoSaveStatus === 'saved'" type="check-circle" theme="filled" class="success-icon" />
-        <a-icon v-else-if="autoSaveStatus === 'error'" type="close-circle" theme="filled" class="error-icon" />
-        <span class="status-text">
-          <template v-if="autoSaveStatus === 'saving'">正在保存...</template>
-          <template v-else-if="autoSaveStatus === 'saved'">草稿已自动保存 {{ lastSaveTime }}</template>
-          <template v-else-if="autoSaveStatus === 'error'">保存失败，请检查网络</template>
-          <template v-else>未保存</template>
-        </span>
-      </div>
-    </div>
-
-    <!-- 页面标题 -->
-    <div class="page-header">
-      <h1 class="page-title">门店部署申请</h1>
-      <div class="page-actions">
-        <a-button @click="handleSaveDraft">
-          <a-icon type="save" />
-          保存草稿
-        </a-button>
-      </div>
-    </div>
-
     <!-- Tab导航 -->
     <a-tabs
       v-model="activeTab"
@@ -111,6 +85,19 @@
           上一步
         </a-button>
         <div style="flex: 1"></div>
+
+        <!-- 自动保存状态提示 -->
+        <div class="save-status">
+          <a-icon v-if="autoSaveStatus === 'saving'" type="loading" />
+          <a-icon v-else-if="autoSaveStatus === 'saved'" type="check-circle" theme="filled" class="success-icon" />
+          <a-icon v-else-if="autoSaveStatus === 'error'" type="close-circle" theme="filled" class="error-icon" />
+          <span class="status-text">
+            <template v-if="autoSaveStatus === 'saving'">正在保存...</template>
+            <template v-else-if="autoSaveStatus === 'saved'">已保存 {{ lastSaveTime }}</template>
+            <template v-else-if="autoSaveStatus === 'error'">保存失败</template>
+          </span>
+        </div>
+
         <a-button size="large" @click="handleSaveDraft">
           保存草稿
         </a-button>
@@ -194,7 +181,7 @@ export default defineComponent({
       }
       autoSaveTimer = setTimeout(async () => {
         await performSave()
-      }, 5000) // 5秒后自动保存
+      }, 30000) // 30秒后自动保存
     }
 
     // 执行保存
@@ -341,57 +328,10 @@ export default defineComponent({
   padding-bottom: 80px;
 }
 
-.save-status-bar {
-  position: fixed;
-  top: 0;
-  left: 256px;
-  right: 0;
-  height: 40px;
-  background: @bg-primary;
-  border-bottom: 1px solid @border-primary;
-  z-index: 99;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: @shadow-sm;
-}
-
-.status-content {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: @font-size-sm;
-  color: @text-secondary;
-
-  .success-icon {
-    color: @success-color;
-  }
-
-  .error-icon {
-    color: @error-color;
-  }
-}
-
-.page-header {
-  padding: 60px 24px 20px;
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .page-title {
-    font-size: @font-size-xl;
-    font-weight: @font-weight-semibold;
-    color: @text-primary;
-    margin: 0;
-  }
-}
-
 .form-tabs {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 20px 24px 0;
 
   :deep(.ant-tabs-nav) {
     background: @bg-primary;
@@ -465,5 +405,26 @@ export default defineComponent({
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.save-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: @font-size-sm;
+  color: @text-secondary;
+  margin-right: 8px;
+
+  .success-icon {
+    color: @success-color;
+  }
+
+  .error-icon {
+    color: @error-color;
+  }
+
+  .status-text {
+    white-space: nowrap;
+  }
 }
 </style>

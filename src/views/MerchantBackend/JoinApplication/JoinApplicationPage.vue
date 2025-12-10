@@ -25,7 +25,7 @@
           >
             <template slot="required" slot-scope="required">
               <a-tag :color="required ? 'red' : 'blue'">
-                {{ required ? '必填 ★' : '选填' }}
+                {{ required ? '必填' : '选填' }}
               </a-tag>
             </template>
             <template slot="description" slot-scope="text, record">
@@ -60,7 +60,7 @@
           >
             <template slot="required" slot-scope="required">
               <a-tag :color="required ? 'red' : 'blue'">
-                {{ required ? '必填 ★' : '选填' }}
+                {{ required ? '必填' : '选填' }}
               </a-tag>
             </template>
           </a-table>
