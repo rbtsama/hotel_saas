@@ -239,78 +239,66 @@ export default defineComponent({
 }
 
 .tab-item {
-  padding: 12px 20px;
-  border-radius: @border-radius-lg;
-  background: @bg-primary;
+  padding: 10px 18px;
+  border-radius: @border-radius-base;
+  background: transparent;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 10px;
-  border: 1.5px solid @border-primary;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  gap: 8px;
+  border: 1px solid transparent;
   position: relative;
 
-  &::before {
+  &::after {
     content: '';
     position: absolute;
-    inset: -1px;
-    border-radius: @border-radius-lg;
-    padding: 1.5px;
-    background: linear-gradient(135deg, transparent, transparent);
-    -webkit-mask: linear-gradient(@bg-primary 0 0) content-box, linear-gradient(@bg-primary 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.25s ease;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: transparent;
+    transition: all 0.2s ease;
   }
 
   &:hover {
     background: rgba(59, 130, 246, 0.05);
-    border-color: @brand-primary;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 
     .tab-title {
       color: @brand-primary;
     }
+
+    .tab-badge {
+      border-color: @brand-primary;
+    }
   }
 
   &.active {
-    background: @brand-primary;
-    border-color: @brand-primary;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
-    transform: translateY(-1px);
+    background: rgba(59, 130, 246, 0.1);
+
+    &::after {
+      background: @brand-primary;
+    }
 
     .tab-title {
-      color: @bg-primary;
+      color: @brand-primary;
       font-weight: @font-weight-semibold;
     }
 
     .tab-badge {
-      background: rgba(255, 255, 255, 0.25);
+      background: @brand-primary;
       color: @bg-primary;
-      border-color: rgba(255, 255, 255, 0.4);
+      border-color: @brand-primary;
       font-weight: @font-weight-semibold;
-      box-shadow: none;
     }
   }
 
   &.completed:not(.active) {
-    border-color: @success-color;
-    background: rgba(16, 185, 129, 0.05);
-
-    .tab-title {
-      color: @success-color;
-      font-weight: @font-weight-medium;
-    }
-
     .tab-badge {
       background: @success-color;
       color: @bg-primary;
       border-color: @success-color;
       font-weight: @font-weight-semibold;
-      box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
     }
   }
 }
@@ -320,22 +308,20 @@ export default defineComponent({
   color: @text-primary;
   white-space: nowrap;
   transition: all 0.2s ease;
-  font-weight: @font-weight-medium;
 }
 
 .tab-badge {
   font-size: @font-size-xs;
-  padding: 3px 10px;
-  border-radius: @border-radius-base;
+  padding: 2px 8px;
+  border-radius: @border-radius-sm;
   background: @bg-secondary;
   color: @text-secondary;
-  font-weight: @font-weight-medium;
-  border: 1px solid @border-secondary;
+  font-weight: @font-weight-normal;
+  border: 1px solid @border-primary;
   transition: all 0.2s ease;
-  min-width: 36px;
+  min-width: 32px;
   text-align: center;
-  line-height: 1.2;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  line-height: 1.3;
 }
 
 .header-actions {
