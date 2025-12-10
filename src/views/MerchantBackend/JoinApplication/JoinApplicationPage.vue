@@ -23,8 +23,8 @@
               <a-icon v-if="autoSaveStatus === 'saving'" type="loading" />
               <a-icon v-else-if="autoSaveStatus === 'saved'" type="check-circle" theme="filled" class="success-icon" />
               <span class="status-text">
-                <template v-if="autoSaveStatus === 'saving'">保存中</template>
-                <template v-else-if="autoSaveStatus === 'saved'">{{ lastSaveTime }}</template>
+                <template v-if="autoSaveStatus === 'saving'">保存中...</template>
+                <template v-else-if="autoSaveStatus === 'saved'">{{ lastSaveTime }} 自动保存</template>
               </span>
             </div>
 
@@ -338,19 +338,22 @@ export default defineComponent({
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: @font-size-xs;
+  font-size: @font-size-sm;
   color: @text-secondary;
 
   .success-icon {
     color: @success-color;
+    font-size: 14px;
   }
 
   .error-icon {
     color: @error-color;
+    font-size: 14px;
   }
 
   .status-text {
     white-space: nowrap;
+    font-weight: @font-weight-medium;
   }
 }
 </style>
