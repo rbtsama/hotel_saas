@@ -13,7 +13,7 @@
 
         <a-card :bordered="false" class="checklist-card">
           <template slot="title">
-            <span class="card-title">📷 需要准备的图片/视频</span>
+            <span class="card-title">📷 请提前准备好图片</span>
           </template>
 
           <a-table
@@ -48,7 +48,7 @@
 
         <a-card :bordered="false" class="checklist-card">
           <template slot="title">
-            <span class="card-title">📝 需要准备的信息</span>
+            <span class="card-title">📝 请提前准备好信息</span>
           </template>
 
           <a-table
@@ -221,8 +221,9 @@ export default defineComponent({
       }
     ]
 
-    // 信息清单数据
+    // 信息清单数据（必填在前，选填在后）
     const infoRequirements = [
+      // 必填项
       {
         name: '主账号手机号',
         required: true,
@@ -249,14 +250,15 @@ export default defineComponent({
         description: '入住时间、退房时间、取消政策等'
       },
       {
-        name: 'PMS系统信息',
-        required: false,
-        description: '如使用"订单来了"等系统，需准备门店编号'
-      },
-      {
         name: '所有房型详细参数',
         required: true,
         description: '每个房型的面积、床型、设施等信息'
+      },
+      // 选填项
+      {
+        name: 'PMS系统信息',
+        required: false,
+        description: '如使用"订单来了"等系统，需准备门店编号'
       }
     ]
 
@@ -309,7 +311,8 @@ export default defineComponent({
 
   :deep(.ant-card-head) {
     border-bottom: 1px solid @border-primary;
-    padding: 10px 20px;
+    padding: 8px 20px;
+    min-height: auto;
   }
 
   :deep(.ant-card-body) {
@@ -318,7 +321,7 @@ export default defineComponent({
 }
 
 .card-title {
-  font-size: @font-size-lg;
+  font-size: @font-size-base;
   font-weight: @font-weight-semibold;
   color: @text-primary;
 }
